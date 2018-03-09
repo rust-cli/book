@@ -1,3 +1,9 @@
 # CLI working group
 
-This repo aims to be a simple, organic means of coordinating work on making the story around using Rust for writing CLI apps more streamlined.
+This repo is for coordinating the work of the Rust CLI Working Group,
+also known as "Rust CLIQuE" (Rust CLI Quality Enhancement).
+
+- [Working groups?](https://internals.rust-lang.org/t/announcing-the-2018-domain-working-groups/6737)
+- [Announcement of this WG](https://internals.rust-lang.org/t/announcing-the-cli-working-group/6872/1)
+- [Chat with us](https://gitter.im/rust-lang/WG-CLI)
+
