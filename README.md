@@ -13,3 +13,18 @@ Let's make this a true statement:
 
 Rust makes writing crossplatform, tested, modern command line applications frictionless
 while incorporating industry best practices and providing great documentation.
+
+## What's a CLI?
+
+For our intends and puposes, a CLI is any program that
+
+* Launches in a terminal
+* Accepts configuration from various sources, such as command line arguments, environment variables, or configuration files 
+* Runs to completion with minimal/no user interaction 
+* Accepts input from `stdin`, files, or network
+* Performs processing on some input (files, network, `stdin`) based on the configuration specified
+* Communicates via standard outputs (files, network, `std{out,err}`) 
+
+(We [specifically][i4] don't want to focus on "TUI" apps right now.)
+
+[i4]: https://github.com/rust-lang-nursery/cli-wg/issues/4
