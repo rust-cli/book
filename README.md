@@ -16,7 +16,7 @@ while incorporating industry best practices and providing great documentation.
 
 ## What's a CLI?
 
-For our intends and puposes, a CLI is any program that
+For our intents and purposes, a CLI is any program that
 
 * Launches in a terminal
 * Accepts configuration from various sources, such as command line arguments, environment variables, or configuration files 
