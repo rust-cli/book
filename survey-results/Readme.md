@@ -1,27 +1,27 @@
-# CLI Survey
+# Rust CLI Survey
 
-Over the past month we've been accepting responses to the Rust CLI Survey. This survey was designed to give us some areas of focus, according to the community, for the CLI Working Group (CLI-WG). 
+Over the month of March 2018, we've been accepting responses to the Rust CLI Survey. This survey was designed to give us some areas of focus, according to the community, for the [CLI Working Group](https://github.com/rust-lang-nursery/cli-wg) (CLI-WG).
 
-One of the goals of Rust 2018 is to make writing CLI applications in Rust as frictionless (and fun!) as possible. At the time of this writing we've received 1,045 responses! The results, while varied, paint a pretty clear picture for tangible goals.
+One of the goals of Rust 2018 is to make writing command line applications in Rust as frictionless (and fun!) as possible. And we are super excited to say: e've received 1,045 responses! The results, while varied, paint a pretty clear picture for tangible goals.
 
 Because the CLI-WG is relatively small, unfortunately we cannot address all concerns raised in this survey. But with posts like this one, we hope to raise some awareness into what the community is collectively looking for, and things that you can use in your own crates and projects.
 
 We will also be using these results to guide our solutions when conducting any official reviews, or contributions as part of the CLI-WG.
 
-Before we dig in to the results, let's first define a CLI, according to the working group, in order to properly limit the scope.
+Before we dig in to the results, let's first define a CLI, [according to the working group](https://github.com/rust-lang-nursery/cli-wg/issues/4), in order to properly limit the scope.
 
 > For our intents and purposes, a CLI is any program that
 >
->    * Launches in a terminal
->    * Accepts configuration from various sources, such as command line arguments, environment variables, or configuration files
->    * Runs to completion with minimal/no user interaction
->    * Accepts input from stdin, files, or network
->    * Performs processing on some input (files, network, stdin) based on the configuration specified
->    * Communicates via standard outputs (files, network, std{out,err})
+> * Launches in a terminal
+> * Accepts configuration from various sources, such as command line arguments, environment variables, or configuration files
+> * Runs to completion with minimal/no user interaction
+> * Accepts input from stdin, files, or network
+> * Performs processing on some input (files, network, stdin) based on the configuration specified
+> * Communicates via standard outputs (files, network, std{out,err})
 >
 > (We specifically don't want to focus on "TUI" apps right now.)
 
-This may not be an all encompassing definition, but it's what we're using for the time being in order to limit the scope. Some (even many) survey respondents did comment on TUIs, so we want to say that we acknowledge the gap, and may look to assist with this in the future. But for the time being we are calling that "out of scope" for this working group (with too large a scope we may never accomplish anything!).
+This may not be an all encompassing definition, but it's what we're using for the time being in order to limit the scope. Some (even many) survey respondents did comment on TUIs (i.e., programs that present an interactive command line interface, like `vim` or `top`), so we want to say that we acknowledge the gap, and may look to assist with this in the future. But for the time being we are calling that "out of scope" for this working group (with too large a scope we may never accomplish anything!).
 
 With that out of the way, let's walk through some of the responses, and what we're doing with the results.
 
@@ -193,8 +193,6 @@ Overwhelmingly there seemed to be two common themes:
 
 While some of the decrease in rapid prototyping and development speed is natural from using a statically typed compiled language, as opposed to something like Python or Ruby it's still an issue we care about. We want to make it just as easy to whip up a tiny script in Rust as it is in Python or Ruby (or at least that's the goal we're moving towards).
 
-With increased work on something like [miri](https://github.com/solson/miri) which was recently merged into `rustc` it may be possible to start looking at creating a REPL. Although, to my knowledge the work hasn't started on one yet.
-
 Another aspect of developer speed is improving the ergonomics around small things like Strings and File Paths. Which brings me to the other less frequent, but still important themes were:
 
 * More Examples
@@ -217,7 +215,7 @@ The other bullets are well known, such as compile times, and being actively work
 
 As a parting question, we asked survey respondents if there was anything else they'd like to tell us. Again, some common themes popped up. Most summarizing what has already been listed above, but here are few key points.
 
-* `constfn` / `constexpr` please!
+* `const fn` / `constexpr` please!
 * `impl Trait` please!
 * Post build steps in `cargo` are needed
 * Need more work towards 1.0 crates
