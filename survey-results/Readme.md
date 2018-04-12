@@ -170,9 +170,15 @@ The other more complete list of distribution methods selected was (number of res
 * Docker (2% - 10 responses)
 * Windows Chocolatey (2% - 9 responses)
 
-## Other Languages
+## Compared to Other Languages
 
-We asked survey respondents if they'd ever used other languages to write CLI applications along with what Rust could learn from the experience using those languages.
+People who have been using Rust, we asked for their reasons to pick it as the language for their CLI app. And we are happy to say that most people are really enjoying the language itself! We can all agree that this is a very solid reason. Close second is Cargo and the crates ecosystem, as well as runtime performance.
+
+It's interesting to see that not very many people said that the documentation, safety, or static binaries were things that sold them on Rust -- which we assume is partially because the competetion here is pretty tough, but also because we can do better in these areas (as the Where to Improve section also mentions).
+
+[![Bar chart showing reasons to use Rust for CLI apps](why-rust.svg)](why-rust.svg)
+
+We also asked survey respondents if they'd ever used other languages to write CLI applications along with what Rust could learn from the experience using those languages.
 
 Python took the far lead. The top languages were:
 
