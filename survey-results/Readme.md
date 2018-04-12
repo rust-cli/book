@@ -296,11 +296,22 @@ Speaking to people in person I often hear phrases like, "Meh, it was just a mino
 
 Please, *please* if you see an issue, or have a question contact the crate team. Each project will be a little different, but whether it's an issue, irc, discord, gitter, whatever, I can almost certainly say the project will be thankful for the contribution.
 
+## What the Working Group Will Do
+
+Our current mission can be summarized as:
+
+- Help improve existing crates.
+- Consolidate existing solutions and create "best practice" crates.
+
+While the first point is about making existing crates better – by applying what we've laid out above – the second point is about getting towards a set of easy to find and easy to use solutions for some of the gaps that were mentioned. For example, we need an ergonomic cross-platform terminal color crate that a lot of people can _just use_, in contrast to being overwhelmed by the existing 10 solutions whose feature support is not easy to compare.
+
+We've already mentioned some of the projects, but we'll keep you updated on more in our newsletter. (If you want to be even more up-to-date on our efforts, join our [Gitter channel](https://gitter.im/rust-lang/WG-CLI) where we discuss this!)
+
 # Thank you!
 
 With this said, we want to thank all respondents and those that have been working away at the listed issues, gitter chat, and assisting us in so many shapes and fasions!
 
-The CLI-WG also has a gitter channel that is open everyone who wishes to contribute. All of the issues opened on the CLI-WG repository are open for comments if you have opinions on these matters.
+The CLI-WG also has a [Gitter channel](https://gitter.im/rust-lang/WG-CLI) that is open everyone who wishes to contribute. All of the issues opened on [the CLI-WG repository](https://github.com/rust-lang-nursery/cli-wg) are open for comments if you have opinions on these matters.
 
 One final time, thank you so much to all the over 1,000 respondents!
 
