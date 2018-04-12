@@ -31,19 +31,21 @@ Starting with the demographics, it was surprising (and extremely appreciated) th
 
 Likewise, about 33% of respondents said they had not ever, or currently are not, writing a CLI application in Rust. We used this info to see any specific friction points that may be preventing people who may not have spent much time digging through crates/documentation, etc.
 
+[![Bar chart about since when people have been using Rust](rust-user-since.svg)](rust-user-since.svg)
+
 ### Crates in Use
 
 Of the people that responded as having had written (or are currently writing) a CLI application in Rust (approximately 588 responses) we asked what current crates they are using. This gave us a great list of common libraries, or areas we can focus on polishing APIs and improving the overall documentation and guides. This list also shows some rather unknown crates that have *tons* of potential. We won't list all crates here as the list is quite long, but it will greatly help the CLI-WG in determining where to focus efforts.
 
 The word cloud ended up looking like this (link contains higher resolution image):
 
-[![crates](https://clap.rs/wp-content/uploads/2018/03/crates_sm_hq-1.png)](https://clap.rs/wp-content/uploads/2018/03/crates_lg_hq.png)
+[![Bubble chart showing most used crates](crates.svg)](crates.svg)
 
 ### Where to Improve
 
 We then asked what areas these crates could use the most improvement. The resounding answer (and repeated throughout the survey) is more comprehensive documentation, tutorials, and guides/examples. Requests for better documentation and examples made up over half of the responses to this question, with 45% and 57% respectively!
 
-[![what_to_improve](https://clap.rs/wp-content/uploads/2018/03/improve_sm_hq.png)](https://clap.rs/wp-content/uploads/2018/03/improve_sm_hq.png)
+[![Bar chart showing areas of where to improve](what-to-improve.svg)](what-to-improve.svg)
 
 Many times throughout the survey there were responses requesting the ability to do a thing, when there is in fact an excellent crate already available for that thing. There were also many responses where certain features were requested of particular named crates, when that feature already exists in said crate.
 
@@ -82,7 +84,7 @@ Next we asked what are the current gaps in the ecosystem when working on CLI app
 
 The raw word cloud looks like this (link contains higher resolution image): 
 
-[![gaps](https://clap.rs/wp-content/uploads/2018/03/gaps_sm_hq-1.png)](https://clap.rs/wp-content/uploads/2018/03/gaps_lg_hq.png)
+[![Bubble chart showing gaps in the ecosystem](gaps.svg)](gaps.svg)
 
 Note that word cloud contains a mixture of existing gaps, what respondents did, etc. But it still paints an accurate picture of what's happening in the Rust ecosystem *today*.
 
@@ -105,6 +107,8 @@ A key part of this from t he CLI-WG's perspective is more guides/tutorials on ho
 We wanted to know what people do after they've build the CLI application. What platforms they target, how they release, etc. These responses are helping us shape which areas will be the focus going forward.
 
 ### Platform Targets
+
+[![Bar chart of package managers or platforms targeted](packaging.svg)](packaging.svg)
 
 First, we asked which platforms people target, the results came across like so:
 
@@ -180,7 +184,7 @@ Python took the far lead. The top languages were:
 
 There were many other languages as well, but the numbers started quickly dropping off after the above. Here's the word cloud (link cotains higher resolution image):
 
-[![langs](https://clap.rs/wp-content/uploads/2018/03/langs_sm_hq-1.png)](https://clap.rs/wp-content/uploads/2018/03/langs_lg_hq.png)
+[![Bubble chart showing other languages](languages.svg)](languages.svg)
 
 ### What Can we Learn?
 
