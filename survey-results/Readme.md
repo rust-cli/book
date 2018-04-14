@@ -2,7 +2,7 @@
 
 Over the month of March 2018, we've been accepting responses to the Rust CLI Survey. This survey was designed to give us some areas of focus, according to the community, for the [CLI Working Group](https://github.com/rust-lang-nursery/cli-wg) (CLI-WG).
 
-One of the goals of Rust 2018 is to make writing command line applications in Rust as frictionless (and fun!) as possible. And we are super excited to say: e've received 1,045 responses! The results, while varied, paint a pretty clear picture for tangible goals.
+One of the goals of Rust 2018 is to make writing command line applications in Rust as frictionless (and fun!) as possible. And we are super excited to say: we've received 1,045 responses! The results, while varied, paint a pretty clear picture for tangible goals.
 
 Because the CLI-WG is relatively small, unfortunately we cannot address all concerns raised in this survey. But with posts like this one, we hope to raise some awareness into what the community is collectively looking for, and things that you can use in your own crates and projects.
 
@@ -27,7 +27,7 @@ With that out of the way, let's walk through some of the responses, and what we'
 
 ## Responses
 
-Starting with the demographics, it was surprising (and extremely appreciated) that around 44% of survey respondents have been using Rust for less than a year, or haven't used Rust at all! This great because it gives us "fresh eyes" to see issues that long time Rustaceans may gloss over because they've solved it long ago. However, these issues not only hurt adoption, but create needless friction that could be smoothed over.
+Starting with the demographics, it was surprising (and extremely appreciated) that around 44% of survey respondents have been using Rust for less than a year, or haven't used Rust at all! This great because it gives us "fresh eyes" to see issues that long time Rustaceans may gloss over because they've resolved it (or found a work-around) long ago. However, these issues not only hurt adoption, but create needless friction that could be smoothed over.
 
 Likewise, about 33% of respondents said they had not ever, or currently are not, writing a CLI application in Rust. We used this info to see any specific friction points that may be preventing people who may not have spent much time digging through crates/documentation, etc.
 
@@ -58,7 +58,7 @@ For this first section we've opened two issues:
 * [The "ideal guide" for writing CLI apps in Rust · Issue #6 · rust-lang-nursery/cli-wg · GitHub](https://github.com/rust-lang-nursery/cli-wg/issues/6)) 
 * [Improve ecosystem discoverability · Issue #11 · rust-lang-nursery/cli-wg · GitHub](https://github.com/rust-lang-nursery/cli-wg/issues/11)
 
-Example and Documentation will also be key areas of focus when contributing or maintaining crates.
+Examples and Documentation will also be key areas of focus when contributing or maintaining crates.
 
 Platform Availability was in second place (with ~14%), hence we're determined to consider the big three platforms (Linux, Windows, and macOS) while discussing and creating any official solutions, or reviews from the CLI-WG.
 
@@ -98,13 +98,13 @@ To begin to address some of these areas we've opened the following issues:
 * [Error handling in CLI apps · Issue #12 · rust-lang-nursery/cli-wg · GitHub](https://github.com/rust-lang-nursery/cli-wg/issues/12)
 * [Improve ecosystem discoverability · Issue #11 · rust-lang-nursery/cli-wg · GitHub](https://github.com/rust-lang-nursery/cli-wg/issues/11)
 
-It also appeared to be a common theme that people simply wanted to know, "What crate should I [at least start with] to do `X`?" As at times there are many crates with similar goals at appear to be competing. While I don't believe the Rust team wants to "bless" particular crates as that makes it arbitrarily hard for newcomers that are actually better to "dethrone" any currently widely used crates, we *can* do a better job at making it clearly visible which crates are actively maintained and widely used. This is somewhat orthogonal to the CLI-WG's goals, as it crosses over into recent work being done by the crates.io team, but it's still something we want to consider and work towards at all ends. 
+It also appeared to be a common theme that people simply wanted to know, "What crate should I [at least start with] to do `X`?" As at times there are many crates with similar goals that appear to be competing. While I don't believe the Rust team wants to "bless" particular crates as that makes it arbitrarily hard for newcomers that are actually better to "dethrone" any currently widely used crates, we *can* do a better job at making it clearly visible which crates are actively maintained and widely used. This is somewhat orthogonal to the CLI-WG's goals, as it crosses over into recent work being done by the crates.io team, but it's still something we want to consider and work towards at all ends. 
 
-A key part of this from t he CLI-WG's perspective is more guides/tutorials on how to do tasks, and write CLIs using proven third party crates will naturally increase awareness of which particular crates have at least been "battle tested."
+A key part of this from the CLI-WG's perspective is more guides/tutorials on how to do tasks, and write CLIs using proven third party crates will naturally increase awareness of which particular crates have at least been "battle tested."
 
 ## After the Build
 
-We wanted to know what people do after they've build the CLI application. What platforms they target, how they release, etc. These responses are helping us shape which areas will be the focus going forward.
+We wanted to know what people do after they've built the CLI application. What platforms they target, how they release, etc. These responses are helping us shape which areas will be the focus going forward.
 
 ### Platform Targets
 
