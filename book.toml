@@ -1,0 +1,5 @@
+[book]
+authors = ["The Rust CLI Working Group"]
+multilingual = false
+src = "src"
+title = "Rust CLI WG"
