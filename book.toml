@@ -3,3 +3,6 @@ authors = ["The Rust CLI Working Group"]
 multilingual = false
 src = "src"
 title = "Rust CLI WG"
+
+[output.html]
+curly-quotes = true
