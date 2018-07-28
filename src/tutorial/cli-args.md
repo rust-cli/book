@@ -16,7 +16,11 @@ struct Cli {
 }
 ```
 
-*Aside:* `PathBuf` is like a `String` but for file system paths that works cross-platform.
+<aside>
+
+**Aside:** `PathBuf` is like a `String` but for file system paths that works cross-platform.
+
+</aside>
 
 Now, we still need to actually get the arguments the user passed into this form.
 One option would be manually parse the list of strings we get from the operating system,
