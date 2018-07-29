@@ -4,7 +4,7 @@ If you haven’t already,
 [install Rust](https://www.rust-lang.org/install.html) on your computer (it should only take a few minutes).
 After that, open a terminal and navigate to the directory you want to put your application code into.
 
-What kind of project to you want to write?
+What kind of project do you want to write?
 How about we start with something simple:
 Let’s write a small `grep` clone.
 That is a tool that we can give a string and a path and it’ll tell us which lines contain the string.
