@@ -1,4 +1,4 @@
-## First implementation of `grrs`
+# First implementation of `grrs`
 
 Right, now that we have our input data,
 we can start to write our actual tool.

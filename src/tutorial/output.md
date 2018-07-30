@@ -1,6 +1,6 @@
-## Output
+# Output
 
-### Logging
+## Logging
 
 To make it easier to understand what is happening in our program,
 we might want to add some log statements.

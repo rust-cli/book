@@ -1,4 +1,4 @@
-## Project setup
+# Project setup
 
 If you haven’t already,
 [install Rust](https://www.rust-lang.org/install.html) on your computer (it should only take a few minutes).

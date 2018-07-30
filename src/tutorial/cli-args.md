@@ -1,4 +1,4 @@
-## Parsing command line arguments
+# Parsing command line arguments
 
 A typical invocation of our CLI tool will look like this:
 `grrs foobar test.txt`.
