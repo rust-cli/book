@@ -1,3 +1,7 @@
+.content a code {
+    text-decoration: underline;
+}
+
 .content aside {
     padding-top: 0.1em;
     margin-left: 0.1em;
