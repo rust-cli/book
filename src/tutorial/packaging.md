@@ -1,4 +1,4 @@
-## Packaging and rendering documentation
+# Packaging and rendering documentation
 
 If you feel confident that your program is ready to for other people to use,
 it is time to package it!
