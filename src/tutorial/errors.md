@@ -25,11 +25,13 @@ Since `Result` is an `enum`,
 you can use `match` to check which variant it is:
 
 ```rust
+# fn main() -> Result<(), Box<std::error::Error>> {
 let result = std::fs::read_to_string("test.txt");
 match result {
     Ok(content) => { println!("File content: {}", content); }
     Err(error) => { println!("Oh noes: {}", error); }
 }
+# }
 ```
 
 <aside>
@@ -41,6 +43,8 @@ to get up to speed.
 
 </aside>
 
+## Unwrapping
+
 Now, we were able to access content of the file,
 but we can't really do anything with it after the `match` block.
 For this, we'll need to somehow deal with the error case.
@@ -48,12 +52,14 @@ The challenge is that all arms of a `match` block need to return something of th
 But there's a need trick to get around that:
 
 ```rust
+# fn main() -> Result<(), Box<std::error::Error>> {
 let result = std::fs::read_to_string("test.txt");
 let content = match result {
     Ok(content) => { content },
     Err(error) => { panic!("Can't deal with {}, just exit here", error); }
 };
 println!("file content: {}", content);
+# }
 ```
 
 We can use the String in `content` after the match block.
@@ -71,11 +77,115 @@ There's even a shortcut method on `Result`s, called `unwrap`:
 let content = std::fs::read_to_string("test.txt").unwrap();
 ```
 
-<aside class="todo">
+## No need to panic
 
-**TODO:** `?` operator and returning result in main
+Of course, aborting the program is not the only way to deal with errors.
+Instead of the `panic!`, we can also easily write `return`:
+
+```rust
+# fn main() -> Result<(), Box<std::error::Error>> {
+let result = std::fs::read_to_string("test.txt");
+let content = match result {
+    Ok(content) => { content },
+    Err(error) => { return Err(error); }
+};
+println!("file content: {}", content);
+# Ok(())
+# }
+```
+
+This, however changes the return type our function needs.
+Indeed, there was something hidden in our examples all this time:
+The function signature this code lives in.
+And in this last example with `return`,
+it becomes important.
+Here's the _full_ example:
+
+```rust
+fn main() -> Result<(), Box<std::error::Error>> {
+    let result = std::fs::read_to_string("test.txt");
+    let content = match result {
+        Ok(content) => { content },
+        Err(error) => { return Err(error); }
+    };
+    println!("file content: {}", content);
+    Ok(())
+}
+```
+
+Our return type is a `Result`!
+This is why we can write `return Err(error);` in the second match arm.
+See how there is an `Ok(())` at the bottom?
+It's the default return value of the function and means
+"Result is okay, as has no content".
+
+<aside>
+
+**Aside:**
+Why is this not written as `return Ok(())`?
+It easily could be -- this is totally valid as well.
+The last expression of any block in Rust is its return value,
+and it is customary to omit needless `return`s.
 
 </aside>
+
+## Question Mark
+
+Just like calling `.unwrap()` is a shortcut
+for the `match` with `panic!` in the error arm,
+we have another shortcut for the `match` that `return`s in the error arm:
+`?`.
+
+Thats's right, a question mark.
+You can append this operator to a value of type `Result`,
+and Rust will internally expand this to something very similar to
+the `match` we just wrote.
+
+Give it a try:
+
+```rust
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let content = std::fs::read_to_string("test.txt")?;
+    println!("file content: {}", content);
+    Ok(())
+}
+```
+
+Very concise!
+
+<aside>
+
+**Aside:**
+There are a few more things happening here,
+that are not required to understand to work with this.
+For example,
+the error type in our `main` function is `Box<dyn std::error::Error>`.
+But we've above seen that `read_to_string` returns a [`std::io::Error`].
+This works because `?` actually expands to code to _convert_ error types.
+
+`Box<dyn std::error::Error>` is also an interesting type.
+It's a `Box` that can contain _any_ type
+that implements the standard [Error][`std::error::Error`] trait.
+This means that basically all errors can be put into this box,
+so we can use `?` on all of the usual functions that return `Result`s.
+
+[`std::error::Error`]: https://doc.rust-lang.org/1.27.2/std/error/trait.Error.html
+
+</aside>
+
+## Providing Context
+
+The errors you get when using `?` in your `main` function are okay,
+but great they are not.
+For example:
+When you run `std::fs::read_to_string("test.txt")?`
+but the file `test.txt` doesn't exist,
+you get this output:
+
+> Error: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+
+In cases where your code doesn't literally contain the file name,
+it'd be very hard to tell which file was `NotFound`.
 
 <aside class="todo">
 
