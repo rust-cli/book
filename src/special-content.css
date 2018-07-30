@@ -4,8 +4,8 @@
 
 .content aside {
     padding-top: 0.1em;
-    margin-left: 0.1em;
-    padding-left: 1em;
+    margin-left: 0.6em;
+    padding-left: 1.2em;
     border-left: 3px solid #ccc;
     padding-bottom: 0.1em;
     margin-bottom: 0.6em;
@@ -20,5 +20,9 @@
 }
 
 .content aside.todo {
-    border-left-color: yellow;
+    border-left-color: #ffff00;
+}
+
+.content aside.shortcut {
+    border-left-color: #aec58f;
 }

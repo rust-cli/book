@@ -5,7 +5,7 @@
 - [A command line app in 15 minutes](./tutorial/README.md)
   - [Project setup](./tutorial/setup.md)
   - [Parsing command line arguments](./tutorial/cli-args.md)
-  - [First implementation of our example tool](./tutorial/impl-draft.md)
+  - [First implementation](./tutorial/impl-draft.md)
   - [Nicer error reporting](./tutorial/errors.md)
   - [Output for humans and machines](./tutorial/output.md)
   - [Testing](./tutorial/testing.md)
