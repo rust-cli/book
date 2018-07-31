@@ -30,7 +30,9 @@ println!("My lucky number is {}.", x);
 
 will print
 
-> My lucky number is 42.
+```console
+My lucky number is 42.
+```
 
 The curly braces (`{}`) in the string above is one of these placeholders.
 This is the default placeholder type
@@ -49,7 +51,9 @@ println!("The list is: {:?}", xs);
 
 will print
 
-> The list is: [1, 2, 3]
+```console
+The list is: [1, 2, 3]
+```
 
 If you want your own data types to be printable for debugging and logging,
 you can in most cases add a `#[derive(Debug)]` above their definition.
