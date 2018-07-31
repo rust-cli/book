@@ -7,7 +7,7 @@ when using Rust:
 As it doesn't have exceptions,
 all possible error states are often encoded in the return types of functions.
 
-## Results?
+## Results
 
 A function like [`read_to_string`] doesn't return a string.
 Instead, it returns a [`Result`]
@@ -122,7 +122,7 @@ It's the default return value of the function and means
 <aside>
 
 **Aside:**
-Why is this not written as `return Ok(())`?
+Why is this not written as `return Ok(());`?
 It easily could be -- this is totally valid as well.
 The last expression of any block in Rust is its return value,
 and it is customary to omit needless `return`s.
