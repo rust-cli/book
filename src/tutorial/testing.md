@@ -52,9 +52,10 @@ fn check_answer_validity() {
 You can put this snippet of code in pretty much any file
 and `cargo test` will find
 and run it.
-All the magic is done by the `#[test]` attribute.
-Just write a function that has some assertions in it
-and attach that attribute to it.
+The key here is the `#[test]` attribute.
+It allows the build system to discover such functions
+and run them as tests,
+verifying that they don't panic.
 
 <aside class="exercise">
 
