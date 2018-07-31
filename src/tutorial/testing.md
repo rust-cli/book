@@ -50,7 +50,7 @@ fn check_answer_validity() {
 ```
 
 You can put this snippet of code in pretty much any file
-and `cargo test` will find it
+and `cargo test` will find
 and run it.
 All the magic is done by the `#[test]` attribute.
 Just write a function that has some assertions in it
