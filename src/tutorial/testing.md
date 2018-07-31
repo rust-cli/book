@@ -35,8 +35,8 @@ if you haven't heard of it.
 Now, this is all fine and dandy,
 but doing all of this manually?
 That can take a lot of time.
-I don't know about you,
-but I really like to tell computers to do things for me.
+At the same time,
+many people have come to enjoy telling computers to do things for them.
 Let's talk about how to automate these tests.
 
 Rust has a built-in test framework,
