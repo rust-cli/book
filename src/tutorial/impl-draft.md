@@ -22,7 +22,7 @@ in the example code below.
 
 </aside>
 
-Let’s start by opening the file we god:
+Let’s start by opening the file we got:
 
 ```rust
 let content = std::fs::read_to_string(&args.path)?;
