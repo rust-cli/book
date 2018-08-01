@@ -1,8 +1,8 @@
 # Exit codes
 
-A program doesn't always success.
+A program doesn't always succeed.
 And when an error occurs,
-you should make sure to use the correct ways to emit the necessary information.
+you should make sure to emit the necessary information correctly.
 In addition to
 [telling the user about errors](human-communication.md),
 on most systems,
@@ -12,21 +12,21 @@ it also emits an exit code
 You should try to emit the correct code
 for your program's state.
 For example,
-in the ideal case when your program succeeded,
+in the ideal case when your program succeeds,
 it should exit with `0`.
 
-When an error ocurred, it gets a bit more complicated, though.
+When an error occurs, it gets a bit more complicated, though.
 In the wild,
 a lot of tools exit with `1` when a general failure ocurred.
 Currently, Rust set and exit code of `101` when the process panicked.
-Beyond that, many people have done many things in their programs.
+Beyond that, people have done many things in their programs.
 
 So, what to do?
 The BSD ecosystem has collected a common definition for their exit codes
 in a system-provided header file called [`sysexits.h`]
-The Rust library [`exitcode`] provides these same codes
+The Rust library [`exitcode`] provides these same codes,
 ready to be used in your application.
-Please see it's API documentation for the possible values to use.
+Please see its API documentation for the possible values to use.
 
 One way to use it is like this:
 
