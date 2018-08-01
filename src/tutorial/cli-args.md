@@ -144,14 +144,6 @@ Don't use it in other places!
 <aside class="todo">
 
 **TODO:**
-Dafuq is wrong with asciinema and vim?
-
-</aside>
-
-
-<aside class="todo">
-
-**TODO:**
 Use clap 3!
 
 </aside>
