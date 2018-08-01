@@ -2,7 +2,7 @@
 
 Right, now that we have our input data,
 we can start to write our actual tool.
-This will all live inside of `src/main.rs` for now.
+We'll only work with `src/main.rs` for now.
 
 <aside class="shortcut">
 
