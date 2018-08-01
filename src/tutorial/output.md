@@ -15,11 +15,9 @@ You can pretty much print all the things you like
 with the `println!` macro.
 This macro has some pretty amazing capabilities,
 but also a special syntax.
-It expects you to write,
-as a first parameter,
-a literal string that with placeholders,
-followed by the data you want to put into these placeholders
-as further arguments.
+It expects you to write a string literal as the first parameter,
+that contains placeholders that will be filled in
+by the values of the parameters that follow as further arguments.
 
 For example:
 
@@ -124,6 +122,7 @@ But it will become super helpful when running this program again in half a year.
 **TODO:**
 crate for actual log output -- which one?
 env_logger?
+Link to `../in-depth/human-communication.html`
 
 </aside>
 
