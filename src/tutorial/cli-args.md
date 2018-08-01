@@ -136,3 +136,14 @@ it will print out an error or help message and exit the program.
 Don't use it in other places!
 
 </aside>
+
+## This is what it may look like
+
+![](./tutorial/cli-args.svg)
+
+<aside class="todo">
+
+**TODO:**
+Use clap 3!
+
+</aside>
