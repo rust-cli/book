@@ -36,9 +36,10 @@ By default,
 when a panic occurs,
 a "panic handler" will print some information to the console.
 
-For example, if you create a new binary project
-(`cargo new --bin foo`)
-and do nothing but change the `println!` in `src/main.rs` to `panic!`,
+For example,
+if you create a new binary project
+with `cargo new --bin foo`
+and replace the content of `fn main` with `panic!("Hello World")`,
 you get this when you run your program:
 
 ```console
@@ -46,17 +47,18 @@ thread 'main' panicked at 'Hello, world!', src/main.rs:2:5
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
-This is useful information to you, the developer
-(surprise: the program crashed because of line 2 in your `main.rs` file).
+This is useful information to you, the developer.
+(Surprise: the program crashed because of line 2 in your `main.rs` file).
 But for a user who doesn't even have access to the source code,
 this is not very valuable.
 In fact, it most likely is just confusing.
 That's why it's a good idea to add a custom panic handler,
 that provides a bit more end-user focussed output.
 
-One library, that does just that is called ["human panic"][human-panic].
-You can add to your CLI project by importing it
-and calling the `setup_panic!()` macro
+One library that does just that is called [human-panic].
+To add it to your CLI project,
+you import it
+and call the `setup_panic!()` macro
 at the beginning of your `main` function:
 
 ```rust
