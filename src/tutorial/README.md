@@ -31,4 +31,4 @@ I'm able to omit `extern crate foo;` lines.
 </aside>
 
 [Rust]: https://rust-lang.org/
-[Rust 2018]: https://blog.rust-lang.org/2018/07/27/what-is-rust-2018.html
+[Rust 2018]: https://rust-lang-nursery.github.io/edition-guide/
