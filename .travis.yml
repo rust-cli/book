@@ -3,6 +3,7 @@ cache: cargo
 
 before_install:
   - test -x $(which mdbook) && test "$(mdbook -V)" == "mdbook v0.1.8" || cargo install mdbook --vers '0.1.8' --debug --force
+  # - test -x $(which mdbook-linkcheck) && test "$(mdbook-linkcheck -V)" == "mdbook-linkcheck 0.1.2" || cargo install mdbook-linkcheck --vers '0.1.2' --debug --force
 
 script:
   - mdbook build
