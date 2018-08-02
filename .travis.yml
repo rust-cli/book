@@ -1,5 +1,4 @@
-language: rust
-cache: cargo
+language: generic
 
 before_install:
   - curl -LSfs https://japaric.github.io/trust/install.sh |
