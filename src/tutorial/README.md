@@ -16,4 +16,19 @@ That is a tool that we can give a string and a path
 and it’ll print only the lines that contain the given string.
 Let’s call it `grrs` (pronounced “grass”).
 
+<aside class="note">
+
+**Note:**
+The code examples in this tutorial use features that are part of [Rust 2018].
+Right now, this means you have to use a nightly compiler versio
+and add `edition = "2018"` to you `Cargo.toml`
+(as well as write `cargo-features = ["edition"]` at the top of it).
+
+It should be easy to write the same code in Rust 2015
+-- the most significant difference is just that
+I'm able to omit `extern crate foo;` lines.
+
+</aside>
+
 [Rust]: https://rust-lang.org/
+[Rust 2018]: https://blog.rust-lang.org/2018/07/27/what-is-rust-2018.html
