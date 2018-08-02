@@ -8,7 +8,7 @@ In addition to
 on most systems,
 when a process exits,
 it also emits an exit code
-(an integer between 0 and 255).
+(an integer between 0 and 255 is compatible with most platforms).
 You should try to emit the correct code
 for your program's state.
 For example,
@@ -23,7 +23,7 @@ Beyond that, people have done many things in their programs.
 
 So, what to do?
 The BSD ecosystem has collected a common definition for their exit codes
-in a system-provided header file called [`sysexits.h`]
+(you can find them [here][`sysexits.h`]).
 The Rust library [`exitcode`] provides these same codes,
 ready to be used in your application.
 Please see its API documentation for the possible values to use.
