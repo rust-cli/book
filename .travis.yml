@@ -1,9 +1,8 @@
-sudo: false
-dist: trusty
 language: rust
+cache: cargo
 
 before_install:
-  - cargo install mdbook --vers '0.1.8' --debug --force
+  - test -x $(which mdbook) && test "$(mdbook -V)" == "mdbook v0.1.8" || cargo install mdbook --vers '0.1.8' --debug --force
 
 script:
   - mdbook build
