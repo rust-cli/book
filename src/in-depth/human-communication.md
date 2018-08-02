@@ -10,6 +10,8 @@ Style of writing:
 - easy to parse
 - consistent: use same prefixes, sentence structure
 
+[Issue #74](https://github.com/rust-lang-nursery/cli-wg/issues/74)
+
 </aside>
 
 ## When it's hard to tell what's going on
@@ -22,6 +24,8 @@ Log messages:
 - consistent: use same prefixes, sentence structure
 - provide enough context
 - `--verbose`
+
+[Issue #75](https://github.com/rust-lang-nursery/cli-wg/issues/75)
 
 </aside>
 

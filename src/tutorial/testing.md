@@ -92,6 +92,7 @@ write unit tests/docs tests.
 Only makes sense if there are enough.
 Otherwise keep in main.rs.
 Discuss advantages of thinking of library API.
+[Issue #71](https://github.com/rust-lang-nursery/cli-wg/issues/71)
 
 </aside>
 
@@ -99,11 +100,13 @@ Discuss advantages of thinking of library API.
 
 <aside class="todo">
 
-**TODO:** Talk about using assert_cli’s features to quickly run cargo binaries with different inputs and assert their outputs.
+**TODO:** Talk about using assert_cmd’s features to quickly run cargo binaries with different inputs and assert their outputs.
+[Issue #72](https://github.com/rust-lang-nursery/cli-wg/issues/72)
 
 </aside>
 <aside class="todo">
 
 **TODO:** Talk about generating temp dirs with demo files.
+[Issue #72](https://github.com/rust-lang-nursery/cli-wg/issues/72)
 
 </aside>

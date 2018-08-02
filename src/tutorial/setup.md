@@ -14,6 +14,14 @@ we’ll instead start with a CLI-specific template:
 When you run this, it’ll ask you for a project name
 (please enter "grrs").
 
+<aside class="todo">
+
+**TODO:**
+Create this template!
+[Issue #53](https://github.com/rust-lang-nursery/cli-wg/issues/53)
+
+</aside>
+
 If look at the newly created `grrs` directory,
 you’ll find a typical setup for a Rust project:
 
@@ -29,7 +37,9 @@ and see it greet you, you’re all set up.
 
 <aside class="todo">
 
-**Aside:** Update to use cargo-generate
+**TODO:**
+Update asciinema to use cargo-generate.
+[Issue #53](https://github.com/rust-lang-nursery/cli-wg/issues/53)
 
 </aside>
 
