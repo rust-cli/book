@@ -76,6 +76,7 @@ in the [documentation for the `std::fmt` module][std::fmt].
 
 **TODO:**
 `eprintln!` and stdout vs stderr
+[Issue #66](https://github.com/rust-lang-nursery/cli-wg/issues/66)
 
 </aside>
 
@@ -98,6 +99,7 @@ and little spinners to your program.
 Show an example like
 [this](https://github.com/mitsuhiko/indicatif/blob/950091d1b1683a88e01c4d4975f591009f56322b/examples/log.rs)
 or [this](https://github.com/ashleygwilliams/cargo-generate/blob/c18cba0b33764012e25288d43c6a8545222b96f4/src/main.rs#L95).
+[Issue #67](https://github.com/rust-lang-nursery/cli-wg/issues/67)
 
 </aside>
 
@@ -114,6 +116,7 @@ But it will become super helpful when running this program again in half a year.
 
 **TODO:**
 `log` crate: macros with similar syntax to `println`
+[Issue #68](https://github.com/rust-lang-nursery/cli-wg/issues/68)
 
 </aside>
 
@@ -123,6 +126,7 @@ But it will become super helpful when running this program again in half a year.
 crate for actual log output -- which one?
 env_logger?
 Link to `../in-depth/human-communication.html`
+[Issue #68](https://github.com/rust-lang-nursery/cli-wg/issues/68)
 
 </aside>
 

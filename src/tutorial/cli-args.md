@@ -109,6 +109,14 @@ struct Cli {
 }
 ```
 
+<aside class="todo">
+
+**TODO:**
+Ensure this works with clap3.
+[Issue #64](https://github.com/rust-lang-nursery/cli-wg/issues/64)
+
+</aside>
+
 Right below the `Cli` struct our template contains its `main` function.
 When the program starts, it will call this function.
 The first line is:
@@ -145,5 +153,6 @@ Don't use it in other places!
 
 **TODO:**
 Use clap 3!
+[Issue #64](https://github.com/rust-lang-nursery/cli-wg/issues/64)
 
 </aside>

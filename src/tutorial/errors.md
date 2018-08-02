@@ -190,5 +190,6 @@ it'd be very hard to tell which file was `NotFound`.
 <aside class="todo">
 
 **TODO:** Replace `?` with `.with_context(|_| format!("could not read file {}", args.path))`
+[Issue #65](https://github.com/rust-lang-nursery/cli-wg/issues/65)
 
 </aside>
