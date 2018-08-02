@@ -20,7 +20,7 @@ Let’s call it `grrs` (pronounced “grass”).
 
 **Note:**
 The code examples in this tutorial use features that are part of [Rust 2018].
-Right now, this means you have to use a nightly compiler versio
+Right now, this means you have to use a nightly compiler version
 and add `edition = "2018"` to you `Cargo.toml`
 (as well as write `cargo-features = ["edition"]` at the top of it).
 
