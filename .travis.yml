@@ -8,7 +8,7 @@ before_install:
     --crate mdbook
     --force
     --target x86_64-unknown-linux-gnu
-    --tag v0.1.10
+    --tag v0.1.8
     --to ~/.local/bin
 
 script:
