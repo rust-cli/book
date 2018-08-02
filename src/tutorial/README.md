@@ -19,14 +19,16 @@ Let’s call it `grrs` (pronounced “grass”).
 <aside class="note">
 
 **Note:**
-The code examples in this tutorial use features that are part of [Rust 2018].
-Right now, this means you have to use a nightly compiler version
-and add `edition = "2018"` to you `Cargo.toml`
-(as well as write `cargo-features = ["edition"]` at the top of it).
+This book is written for [Rust 2018].
+The code examples can also be used on Rust 2015,
+but you might need to tweak them a bit;
+add `extern crate foo;` invocations, for example.
 
-It should be easy to write the same code in Rust 2015
--- the most significant difference is just that
-I'm able to omit `extern crate foo;` lines.
+At the time of this writing,
+to use Rust 2018 you have to use a nightly compiler version.
+Enable it by adding `edition = "2018"`
+to the `[package]` section of your `Cargo.toml` file
+(as well as write `cargo-features = ["edition"]` at the top of it).
 
 </aside>
 
