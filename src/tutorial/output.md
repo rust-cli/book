@@ -123,7 +123,7 @@ But it will become super helpful when running this program again in half a year.
 <aside class="todo">
 
 **TODO:**
-crate for actual log output -- which one?
+crate for actual log output – which one?
 env_logger?
 Link to `../in-depth/human-communication.html`
 [Issue #68](https://github.com/rust-lang-nursery/cli-wg/issues/68)
