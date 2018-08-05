@@ -123,7 +123,7 @@ It's the default return value of the function and means
 
 **Aside:**
 Why is this not written as `return Ok(());`?
-It easily could be -- this is totally valid as well.
+It easily could be – this is totally valid as well.
 The last expression of any block in Rust is its return value,
 and it is customary to omit needless `return`s.
 

@@ -66,7 +66,7 @@ Give it a try: `cargo run -- main src/main.rs` should work now!
 **Aside:**
 This is probably not the best implementation,
 as it will read the whole file into memory
--- however large the file may be!
+– however large the file may be!
 Feel free to optimize it!
 (One idea might be to use a [`BufReader`](https://doc.rust-lang.org/1.27.0/std/io/struct.BufReader.html)
 instead of `read_to_string()`.)

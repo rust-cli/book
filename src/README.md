@@ -24,7 +24,7 @@ One last thing before we dive right into CLI applications:
 If you found an error in this book
 or want to help us write more content for it,
 you can find its source [in the CLI WG repository][book-src].
-We'd love to year your feedback!
+We'd love to hear your feedback!
 Thank you!
 
 [book-src]: https://github.com/rust-lang-nursery/cli-wg

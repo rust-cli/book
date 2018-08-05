@@ -9,12 +9,51 @@ or jump in at any point.
 You’ll learn all the essentials about how to get going,
 and where to find more information.
 
+<aside>
+
+**Prerequisites:**
+This tutorial does not replace a general introduction to programming,
+and expects you to be familiar with a few common concepts.
+You should be comfortable with using a command line/terminal.
+If you already know a few other languages,
+this can be a good first contact with Rust.
+
+**Getting help:**
+If you at any point feel overwhelmed or confused with the features used,
+have a look at the extensive official documentation that comes with Rust,
+first and foremost the book,
+The Rust Programming Language.
+It comes with most Rust installations
+(`rustup doc`),
+and is available online on
+[doc.rust-lang.org](https://doc.rust-lang.org).
+
+You are also very welcome to ask questions –
+the Rust community is known to be friendly and helpful.
+Have a look at the
+[community page](https://www.rust-lang.org/en-US/community.html)
+to see a list of places where people discuss Rust.
+
+</aside>
+
 What kind of project do you want to write?
 How about we start with something simple:
 Let’s write a small `grep` clone.
 That is a tool that we can give a string and a path
 and it’ll print only the lines that contain the given string.
 Let’s call it `grrs` (pronounced “grass”).
+
+In the end,
+we want to be able to run our tool like this:
+
+```console
+$ grrs test.txt
+[…first 5 lines of the file…]
+$ grrs test.txt -n 10
+[…first 10 lines of the file…]
+$ grrs --help
+[some help text explaining the available options]
+```
 
 <aside class="note">
 
