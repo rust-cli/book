@@ -7,7 +7,7 @@ After that, open a terminal and navigate to the directory
 you want to put your application code into.
 
 If you’ve already seen the basic Rust tutorials,
-you might be inclined to start with `cargo new --bin my-cool-app`.
+you might be inclined to start with `cargo new my-cool-app`.
 To save us some time,
 we’ll instead start with a CLI-specific template:
 `cargo generate --git https://github.com/rust-clique/cargo-template-cli`.
