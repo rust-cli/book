@@ -16,18 +16,21 @@ Style of writing:
 
 ## When it's hard to tell what's going on
 
-<aside class="todo">
+When communicating non-nominal state it's important to be consistent.
+A heavily logging application that doesn't follow strict logging levels
+provides the same amount or even less information than a non-logging
+application.
 
-**TODO:**
-Log messages:
-- levels
-- consistent: use same prefixes, sentence structure
-- provide enough context
-- `--verbose`
+Because of this it's important to define the severity of events and
+messages that are related to it; then use consistent log levels for them.
+This way users can select the amount of logging themselves via `--verbose`
+flags.
 
-[Issue #75](https://github.com/rust-lang-nursery/cli-wg/issues/75)
+Additionally it's always a good idea to use similar prefixes and sentence
+structure across log messages, making it easy to `grep` or filter for them.
+A message should provide enough context by itself to be useful in a filtered
+log while not being *too* verbose at the same time.
 
-</aside>
 
 ## When panicking
 
