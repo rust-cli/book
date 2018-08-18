@@ -2,17 +2,15 @@
 
 ## When everything is fine
 
-<aside class="todo">
+When communicating progress while your application is doing
+fine it's important to be informative and consise in log messages.
+Don't use overly technical terms in the logs. Remember: the
+application is not crashing so there's no reason for users to 
+lookup errors.
 
-**TODO:**
-Style of writing:
-- informative and concise
-- easy to parse
-- consistent: use same prefixes, sentence structure
-
-[Issue #74](https://github.com/rust-lang-nursery/cli-wg/issues/74)
-
-</aside>
+Most importantly, be consistent in the style of communication. Use
+the same prefixes and sentence structure to make the logs easily
+skimmable. 
 
 ## When it's hard to tell what's going on
 
