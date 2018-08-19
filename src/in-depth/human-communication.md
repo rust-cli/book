@@ -31,6 +31,32 @@ structure across log messages, making it easy to `grep` or filter for them.
 A message should provide enough context by itself to be useful in a filtered
 log while not being *too* verbose at the same time.
 
+**Example log statements**
+
+```
+error: could not find `Cargo.toml` in `/home/you/project/`
+```   
+
+```
+=> Downloading repository index
+=> Downloading packages...
+```
+
+```
+ [1/7] Adding WASM target...
+ [2/7] Compiling to WASM...
+ [3/7] Creating a pkg directory...
+ [4/7] Writing a package.json...
+ > [WARN]: Field `description` is missing from Cargo.toml. It is not necessary, but recommended
+ > [WARN]: Field `repository` is missing from Cargo.toml. It is not necessary, but recommended
+ > [WARN]: Field `license` is missing from Cargo.toml. It is not necessary, but recommended
+ [5/7] Copying over your README...
+ > [WARN]: origin crate has no README
+ [6/7] Installing WASM-bindgen...
+ > [INFO]: wasm-bindgen already installed
+ [7/7] Running WASM-bindgen...
+ Done in 1 second
+```
 
 ## When panicking
 
