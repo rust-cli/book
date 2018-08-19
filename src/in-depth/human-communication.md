@@ -12,6 +12,13 @@ Most importantly, be consistent in the style of communication. Use
 the same prefixes and sentence structure to make the logs easily
 skimmable. 
 
+Try to let your application output tell a story about what it's
+doing and how it impacts the user. This can involve showing a
+timeline of steps involved or even a progress bar and indicator
+for long running actions. The user should at no point get the
+feeling that the application is doing something mysterious that they
+cannot follow. 
+
 ## When it's hard to tell what's going on
 
 <aside class="todo">
