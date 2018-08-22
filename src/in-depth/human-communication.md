@@ -16,18 +16,60 @@ Style of writing:
 
 ## When it's hard to tell what's going on
 
-<aside class="todo">
+When communicating non-nominal state it's important to be consistent.
+A heavily logging application that doesn't follow strict logging levels
+provides the same amount, or even less information
+than a non-logging application.
 
-**TODO:**
-Log messages:
-- levels
-- consistent: use same prefixes, sentence structure
-- provide enough context
-- `--verbose`
+Because of this it's important to define the severity of events
+and messages that are related to it;
+then use consistent log levels for them.
+This way users can select the amount of logging themselves
+via `--verbose` flags.
 
-[Issue #75](https://github.com/rust-lang-nursery/cli-wg/issues/75)
+Available levels should be
 
-</aside>
+- debug/ verbose
+- info
+- warning
+- error
+- fatal
+
+Additionally it's always a good idea to use similar prefixes
+and sentence structure across log messages, 
+making it easy to `grep` or filter for them.
+A message should provide enough context by itself
+to be useful in a filtered log 
+while not being *too* verbose at the same time.
+
+**Example log statements**
+
+```
+error: could not find `Cargo.toml` in `/home/you/project/`
+```   
+
+```
+=> Downloading repository index
+=> Downloading packages...
+```
+
+The following log output is taken from [wasm-pack]
+
+```
+ [1/7] Adding WASM target...
+ [2/7] Compiling to WASM...
+ [3/7] Creating a pkg directory...
+ [4/7] Writing a package.json...
+ > [WARN]: Field `description` is missing from Cargo.toml. It is not necessary, but recommended
+ > [WARN]: Field `repository` is missing from Cargo.toml. It is not necessary, but recommended
+ > [WARN]: Field `license` is missing from Cargo.toml. It is not necessary, but recommended
+ [5/7] Copying over your README...
+ > [WARN]: origin crate has no README
+ [6/7] Installing WASM-bindgen...
+ > [INFO]: wasm-bindgen already installed
+ [7/7] Running WASM-bindgen...
+ Done in 1 second
+```
 
 ## When panicking
 
@@ -93,3 +135,4 @@ Thank you kindly!
 ```
 
 [human-panic]: https://crates.io/crates/human-panic
+[wasm-pack]: https://crates.io/crates/wasm-pack
