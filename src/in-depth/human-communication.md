@@ -27,6 +27,14 @@ then use consistent log levels for them.
 This way users can select the amount of logging themselves
 via `--verbose` flags.
 
+Available levels should be
+
+- debug/ verbose
+- info
+- warning
+- error
+- fatal
+
 Additionally it's always a good idea to use similar prefixes
 and sentence structure across log messages, 
 making it easy to `grep` or filter for them.
