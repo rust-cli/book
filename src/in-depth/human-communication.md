@@ -2,9 +2,9 @@
 
 ## When everything is fine
 
-When communicating progress
-while your application is doing fine
-it's important to be informative and concise in log messages.
+It is useful to report on the application's progress
+even when everything is fine.
+Try to be informative and concise in these messages.
 Don't use overly technical terms in the logs.
 Remember:
 the application is not crashing
