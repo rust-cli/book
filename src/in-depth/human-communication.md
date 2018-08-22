@@ -2,32 +2,94 @@
 
 ## When everything is fine
 
-<aside class="todo">
+It is useful to report on the application's progress
+even when everything is fine.
+Try to be informative and concise in these messages.
+Don't use overly technical terms in the logs.
+Remember:
+the application is not crashing
+so there's no reason for users to look up errors.
 
-**TODO:**
-Style of writing:
-- informative and concise
-- easy to parse
-- consistent: use same prefixes, sentence structure
+Most importantly,
+be consistent in the style of communication.
+Use the same prefixes and sentence structure
+to make the logs easily skimmable. 
 
-[Issue #74](https://github.com/rust-lang-nursery/cli-wg/issues/74)
-
-</aside>
+Try to let your application output tell a story
+about what it's doing
+and how it impacts the user.
+This can involve showing a timeline of steps involved
+or even a progress bar and indicator for long running actions.
+The user should at no point
+get the feeling that the application is doing something mysterious
+that they cannot follow. 
 
 ## When it's hard to tell what's going on
 
-<aside class="todo">
+When communicating non-nominal state it's important to be consistent.
+A heavily logging application that doesn't follow strict logging levels
+provides the same amount, or even less information
+than a non-logging application.
 
-**TODO:**
-Log messages:
-- levels
-- consistent: use same prefixes, sentence structure
-- provide enough context
-- `--verbose`
+Because of this it's important to define the severity of events
+and messages that are related to it;
+then use consistent log levels for them.
+This way users can select the amount of logging themselves
+via `--verbose` flags
+or environment variables (like `RUST_LOG`).
 
-[Issue #75](https://github.com/rust-lang-nursery/cli-wg/issues/75)
+The commonly used `log` crate
+[defines][log-levels] the following levels
+(ordered by increasing severity):
 
-</aside>
+- trace
+- debug
+- info
+- warning
+- error
+
+It's a good idea to think of _info_ as the default log level.
+Use it for, well, informative output.
+(Some applications that lean towards a more quiet output style
+might only show warnings and errors by default.)
+
+Additionally it's always a good idea to use similar prefixes
+and sentence structure across log messages, 
+making it easy to `grep` or filter for them.
+A message should provide enough context by itself
+to be useful in a filtered log 
+while not being *too* verbose at the same time.
+
+[log-levels]: https://docs.rs/log/0.4.4/log/enum.Level.html
+
+### Example log statements
+
+```
+error: could not find `Cargo.toml` in `/home/you/project/`
+```   
+
+```
+=> Downloading repository index
+=> Downloading packages...
+```
+
+The following log output is taken from [wasm-pack]:
+
+```
+ [1/7] Adding WASM target...
+ [2/7] Compiling to WASM...
+ [3/7] Creating a pkg directory...
+ [4/7] Writing a package.json...
+ > [WARN]: Field `description` is missing from Cargo.toml. It is not necessary, but recommended
+ > [WARN]: Field `repository` is missing from Cargo.toml. It is not necessary, but recommended
+ > [WARN]: Field `license` is missing from Cargo.toml. It is not necessary, but recommended
+ [5/7] Copying over your README...
+ > [WARN]: origin crate has no README
+ [6/7] Installing WASM-bindgen...
+ > [INFO]: wasm-bindgen already installed
+ [7/7] Running WASM-bindgen...
+ Done in 1 second
+```
 
 ## When panicking
 
@@ -93,3 +155,4 @@ Thank you kindly!
 ```
 
 [human-panic]: https://crates.io/crates/human-panic
+[wasm-pack]: https://crates.io/crates/wasm-pack
