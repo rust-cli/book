@@ -48,6 +48,11 @@ The commonly used `log` crate
 - warning
 - error
 
+It's a good idea to think of _info_ as the default log level.
+Use it for, well, informative output.
+(Some applications that lean towards a more quiet output style
+might only show warnings and errors by default.)
+
 Additionally it's always a good idea to use similar prefixes
 and sentence structure across log messages, 
 making it easy to `grep` or filter for them.
