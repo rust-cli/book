@@ -35,15 +35,18 @@ Because of this it's important to define the severity of events
 and messages that are related to it;
 then use consistent log levels for them.
 This way users can select the amount of logging themselves
-via `--verbose` flags.
+via `--verbose` flags
+or environment variables (like `RUST_LOG`).
 
-Available levels should be
+The commonly used `log` crate
+[defines][log-levels] the following levels
+(ordered by increasing severity):
 
-- debug/ verbose
+- trace
+- debug
 - info
 - warning
 - error
-- fatal
 
 Additionally it's always a good idea to use similar prefixes
 and sentence structure across log messages, 
@@ -51,6 +54,8 @@ making it easy to `grep` or filter for them.
 A message should provide enough context by itself
 to be useful in a filtered log 
 while not being *too* verbose at the same time.
+
+[log-levels]: https://docs.rs/log/0.4.4/log/enum.Level.html
 
 ### Example log statements
 
