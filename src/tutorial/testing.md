@@ -82,6 +82,120 @@ Worse, it often deals with user input,
 reads files,
 and writes output.
 
+## Making you code testable
+
+There are two complementary approaches to testing functionality:
+Testing the small units that you build your complete application from,
+and testing the final application "from the outside".
+Let's begin with the first one.
+
+To figure our what we should test,
+let's see what our program features are.
+Mainly, `grrs` is supposed to print out the lines that match a given pattern.
+So, let's write unit tests for _exactly this_:
+We want to ensure that our most important piece of logic works,
+and we want to do it in a way that is not dependent
+on any of the setup code we have around it
+(that deals with CLI arguments, for example).
+
+Going back to our [first implementation](../impl-draft.md) of `grrs`,
+we added this block of code to the `main` function:
+
+```rust
+// ...
+for line in content.lines() {
+    if line.contains(&args.pattern) {
+        println!("{}", line);
+    }
+}
+```
+
+Sadly, this is not very easy to test.
+First off all, it's in the main function, so we can't easily call it.
+This is easily fixed by moving this piece of code into a function:
+
+```rust
+fn find_matches(content: &str, pattern: &str) {
+    for line in content.lines() {
+        if line.contains(pattern) {
+            println!("{}", line);
+        }
+    }
+}
+```
+
+Now we can call this function in our test,
+and see what its output is:
+
+```rust
+#[test]
+fn find_a_match() {
+    find_matches("lorem ipsum\ndolor sit amet", "lorem");
+    assert_eq!( // uhhhh
+```
+
+Or… can we?
+Right now, `find_matches` prints directly to `stdout`, i.e., the terminal.
+We can't easily capture this in a test!
+This is a problem that often comes up
+when writing tests after the implementation:
+We have written a function that is firmly integrated
+in the context it is used in.
+
+<aside class="note">
+
+**Note:**
+This is totally fine when writing small CLI applications.
+There's no need to make everything testable!
+It is important to think about
+which parts of your code you might want to write unit tests for, however.
+While we'll see that it's easy to change this function to be testable,
+this is not always the case.
+
+</aside>
+
+Alright, how can we make this testable?
+We'll need to capture the output somehow.
+Rust's standard library has some neat abstractions
+for dealing with I/O (input/output)
+and we'll make use of one called `std::fmt::Write`.
+This is a trait that abstract over things we can write to,
+which includes strings but also `stdout`.
+
+Let's change our function to also accept a parameter `writer`
+that implements `Write`.
+In our test, we can then supply a simple string
+to make assertions on.
+Instead of `println!(…)` we can just use `writeln!(writer, …)`.
+
+```rust
+fn find_matches<W: Write>(content: &str, pattern: &str, writer: &mut W) {
+    for line in content.lines() {
+        if line.contains(pattern) {
+            writeln!(writer, "{}", line);
+        }
+    }
+}
+```
+
+Now we can test for the ouptut:
+
+```rust
+#[test]
+fn find_a_match() {
+    let mut result = String::new();
+    find_matches("lorem ipsum\ndolor sit amet", "lorem", &mut result);
+    assert_eq!(result, "lorem ipsum\n");
+}
+```
+
+<aside class="exercise">
+
+**Exercise for the reader:**
+`writeln!` returns a `Result`. Add error handling to `find_matches`.
+
+</aside>
+
 ## Splitting your code into library and binary targets
 
 <aside class="todo">
