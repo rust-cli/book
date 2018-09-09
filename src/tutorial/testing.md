@@ -196,19 +196,54 @@ fn find_a_match() {
 
 </aside>
 
+We've just seen how to be make it easily testable,
+we have
+
+1. identified one of the core pieces of our application,
+2. put it into its own function,
+3. and made it more flexible.
+
+Even though the goal was to make it testable,
+the result we ended up with
+is actually a very idiomatic and reusable piece of Rust code.
+That's awesome!
+
 ## Splitting your code into library and binary targets
 
-<aside class="todo">
+There's one more step we can go here.
+So far we've put everything we wrote into the `src/main.rs` file.
+This means our current project produces a single binary.
+But we can also make our code available as a library, like this:
 
-**TODO:**
-Move "testable"/pure functions into "library" part,
-write unit tests/docs tests.
-Only makes sense if there are enough.
-Otherwise keep in main.rs.
-Discuss advantages of thinking of library API.
-[Issue #71](https://github.com/rust-lang-nursery/cli-wg/issues/71)
+1. Put the `find_matches` function into a new `src/lib.rs`.
+2. Add a `pub` in front of the `fn` (so it's `pub fn find_matches`)
+   to make it something that users of our library can access.
+3. Remove `find_matches` from `src/main.rs`,
+   and instead add an `extern crate grrs;` on top.
+4. In the `fn main`, prepend the call to `find_matches` with `grrs::`,
+   so it's now `grrs::find_matches(…)`.
+   This means it uses the function from the library we just wrote!
+
+The way Rust deals with projects is quite flexible
+and it's a good idea to think about
+what to put into the library part of your crate early on.
+You can for example think about writing a library
+for your application-specific logic first
+and then use it in your CLI just like any other library.
+Or, if your project has multiple binaries,
+you can put the common functionality into the library part of that crate.
+
+<aside class="note">
+
+**Note:**
+Speaking of putting everything into a `src/main.rs`:
+If we can continue to do that,
+it'll become difficult to read.
+[The module system](https://doc.rust-lang.org/book/2018-edition/ch07-00-modules.html)
+can help you structure and organize your code.
 
 </aside>
+
 
 ## Testing CLI applications by running them
 
