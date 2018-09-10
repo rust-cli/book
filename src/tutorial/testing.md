@@ -164,6 +164,17 @@ and we'll make use of one called `std::fmt::Write`.
 This is a trait that abstract over things we can write to,
 which includes strings but also `stdout`.
 
+<aside class="note">
+
+**Note:**
+We could also make this function return a `String`,
+but that would change the behavior.
+Instead of writing to the terminal directly,
+it would then collect everything into a string,
+and dump all the results in one go at the end.
+
+</aside>
+
 Let's change our function to also accept a parameter `writer`
 that implements `Write`.
 In our test, we can then supply a simple string
@@ -190,6 +201,12 @@ fn find_a_match() {
     assert_eq!(result, "lorem ipsum\n");
 }
 ```
+
+To now use this in our application code,
+we have to change the call to `find_matches` in `main`
+by adding [`&mut std::io::stdout()`][stdout] as the third parameter.
+
+[stdout]: https://doc.rust-lang.org/1.28.0/std/io/fn.stdout.html
 
 <aside class="exercise">
 
