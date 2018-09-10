@@ -160,9 +160,11 @@ Alright, how can we make this testable?
 We'll need to capture the output somehow.
 Rust's standard library has some neat abstractions
 for dealing with I/O (input/output)
-and we'll make use of one called `std::fmt::Write`.
+and we'll make use of one called [`std::io::Write`].
 This is a trait that abstract over things we can write to,
 which includes strings but also `stdout`.
+
+[`std::io::Write`]: https://doc.rust-lang.org/1.28.0/std/io/trait.Write.html
 
 <aside class="note">
 
@@ -191,7 +193,7 @@ fn find_matches<W: Write>(content: &str, pattern: &str, writer: &mut W) {
 }
 ```
 
-Now we can test for the ouptut:
+Now we can test for the output:
 
 ```rust
 #[test]
@@ -211,7 +213,10 @@ by adding [`&mut std::io::stdout()`][stdout] as the third parameter.
 <aside class="exercise">
 
 **Exercise for the reader:**
-`writeln!` returns a `Result`. Add error handling to `find_matches`.
+[`writeln!`] returns an [`io::Result`]. Add error handling to `find_matches`.
+
+[`writeln!`]: https://doc.rust-lang.org/1.28.0/std/macro.writeln.html
+[`io::Result`]: https://doc.rust-lang.org/1.28.0/std/io/type.Result.html
 
 </aside>
 
