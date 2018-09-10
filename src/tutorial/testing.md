@@ -82,14 +82,16 @@ Worse, it often deals with user input,
 reads files,
 and writes output.
 
-## Making you code testable
+## Making your code testable
 
 There are two complementary approaches to testing functionality:
 Testing the small units that you build your complete application from,
-and testing the final application "from the outside".
+these are called "unit tests".
+There is also testing the final application "from the outside"
+called "black box tests" or "integration tests".
 Let's begin with the first one.
 
-To figure our what we should test,
+To figure out what we should test,
 let's see what our program features are.
 Mainly, `grrs` is supposed to print out the lines that match a given pattern.
 So, let's write unit tests for _exactly this_:
