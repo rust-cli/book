@@ -72,11 +72,31 @@ in the [documentation for the `std::fmt` module][std::fmt].
 
 ## Printing errors
 
-<aside class="todo">
+Printing errors should be done via `stderr`
+to make it easier for users
+and other tools
+to pipe their outputs to files
+or more tools.
 
-**TODO:**
-`eprintln!` and stdout vs stderr
-[Issue #66](https://github.com/rust-lang-nursery/cli-wg/issues/66)
+In Rust this is achieved
+with `println!` and `eprintln!`,
+the former printing to `stdout`
+and the latter to `stderr`.
+
+```rust
+println!("This is information");
+eprintln!("This is an error! :(");
+```
+
+<aside>
+
+**Beware**: Printing escape codes can be dangerous,
+putting the user's terminal into a weird state.
+Always be careful when manually printing them!
+
+Ideally you should be using a crate like `ansi_term`
+when dealing with raw escape codes
+to make your (and your user's) life easier.
 
 </aside>
 
