@@ -100,6 +100,41 @@ to make your (and your user's) life easier.
 
 </aside>
 
+## A note on printing performance
+
+Printing to the terminal is surprisingly slow!
+If you call things like `println!` in a loop,
+it can easily become a bottleneck in an otherwise fast program.
+To speed this up,
+there's two things you can do.
+
+First,
+it helps to acquire a lock on `stdout` (or `stderr`)
+and use `writeln!` to print to it directly.
+This prevents the system from locking an unlocking `stdout` over and over again.
+
+Second,
+you might want to reduce the number of writes
+you actually "flush" to the terminal.
+`println!` tells the system to write to the terminal _every_ time,
+because it is usual to print each new line.
+If you don't need that,
+you can wrap your `stdout` handle in a [`BufWriter`]
+which by default buffers up to 8kB.
+(You can still call `.flush()` on this `BufWriter`
+when you want to print immediately.)
+
+```rust
+use std::io::{self, Write};
+
+let stdout = io::stdout(); // get the global stdout entity
+let handle = stdout.lock(); // acquire a lock on it
+let mut handle = io::BufWriter::new(handle); // optional: wrap that handle in a buffer
+writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
+```
+
+[`BufWriter`]: https://doc.rust-lang.org/1.29.0/std/io/struct.BufWriter.html
+
 ## Showing a progress bar
 
 Some CLI applications run less than a second,
