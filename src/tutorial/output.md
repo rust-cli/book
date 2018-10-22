@@ -34,7 +34,7 @@ My lucky number is 42.
 
 The curly braces (`{}`) in the string above is one of these placeholders.
 This is the default placeholder type
-that tries to print the given in a human readable way.
+that tries to print the given value in a human readable way.
 For numbers and strings this works very well,
 but not all types can do that.
 This is why there is also a "debug representation",

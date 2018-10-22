@@ -47,10 +47,12 @@ In the end,
 we want to be able to run our tool like this:
 
 ```console
-$ grrs test.txt
-[…first 5 lines of the file…]
-$ grrs test.txt -n 10
-[…first 10 lines of the file…]
+$ cat test.txt
+foo: 10
+bar: 20
+baz: 30
+$ grrs foo test.txt
+foo: 10
 $ grrs --help
 [some help text explaining the available options]
 ```

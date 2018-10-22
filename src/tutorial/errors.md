@@ -102,7 +102,7 @@ it becomes important.
 Here's the _full_ example:
 
 ```rust
-fn main() -> Result<(), Box<std::error::Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let result = std::fs::read_to_string("test.txt");
     let content = match result {
         Ok(content) => { content },
@@ -117,7 +117,7 @@ Our return type is a `Result`!
 This is why we can write `return Err(error);` in the second match arm.
 See how there is an `Ok(())` at the bottom?
 It's the default return value of the function and means
-"Result is okay, as has no content".
+"Result is okay, and has no content".
 
 <aside>
 

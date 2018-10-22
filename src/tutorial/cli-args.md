@@ -66,8 +66,6 @@ that has two fields to store data in: `pattern`, and `path`.
 
 </aside>
 
-## Parsing CLI Arguments with Clap
-
 Now, we still need to get the actual arguments our program got into this form.
 One option would be manually parse the list of strings we get from the operating system
 and build the structure ourselves.
@@ -86,6 +84,8 @@ This works, but it's not very convenient.
 How would you deal with the requirement to support
 `--pattern="foo"` or `--pattern "foo"`?
 How would you implement `--help`?
+
+## Parsing CLI Arguments with Clap
 
 A much nicer way is to use one of the many available libraries.
 As you can see in the `src/main.rs` file,
