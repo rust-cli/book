@@ -88,9 +88,17 @@ How would you implement `--help`?
 ## Parsing CLI Arguments with Clap
 
 A much nicer way is to use one of the many available libraries.
-As you can see in the `src/main.rs` file,
-our templates already contains some code using `clap`,
-and in particular uses it’s “derive” feature.
+The most popular library for parsing command line arguments
+is called [`clap`].
+It has all the functionality you'd expect,
+including support for sub-commands, shell completions, and great help messages.
+The [`structopt`] library builds on `clap`
+and provides a "derive" macro
+to generate `clap` applications.
+
+[`clap`]: https://clap.rs/
+[`structopt`]: https://docs.rs/structopt
+
 This is quite nice:
 All we have to do is annotate a struct
 and it’ll generate the code that parses the arguments into the fields.
@@ -99,15 +107,33 @@ and also write some documentation comments along the way.
 It’ll look like this:
 
 ```rust
+#[macro_use] extern crate structopt;
+use std::path::PathBuf;
+use structopt::StructOpt;
+
 /// Search for a pattern in a file and display the lines that contain it.
-#[derive(Clap)]
+#[derive(StructOpt)]
 struct Cli {
     /// The pattern to look for
     pattern: String,
     /// The path to the file to read
+    #[structopt(parse(from_os_str))]
     path: std::path::PathBuf,
 }
 ```
+
+<aside class="node">
+
+**Note:**
+There are a lot of custom attributes you can add to fields.
+For example,
+we added one to tell structopt how to parse the `PathBuf` type.
+To say you want to use this field for the argument after `-o` or `--output`,
+you'd add `#[structopt(short = "o", long = "output")]`.
+For more information
+see the [structopt documentation][`structopt`].
+
+</aside>
 
 <aside class="todo">
 
