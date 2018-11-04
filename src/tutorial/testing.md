@@ -198,9 +198,9 @@ Now we can test for the output:
 ```rust
 #[test]
 fn find_a_match() {
-    let mut result = String::new();
+    let mut result = Vec::new();
     find_matches("lorem ipsum\ndolor sit amet", "lorem", &mut result);
-    assert_eq!(result, "lorem ipsum\n");
+    assert_eq!(result, b"lorem ipsum\n");
 }
 ```
 
@@ -209,6 +209,19 @@ we have to change the call to `find_matches` in `main`
 by adding [`&mut std::io::stdout()`][stdout] as the third parameter.
 
 [stdout]: https://doc.rust-lang.org/1.28.0/std/io/fn.stdout.html
+
+<aside class="note">
+
+**Note:**
+Since `stdout` expects bytes (not strings),
+we use `std::io::Write`, instead of `std::fmt::Write`.
+As a result,
+we give an empty vector as "writer" in our tests
+(its type will be inferred to by `Vec<u8>`),
+and in the `assert_eq!` we use a `b"foo"`
+instead of a regular string.
+
+</aside>
 
 <aside class="exercise">
 
@@ -220,8 +233,8 @@ by adding [`&mut std::io::stdout()`][stdout] as the third parameter.
 
 </aside>
 
-We've just seen how to be make it easily testable,
-we have
+We've just seen how to be make this piece of code easily testable.
+We have
 
 1. identified one of the core pieces of our application,
 2. put it into its own function,
@@ -271,15 +284,114 @@ can help you structure and organize your code.
 
 ## Testing CLI applications by running them
 
-<aside class="todo">
+Thus far, we've gone out of our way
+to test the _business logic_ of our application,
+which turned out to be the `find_matches` function.
+This is very valuable
+and is a great first step
+towards a well-tested code base.
+(Usually, these kinds of tests are called "unit tests".)
 
-**TODO:** Talk about using assert_cmd’s features to quickly run cargo binaries with different inputs and assert their outputs.
-[Issue #72](https://github.com/rust-lang-nursery/cli-wg/issues/72)
+There is a lot of code we aren't testing, though:
+Everything that we wrote to deal with the outside world!
+Imagine you wrote the main function,
+but accidentally left in a hard-coded string
+instead of using the argument of the user-supplied path.
+We should write tests for that, too!
+(This level of testing is often called
+"integration testing", or "system testing".)
+
+At its core,
+we are still writing functions
+and annotate them with `#[test]`.
+It's just a matter of what we do inside these functions.
+For example, we'll want to use the main binary of our project,
+and run it like a regular program.
+We will also put these tests into a new file in a new directory:
+`tests/cli.rs`.
+
+<aside>
+
+**Aside:**
+By convention,
+`cargo` will look for integration tests in the `tests/` directory.
+Similarly,
+it will look for benchmarks in `benches/`,
+and examples in `examples`/.
+These conventions also extend to your main source code:
+libraries have a `src/lib.rs` file,
+the main binary is `src/main.rs`,
+or, if there are multiple binaries,
+cargo expects them to be in `src/bin/<name>.rs`.
+Following these conventions will make your code base easily discoverable
+by people used to reading Rust code.
 
 </aside>
+
+To recall,
+`grrs` is a small tool that searches for a string in a file.
+We have previously tested that we can find a match.
+Let's think about what other functionality we can test.
+
+Here is what I came up with.
+
+- What happens when the file doesn't exist?
+- What is the output when there is no match?
+- Does our program exit with an error when we forget one (or both) arguments?
+
+These are all valid test cases.
+Additionally,
+we should also include one test case
+for the "happy path",
+i.e., we found at least one match
+and we print it.
+
+To make these kinds of tests easier,
+we're going to use the [`assert_cmd`] crate.
+It has a bunch of neat helpers
+that allow us to run our main binary
+and see how it behaves.
+Further,
+we'll also add the [`predicates`] crate
+which helps us write assertions
+that `assert_cmd` can test against
+(and that have great error messages).
+
+[`assert_cmd`]: https://docs.rs/assert_cmd
+[`predicates`]: https://docs.rs/predicates
+
+This sounds like a lot of setup.
+Nevertheless --
+let's dive right in!
+
+```rust
+extern crate assert_cmd;
+extern crate predicates;
+
+use std::process::Command;  // Run programs
+use assert_cmd::prelude::*; // Add methods on commands
+use predicates::prelude::*; // Used for writing assertions
+
+#[test]
+fn file_doesnt_exist() -> Result<(), Box<std::error::Error>> {
+    let mut cmd = Command::main_binary()?;
+    cmd.arg("foobar")
+        .arg("test/file/doesnt/exist");
+    cmd.assert()
+        .failure()
+        .stderr(predicate::str::contains("No such file or directory"));
+
+    Ok(())
+}
+```
+
 <aside class="todo">
 
-**TODO:** Talk about generating temp dirs with demo files.
+**TODO:**
+
+- Talk about generating temp dirs with demo files.
+- Write a _useful_ test asserting clap's output (not to little, no too much; we don't want to test all of clap after all)
+
 [Issue #72](https://github.com/rust-lang-nursery/cli-wg/issues/72)
 
 </aside>
