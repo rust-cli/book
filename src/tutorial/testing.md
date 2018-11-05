@@ -233,7 +233,7 @@ instead of a regular string.
 
 </aside>
 
-We've just seen how to be make this piece of code easily testable.
+We've just seen how to make this piece of code easily testable.
 We have
 
 1. identified one of the core pieces of our application,
