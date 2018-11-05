@@ -362,7 +362,8 @@ that `assert_cmd` can test against
 
 This sounds like a lot of setup.
 Nevertheless --
-let's dive right in!
+let's dive right in
+and create our `tests/cli.rs` file:
 
 ```rust
 extern crate assert_cmd;
