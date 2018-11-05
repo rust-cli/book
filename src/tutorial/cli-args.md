@@ -130,7 +130,7 @@ For example,
 we added one to tell structopt how to parse the `PathBuf` type.
 To say you want to use this field for the argument after `-o` or `--output`,
 you'd add `#[structopt(short = "o", long = "output")]`.
-For more information
+For more information,
 see the [structopt documentation][`structopt`].
 
 </aside>
