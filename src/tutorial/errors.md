@@ -165,7 +165,7 @@ This works because `?` actually expands to code to _convert_ error types.
 
 `Box<dyn std::error::Error>` is also an interesting type.
 It's a `Box` that can contain _any_ type
-that implements the standard [Error][`std::error::Error`] trait.
+that implements the standard [`Error`][`std::error::Error`] trait.
 This means that basically all errors can be put into this box,
 so we can use `?` on all of the usual functions that return `Result`s.
 
@@ -186,10 +186,74 @@ you get this output:
 
 In cases where your code doesn't literally contain the file name,
 it'd be very hard to tell which file was `NotFound`.
+There are multiple ways to deal with this.
 
-<aside class="todo">
+For example, we can create our own error type,
+and then use that to build a custom error message:
 
-**TODO:** Replace `?` with `.with_context(|_| format!("could not read file {}", args.path))`
-[Issue #65](https://github.com/rust-lang-nursery/cli-wg/issues/65)
+```rust
+#[derive(Debug)]
+struct CustomError(String);
 
-</aside>
+fn main() -> Result<(), CustomError> {
+    let path = "test.txt";
+    let content = std::fs::read_to_string(path)
+        .map_err(|err| CustomError(format!("Error reading `{}`: {}", path, err)))?;
+    println!("file content: {}", content);
+    Ok(())
+}
+```
+
+Now,
+running this we'll get our custom error message:
+
+> Error: CustomError("Error reading `test.txt`: No such file or directory (os error 2)")
+
+Not very pretty,
+but we can easily adapt the debug output for our type later on.
+
+This pattern is in fact very common.
+It has one problem, though:
+We don't store the original error,
+only its string representation.
+The often used [`failure`] library has a neat solution for that:
+Similar to our `CustomError` type,
+it has a [`Context`] type
+that contains a description as well as the original error.
+The library also brings with it an extension trait ([`ResultExt`])
+that adds [`context()`] and [`with_context()`] methods to `Result`.
+
+[`failure`]: https://docs.rs/failure
+[`Context`]: https://docs.rs/failure/0.1.3/failure/struct.Context.html
+[`ResultExt`]: https://docs.rs/failure/0.1.3/failure/trait.ResultExt.html
+[`context()`]: https://docs.rs/failure/0.1.3/failure/trait.ResultExt.html#tymethod.context
+[`with_context()`]: https://docs.rs/failure/0.1.3/failure/trait.ResultExt.html#tymethod.with_context
+
+To turn these wrapped error types
+into something that humans will actually want to read,
+we can further add the [`exitfailure`] crate,
+and use its type as the return type of our `main` function.
+The full example will then look like this:
+
+[`exitfailure`]: https://docs.rs/exitfailure
+
+```rust
+extern crate failure;
+extern crate exitfailure;
+
+use failure::ResultExt;
+use exitfailure::ExitFailure;
+
+fn main() -> Result<(), ExitFailure> {
+    let path = "test.txt";
+    let content = std::fs::read_to_string(path)
+        .with_context(|_| format!("could not read file `{}`", path))?;
+    println!("file content: {}", content);
+    Ok(())
+}
+```
+
+This will print an error like this:
+
+> Error: could not read file `test.txt`  
+> Info: caused by No such file or directory (os error 2)
