@@ -165,7 +165,7 @@ This works because `?` actually expands to code to _convert_ error types.
 
 `Box<dyn std::error::Error>` is also an interesting type.
 It's a `Box` that can contain _any_ type
-that implements the standard [Error][`std::error::Error`] trait.
+that implements the standard [`Error`][`std::error::Error`] trait.
 This means that basically all errors can be put into this box,
 so we can use `?` on all of the usual functions that return `Result`s.
 
