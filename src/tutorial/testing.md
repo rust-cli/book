@@ -386,6 +386,12 @@ fn file_doesnt_exist() -> Result<(), Box<std::error::Error>> {
 }
 ```
 
+You can run this test with
+`cargo test`,
+just the tests we wrote above.
+It might take a little longer the first time,
+as `Command::main_binary()` needs to compile your main binary.
+
 <aside class="todo">
 
 **TODO:**
