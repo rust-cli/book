@@ -323,7 +323,7 @@ libraries have a `src/lib.rs` file,
 the main binary is `src/main.rs`,
 or, if there are multiple binaries,
 cargo expects them to be in `src/bin/<name>.rs`.
-Following these conventions will make your code base easily discoverable
+Following these conventions will make your code base more discoverable
 by people used to reading Rust code.
 
 </aside>
