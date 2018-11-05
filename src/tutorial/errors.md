@@ -218,12 +218,16 @@ We don't store the original error,
 only its string representation.
 The often used [`failure`] library has a neat solution for that:
 Similar to our `CustomError` type,
-it has a `Context` type
+it has a [`Context`] type
 that contains a description as well as the original error.
-The library also brings with it an extension trait
-that adds `context()` and `with_context()` methods to `Result`.
+The library also brings with it an extension trait ([`ResultExt`])
+that adds [`context()`] and [`with_context()`] methods to `Result`.
 
 [`failure`]: https://docs.rs/failure
+[`Context`]: https://docs.rs/failure/0.1.3/failure/struct.Context.html
+[`ResultExt`]: https://docs.rs/failure/0.1.3/failure/trait.ResultExt.html
+[`context()`]: https://docs.rs/failure/0.1.3/failure/trait.ResultExt.html#tymethod.context
+[`with_context()`]: https://docs.rs/failure/0.1.3/failure/trait.ResultExt.html#tymethod.with_context
 
 To turn these wrapped error types
 into something that humans will actually want to read,
