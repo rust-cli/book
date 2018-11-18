@@ -93,7 +93,7 @@ It's also possible to
 install crates from git repositories,
 only install specific binaries of a crate,
 and specify and alternative directory to install them to.
-Best have a look at `cargo install --help`.
+Have a look at `cargo install --help` for details.
 
 ### When to use it
 
@@ -109,7 +109,7 @@ Furthermore, there is no simple way to update tools installed with cargo:
 User will need to run `cargo install` again at some point,
 and pass the `--force` flag to overwrite the old binaries.
 
-Best use this for distributing tools
+It's best to use this for distributing tools
 that are targeted at other Rust developers.
 For example:
 A lot of cargo subcommands
