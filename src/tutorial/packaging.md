@@ -211,14 +211,41 @@ The definitions of the images are also available in
 [trust]: https://github.com/japaric/trust
 [cross]: https://github.com/rust-embedded/cross
 
-## Getting your app into package repositories
+### How to install these binaries
 
 <aside class="todo">
+The release artifacts we've just generated are nothing special:
+At the end, they are just archive files that contain our binaries!
+This means that users of your tool
+can download them with their browser,
+extract them (often happens automatically),
+and copy the binaries to a place they like.
+
+This does require some experience with manually "installing" programs,
+so you want to add as section to your README file
+on how to install this program.
+
+<aside class="note">
 
 **TODO:** Talk about packaging on CI
 [Issue #69](https://github.com/rust-lang-nursery/cli-wg/issues/69)
+**Note:**
+If you used [trust] to build your binaries and add them to Github releases,
+you can also tell people to run
+`curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git your-name/repo-name`
+if you think that makes it easier.
 
 </aside>
+
+### When to use it
+
+Having binary releases is a good idea in general,
+there's hardly any downside to it.
+It does not solve the problem of users having to manually
+install and update
+your tools,
+but they can quickly get the latest releases version
+without the need to install Rust.
 <aside class="todo">
 
 **TODO:** Talk about automatically generating Man pages in a build script
