@@ -59,8 +59,8 @@ you can in most cases add a `#[derive(Debug)]` above their definition.
 <aside>
 
 **Aside:**
-The human readable printing is done using the [`Display`] trait,
-debug output uses the [`Debug`] trait.
+"User-friendly" printing is done using the [`Display`] trait,
+debug output (human-readable but targeted at developers) uses the [`Debug`] trait.
 You can find more information about the syntax you can use in `println!`
 in the [documentation for the `std::fmt` module][std::fmt].
 
@@ -77,6 +77,19 @@ to make it easier for users
 and other tools
 to pipe their outputs to files
 or more tools.
+
+<aside>
+
+**Aside:**
+On most operating systems,
+a program can write to two output streams, `stdout` and `stderr`.
+`stdout` is for the program's actual output,
+while `stderr` allows errors and other messages to be kept separate from `stdout`.
+That way,
+output can be stored to a file or piped to another program
+while errors are shown to the user.
+
+</aside>
 
 In Rust this is achieved
 with `println!` and `eprintln!`,
