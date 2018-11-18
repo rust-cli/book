@@ -59,8 +59,8 @@ you can in most cases add a `#[derive(Debug)]` above their definition.
 <aside>
 
 **Aside:**
-The human readable printing is done using the [`Display`] trait,
-debug output uses the [`Debug`] trait.
+"User-friendly" printing is done using the [`Display`] trait,
+debug output (human-readable but targeted at developers) uses the [`Debug`] trait.
 You can find more information about the syntax you can use in `println!`
 in the [documentation for the `std::fmt` module][std::fmt].
 
