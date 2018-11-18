@@ -118,6 +118,99 @@ can be installed with it.
 
 ## Distributing binaries
 
+Rust is a language that compiles to native code
+and by default statically links all dependencies.
+When you run `cargo build`
+on your project that contains a binary called `grrs`,
+you'll end up with a single binary file called `grrs`,
+that has no (or only very few)
+external dependencies.
+That means,
+you take that one file
+and send it to people running the same operating system as you,
+and they'll be able to run it.
+
+This is very powerful!
+It also works around two of the downsides we just saw for `cargo install`:
+There is no need to have Rust installed on the user's machine,
+and instead of it taking a minute to compile,
+they can instantly run the binary.
+
+As we've seen,
+`cargo build` _already_ builds binaries for us.
+The only issue is,
+those are not guaranteed to work on all platforms.
+If you run `cargo build` on your Windows machine,
+you won't get a binary that works on a Mac by default.
+Is there a way to generate these binaries
+for all the interesting platforms
+automatically?
+
+### Building binary releases on CI
+
+If your tool is open source,
+and hosted on Github,
+it's quite easy to set up a free CI (continuous integration) service
+like [Travis CI].
+(There are other services that also work on other platforms, but Travis is very popular.)
+This basically runs a set up commands
+in a virtual machine
+each time you push changes to your repository.
+What those commands are,
+and which types of machines they run one,
+is configurable.
+For example:
+A good idea is to run `cargo test`
+on a machine with Rust and some common build tools installed.
+If this fails,
+you know there are issues in the most recent changes.
+
+[Travis CI]: https://travis-ci.com/
+
+We can also use this
+to build binaries and upload them to Github!
+Indeed, if we run
+`cargo build --release`
+and upload the binary somewhere,
+we should be all set, right?
+Not quite.
+We still need to make sure the binaries we build
+are compatible with as many systems as possible.
+For example,
+on Linux we can compile not for the current system,
+but instead for the `x86_64-unknown-linux-musl` target,
+to not depend on default system libraries.
+On macOS, we can set `MACOSX_DEPLOYMENT_TARGET` to `10.7`
+to only depend on system features present in versions 10.7 and older.
+
+You can see one example of building binaries using this approach
+[here][wasm-pack-travis] for Linux and macOS
+and [here][wasm-pack-appveyor] for Windows (using AppVeyor).
+
+[wasm-pack-travis]: https://github.com/rustwasm/wasm-pack/blob/51e6351c28fbd40745719e6d4a7bf26dadd30c85/.travis.yml#L74-L91
+[wasm-pack-appveyor]: https://github.com/rustwasm/wasm-pack/blob/51e6351c28fbd40745719e6d4a7bf26dadd30c85/.appveyor.yml
+
+Another way is to use pre-built (Docker) images
+that contain all the tools we need
+to build binaries.
+This allows us to easily target more exotic platforms, too.
+The [trust] project contains
+scripts that you can include in your project
+as well as instructions on how to set this up.
+It also includes support for Windows using AppVeyor.
+
+If you'd rather set this up locally
+and generate the release files on your on machine,
+still have a look at trust.
+It uses [cross] internally,
+which works similar to cargo
+but forwards commands to a cargo process inside a Docker container.
+The definitions of the images are also available in
+[cross' repository][cross].
+
+[trust]: https://github.com/japaric/trust
+[cross]: https://github.com/rust-embedded/cross
+
 ## Getting your app into package repositories
 
 <aside class="todo">
