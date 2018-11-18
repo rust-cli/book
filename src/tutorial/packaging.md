@@ -249,6 +249,37 @@ your tools,
 but they can quickly get the latest releases version
 without the need to install Rust.
 
+### What to package in addition to your binaries
+
+Right now,
+when a user downloads our release builds,
+they will get a `.tar.gz` file
+that only contains binary files.
+So, in our example project,
+they will just get a single `grrs` file they can run.
+But there are some more files we already have in our repository
+that they might want to have.
+The README file that tells them how to use this tool,
+and the license file(s),
+for example.
+Since we already have them,
+they are easy to add.
+
+There are some more interesting file
+that make sense especially for command-line tools,
+though:
+How about we also ship a man page in addition to that README file,
+and config files that add completions of the possible flags to your shell?
+You can write these by hand,
+but _clap_, the argument parsing library we use
+(which structopt builds upon)
+has a way to generate all these files for us.
+See [this in-depth chapter][clap-man-pages]
+for more details.
+
+[clap-man-pages]: ../../in-depth/docs.md
+
+
 ## Getting your app into package repositories
 
 Both approaches we've seen so far
@@ -301,12 +332,3 @@ and finally start distributing your tool using system package managers.
 
 [ripgrep]: https://github.com/BurntSushi/ripgrep
 [rg-install]: https://github.com/BurntSushi/ripgrep/tree/31adff6f3c4bfefc9e77df40871f2989443e6827#installation
-
-## Addendum: What to package in addition to your binaries
-
-<aside class="todo">
-
-**TODO:** Talk about automatically generating Man pages in a build script
-[Issue #70](https://github.com/rust-lang-nursery/cli-wg/issues/70)
-
-</aside>
