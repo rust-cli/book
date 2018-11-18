@@ -31,7 +31,7 @@ You only need to do this once per computer.
 You can learn more about this
 in cargo's [publishing guide].
 
-Now that cargo as well crates.io know you,
+Now that cargo as well as crates.io know you,
 you can publish crates.
 Before you hastily go ahead and publish a new crate version,
 it's a good idea to open your `Cargo.toml` once more
@@ -213,7 +213,6 @@ The definitions of the images are also available in
 
 ### How to install these binaries
 
-<aside class="todo">
 The release artifacts we've just generated are nothing special:
 At the end, they are just archive files that contain our binaries!
 This means that users of your tool
@@ -227,8 +226,6 @@ on how to install this program.
 
 <aside class="note">
 
-**TODO:** Talk about packaging on CI
-[Issue #69](https://github.com/rust-lang-nursery/cli-wg/issues/69)
 **Note:**
 If you used [trust] to build your binaries and add them to Github releases,
 you can also tell people to run
@@ -246,6 +243,62 @@ install and update
 your tools,
 but they can quickly get the latest releases version
 without the need to install Rust.
+
+## Getting your app into package repositories
+
+Both approaches we've seen so far
+are not how you typically install software on your machine.
+Especially command-line tools
+you install using global package managers
+on most operating systems.
+The advantages for users are quite obvious:
+There is no need to think about how to install your program,
+if it can be install the same way they install all other tools.
+These package managers also allow users to update their programs
+when a new versions becomes available.
+
+Sadly, supporting many different systems means
+you'll have to look at how these different systems work.
+For some it might be as easy as adding a file to your repository
+(e.g. adding a Formula file like [this][rg-formula] for macOS's `brew`),
+but for others you'll often need to send in patches yourself
+and add your tool to their repositories.
+There are helpful tools like
+[cargo-rpm](https://crates.io/crates/cargo-rpm) and
+[cargo-deb](https://crates.io/crates/cargo-deb),
+but describing how they work
+and how to correctly package your tool
+for those different systems is beyond the scope of this chapter.
+
+[rg-formula]: https://github.com/BurntSushi/ripgrep/blob/31adff6f3c4bfefc9e77df40871f2989443e6827/pkg/brew/ripgrep-bin.rb
+
+Instead,
+let's have a look at a tool that is written in Rust
+and that is available in many different package managers.
+
+### An example: ripgrep
+
+[ripgrep] is an alternative to `grep`/`ack`/`ag` and is written in Rust.
+It's quite successful and is packaged for many operating systems:
+Just look at [the "Installation" section][rg-install] of its README!
+
+Note that it list a few different options how you can install it:
+It starts with a link to the Github releases
+which contain the binaries so you can download them directly;
+then it lists how to install it using a bunch of different package manages;
+finally, you can also install it using `cargo install`.
+
+This seems like a very good idea:
+Don't pick and choose one of the approaches presented here,
+but start with `cargo installs`,
+add binary releases,
+and finally start distributing your tool using system package managers.
+
+[ripgrep]: https://github.com/BurntSushi/ripgrep
+[rg-install]: https://github.com/BurntSushi/ripgrep/tree/31adff6f3c4bfefc9e77df40871f2989443e6827#installation
+
+## Addendum: What to package in addition to your binaries
+
 <aside class="todo">
 
 **TODO:** Talk about automatically generating Man pages in a build script
