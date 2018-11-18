@@ -213,12 +213,17 @@ The definitions of the images are also available in
 
 ### How to install these binaries
 
+You point your users to your release page
+that might look something [like this one][wasm-pack-release],
+and they can download the artifacts we've just created.
 The release artifacts we've just generated are nothing special:
 At the end, they are just archive files that contain our binaries!
 This means that users of your tool
 can download them with their browser,
 extract them (often happens automatically),
 and copy the binaries to a place they like.
+
+[wasm-pack-release]: https://github.com/rustwasm/wasm-pack/releases/tag/v0.5.1
 
 This does require some experience with manually "installing" programs,
 so you want to add as section to your README file
