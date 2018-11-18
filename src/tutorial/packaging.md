@@ -226,7 +226,7 @@ and copy the binaries to a place they like.
 [wasm-pack-release]: https://github.com/rustwasm/wasm-pack/releases/tag/v0.5.1
 
 This does require some experience with manually "installing" programs,
-so you want to add as section to your README file
+so you want to add a section to your README file
 on how to install this program.
 
 <aside class="note">
@@ -258,11 +258,11 @@ you install using global package managers
 on most operating systems.
 The advantages for users are quite obvious:
 There is no need to think about how to install your program,
-if it can be install the same way they install all other tools.
+if it can be installed the same way as they install the other tools.
 These package managers also allow users to update their programs
-when a new versions becomes available.
+when a new version is available.
 
-Sadly, supporting many different systems means
+Sadly, supporting different systems means
 you'll have to look at how these different systems work.
 For some it might be as easy as adding a file to your repository
 (e.g. adding a Formula file like [this][rg-formula] for macOS's `brew`),
