@@ -3,7 +3,11 @@
 If you feel confident that your program is ready to for other people to use,
 it is time to package and release it!
 
-## The quick way: With cargo
+There are a few approaches,
+and we'll look at three of them
+from "quickest to set up" to "most convenient for users".
+
+## Quickest: `cargo publish`
 
 The easiest way to publish your app is with cargo.
 Do you remember how we added external dependencies to our project?
@@ -67,6 +71,50 @@ but also what Github shows by default on repository pages.
 [crates.io account page]: https://crates.io/me
 [publishing guide]: https://doc.rust-lang.org/1.30.0/cargo/reference/publishing.html
 [cargo's manifest format]: https://doc.rust-lang.org/1.30.0/cargo/reference/manifest.html
+
+### How to install a binary from crates.io
+
+Now that we've seen how to publish a crate to crates.io,
+you might be wondering how to install it.
+In contrast to libraries,
+that cargo will download and compile for you
+when you run `cargo build` (or a similar command),
+you'll need to tell it to explicitly install binaries.
+
+This is done using
+`cargo install <crate-name>`.
+It will by default download the crate,
+compile all the binary targets it contains
+(in "release" mode, so it might take a while)
+and copy them into the `~/.cargo/bin/` directory.
+(Make sure that your shell knows to looks there for binaries!)
+
+It's also possible to
+install crates from git repositories,
+only install specific binaries of a crate,
+and specify and alternative directory to install them to.
+Best have a look at `cargo install --help`.
+
+### When to use it
+
+`cargo install` is a simple way to publish a binary crate.
+It's very convenient for Rust developers to use,
+but has some significant downsides:
+Since it will always compile your source from scratch,
+users of your tool will need to have
+Rust, cargo, and all other system dependencies your project requires
+installed on their machine.
+Compiling large Rust code bases can also take some time.
+Furthermore, there is no simple way to update tools installed with cargo:
+User will need to run `cargo install` again at some point,
+and pass the `--force` flag to overwrite the old binaries.
+
+Best use this for distributing tools
+that are targeted at other Rust developers.
+For example:
+A lot of cargo subcommands
+like `cargo-tree` or `cargo-outdated`
+can be installed with it.
 
 ## Distributing binaries
 
