@@ -20,9 +20,9 @@ including those with binary targets.
 Publishing a crate to [crates.io] is pretty straight-forward:
 If you haven't already, create an account on [crates.io].
 Currently, this is done via authorizing you on Github,
-so you'll need to have Github account
+so you'll need to have a Github account
 (and be logged in there).
-Next, you need to log in with cargo.
+Next, you need to log in using cargo.
 For that, go to your
 [crates.io account page],
 create a new token,
@@ -153,11 +153,11 @@ and hosted on Github,
 it's quite easy to set up a free CI (continuous integration) service
 like [Travis CI].
 (There are other services that also work on other platforms, but Travis is very popular.)
-This basically runs a set up commands
+This basically runs setup commands
 in a virtual machine
 each time you push changes to your repository.
 What those commands are,
-and which types of machines they run one,
+and the types of machines they run on,
 is configurable.
 For example:
 A good idea is to run `cargo test`
