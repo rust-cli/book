@@ -78,6 +78,19 @@ and other tools
 to pipe their outputs to files
 or more tools.
 
+<aside>
+
+**Aside:**
+On most operating systems,
+a program can write to two output streams, `stdout` and `stderr`.
+`stdout` is for the program's actual output,
+while `stderr` allows errors and other messages to be kept separate from `stdout`.
+That way,
+output can be stored to a file or piped to another program
+while errors are shown to the user.
+
+</aside>
+
 In Rust this is achieved
 with `println!` and `eprintln!`,
 the former printing to `stdout`
