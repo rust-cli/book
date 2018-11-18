@@ -9,7 +9,7 @@
   - [Nicer error reporting](./tutorial/errors.md)
   - [Output for humans and machines](./tutorial/output.md)
   - [Testing](./tutorial/testing.md)
-  - [Packaging and documentation](./tutorial/packaging.md)
+  - [Packaging and distributing a Rust tool](./tutorial/packaging.md)
 - [In-depth topics](./in-depth/README.md)
   - [Signal handling](./in-depth/signals.md)
   - [Using config files](./in-depth/config-files.md)

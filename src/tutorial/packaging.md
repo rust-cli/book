@@ -1,4 +1,4 @@
-# Packaging and rendering documentation
+# Packaging and distributing a Rust tool
 
 If you feel confident that your program is ready to for other people to use,
 it is time to package and release it!
