@@ -17,4 +17,3 @@
   - [Communicating with humans](./in-depth/human-communication.md)
   - [Communicating with machines](./in-depth/machine-communication.md)
   - [Rendering documentation for you CLI apps](./in-depth/docs.md)
-  - [Packaging apps and distributing them for different platforms](./in-depth/packaging-distribution.md)
