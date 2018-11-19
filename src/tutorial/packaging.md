@@ -1,6 +1,6 @@
 # Packaging and distributing a Rust tool
 
-If you feel confident that your program is ready to for other people to use,
+If you feel confident that your program is ready for other people to use,
 it is time to package and release it!
 
 There are a few approaches,
@@ -22,7 +22,7 @@ If you haven't already, create an account on [crates.io].
 Currently, this is done via authorizing you on Github,
 so you'll need to have a Github account
 (and be logged in there).
-Next, you need to log in using cargo.
+Next, you log in using cargo on your local machine.
 For that, go to your
 [crates.io account page],
 create a new token,
@@ -32,8 +32,8 @@ You can learn more about this
 in cargo's [publishing guide].
 
 Now that cargo as well as crates.io know you,
-you can publish crates.
-Before you hastily go ahead and publish a new crate version,
+you are ready to publish crates.
+Before you hastily go ahead and publish a new crate (version),
 it's a good idea to open your `Cargo.toml` once more
 and make sure you added a the necessary metadata.
 You can find all the possible fields you can set
@@ -74,10 +74,10 @@ but also what Github shows by default on repository pages.
 
 ### How to install a binary from crates.io
 
-Now that we've seen how to publish a crate to crates.io,
-you might be wondering how to install it.
+We've seen how to publish a crate to crates.io,
+and you might be wondering how to install it.
 In contrast to libraries,
-that cargo will download and compile for you
+which cargo will download and compile for you
 when you run `cargo build` (or a similar command),
 you'll need to tell it to explicitly install binaries.
 
@@ -130,21 +130,26 @@ Rust is a language that compiles to native code
 and by default statically links all dependencies.
 When you run `cargo build`
 on your project that contains a binary called `grrs`,
-you'll end up with a single binary file called `grrs`,
-that has no (or only very few)
-external dependencies.
+you'll end up with a binary file called `grrs`.
+Try it out:
+Using `cargo build`, it'll be `target/debug/grrs`,
+and when you run `cargo build --release`, it'll be `target/release/grrs`.
+Unless you use crates
+that explicitly need external libraries to be installed on the target system
+(like using the system's version of OpenSSL),
+this binary will only depend on common system libraries.
 That means,
 you take that one file
-and send it to people running the same operating system as you,
+send it to people running the same operating system as you,
 and they'll be able to run it.
 
-This is very powerful!
-It also works around two of the downsides we just saw for `cargo install`:
+This is already very powerful!
+It works around two of the downsides we just saw for `cargo install`:
 There is no need to have Rust installed on the user's machine,
 and instead of it taking a minute to compile,
 they can instantly run the binary.
 
-As we've seen,
+So, as we've seen,
 `cargo build` _already_ builds binaries for us.
 The only issue is,
 those are not guaranteed to work on all platforms.
@@ -326,7 +331,7 @@ and that is available in many different package managers.
 It's quite successful and is packaged for many operating systems:
 Just look at [the "Installation" section][rg-install] of its README!
 
-Note that it list a few different options how you can install it:
+Note that it lists a few different options how you can install it:
 It starts with a link to the Github releases
 which contain the binaries so you can download them directly;
 then it lists how to install it using a bunch of different package manages;
