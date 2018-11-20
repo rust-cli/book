@@ -16,4 +16,4 @@
   - [Exit codes](./in-depth/exit-code.md)
   - [Communicating with humans](./in-depth/human-communication.md)
   - [Communicating with machines](./in-depth/machine-communication.md)
-  - [Rendering documentation for you CLI apps](./in-depth/docs.md)
+  - [Rendering documentation for your CLI apps](./in-depth/docs.md)
