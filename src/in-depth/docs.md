@@ -1,4 +1,4 @@
-# Rendering documentation for you CLI apps
+# Rendering documentation for your CLI apps
 
 Documentation for CLIs usually consists of
 a `--help` section in the command
