@@ -1,13 +1,20 @@
 # Learning Rust by Writing a Command Line App in 15 Minutes
 
-This short tutorial will guide you through writing
+This tutorial will guide you through writing
 a CLI (command line interface) application
 in [Rust].
-It will take you roughly fifteen minutes;
-but feel free to skip parts you don't need to know right now
-or jump in at any point.
+It will take you roughly fifteen minutes
+to get to a point where you have a running program
+(around chapter 1.3).
+After that, we'll continue to tweak our program
+until we reach a point where we can ship our little tool.
+
+[Rust]: https://rust-lang.org/
+
 You’ll learn all the essentials about how to get going,
 and where to find more information.
+Feel free to skip parts you don't need to know right now
+or jump in at any point.
 
 <aside>
 
@@ -25,14 +32,16 @@ first and foremost the book,
 The Rust Programming Language.
 It comes with most Rust installations
 (`rustup doc`),
-and is available online on
-[doc.rust-lang.org](https://doc.rust-lang.org).
+and is available online on [doc.rust-lang.org].
+
+[doc.rust-lang.org]: https://doc.rust-lang.org
 
 You are also very welcome to ask questions –
 the Rust community is known to be friendly and helpful.
-Have a look at the
-[community page](https://www.rust-lang.org/en-US/community.html)
+Have a look at the [community page]
 to see a list of places where people discuss Rust.
+
+[community page]: https://www.rust-lang.org/en-US/community.html
 
 </aside>
 
@@ -65,13 +74,10 @@ The code examples can also be used on Rust 2015,
 but you might need to tweak them a bit;
 add `extern crate foo;` invocations, for example.
 
-At the time of this writing,
-to use Rust 2018 you have to use a nightly compiler version.
-Enable it by adding `edition = "2018"`
-to the `[package]` section of your `Cargo.toml` file
-(as well as write `cargo-features = ["edition"]` at the top of it).
+Make sure you run Rust 1.31.0 (or later)
+and that you have `edition = "2018"` set
+in the `[package]` section of your `Cargo.toml` file.
+
+[Rust 2018]: https://rust-lang-nursery.github.io/edition-guide/
 
 </aside>
-
-[Rust]: https://rust-lang.org/
-[Rust 2018]: https://rust-lang-nursery.github.io/edition-guide/
