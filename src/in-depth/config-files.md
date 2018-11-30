@@ -14,7 +14,7 @@ and requires you to specify the config layout
 via a `struct` (that is `Serialize`, `Deserialize`)
 and it will figure out the rest!
 
-```rust
+```rust,ignore
 #[derive(Debug, Serialize, Deserialize)]
 struct MyConfig {
     name: String,

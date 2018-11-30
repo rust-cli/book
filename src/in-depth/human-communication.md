@@ -64,18 +64,18 @@ while not being *too* verbose at the same time.
 
 ### Example log statements
 
-```
+```console
 error: could not find `Cargo.toml` in `/home/you/project/`
 ```   
 
-```
+```console
 => Downloading repository index
 => Downloading packages...
 ```
 
 The following log output is taken from [wasm-pack]:
 
-```
+```console
  [1/7] Adding WASM target...
  [2/7] Compiling to WASM...
  [3/7] Creating a pkg directory...
@@ -127,7 +127,7 @@ you import it
 and call the `setup_panic!()` macro
 at the beginning of your `main` function:
 
-```rust
+```rust,ignore
 use human_panic::setup_panic;
 
 fn main() {

@@ -24,14 +24,12 @@ How do you know which it is?
 Since `Result` is an `enum`,
 you can use `match` to check which variant it is:
 
-```rust
-# fn main() -> Result<(), Box<std::error::Error>> {
+```rust,no_run
 let result = std::fs::read_to_string("test.txt");
 match result {
     Ok(content) => { println!("File content: {}", content); }
     Err(error) => { println!("Oh noes: {}", error); }
 }
-# }
 ```
 
 <aside>
@@ -51,15 +49,13 @@ For this, we'll need to somehow deal with the error case.
 The challenge is that all arms of a `match` block need to return something of the same type.
 But there's a need trick to get around that:
 
-```rust
-# fn main() -> Result<(), Box<std::error::Error>> {
+```rust,no_run
 let result = std::fs::read_to_string("test.txt");
 let content = match result {
     Ok(content) => { content },
     Err(error) => { panic!("Can't deal with {}, just exit here", error); }
 };
 println!("file content: {}", content);
-# }
 ```
 
 We can use the String in `content` after the match block.
@@ -73,7 +69,7 @@ If your program needs to read that file and can't do anything if the file doesn'
 exiting is a valid strategy.
 There's even a shortcut method on `Result`s, called `unwrap`:
 
-```rust
+```rust,no_run
 let content = std::fs::read_to_string("test.txt").unwrap();
 ```
 
@@ -82,14 +78,13 @@ let content = std::fs::read_to_string("test.txt").unwrap();
 Of course, aborting the program is not the only way to deal with errors.
 Instead of the `panic!`, we can also easily write `return`:
 
-```rust
+```rust,no_run
 # fn main() -> Result<(), Box<std::error::Error>> {
 let result = std::fs::read_to_string("test.txt");
-let content = match result {
+let _content = match result {
     Ok(content) => { content },
-    Err(error) => { return Err(error); }
+    Err(error) => { return Err(error.into()); }
 };
-println!("file content: {}", content);
 # Ok(())
 # }
 ```
@@ -101,12 +96,12 @@ And in this last example with `return`,
 it becomes important.
 Here's the _full_ example:
 
-```rust
+```rust,no_run
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let result = std::fs::read_to_string("test.txt");
     let content = match result {
         Ok(content) => { content },
-        Err(error) => { return Err(error); }
+        Err(error) => { return Err(error.into()); }
     };
     println!("file content: {}", content);
     Ok(())
@@ -143,7 +138,7 @@ the `match` we just wrote.
 
 Give it a try:
 
-```rust
+```rust,no_run
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let content = std::fs::read_to_string("test.txt")?;
     println!("file content: {}", content);
@@ -191,17 +186,8 @@ There are multiple ways to deal with this.
 For example, we can create our own error type,
 and then use that to build a custom error message:
 
-```rust
-#[derive(Debug)]
-struct CustomError(String);
-
-fn main() -> Result<(), CustomError> {
-    let path = "test.txt";
-    let content = std::fs::read_to_string(path)
-        .map_err(|err| CustomError(format!("Error reading `{}`: {}", path, err)))?;
-    println!("file content: {}", content);
-    Ok(())
-}
+```rust,ignore
+{{#include errors-custom.rs}}
 ```
 
 Now,
@@ -237,20 +223,8 @@ The full example will then look like this:
 
 [`exitfailure`]: https://docs.rs/exitfailure
 
-```rust
-extern crate failure;
-extern crate exitfailure;
-
-use failure::ResultExt;
-use exitfailure::ExitFailure;
-
-fn main() -> Result<(), ExitFailure> {
-    let path = "test.txt";
-    let content = std::fs::read_to_string(path)
-        .with_context(|_| format!("could not read file `{}`", path))?;
-    println!("file content: {}", content);
-    Ok(())
-}
+```rust,ignore
+{{#include errors-exit.rs}}
 ```
 
 This will print an error like this:

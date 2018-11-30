@@ -8,7 +8,7 @@ Both can be automatically generated
 when using `clap`,
 via the `man` backend.
 
-```rust
+```rust,ignore
 #[derive(Clap)]
 pub struct Head {
     /// file to load
@@ -31,18 +31,15 @@ but for now
 we simply put the `man` file
 next to our `src` folder.
 
-```rust
-extern crate clap;
-extern crate clap_generate;
+```rust,ignore
+use clap::IntoApp;
+use clap_generate::gen_manuals;
 
 #[path="src/cli.rs"]
 mod cli;
 
 fn main() {
-    use clap::IntoApp;
     let app = cli::Head::into_app();
-
-    use clap_generate::gen_manuals;
     for man in gen_manuals(&app) {
         let name = "head.1";
         let mut out = fs::File::create("head.1").unwrap();

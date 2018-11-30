@@ -5,13 +5,13 @@ we have our input data,
 and we can start to write our actual tool.
 Our `main` function only contains this line right now:
 
-```rust,no_run
+```rust,ignore
 {{#include impl-draft.rs:17:17}}
 ```
 
 Let’s start by opening the file we got.
 
-```rust,no_run
+```rust,ignore
 {{#include impl-draft.rs:18:19}}
 ```
 
@@ -33,7 +33,7 @@ we will look at how to improve this.
 Now, let’s iterate over the lines
 and print each one that contains our pattern:
 
-```rust,no_run
+```rust,ignore
 {{#include impl-draft.rs:21:25}}
 ```
 

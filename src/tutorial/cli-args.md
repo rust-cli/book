@@ -36,7 +36,7 @@ the ones that follow are what the user wrote afterwards.
 
 Getting the raw arguments this way is quite easy:
 
-```rust,no_run
+```rust,ignore
 {{#include cli-args-struct.rs:10:11}}
 ```
 
@@ -63,7 +63,7 @@ In Rust, it is very common to structure programs around the data they deal with
 so this way of looking at CLI arguments fits very well.
 Let's start with this:
 
-```rust,no_run
+```rust,ignore
 {{#include cli-args-struct.rs:3:7}}
 ```
 
@@ -87,7 +87,7 @@ One option would be manually parse the list of strings we get from the operating
 and build the structure ourselves.
 It would looks something like this:
 
-```rust,no_run
+```rust,ignore
 {{#include cli-args-struct.rs:10:15}}
 ```
 
@@ -124,7 +124,7 @@ Let's also write some documentation comments along the way.
 
 It’ll look like this:
 
-```rust,no_run
+```rust,ignore
 {{#include cli-args-structopt.rs:3:14}}
 ```
 
@@ -145,7 +145,7 @@ Right below the `Cli` struct our template contains its `main` function.
 When the program starts, it will call this function.
 The first line is:
 
-```rust,no_run
+```rust,ignore
 {{#include cli-args-structopt.rs:15:18}}
 ```
 

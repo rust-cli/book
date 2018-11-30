@@ -42,7 +42,7 @@ Let's talk about how to automate these tests.
 Rust has a built-in test framework,
 so let's start by writing a first test:
 
-```rust
+```rust,ignore
 #[test]
 fn check_answer_validity() {
     assert_eq!(answer(), 42);
@@ -103,7 +103,7 @@ on any of the setup code we have around it
 Going back to our [first implementation](../impl-draft.md) of `grrs`,
 we added this block of code to the `main` function:
 
-```rust
+```rust,ignore
 // ...
 for line in content.lines() {
     if line.contains(&args.pattern) {
@@ -116,7 +116,7 @@ Sadly, this is not very easy to test.
 First off all, it's in the main function, so we can't easily call it.
 This is easily fixed by moving this piece of code into a function:
 
-```rust
+```rust,no_run
 fn find_matches(content: &str, pattern: &str) {
     for line in content.lines() {
         if line.contains(pattern) {
@@ -129,7 +129,7 @@ fn find_matches(content: &str, pattern: &str) {
 Now we can call this function in our test,
 and see what its output is:
 
-```rust
+```rust,ignore
 #[test]
 fn find_a_match() {
     find_matches("lorem ipsum\ndolor sit amet", "lorem");
@@ -183,8 +183,8 @@ In our test, we can then supply a simple string
 to make assertions on.
 Instead of `println!(…)` we can just use `writeln!(writer, …)`.
 
-```rust
-fn find_matches<W: Write>(content: &str, pattern: &str, writer: &mut W) {
+```rust,no_run
+fn find_matches<W: std::io::Write>(content: &str, pattern: &str, writer: &mut W) {
     for line in content.lines() {
         if line.contains(pattern) {
             writeln!(writer, "{}", line);
@@ -195,7 +195,7 @@ fn find_matches<W: Write>(content: &str, pattern: &str, writer: &mut W) {
 
 Now we can test for the output:
 
-```rust
+```rust,ignore
 #[test]
 fn find_a_match() {
     let mut result = Vec::new();
@@ -365,10 +365,7 @@ Nevertheless --
 let's dive right in
 and create our `tests/cli.rs` file:
 
-```rust
-extern crate assert_cmd;
-extern crate predicates;
-
+```rust,ignore
 use std::process::Command;  // Run programs
 use assert_cmd::prelude::*; // Add methods on commands
 use predicates::prelude::*; // Used for writing assertions

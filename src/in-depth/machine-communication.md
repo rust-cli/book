@@ -26,7 +26,7 @@ we can use a crate like [atty]:
 
 [atty]: https://crates.io/crates/atty
 
-```rust
+```rust,ignore
 use atty::Stream;
 
 if atty::is(Stream::Stdout) {
