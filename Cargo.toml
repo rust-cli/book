@@ -36,6 +36,15 @@ path = "src/tutorial/output-progressbar.rs"
 name = "output-log"
 path = "src/tutorial/output-log.rs"
 
+[[bin]]
+name = "testing-working"
+path = "src/tutorial/testing-working.rs"
+
+[[bin]]
+name = "testing-integration"
+path = "src/tutorial/testing-integration.rs"
+test = false
+
 [dependencies]
 structopt = "0.2.10"
 failure = "0.1.3"
@@ -43,7 +52,5 @@ exitfailure = "0.5.1"
 indicatif = "0.10.1"
 log = "0.4.6"
 env_logger = "0.6.0"
-
-[dev-dependencies]
 assert_cmd = "0.10"
 predicates = "1.0.0"

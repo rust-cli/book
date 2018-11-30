@@ -183,25 +183,14 @@ In our test, we can then supply a simple string
 to make assertions on.
 Instead of `println!(…)` we can just use `writeln!(writer, …)`.
 
-```rust,no_run
-fn find_matches<W: std::io::Write>(content: &str, pattern: &str, writer: &mut W) {
-    for line in content.lines() {
-        if line.contains(pattern) {
-            writeln!(writer, "{}", line);
-        }
-    }
-}
+```rust,ignore
+{{#include testing-working.rs:3:9}}
 ```
 
 Now we can test for the output:
 
 ```rust,ignore
-#[test]
-fn find_a_match() {
-    let mut result = Vec::new();
-    find_matches("lorem ipsum\ndolor sit amet", "lorem", &mut result);
-    assert_eq!(result, b"lorem ipsum\n");
-}
+{{#include testing-working.rs:11:16}}
 ```
 
 To now use this in our application code,
@@ -366,21 +355,7 @@ let's dive right in
 and create our `tests/cli.rs` file:
 
 ```rust,ignore
-use std::process::Command;  // Run programs
-use assert_cmd::prelude::*; // Add methods on commands
-use predicates::prelude::*; // Used for writing assertions
-
-#[test]
-fn file_doesnt_exist() -> Result<(), Box<std::error::Error>> {
-    let mut cmd = Command::main_binary()?;
-    cmd.arg("foobar")
-        .arg("test/file/doesnt/exist");
-    cmd.assert()
-        .failure()
-        .stderr(predicate::str::contains("No such file or directory"));
-
-    Ok(())
-}
+{{#include testing-integration.rs:3:17}}
 ```
 
 You can run this test with
