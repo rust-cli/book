@@ -169,18 +169,19 @@ ideally in a form that can be easily consumed.
 Using the [indicatif] crate,
 you can add progress bars
 and little spinners to your program.
+Here's a quick example:
 
-<aside class="todo">
+```rust,ignore
+{{#include output-progressbar.rs:1:9}}
+```
 
-**TODO:**
-Show an example like
-[this](https://github.com/mitsuhiko/indicatif/blob/950091d1b1683a88e01c4d4975f591009f56322b/examples/log.rs)
-or [this](https://github.com/ashleygwilliams/cargo-generate/blob/c18cba0b33764012e25288d43c6a8545222b96f4/src/main.rs#L95).
-[Issue #67](https://github.com/rust-lang-nursery/cli-wg/issues/67)
-
-</aside>
+See the [documentation][indicatif docs]
+and [examples][indicatif examples]
+for more information.
 
 [indicatif]: https://crates.io/crates/indicatif
+[indicatif docs]: https://docs.rs/indicatif
+[indicatif examples]: https://github.com/mitsuhiko/indicatif/tree/master/examples
 
 ## Logging
 
