@@ -1,0 +1,20 @@
+[package]
+name = "CLAiR"
+version = "0.1.0"
+authors = ["Pascal Hertleif <killercup@gmail.com>"]
+edition = "2018"
+
+[[bin]]
+name = "cli-args-struct"
+path = "src/tutorial/cli-args-struct.rs"
+
+[[bin]]
+name = "cli-args-structopt"
+path = "src/tutorial/cli-args-structopt.rs"
+
+[dependencies]
+structopt = "0.2.10"
+
+[dev-dependencies]
+assert_cmd = "0.10"
+predicates = "1.0.0"
