@@ -12,6 +12,14 @@ path = "src/tutorial/cli-args-struct.rs"
 name = "cli-args-structopt"
 path = "src/tutorial/cli-args-structopt.rs"
 
+[[bin]]
+name = "impl-draft-shortcut"
+path = "src/tutorial/impl-draft-shortcut.rs"
+
+[[bin]]
+name = "impl-draft"
+path = "src/tutorial/impl-draft.rs"
+
 [dependencies]
 structopt = "0.2.10"
 
