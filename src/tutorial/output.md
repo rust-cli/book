@@ -189,33 +189,75 @@ To make it easier to understand what is happening in our program,
 we might want to add some log statements.
 This is usually easy while writing your application.
 But it will become super helpful when running this program again in half a year.
+In some regard,
+logging is the same as using `println`,
+except that you can specify the importance of a message.
+The levels you can usually use are use _error_, _warn_, _info_, _debug_, and _trace_
+(_error_ has the highest priority, _trace_ the lowest).
 
-<aside class="todo">
+To add simple logging to your application,
+you'll need two things:
+The [log] crate (this contains)
+and an _adapter_ that actually writes the log output somewhere useful.
+Having the ability to use log adapters is very flexible:
+You can, for example, use them to write logs not only to the terminal
+but also to _syslog_, or to a central log server.
 
-**TODO:**
-`log` crate: macros with similar syntax to `println`
-[Issue #68](https://github.com/rust-lang-nursery/cli-wg/issues/68)
+Since we are right now only concerned with writing a CLI application,
+an easy adapter to use is [env_logger].
+It's called "env" logger because you can
+use an environment variable to specify which parts of your application
+you want to log
+(and at which level you want to log them).
+It will prefix your log messages with a timestamp
+and the module where the log messages comes from.
+Since libraries can also use `log`,
+you easily configure their log output, too.
 
-</aside>
+[log]: https://crates.io/crates/log
+[env_logger]: https://crates.io/crates/env_logger
 
-<aside class="todo">
+Here's a quick example:
 
-**TODO:**
-crate for actual log output – which one?
-env_logger?
-Link to `../in-depth/human-communication.html`
-[Issue #68](https://github.com/rust-lang-nursery/cli-wg/issues/68)
+```rust,ignore
+{{#include output-log.rs}}
+```
 
-</aside>
+Assuming you have this as a `src/bin/output-log.rs`,
+you can run it like this:
+
+```console
+$ env RUST_LOG=output_log=info cargo run --bin output-log
+    Finished dev [unoptimized + debuginfo] target(s) in 0.17s
+     Running `target/debug/output-log`
+[2018-11-30T20:25:52Z INFO  output_log] starting up
+[2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
+```
+
+`RUST_LOG` is the name of the environment variable
+you can use to set your log settings.
+`env_logger` also contains a builder
+so you can programmatically adjust these settings,
+and, for example, also show _info_ level messages by default.
+
+There are a lot of alternative logging adapters out there,
+and also alternatives or extension to `log`.
+If you know your application will have a lot to log,
+make sure to review them,
+and make your users' life easier.
 
 <aside>
 
-**Aside:**
+**Tip:**
 Experience has shown that even mildly useful CLI programs can end up being used for years to come.
 (Especially if they were meant as a temporary solution.)
 If your application doesn't work
 and someone (e.g., you, in the future) needs to figure out why,
 being able to pass `--verbose` to get additional log output
 can make the difference between minutes and hours of debugging.
+The [clap-verbosity-flag] crate contains a quick way
+to add a `--verbose` to a project using `structopt`.
+
+[clap-verbosity-flag]: https://crates.io/crates/clap-verbosity-flag
 
 </aside>
