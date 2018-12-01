@@ -184,18 +184,25 @@ to make assertions on.
 Instead of `println!(…)` we can just use `writeln!(writer, …)`.
 
 ```rust,ignore
-{{#include testing-working.rs:3:9}}
+{{#include testing/src/main.rs:25:31}}
 ```
 
 Now we can test for the output:
 
 ```rust,ignore
-{{#include testing-working.rs:11:16}}
+{{#include testing/src/main.rs:34:38}}
 ```
 
 To now use this in our application code,
 we have to change the call to `find_matches` in `main`
 by adding [`&mut std::io::stdout()`][stdout] as the third parameter.
+Here's an example of a main function
+that builds on what we've seen in the previous chapters
+and uses our extracted `find_matches` function:
+
+```rust,ignore
+{{#include testing/src/main.rs:15:23}}
+```
 
 [stdout]: https://doc.rust-lang.org/1.28.0/std/io/fn.stdout.html
 
@@ -215,7 +222,10 @@ instead of a regular string.
 <aside class="exercise">
 
 **Exercise for the reader:**
-[`writeln!`] returns an [`io::Result`]. Add error handling to `find_matches`.
+[`writeln!`] returns an [`io::Result`],
+because writing can fail,
+for example when the buffer is full and cannot be expanded.
+Add error handling to `find_matches`.
 
 [`writeln!`]: https://doc.rust-lang.org/1.28.0/std/macro.writeln.html
 [`io::Result`]: https://doc.rust-lang.org/1.28.0/std/io/type.Result.html
@@ -345,17 +355,25 @@ we'll also add the [`predicates`] crate
 which helps us write assertions
 that `assert_cmd` can test against
 (and that have great error messages).
+We'll add those dependencies not to main list,
+but to a "dev dependencies" section in our `Cargo.toml`.
+They are only required when developing the crate,
+not when using it.
+
+```toml
+{{#include testing/Cargo.toml:12:14}}
+```
 
 [`assert_cmd`]: https://docs.rs/assert_cmd
 [`predicates`]: https://docs.rs/predicates
 
 This sounds like a lot of setup.
-Nevertheless --
+Nevertheless –
 let's dive right in
 and create our `tests/cli.rs` file:
 
 ```rust,ignore
-{{#include testing-integration.rs:3:17}}
+{{#include testing/tests/cli.rs:1:15}}
 ```
 
 You can run this test with
