@@ -432,6 +432,46 @@ the actual temporary file will automatically get deleted.
 Add integration tests for passing an empty string as pattern.
 Adjust the program as needed.
 
+</aside>
 
+## What to test?
+
+While it can certainly be fun to write integration tests,
+it will also take some time to write them,
+as well as to update them when your application's behavior changes.
+To make sure you use your time wisely,
+you should ask yourself what you should test.
+
+In general it's a good idea to write integration tests
+for all types of behavior that a user can observe.
+That means that you don't need to cover all edge cases:
+It usually suffices to have examples for the different types
+and rely on unit tests to cover the edge cases.
+
+It is also a good idea not to focus your tests on things you can't actively control.
+It would be a bad idea to test the exact layout of `--help`
+as it is generated for you.
+Instead, you might just want to check that certain elements are present.
+
+Depending on the nature of your program,
+you can also try to add more testing techniques.
+For example,
+if you have extracted parts of your program
+and find yourself writing a lot of example cases as unit tests
+while trying to come up with all the edge cases,
+your should look into [`proptest`].
+If you have a program than consumes arbitrary files and parses them,
+try to write a [fuzzer] to find edge cases and bugs.
+
+[`proptest`]: https://docs.rs/proptest
+[fuzzer]: https://fuzz.rs/book/introduction.html
+
+<aside>
+
+**Aside:**
+You can find the full, runnable source code used in this chapter
+[in this book's repository][src].
+
+[src]: https://github.com/rust-lang-nursery/cli-wg/tree/master/src/tutorial/testing
 
 </aside>
