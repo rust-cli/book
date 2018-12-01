@@ -382,13 +382,56 @@ just the tests we wrote above.
 It might take a little longer the first time,
 as `Command::main_binary()` needs to compile your main binary.
 
-<aside class="todo">
+## Generating test files
 
-**TODO:**
+The test we've just seen only checks that our program writes an error messages
+when the input file doesn't exist.
+That's an important test to have,
+but maybe not the most important one:
+Let's now test that we will actually print the matches we found in a file!
 
-- Talk about generating temp dirs with demo files.
-- Write a _useful_ test asserting clap's output (not to little, no too much; we don't want to test all of clap after all)
+We'll need to have a file whose content we know,
+so that we can know what our program _should_ return
+and check this expectation in our code.
+One idea might be to add a file to the project with custom content
+and use that in our tests.
+Another would be to create temporary files in our tests.
+For this tutorial,
+we'll have a look at the latter approach.
+Mainly, because it is more flexible and will also work in other cases;
+for example, when you are testing programs that change the files.
 
-[Issue #72](https://github.com/rust-lang-nursery/cli-wg/issues/72)
+To create these temporary files,
+we'll be using the [`tempfile`] crate.
+Let's add it to the `dev-dependencies` in our `Cargo.toml`:
+
+```toml
+{{#include testing/Cargo.toml:15}}
+```
+
+[`tempfile`]: https://docs.rs/tempfile/3/tempfile/
+
+Here is a new test case
+(that you can write below the other one)
+that first creates a temp file
+(a "named" one so we can get its path),
+fills it with some text,
+and then run our program
+to see if we get the correct output.
+When the `file` goes out of scope
+(at the end of the function),
+the actual temporary file will automatically get deleted.
+
+```rust,ignore
+{{#include testing/tests/cli.rs:17:34}}
+```
+
+<aside class="exercise">
+
+**Exercise for the reader:**
+Add integration tests for passing an empty string as pattern.
+Adjust the program as needed.
+
+
 
 </aside>
