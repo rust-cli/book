@@ -40,8 +40,8 @@ Depending on who will read our output,
 we can then add extra information.
 Humans tend to like colors,
 for example,
-so if I run `ls` in a random Rust project,
-I'll get something like
+if you run `ls` in a random Rust project,
+you might see something like this:
 
 ```console
 $ ls
@@ -51,8 +51,11 @@ Cargo.lock           README.md            src
 Cargo.toml           convey_derive        target
 ```
 
-where the last three words are in blue (to show they are folders).
-If I were to pipe this to a file,
+Because this style is made for humans,
+in most configurations
+it'll even print some of the names (like `src`) in color
+to show that they are directories.
+If you instead pipe this to a file,
 or a program like `cat`,
 `ls` will adapt its output.
 Instead of using columns that fit my terminal window
