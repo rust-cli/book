@@ -122,18 +122,13 @@ To speed this up,
 there's two things you can do.
 
 First,
-it helps to acquire a lock on `stdout` (or `stderr`)
-and use `writeln!` to print to it directly.
-This prevents the system from locking an unlocking `stdout` over and over again.
-
-Second,
 you might want to reduce the number of writes
 you actually "flush" to the terminal.
 `println!` tells the system to write to the terminal _every_ time,
 because it is usual to print each new line.
 If you don't need that,
 you can wrap your `stdout` handle in a [`BufWriter`]
-which by default buffers up to 8kB.
+which by default buffers up to 8 kB.
 (You can still call `.flush()` on this `BufWriter`
 when you want to print immediately.)
 
@@ -141,10 +136,24 @@ when you want to print immediately.)
 use std::io::{self, Write};
 
 let stdout = io::stdout(); // get the global stdout entity
-let handle = stdout.lock(); // acquire a lock on it
-let mut handle = io::BufWriter::new(handle); // optional: wrap that handle in a buffer
+let mut handle = io::BufWriter::new(stdout); // optional: wrap that handle in a buffer
 writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 ```
+
+Second,
+it helps to acquire a lock on `stdout` (or `stderr`)
+and use `writeln!` to print to it directly.
+This prevents the system from locking an unlocking `stdout` over and over again.
+
+```rust
+use std::io::{self, Write};
+
+let stdout = io::stdout(); // get the global stdout entity
+let mut handle = stdout.lock(); // acquire a lock on it
+writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
+```
+
+You can also combine the two approaches.
 
 [`BufWriter`]: https://doc.rust-lang.org/1.29.0/std/io/struct.BufWriter.html
 
@@ -160,18 +169,19 @@ ideally in a form that can be easily consumed.
 Using the [indicatif] crate,
 you can add progress bars
 and little spinners to your program.
+Here's a quick example:
 
-<aside class="todo">
+```rust,ignore
+{{#include output-progressbar.rs:1:9}}
+```
 
-**TODO:**
-Show an example like
-[this](https://github.com/mitsuhiko/indicatif/blob/950091d1b1683a88e01c4d4975f591009f56322b/examples/log.rs)
-or [this](https://github.com/ashleygwilliams/cargo-generate/blob/c18cba0b33764012e25288d43c6a8545222b96f4/src/main.rs#L95).
-[Issue #67](https://github.com/rust-lang-nursery/cli-wg/issues/67)
-
-</aside>
+See the [documentation][indicatif docs]
+and [examples][indicatif examples]
+for more information.
 
 [indicatif]: https://crates.io/crates/indicatif
+[indicatif docs]: https://docs.rs/indicatif
+[indicatif examples]: https://github.com/mitsuhiko/indicatif/tree/master/examples
 
 ## Logging
 
@@ -179,33 +189,75 @@ To make it easier to understand what is happening in our program,
 we might want to add some log statements.
 This is usually easy while writing your application.
 But it will become super helpful when running this program again in half a year.
+In some regard,
+logging is the same as using `println`,
+except that you can specify the importance of a message.
+The levels you can usually use are use _error_, _warn_, _info_, _debug_, and _trace_
+(_error_ has the highest priority, _trace_ the lowest).
 
-<aside class="todo">
+To add simple logging to your application,
+you'll need two things:
+The [log] crate (this contains)
+and an _adapter_ that actually writes the log output somewhere useful.
+Having the ability to use log adapters is very flexible:
+You can, for example, use them to write logs not only to the terminal
+but also to _syslog_, or to a central log server.
 
-**TODO:**
-`log` crate: macros with similar syntax to `println`
-[Issue #68](https://github.com/rust-lang-nursery/cli-wg/issues/68)
+Since we are right now only concerned with writing a CLI application,
+an easy adapter to use is [env_logger].
+It's called "env" logger because you can
+use an environment variable to specify which parts of your application
+you want to log
+(and at which level you want to log them).
+It will prefix your log messages with a timestamp
+and the module where the log messages comes from.
+Since libraries can also use `log`,
+you easily configure their log output, too.
 
-</aside>
+[log]: https://crates.io/crates/log
+[env_logger]: https://crates.io/crates/env_logger
 
-<aside class="todo">
+Here's a quick example:
 
-**TODO:**
-crate for actual log output – which one?
-env_logger?
-Link to `../in-depth/human-communication.html`
-[Issue #68](https://github.com/rust-lang-nursery/cli-wg/issues/68)
+```rust,ignore
+{{#include output-log.rs}}
+```
 
-</aside>
+Assuming you have this as a `src/bin/output-log.rs`,
+you can run it like this:
+
+```console
+$ env RUST_LOG=output_log=info cargo run --bin output-log
+    Finished dev [unoptimized + debuginfo] target(s) in 0.17s
+     Running `target/debug/output-log`
+[2018-11-30T20:25:52Z INFO  output_log] starting up
+[2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
+```
+
+`RUST_LOG` is the name of the environment variable
+you can use to set your log settings.
+`env_logger` also contains a builder
+so you can programmatically adjust these settings,
+and, for example, also show _info_ level messages by default.
+
+There are a lot of alternative logging adapters out there,
+and also alternatives or extension to `log`.
+If you know your application will have a lot to log,
+make sure to review them,
+and make your users' life easier.
 
 <aside>
 
-**Aside:**
+**Tip:**
 Experience has shown that even mildly useful CLI programs can end up being used for years to come.
 (Especially if they were meant as a temporary solution.)
 If your application doesn't work
 and someone (e.g., you, in the future) needs to figure out why,
 being able to pass `--verbose` to get additional log output
 can make the difference between minutes and hours of debugging.
+The [clap-verbosity-flag] crate contains a quick way
+to add a `--verbose` to a project using `structopt`.
+
+[clap-verbosity-flag]: https://crates.io/crates/clap-verbosity-flag
 
 </aside>

@@ -290,7 +290,7 @@ has a way to generate all these files for us.
 See [this in-depth chapter][clap-man-pages]
 for more details.
 
-[clap-man-pages]: ../../in-depth/docs.md
+[clap-man-pages]: ../../in-depth/docs.html
 
 
 ## Getting your app into package repositories

@@ -4,7 +4,7 @@ Rust is a statically compiled, fast language with great tooling and a rapidly gr
 That makes it a great fit for writing command line applications:
 They should be small, portable, and quick to run.
 Command line applications are also a great way to get started with learning Rust;
-or if you want to introduce Rust to your team!
+or to introduce Rust to your team!
 
 Writing a program with a simple command line interface (CLI)
 is great a exercise for a beginner

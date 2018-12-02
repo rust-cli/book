@@ -30,7 +30,7 @@ Please see its API documentation for the possible values to use.
 
 One way to use it is like this:
 
-```rust
+```rust,ignore
 fn main() {
     // ...actual work...
     match result {

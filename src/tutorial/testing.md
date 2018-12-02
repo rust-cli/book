@@ -42,7 +42,7 @@ Let's talk about how to automate these tests.
 Rust has a built-in test framework,
 so let's start by writing a first test:
 
-```rust
+```rust,ignore
 #[test]
 fn check_answer_validity() {
     assert_eq!(answer(), 42);
@@ -103,7 +103,7 @@ on any of the setup code we have around it
 Going back to our [first implementation](../impl-draft.md) of `grrs`,
 we added this block of code to the `main` function:
 
-```rust
+```rust,ignore
 // ...
 for line in content.lines() {
     if line.contains(&args.pattern) {
@@ -116,7 +116,7 @@ Sadly, this is not very easy to test.
 First off all, it's in the main function, so we can't easily call it.
 This is easily fixed by moving this piece of code into a function:
 
-```rust
+```rust,no_run
 fn find_matches(content: &str, pattern: &str) {
     for line in content.lines() {
         if line.contains(pattern) {
@@ -129,7 +129,7 @@ fn find_matches(content: &str, pattern: &str) {
 Now we can call this function in our test,
 and see what its output is:
 
-```rust
+```rust,ignore
 #[test]
 fn find_a_match() {
     find_matches("lorem ipsum\ndolor sit amet", "lorem");
@@ -183,30 +183,26 @@ In our test, we can then supply a simple string
 to make assertions on.
 Instead of `println!(…)` we can just use `writeln!(writer, …)`.
 
-```rust
-fn find_matches<W: Write>(content: &str, pattern: &str, writer: &mut W) {
-    for line in content.lines() {
-        if line.contains(pattern) {
-            writeln!(writer, "{}", line);
-        }
-    }
-}
+```rust,ignore
+{{#include testing/src/main.rs:25:31}}
 ```
 
 Now we can test for the output:
 
-```rust
-#[test]
-fn find_a_match() {
-    let mut result = Vec::new();
-    find_matches("lorem ipsum\ndolor sit amet", "lorem", &mut result);
-    assert_eq!(result, b"lorem ipsum\n");
-}
+```rust,ignore
+{{#include testing/src/main.rs:34:38}}
 ```
 
 To now use this in our application code,
 we have to change the call to `find_matches` in `main`
 by adding [`&mut std::io::stdout()`][stdout] as the third parameter.
+Here's an example of a main function
+that builds on what we've seen in the previous chapters
+and uses our extracted `find_matches` function:
+
+```rust,ignore
+{{#include testing/src/main.rs:15:23}}
+```
 
 [stdout]: https://doc.rust-lang.org/1.28.0/std/io/fn.stdout.html
 
@@ -226,7 +222,10 @@ instead of a regular string.
 <aside class="exercise">
 
 **Exercise for the reader:**
-[`writeln!`] returns an [`io::Result`]. Add error handling to `find_matches`.
+[`writeln!`] returns an [`io::Result`],
+because writing can fail,
+for example when the buffer is full and cannot be expanded.
+Add error handling to `find_matches`.
 
 [`writeln!`]: https://doc.rust-lang.org/1.28.0/std/macro.writeln.html
 [`io::Result`]: https://doc.rust-lang.org/1.28.0/std/io/type.Result.html
@@ -356,34 +355,25 @@ we'll also add the [`predicates`] crate
 which helps us write assertions
 that `assert_cmd` can test against
 (and that have great error messages).
+We'll add those dependencies not to main list,
+but to a "dev dependencies" section in our `Cargo.toml`.
+They are only required when developing the crate,
+not when using it.
+
+```toml
+{{#include testing/Cargo.toml:12:14}}
+```
 
 [`assert_cmd`]: https://docs.rs/assert_cmd
 [`predicates`]: https://docs.rs/predicates
 
 This sounds like a lot of setup.
-Nevertheless --
+Nevertheless –
 let's dive right in
 and create our `tests/cli.rs` file:
 
-```rust
-extern crate assert_cmd;
-extern crate predicates;
-
-use std::process::Command;  // Run programs
-use assert_cmd::prelude::*; // Add methods on commands
-use predicates::prelude::*; // Used for writing assertions
-
-#[test]
-fn file_doesnt_exist() -> Result<(), Box<std::error::Error>> {
-    let mut cmd = Command::main_binary()?;
-    cmd.arg("foobar")
-        .arg("test/file/doesnt/exist");
-    cmd.assert()
-        .failure()
-        .stderr(predicate::str::contains("No such file or directory"));
-
-    Ok(())
-}
+```rust,ignore
+{{#include testing/tests/cli.rs:1:15}}
 ```
 
 You can run this test with
@@ -392,13 +382,96 @@ just the tests we wrote above.
 It might take a little longer the first time,
 as `Command::main_binary()` needs to compile your main binary.
 
-<aside class="todo">
+## Generating test files
 
-**TODO:**
+The test we've just seen only checks that our program writes an error messages
+when the input file doesn't exist.
+That's an important test to have,
+but maybe not the most important one:
+Let's now test that we will actually print the matches we found in a file!
 
-- Talk about generating temp dirs with demo files.
-- Write a _useful_ test asserting clap's output (not to little, no too much; we don't want to test all of clap after all)
+We'll need to have a file whose content we know,
+so that we can know what our program _should_ return
+and check this expectation in our code.
+One idea might be to add a file to the project with custom content
+and use that in our tests.
+Another would be to create temporary files in our tests.
+For this tutorial,
+we'll have a look at the latter approach.
+Mainly, because it is more flexible and will also work in other cases;
+for example, when you are testing programs that change the files.
 
-[Issue #72](https://github.com/rust-lang-nursery/cli-wg/issues/72)
+To create these temporary files,
+we'll be using the [`tempfile`] crate.
+Let's add it to the `dev-dependencies` in our `Cargo.toml`:
+
+```toml
+{{#include testing/Cargo.toml:15}}
+```
+
+[`tempfile`]: https://docs.rs/tempfile/3/tempfile/
+
+Here is a new test case
+(that you can write below the other one)
+that first creates a temp file
+(a "named" one so we can get its path),
+fills it with some text,
+and then run our program
+to see if we get the correct output.
+When the `file` goes out of scope
+(at the end of the function),
+the actual temporary file will automatically get deleted.
+
+```rust,ignore
+{{#include testing/tests/cli.rs:17:34}}
+```
+
+<aside class="exercise">
+
+**Exercise for the reader:**
+Add integration tests for passing an empty string as pattern.
+Adjust the program as needed.
+
+</aside>
+
+## What to test?
+
+While it can certainly be fun to write integration tests,
+it will also take some time to write them,
+as well as to update them when your application's behavior changes.
+To make sure you use your time wisely,
+you should ask yourself what you should test.
+
+In general it's a good idea to write integration tests
+for all types of behavior that a user can observe.
+That means that you don't need to cover all edge cases:
+It usually suffices to have examples for the different types
+and rely on unit tests to cover the edge cases.
+
+It is also a good idea not to focus your tests on things you can't actively control.
+It would be a bad idea to test the exact layout of `--help`
+as it is generated for you.
+Instead, you might just want to check that certain elements are present.
+
+Depending on the nature of your program,
+you can also try to add more testing techniques.
+For example,
+if you have extracted parts of your program
+and find yourself writing a lot of example cases as unit tests
+while trying to come up with all the edge cases,
+your should look into [`proptest`].
+If you have a program than consumes arbitrary files and parses them,
+try to write a [fuzzer] to find edge cases and bugs.
+
+[`proptest`]: https://docs.rs/proptest
+[fuzzer]: https://fuzz.rs/book/introduction.html
+
+<aside>
+
+**Aside:**
+You can find the full, runnable source code used in this chapter
+[in this book's repository][src].
+
+[src]: https://github.com/rust-lang-nursery/cli-wg/tree/master/src/tutorial/testing
 
 </aside>

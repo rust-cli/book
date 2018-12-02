@@ -1,5 +1,12 @@
 # Communicating with humans
 
+Make sure to read [the chapter on CLI output][output]
+in the tutorial first.
+It covers how to write output to the terminal,
+while this chapter will talk about _what_ to output.
+
+[output]: ../tutorial/output.html
+
 ## When everything is fine
 
 It is useful to report on the application's progress
@@ -64,18 +71,18 @@ while not being *too* verbose at the same time.
 
 ### Example log statements
 
-```
+```console
 error: could not find `Cargo.toml` in `/home/you/project/`
 ```   
 
-```
+```console
 => Downloading repository index
 => Downloading packages...
 ```
 
 The following log output is taken from [wasm-pack]:
 
-```
+```console
  [1/7] Adding WASM target...
  [2/7] Compiling to WASM...
  [3/7] Creating a pkg directory...
@@ -127,7 +134,7 @@ you import it
 and call the `setup_panic!()` macro
 at the beginning of your `main` function:
 
-```rust
+```rust,ignore
 use human_panic::setup_panic;
 
 fn main() {
