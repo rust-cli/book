@@ -116,14 +116,115 @@ it will just filter line by line.
 
 The downside of this is that you can't use
 an easy `grep` invocation to filter all the directories that `ls` gave you.
+For that, each directory item would need to carry additional data.
 
 ## JSON output for machines
 
-<aside class="todo">
+Tab-separated values is a simple way
+to output structured data
+but it requires the other program to know which fields to expect
+(and in which order)
+and it's difficult to output messages of different types.
+For example,
+let's say our program wanted to message the consumer
+that it is currently waiting for a download,
+and afterwards output a message describing the data it got.
+Those are very different kinds of messages
+and trying to unify them in a TSV output
+would require us to invent a way to differentiate them.
+Same when we wanted to print a message that contains two lists
+of items of varying lengths.
 
-**TODO:**
-Talk about how outputting lines of JSON documents is an approach some tools take.
-(see [#95](https://github.com/rust-lang-nursery/cli-wg/issues/95))
+Still,
+it's a good idea to choose a format that is easily parsable
+in most programming languages/environments.
+Thus,
+over the last years a lot of applications gained the ability
+to output their data in [JSON].
+It's simple enough that parsers exist in practically every language
+yet powerful enough to be useful in a lot of cases.
+While its a text format that can be read by humans,
+a lot of people have also worked on implementations that are very fast at
+parsing JSON data and serializing data to JSON.
+
+[JSON]: https://www.json.org/
+
+In the description above,
+we've talked about "messages" being written by our program.
+This is a good way of thinking about the output:
+Your program doesn't necessarily only output one blob of data
+but may in fact emit a lot of different information
+while it is running.
+One easy way to support this approach when outputting JSON
+is to write one JSON document per message
+and to put each JSON document on new line
+(sometimes called [Line-delimited JSON][jsonlines]).
+This can make implementations as simple as using a regular `println!`.
+
+[jsonlines]: https://en.wikipedia.org/wiki/JSON_streaming#Line-delimited_JSON
+
+Here's a simple example,
+using the `json!` macro from [serde_json]
+to quickly write valid JSON in your Rust source code:
+
+[serde_json]: https://crates.io/crates/serde_json
+
+```rust,ignore
+{{#include machine-communication.rs:1:22}}
+```
+
+And here is the output:
+
+```console
+$ cargo run -q
+Hello world
+$ cargo run -q -- --json
+{"content":"Hello world","type":"message"}
+```
+
+(Running `cargo` with `-q` suppresses its usual output.
+The arguments after `--` are passed to our program.)
+
+### Practical example: ripgrep
+
+_[ripgrep]_ is a replacement for _grep_ or _ag_, written in Rust.
+By default it will produce output like this:
+
+[ripgrep]: https://github.com/BurntSushi/ripgrep
+
+```console
+$ rg default
+src/lib.rs
+37:    Output::default()
+
+src/components/span.rs
+6:    Span::default()
+```
+
+But given `--json` it will print:
+
+```console
+$ rg default --json
+{"type":"begin","data":{"path":{"text":"src/lib.rs"}}}
+{"type":"match","data":{"path":{"text":"src/lib.rs"},"lines":{"text":"    Output::default()\n"},"line_number":37,"absolute_offset":761,"submatches":[{"match":{"text":"default"},"start":12,"end":19}]}}
+{"type":"end","data":{"path":{"text":"src/lib.rs"},"binary_offset":null,"stats":{"elapsed":{"secs":0,"nanos":137622,"human":"0.000138s"},"searches":1,"searches_with_match":1,"bytes_searched":6064,"bytes_printed":256,"matched_lines":1,"matches":1}}}
+{"type":"begin","data":{"path":{"text":"src/components/span.rs"}}}
+{"type":"match","data":{"path":{"text":"src/components/span.rs"},"lines":{"text":"    Span::default()\n"},"line_number":6,"absolute_offset":117,"submatches":[{"match":{"text":"default"},"start":10,"end":17}]}}
+{"type":"end","data":{"path":{"text":"src/components/span.rs"},"binary_offset":null,"stats":{"elapsed":{"secs":0,"nanos":22025,"human":"0.000022s"},"searches":1,"searches_with_match":1,"bytes_searched":5221,"bytes_printed":277,"matched_lines":1,"matches":1}}}
+{"data":{"elapsed_total":{"human":"0.006995s","nanos":6994920,"secs":0},"stats":{"bytes_printed":533,"bytes_searched":11285,"elapsed":{"human":"0.000160s","nanos":159647,"secs":0},"matched_lines":2,"matches":2,"searches":2,"searches_with_match":2}},"type":"summary"}
+```
+
+As you can see,
+each JSON document is an object (map) containing a `type` field.
+This would allow us to write a simple frontend for `rg`
+that reads these documents as they come in and show the matches
+(as well the files they are in)
+even while _ripgrep_ is still searching.
+
+<aside>
+
+**Aside:**
+This is how Visual Studio Code uses _ripgrip_ for its code search.
 
 </aside>
 

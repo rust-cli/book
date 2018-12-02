@@ -36,6 +36,10 @@ path = "src/tutorial/output-progressbar.rs"
 name = "output-log"
 path = "src/tutorial/output-log.rs"
 
+[[bin]]
+name = "machine-communication"
+path = "src/in-depth/machine-communication.rs"
+
 [workspace]
 members = [
     "src/tutorial/testing",
@@ -48,3 +52,4 @@ exitfailure = "0.5.1"
 indicatif = "0.10.1"
 log = "0.4.6"
 env_logger = "0.6.0"
+serde_json = "1"
