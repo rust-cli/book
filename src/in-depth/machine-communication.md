@@ -16,6 +16,17 @@ we should provide not just pretty output for humans,
 but also a version tailored to what other programs need.
 Let's see how we can do this.
 
+<aside>
+
+**Aside:**
+Make sure to read [the chapter on CLI output][output]
+in the tutorial first.
+It covers how to write output to the terminal.
+
+[output]: ../tutorial/output.html
+
+</aside>
+
 ## Who's reading this?
 
 The first question to ask is:
@@ -93,7 +104,7 @@ that happens to work for whatever `ls` outputs.
 
 This often means
 that output was limited to what is easy to parse.
-Formats like TSV,
+Formats like TSV (tab-separated values),
 where each record is on its own line,
 and each line contains tab-separated content,
 are very popular.

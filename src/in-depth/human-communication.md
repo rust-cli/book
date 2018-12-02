@@ -1,5 +1,12 @@
 # Communicating with humans
 
+Make sure to read [the chapter on CLI output][output]
+in the tutorial first.
+It covers how to write output to the terminal,
+while this chapter will talk about _what_ to output.
+
+[output]: ../tutorial/output.html
+
 ## When everything is fine
 
 It is useful to report on the application's progress
