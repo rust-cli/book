@@ -23,10 +23,10 @@ This is a shortcut function to quit that will make program exit immediately
 when the value (in this case the input file)
 could not be read.
 It's not very pretty,
-and in the next chapter on [nice error handling]
+and in the next chapter on [Nicer error reporting]
 we will look at how to improve this.
 
-[nice error handling]: ./errors.html
+[Nicer error reporting]:./errors.html
 
 </aside>
 
