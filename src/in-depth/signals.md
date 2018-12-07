@@ -94,13 +94,17 @@ Here's a simple example:
 
 ## Using channels
 
-Another approach is to use channels:
+Instead of setting a variable
+and having other parts of the program check it,
+you can use channels:
 You create a channel into which the signal handler emits a value
 whenever the signal is received.
-In you application code you use
+In your application code you use
 this and other channels
 as synchronization points between threads.
-Using crossbeam-channels it would look something like this:
+Using [crossbeam-channels] it would look something like this:
+
+[crossbeam-channels]: https://crates.io/crates/crossbeam-channel
 
 ```rust,ignore
 {{#include signals-channels.rs:1:31}}
@@ -123,7 +127,7 @@ to get a new type that implements `futures::Stream`.
 
 ## What to do when you receive another Ctrl+C while you're handling the first Ctrl+C
 
-Most user will press <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+Most users will press <kbd>Ctrl</kbd>+<kbd>C</kbd>,
 and then give your program a few seconds to exit,
 or tell them what's going on.
 If that doesn't happen,
