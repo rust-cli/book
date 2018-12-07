@@ -11,7 +11,7 @@ fn ctrl_channel() -> Result<Receiver<()>, ctrlc::Error> {
 }
 
 fn main() -> Result<(), exitfailure::ExitFailure> {
-    let ctrls = ctrl_channel()?;
+    let ctrl_c_events = ctrl_channel()?;
     let ticks = tick(Duration::from_secs(1));
 
     loop {
@@ -19,7 +19,7 @@ fn main() -> Result<(), exitfailure::ExitFailure> {
             recv(ticks) -> _ => {
                 println!("working!");
             }
-            recv(ctrls) -> _ => {
+            recv(ctrl_c_events) -> _ => {
                 println!();
                 println!("Goodbye!");
                 break;
