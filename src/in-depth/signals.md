@@ -36,7 +36,6 @@ catch the signal and handle them in a program-defined way,
 or ignore the signal entirely.
 
 [signals]: https://manpages.ubuntu.com/manpages/bionic/en/man7/signal.7.html
-[signal-safety man page]: http://manpages.ubuntu.com/manpages/bionic/man7/signal-safety.7.html
 
 Windows does not have signals.
 You can use [Console Handlers]
