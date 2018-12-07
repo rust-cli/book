@@ -18,7 +18,7 @@ the default handling is fine
 In that case:
 No need to do what this chapter tells you!
 For applications that need to clean up after themselves,
-for example to correct close network connections,
+for example to close network connections,
 remove temporary files,
 or reset system settings,
 this chapter is however very relevant!
@@ -29,7 +29,7 @@ this chapter is however very relevant!
 
 On Unix systems
 (like Linux, macOS, and FreeBSD)
-a process can receive [signals]
+a process can receive [signals].
 It can either react to them
 in a default (OS-provided) way,
 catch the signal and handle them in a program-defined way,
@@ -57,7 +57,7 @@ The main way to use the crate is this:
 [ctrlc]: https://crates.io/crates/ctrlc
 
 ```rust,ignore
-{{#import signals-ctrlc.rs:1:7}}
+{{#include signals-ctrlc.rs:1:7}}
 ```
 
 This is, of course, not that helpful:
@@ -68,7 +68,7 @@ it's a good idea to instead set a variable in the signal handler
 that you then check in various places in your program.
 For example,
 you can set an `Arc<AtomicBool>`
-(a boolean that shareable between threads)
+(a boolean shareable between threads)
 in your signal handler,
 and in hot loops,
 or when waiting for a thread,
@@ -77,8 +77,8 @@ and break when it becomes true.
 
 ## Handling other types of signals
 
-The [ctrlc] crate only handels <kbd>Ctrl</kbd>+<kbd>C</kbd>,
-or, what on Unix systems would be called SIGINT (the "interrupt" signal).
+The [ctrlc] crate only handles <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+or, what on Unix systems would be called `SIGINT` (the "interrupt" signal).
 To react to more Unix signals,
 you should have a look at [signal-hook].
 Its design is described in [this blog post][signal-hook-post],
@@ -89,7 +89,7 @@ and it is currently the library with the widest community support.
 ## Using channels
 
 Another approach is to use channels:
-You create a channel that the signal handler emits a value on
+You create a channel into which the signal handler emits a value
 whenever the signal is received.
 In you application code you use
 this and other channels
@@ -97,7 +97,7 @@ as synchronization points between threads.
 Using crossbeam-channels it would look something like this:
 
 ```rust,ignore
-{{#import signals-channels.rs:1:31}}
+{{#include signals-channels.rs:1:31}}
 ```
 
 ## Using futures and streams
@@ -122,4 +122,4 @@ and then give your program a few seconds to exit,
 or tell them what's going on.
 If that doesn't happen,
 they will press <kbd>Ctrl</kbd>+<kbd>C</kbd> again.
-The expected behavior is to have the application quit immediately.
+The typical behavior is to have the application quit immediately.
