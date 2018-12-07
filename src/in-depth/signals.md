@@ -84,6 +84,12 @@ you should have a look at [signal-hook].
 Its design is described in [this blog post][signal-hook-post],
 and it is currently the library with the widest community support.
 
+Here's a simple example:
+
+```rust,ignore
+{{#include signals-hooked.rs:1:14}}
+```
+
 [signal-hook-post]: https://vorner.github.io/2018/06/28/signal-hook.html
 
 ## Using channels

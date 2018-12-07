@@ -49,6 +49,10 @@ name = "signals-ctrlc"
 path = "src/in-depth/signals-ctrlc.rs"
 
 [[bin]]
+name = "signals-hooked"
+path = "src/in-depth/signals-hooked.rs"
+
+[[bin]]
 name = "signals-channels"
 path = "src/in-depth/signals-channels.rs"
 
@@ -70,3 +74,4 @@ serde_derive = "1.0.80"
 serde = "1.0.80"
 ctrlc = "3.1.1"
 crossbeam-channel = "0.3.2"
+signal-hook = "0.1.6"
