@@ -164,7 +164,7 @@ and we'll make use of one called [`std::io::Write`].
 This is a trait that abstracts over things we can write to,
 which includes strings but also `stdout`.
 
-[`std::io::Write`]: https://doc.rust-lang.org/1.28.0/std/io/trait.Write.html
+[`std::io::Write`]: https://doc.rust-lang.org/1.31.0/std/io/trait.Write.html
 
 <aside class="note">
 
@@ -204,7 +204,7 @@ and uses our extracted `find_matches` function:
 {{#include testing/src/main.rs:15:23}}
 ```
 
-[stdout]: https://doc.rust-lang.org/1.28.0/std/io/fn.stdout.html
+[stdout]: https://doc.rust-lang.org/1.31.0/std/io/fn.stdout.html
 
 <aside class="note">
 
@@ -228,8 +228,8 @@ because writing can fail,
 for example when the buffer is full and cannot be expanded.
 Add error handling to `find_matches`.
 
-[`writeln!`]: https://doc.rust-lang.org/1.28.0/std/macro.writeln.html
-[`io::Result`]: https://doc.rust-lang.org/1.28.0/std/io/type.Result.html
+[`writeln!`]: https://doc.rust-lang.org/1.31.0/std/macro.writeln.html
+[`io::Result`]: https://doc.rust-lang.org/1.31.0/std/io/type.Result.html
 
 </aside>
 
@@ -276,8 +276,9 @@ you can put the common functionality into the library part of that crate.
 Speaking of putting everything into a `src/main.rs`:
 If we continue to do that,
 it'll become difficult to read.
-[The module system](https://doc.rust-lang.org/book/ch07-00-packages-crates-and-modules.html)
-can help you structure and organize your code.
+The [module system] can help you structure and organize your code.
+
+[module system]: https://doc.rust-lang.org/1.31.0/book/ch07-00-packages-crates-and-modules.html
 
 </aside>
 

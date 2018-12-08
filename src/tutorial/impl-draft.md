@@ -50,6 +50,6 @@ Find a way to optimize it!
 (One idea might be to use a [`BufReader`]
 instead of `read_to_string()`.)
 
-[`BufReader`]: https://doc.rust-lang.org/1.30.1/std/io/struct.BufReader.html
+[`BufReader`]: https://doc.rust-lang.org/1.31.0/std/io/struct.BufReader.html
 
 </aside>
