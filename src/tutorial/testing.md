@@ -100,7 +100,7 @@ and we want to do it in a way that is not dependent
 on any of the setup code we have around it
 (that deals with CLI arguments, for example).
 
-Going back to our [first implementation](../impl-draft.md) of `grrs`,
+Going back to our [first implementation](impl-draft.md) of `grrs`,
 we added this block of code to the `main` function:
 
 ```rust,ignore
@@ -276,7 +276,7 @@ you can put the common functionality into the library part of that crate.
 Speaking of putting everything into a `src/main.rs`:
 If we continue to do that,
 it'll become difficult to read.
-[The module system](https://doc.rust-lang.org/book/2018-edition/ch07-00-modules.html)
+[The module system](https://doc.rust-lang.org/book/ch07-00-packages-crates-and-modules.html)
 can help you structure and organize your code.
 
 </aside>

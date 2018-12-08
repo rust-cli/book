@@ -1,10 +1,12 @@
 # Project setup
 
 If you haven’t already,
-[install Rust](https://www.rust-lang.org/install.html) on your computer
+[install Rust] on your computer
 (it should only take a few minutes).
 After that, open a terminal and navigate to the directory
 you want to put your application code into.
+
+[install Rust]: https://www.rust-lang.org/tools/install
 
 Start by running
 `cargo new grrs`
