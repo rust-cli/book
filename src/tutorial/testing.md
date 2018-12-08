@@ -190,7 +190,7 @@ Instead of `println!(…)` we can just use `writeln!(writer, …)`.
 Now we can test for the output:
 
 ```rust,ignore
-{{#include testing/src/main.rs:34:38}}
+{{#include testing/src/main.rs:33:38}}
 ```
 
 To now use this in our application code,
