@@ -25,8 +25,11 @@ Write that `README` before you write the code.
 
 **Aside:**
 Have a look at
-[Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD)
+[test-driven development] (TDD)
 if you haven't heard of it.
+
+[test-driven development]: https://en.wikipedia.org/wiki/Test-driven_development
+
 
 </aside>
 

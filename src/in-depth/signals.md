@@ -108,9 +108,9 @@ whenever the signal is received.
 In your application code you use
 this and other channels
 as synchronization points between threads.
-Using [crossbeam-channels] it would look something like this:
+Using [crossbeam-channel] it would look something like this:
 
-[crossbeam-channels]: https://crates.io/crates/crossbeam-channel
+[crossbeam-channel]: https://crates.io/crates/crossbeam-channel
 
 ```rust,ignore
 {{#include signals-channels.rs:1:31}}
