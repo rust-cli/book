@@ -103,9 +103,11 @@ eprintln!("This is an error! :(");
 
 <aside>
 
-**Beware**: Printing escape codes can be dangerous,
+**Beware**: Printing [escape codes] can be dangerous,
 putting the user's terminal into a weird state.
 Always be careful when manually printing them!
+
+[escape codes]: https://en.wikipedia.org/wiki/ANSI_escape_code
 
 Ideally you should be using a crate like `ansi_term`
 when dealing with raw escape codes
@@ -123,8 +125,8 @@ there's two things you can do.
 
 First,
 you might want to reduce the number of writes
-you actually "flush" to the terminal.
-`println!` tells the system to write to the terminal _every_ time,
+that actually "flush" to the terminal.
+`println!` tells the system to flush to the terminal _every_ time,
 because it is common to print each new line.
 If you don't need that,
 you can wrap your `stdout` handle in a [`BufWriter`]
@@ -197,11 +199,13 @@ The levels you can usually use are _error_, _warn_, _info_, _debug_, and _trace_
 
 To add simple logging to your application,
 you'll need two things:
-The [log] crate (this contains)
+The [log] crate (this contains macros named after the log level)
 and an _adapter_ that actually writes the log output somewhere useful.
 Having the ability to use log adapters is very flexible:
 You can, for example, use them to write logs not only to the terminal
-but also to _syslog_, or to a central log server.
+but also to [syslog], or to a central log server.
+
+[syslog]: https://en.wikipedia.org/wiki/Syslog
 
 Since we are right now only concerned with writing a CLI application,
 an easy adapter to use is [env_logger].

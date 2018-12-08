@@ -1,7 +1,7 @@
 # Testing
 
-Over the decades of people doing software development
-one truth has been found:
+Over decades of software development,
+people have discovered one truth:
 Untested software rarely works.
 (Many people would go as far as saying: 
 "Most tested software doesn't work either."
@@ -170,7 +170,7 @@ which includes strings but also `stdout`.
 
 **Note:**
 We could also make this function return a `String`,
-but that would change the behavior.
+but that would change its behavior.
 Instead of writing to the terminal directly,
 it would then collect everything into a string,
 and dump all the results in one go at the end.
@@ -213,9 +213,10 @@ Since `stdout` expects bytes (not strings),
 we use `std::io::Write` instead of `std::fmt::Write`.
 As a result,
 we give an empty vector as "writer" in our tests
-(its type will be inferred by `Vec<u8>`),
-and in the `assert_eq!` we use a `b"foo"`
-instead of a regular string.
+(its type will be inferred to `Vec<u8>`),
+in the `assert_eq!` we use a `b"foo"`.
+(The `b` prefix makes this a _byte string literal_
+so its type is going to be `&[u8]` instead of `&str`).
 
 </aside>
 
@@ -461,7 +462,7 @@ and find yourself writing a lot of example cases as unit tests
 while trying to come up with all the edge cases,
 your should look into [`proptest`].
 If you have a program which consumes arbitrary files and parses them,
-try to write a [fuzzer] to find edge cases and bugs.
+try to write a [fuzzer] to find bugs in edge cases.
 
 [`proptest`]: https://docs.rs/proptest
 [fuzzer]: https://fuzz.rs/book/introduction.html

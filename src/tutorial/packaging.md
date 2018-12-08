@@ -19,8 +19,8 @@ including those with binary targets.
 
 Publishing a crate to [crates.io] is pretty straightforward:
 If you haven't already, create an account on [crates.io].
-Currently, this is done via authorizing you on Github,
-so you'll need to have a Github account
+Currently, this is done via authorizing you on GitHub,
+so you'll need to have a GitHub account
 (and be logged in there).
 Next, you log in using cargo on your local machine.
 For that, go to your
@@ -63,7 +63,7 @@ The same license that is also used for the compiler itself.
 It also refers to a `README.md` file.
 It should include a quick description of what your project is about,
 and will be included not only on the crates.io page of your crate,
-but also what Github shows by default on repository pages.
+but also what GitHub shows by default on repository pages.
 
 </aside>
 
@@ -162,7 +162,7 @@ automatically?
 ### Building binary releases on CI
 
 If your tool is open sourced
-and hosted on Github,
+and hosted on GitHub,
 it's quite easy to set up a free CI (continuous integration) service
 like [Travis CI].
 (There are other services that also work on other platforms, but Travis is very popular.)
@@ -181,7 +181,7 @@ you know there are issues in the most recent changes.
 [Travis CI]: https://travis-ci.com/
 
 We can also use this
-to build binaries and upload them to Github!
+to build binaries and upload them to GitHub!
 Indeed, if we run
 `cargo build --release`
 and upload the binary somewhere,
@@ -245,7 +245,7 @@ on how to install this program.
 <aside class="note">
 
 **Note:**
-If you used [trust] to build your binaries and add them to Github releases,
+If you used [trust] to build your binaries and added them to GitHub releases,
 you can also tell people to run
 `curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git your-name/repo-name`
 if you think that makes it easier.
@@ -308,7 +308,8 @@ when a new version is available.
 
 Sadly, supporting different systems means
 you'll have to look at how these different systems work.
-For some it might be as easy as adding a file to your repository
+For some,
+it might be as easy as adding a file to your repository
 (e.g. adding a Formula file like [this][rg-formula] for macOS's `brew`),
 but for others you'll often need to send in patches yourself
 and add your tool to their repositories.
@@ -332,7 +333,7 @@ It's quite successful and is packaged for many operating systems:
 Just look at [the "Installation" section][rg-install] of its README!
 
 Note that it lists a few different options how you can install it:
-It starts with a link to the Github releases
+It starts with a link to the GitHub releases
 which contain the binaries so you can download them directly;
 then it lists how to install it using a bunch of different package manages;
 finally, you can also install it using `cargo install`.

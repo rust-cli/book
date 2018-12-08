@@ -151,7 +151,7 @@ Very concise!
 <aside>
 
 **Aside:**
-There are a few more things happening here,
+There are a few more things happening here
 that are not required to understand to work with this.
 For example,
 the error type in our `main` function is `Box<dyn std::error::Error>`.
@@ -171,7 +171,7 @@ so we can use `?` on all of the usual functions that return `Result`s.
 ## Providing Context
 
 The errors you get when using `?` in your `main` function are okay,
-but great they are not.
+but they are not great.
 For example:
 When you run `std::fs::read_to_string("test.txt")?`
 but the file `test.txt` doesn't exist,
@@ -227,7 +227,7 @@ The full example will then look like this:
 {{#include errors-exit.rs}}
 ```
 
-This will print an error like this:
+This will print an error:
 
 > Error: could not read file `test.txt`  
 > Info: caused by No such file or directory (os error 2)

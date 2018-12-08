@@ -20,7 +20,7 @@ so there's no reason for users to look up errors.
 Most importantly,
 be consistent in the style of communication.
 Use the same prefixes and sentence structure
-to make the logs easily skimmable. 
+to make the logs easily skimmable.
 
 Try to let your application output tell a story
 about what it's doing
@@ -29,7 +29,7 @@ This can involve showing a timeline of steps involved
 or even a progress bar and indicator for long-running actions.
 The user should at no point
 get the feeling that the application is doing something mysterious
-that they cannot follow. 
+that they cannot follow.
 
 ## When it's hard to tell what's going on
 
@@ -38,7 +38,8 @@ A heavily logging application that doesn't follow strict logging levels
 provides the same amount, or even less information
 than a non-logging application.
 
-Because of this it's important to define the severity of events
+Because of this,
+it's important to define the severity of events
 and messages that are related to it;
 then use consistent log levels for them.
 This way users can select the amount of logging themselves
@@ -60,11 +61,12 @@ Use it for, well, informative output.
 (Some applications that lean towards a more quiet output style
 might only show warnings and errors by default.)
 
-Additionally, it's always a good idea to use similar prefixes
-and sentence structure across log messages, 
-making it easy to `grep` or filter for them.
+Additionally,
+it's always a good idea to use similar prefixes
+and sentence structure across log messages,
+making it easy to use a tool like `grep` to filter for them.
 A message should provide enough context by itself
-to be useful in a filtered log 
+to be useful in a filtered log
 while not being *too* verbose at the same time.
 
 [log-levels]: https://docs.rs/log/0.4.4/log/enum.Level.html
@@ -73,7 +75,7 @@ while not being *too* verbose at the same time.
 
 ```console
 error: could not find `Cargo.toml` in `/home/you/project/`
-```   
+```
 
 ```console
 => Downloading repository index

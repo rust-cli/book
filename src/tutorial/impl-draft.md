@@ -18,7 +18,7 @@ Let’s start by opening the file we got.
 <aside>
 
 **Aside:**
-See that `.expect` method here?
+See that [`.expect`] method here?
 This is a shortcut function to quit that will make the program exit immediately
 when the value (in this case the input file)
 could not be read.
@@ -26,6 +26,7 @@ It's not very pretty,
 and in the next chapter on [Nicer error reporting]
 we will look at how to improve this.
 
+[`.expect`]: https://doc.rust-lang.org/1.31.0/std/result/enum.Result.html#method.expect
 [Nicer error reporting]:./errors.html
 
 </aside>

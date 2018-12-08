@@ -28,10 +28,11 @@ and in which format they are expected.
 ## Getting the arguments
 
 The standard library contains the function
-`std::env::args()` that gives you an [iterator] of the given arguments.
+[`std::env::args()`] that gives you an [iterator] of the given arguments.
 The first entry (at index `0`) will be the name your program was called as (e.g. `grrs`),
 the ones that follow are what the user wrote afterwards.
- 
+
+[`std::env::args()`]: https://doc.rust-lang.org/1.31.0/std/env/fn.args.html
 [iterator]: https://doc.rust-lang.org/1.30.1/std/iter/index.html
 
 Getting the raw arguments this way is quite easy:
