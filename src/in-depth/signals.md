@@ -12,16 +12,23 @@ as well as how you can react to them.
 <aside>
 
 **Note:**
-If your applications does not require special cleanup,
+If your applications does not need to gracefully shutdown,
 the default handling is fine
-(i.e. exit immediately and let the OS cleanup).
+(i.e. exit immediately
+and let the OS cleanup resources like open file handles).
 In that case:
 No need to do what this chapter tells you!
-For applications that need to clean up after themselves,
-for example to close network connections,
+
+However,
+for applications that need to clean up after themselves,
+this chapter is very relevant!
+For example,
+if your application needs to
+properly close network connections
+(saying "good bye" to the processes at the other end),
 remove temporary files,
 or reset system settings,
-this chapter is however very relevant!
+read on.
 
 </aside>
 
