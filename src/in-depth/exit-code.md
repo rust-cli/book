@@ -4,7 +4,7 @@ A program doesn't always succeed.
 And when an error occurs,
 you should make sure to emit the necessary information correctly.
 In addition to
-[telling the user about errors](./in-depth/human-communication.html),
+[telling the user about errors](human-communication.html),
 on most systems,
 when a process exits,
 it also emits an exit code

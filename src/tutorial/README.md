@@ -41,7 +41,7 @@ the Rust community is known to be friendly and helpful.
 Have a look at the [community page]
 to see a list of places where people discuss Rust.
 
-[community page]: https://www.rust-lang.org/en-US/community.html
+[community page]: https://www.rust-lang.org/community
 
 </aside>
 
