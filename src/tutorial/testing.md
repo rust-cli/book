@@ -25,8 +25,11 @@ Write that `README` before you write the code.
 
 **Aside:**
 Have a look at
-[Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD)
+[test-driven development] (TDD)
 if you haven't heard of it.
+
+[test-driven development]: https://en.wikipedia.org/wiki/Test-driven_development
+
 
 </aside>
 
@@ -190,7 +193,7 @@ Instead of `println!(…)` we can just use `writeln!(writer, …)`.
 Now we can test for the output:
 
 ```rust,ignore
-{{#include testing/src/main.rs:34:38}}
+{{#include testing/src/main.rs:33:38}}
 ```
 
 To now use this in our application code,
@@ -255,8 +258,7 @@ But we can also make our code available as a library, like this:
 1. Put the `find_matches` function into a new `src/lib.rs`.
 2. Add a `pub` in front of the `fn` (so it's `pub fn find_matches`)
    to make it something that users of our library can access.
-3. Remove `find_matches` from `src/main.rs`,
-   and instead add an `extern crate grrs;` on top.
+3. Remove `find_matches` from `src/main.rs`.
 4. In the `fn main`, prepend the call to `find_matches` with `grrs::`,
    so it's now `grrs::find_matches(…)`.
    This means it uses the function from the library we just wrote!
