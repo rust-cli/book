@@ -3,7 +3,7 @@
 Over the decades of people doing software development
 one truth has been found:
 Untested software rarely works.
-(Many people would go so far and add
+(Many people would go as far as saying: 
 "Most tested software doesn't work either."
 But we are all optimists here, right?)
 So, to ensure that your program does what you expect it to do,
@@ -161,7 +161,7 @@ We'll need to capture the output somehow.
 Rust's standard library has some neat abstractions
 for dealing with I/O (input/output)
 and we'll make use of one called [`std::io::Write`].
-This is a trait that abstract over things we can write to,
+This is a trait that abstracts over things we can write to,
 which includes strings but also `stdout`.
 
 [`std::io::Write`]: https://doc.rust-lang.org/1.28.0/std/io/trait.Write.html
@@ -210,10 +210,10 @@ and uses our extracted `find_matches` function:
 
 **Note:**
 Since `stdout` expects bytes (not strings),
-we use `std::io::Write`, instead of `std::fmt::Write`.
+we use `std::io::Write` instead of `std::fmt::Write`.
 As a result,
 we give an empty vector as "writer" in our tests
-(its type will be inferred to by `Vec<u8>`),
+(its type will be inferred by `Vec<u8>`),
 and in the `assert_eq!` we use a `b"foo"`
 instead of a regular string.
 
@@ -222,7 +222,7 @@ instead of a regular string.
 <aside class="exercise">
 
 **Exercise for the reader:**
-[`writeln!`] returns an [`io::Result`],
+[`writeln!`] returns an [`io::Result`]
 because writing can fail,
 for example when the buffer is full and cannot be expanded.
 Add error handling to `find_matches`.
@@ -246,7 +246,7 @@ That's awesome!
 
 ## Splitting your code into library and binary targets
 
-There's one more step we can go here.
+We can do one more thing here.
 So far we've put everything we wrote into the `src/main.rs` file.
 This means our current project produces a single binary.
 But we can also make our code available as a library, like this:
@@ -273,7 +273,7 @@ you can put the common functionality into the library part of that crate.
 
 **Note:**
 Speaking of putting everything into a `src/main.rs`:
-If we can continue to do that,
+If we continue to do that,
 it'll become difficult to read.
 [The module system](https://doc.rust-lang.org/book/2018-edition/ch07-00-modules.html)
 can help you structure and organize your code.
@@ -302,7 +302,7 @@ We should write tests for that, too!
 
 At its core,
 we are still writing functions
-and annotate them with `#[test]`.
+and annotating them with `#[test]`.
 It's just a matter of what we do inside these functions.
 For example, we'll want to use the main binary of our project,
 and run it like a regular program.
@@ -355,7 +355,7 @@ we'll also add the [`predicates`] crate
 which helps us write assertions
 that `assert_cmd` can test against
 (and that have great error messages).
-We'll add those dependencies not to main list,
+We'll add those dependencies not to the main list,
 but to a "dev dependencies" section in our `Cargo.toml`.
 They are only required when developing the crate,
 not when using it.
@@ -416,7 +416,7 @@ Here is a new test case
 that first creates a temp file
 (a "named" one so we can get its path),
 fills it with some text,
-and then run our program
+and then runs our program
 to see if we get the correct output.
 When the `file` goes out of scope
 (at the end of the function),
@@ -460,7 +460,7 @@ if you have extracted parts of your program
 and find yourself writing a lot of example cases as unit tests
 while trying to come up with all the edge cases,
 your should look into [`proptest`].
-If you have a program than consumes arbitrary files and parses them,
+If you have a program which consumes arbitrary files and parses them,
 try to write a [fuzzer] to find edge cases and bugs.
 
 [`proptest`]: https://docs.rs/proptest

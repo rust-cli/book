@@ -26,7 +26,7 @@ Try to let your application output tell a story
 about what it's doing
 and how it impacts the user.
 This can involve showing a timeline of steps involved
-or even a progress bar and indicator for long running actions.
+or even a progress bar and indicator for long-running actions.
 The user should at no point
 get the feeling that the application is doing something mysterious
 that they cannot follow. 
@@ -60,7 +60,7 @@ Use it for, well, informative output.
 (Some applications that lean towards a more quiet output style
 might only show warnings and errors by default.)
 
-Additionally it's always a good idea to use similar prefixes
+Additionally, it's always a good idea to use similar prefixes
 and sentence structure across log messages, 
 making it easy to `grep` or filter for them.
 A message should provide enough context by itself
@@ -126,7 +126,7 @@ But for a user who doesn't even have access to the source code,
 this is not very valuable.
 In fact, it most likely is just confusing.
 That's why it's a good idea to add a custom panic handler,
-that provides a bit more end-user focussed output.
+that provides a bit more end-user focused output.
 
 One library that does just that is called [human-panic].
 To add it to your CLI project,

@@ -47,7 +47,7 @@ Now, we were able to access content of the file,
 but we can't really do anything with it after the `match` block.
 For this, we'll need to somehow deal with the error case.
 The challenge is that all arms of a `match` block need to return something of the same type.
-But there's a need trick to get around that:
+But there's a neat trick to get around that:
 
 ```rust,no_run
 let result = std::fs::read_to_string("test.txt");
@@ -156,7 +156,7 @@ that are not required to understand to work with this.
 For example,
 the error type in our `main` function is `Box<dyn std::error::Error>`.
 But we've above seen that `read_to_string` returns a [`std::io::Error`].
-This works because `?` actually expands to code to _convert_ error types.
+This works because `?` expands to code that  _converts_ error types.
 
 `Box<dyn std::error::Error>` is also an interesting type.
 It's a `Box` that can contain _any_ type

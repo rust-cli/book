@@ -17,7 +17,7 @@ you too can publish crates to [crates.io].
 And this works for all crates,
 including those with binary targets.
 
-Publishing a crate to [crates.io] is pretty straight-forward:
+Publishing a crate to [crates.io] is pretty straightforward:
 If you haven't already, create an account on [crates.io].
 Currently, this is done via authorizing you on Github,
 so you'll need to have a Github account
@@ -35,7 +35,7 @@ Now that cargo as well as crates.io know you,
 you are ready to publish crates.
 Before you hastily go ahead and publish a new crate (version),
 it's a good idea to open your `Cargo.toml` once more
-and make sure you added a the necessary metadata.
+and make sure you added the necessary metadata.
 You can find all the possible fields you can set
 in the documentation for [cargo's manifest format].
 Here's a quick overview of some common entries:
@@ -87,12 +87,12 @@ It will by default download the crate,
 compile all the binary targets it contains
 (in "release" mode, so it might take a while)
 and copy them into the `~/.cargo/bin/` directory.
-(Make sure that your shell knows to looks there for binaries!)
+(Make sure that your shell knows to look there for binaries!)
 
 It's also possible to
 install crates from git repositories,
 only install specific binaries of a crate,
-and specify and alternative directory to install them to.
+and specify an alternative directory to install them to.
 Have a look at `cargo install --help` for details.
 
 ### When to use it
@@ -103,11 +103,11 @@ but has some significant downsides:
 Since it will always compile your source from scratch,
 users of your tool will need to have
 Rust, cargo, and all other system dependencies your project requires
-installed on their machine.
-Compiling large Rust code bases can also take some time.
+to be installed on their machine.
+Compiling large Rust codebases can also take some time.
 
 Furthermore, there is no simple way to update tools installed with cargo:
-User will need to run `cargo install` again at some point,
+The user will need to run `cargo install` again at some point,
 and pass the `--force` flag to overwrite the old binaries.
 This is a [missing feature][cargo-issue-2082]
 and there are subcommands [like this one][cargo-update]
@@ -139,7 +139,7 @@ that explicitly need external libraries to be installed on the target system
 (like using the system's version of OpenSSL),
 this binary will only depend on common system libraries.
 That means,
-you take that one file
+you take that one file, 
 send it to people running the same operating system as you,
 and they'll be able to run it.
 
@@ -161,7 +161,7 @@ automatically?
 
 ### Building binary releases on CI
 
-If your tool is open source,
+If your tool is open sourced
 and hosted on Github,
 it's quite easy to set up a free CI (continuous integration) service
 like [Travis CI].
@@ -278,7 +278,7 @@ for example.
 Since we already have them,
 they are easy to add.
 
-There are some more interesting file
+There are some more interesting files
 that make sense especially for command-line tools,
 though:
 How about we also ship a man page in addition to that README file,
@@ -339,7 +339,7 @@ finally, you can also install it using `cargo install`.
 
 This seems like a very good idea:
 Don't pick and choose one of the approaches presented here,
-but start with `cargo installs`,
+but start with `cargo install`,
 add binary releases,
 and finally start distributing your tool using system package managers.
 

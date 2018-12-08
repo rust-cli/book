@@ -8,7 +8,7 @@ for short- and long-term files.
 There are multiple solutions to this,
 some being more low-level than others.
 
-The crate easiest to use is `confy`.
+The easiest crate to use for this is `confy`.
 It asks you for the name of your application
 and requires you to specify the config layout
 via a `struct` (that is `Serialize`, `Deserialize`)

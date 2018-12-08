@@ -21,7 +21,7 @@ pub struct Head {
 ```
 
 Secondly, you need to use a `build.rs`
-to generate the manual file at compile-time
+to generate the manual file at compile time
 from the definition of your app
 in code.
 

@@ -125,7 +125,7 @@ First,
 you might want to reduce the number of writes
 you actually "flush" to the terminal.
 `println!` tells the system to write to the terminal _every_ time,
-because it is usual to print each new line.
+because it is common to print each new line.
 If you don't need that,
 you can wrap your `stdout` handle in a [`BufWriter`]
 which by default buffers up to 8 kB.
@@ -143,7 +143,7 @@ writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 Second,
 it helps to acquire a lock on `stdout` (or `stderr`)
 and use `writeln!` to print to it directly.
-This prevents the system from locking an unlocking `stdout` over and over again.
+This prevents the system from locking and unlocking `stdout` over and over again.
 
 ```rust
 use std::io::{self, Write};
@@ -192,7 +192,7 @@ But it will become super helpful when running this program again in half a year.
 In some regard,
 logging is the same as using `println`,
 except that you can specify the importance of a message.
-The levels you can usually use are use _error_, _warn_, _info_, _debug_, and _trace_
+The levels you can usually use are _error_, _warn_, _info_, _debug_, and _trace_
 (_error_ has the highest priority, _trace_ the lowest).
 
 To add simple logging to your application,

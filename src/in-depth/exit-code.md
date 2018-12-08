@@ -17,8 +17,8 @@ it should exit with `0`.
 
 When an error occurs, it gets a bit more complicated, though.
 In the wild,
-a lot of tools exit with `1` when a general failure ocurred.
-Currently, Rust set and exit code of `101` when the process panicked.
+many tools exit with `1` when a common failure ocurrs.
+Currently, Rust sets an exit code of `101` when the process panicked.
 Beyond that, people have done many things in their programs.
 
 So, what to do?

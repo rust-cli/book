@@ -9,7 +9,7 @@ In fact, this is a sentence from the [Unix philosophy]:
 
 [Unix philosophy]: https://en.wikipedia.org/wiki/Unix_philosophy
 
-If our programs fulfil this expectation,
+If our programs fulfill this expectation,
 our users will be happy.
 To make sure this works well,
 we should provide not just pretty output for humans,
@@ -248,7 +248,7 @@ or both at the same time.
 
 Even if you do not use this library,
 it might be a good idea to write a similar abstraction
-that fits your use-case.
+that fits your use case.
 
 ## How to deal with input piped into us
 

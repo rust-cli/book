@@ -1,6 +1,6 @@
 # First implementation of _grrs_
 
-After the last chapter on command line arguments
+After the last chapter on command line arguments,
 we have our input data,
 and we can start to write our actual tool.
 Our `main` function only contains this line right now:
@@ -19,7 +19,7 @@ Let’s start by opening the file we got.
 
 **Aside:**
 See that `.expect` method here?
-This is a shortcut function to quit that will make program exit immediately
+This is a shortcut function to quit that will make the program exit immediately
 when the value (in this case the input file)
 could not be read.
 It's not very pretty,

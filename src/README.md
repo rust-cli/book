@@ -12,7 +12,7 @@ who is new to the language and wants to get a feel for it.
 There are many aspects to this topic, though,
 that often only reveal themselves later on.
 
-This book is structure like this:
+This book is structured like this:
 We start with a quick tutorial,
 after which you'll end up with a working CLI tool.
 You'll be exposed to a few of the core concepts of Rust

@@ -29,9 +29,9 @@ and in which format they are expected.
 
 The standard library contains the function
 `std::env::args()` that gives you an [iterator] of the given arguments.
-The first entry (at index `0`) will be name your program was called as (e.g. `grrs`),
+The first entry (at index `0`) will be the name your program was called as (e.g. `grrs`),
 the ones that follow are what the user wrote afterwards.
-
+ 
 [iterator]: https://doc.rust-lang.org/1.30.1/std/iter/index.html
 
 Getting the raw arguments this way is quite easy:
@@ -55,7 +55,7 @@ What more can we say about them?
 Well, for a start, both are required.
 We haven't talked about any default values,
 so we expect our users to always provide two values.
-Further more, we can say a bit about their types:
+Furthermore, we can say a bit about their types:
 The pattern is expected to be a string,
 while the second argument is expect to be path to a file.
 
@@ -83,9 +83,9 @@ that has two fields to store data in: `pattern`, and `path`.
 </aside>
 
 Now, we still need to get the actual arguments our program got into this form.
-One option would be manually parse the list of strings we get from the operating system
+One option would be to manually parse the list of strings we get from the operating system
 and build the structure ourselves.
-It would looks something like this:
+It would look something like this:
 
 ```rust,ignore
 {{#include cli-args-struct.rs:10:15}}
@@ -156,7 +156,7 @@ That's the beauty of this approach:
 Clap knows which fields to expect,
 and what their expected format is.
 It can automatically generate a nice `--help` message,
-as well a give great errors
+as well as give some great errors
 to suggest you pass `--output` when you wrote `--putput`.
 
 <aside class="note">

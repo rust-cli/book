@@ -9,7 +9,7 @@ you want to put your application code into.
 Start by running
 `cargo new grrs`
 in the directory you store your programming projects in.
-If look at the newly created `grrs` directory,
+If you look at the newly created `grrs` directory,
 you’ll find a typical setup for a Rust project:
 
 - A `Cargo.toml` file that contains metadata for our project,
