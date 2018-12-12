@@ -131,7 +131,7 @@ for the `match` with `panic!` in the error arm,
 we have another shortcut for the `match` that `return`s in the error arm:
 `?`.
 
-Thats's right, a question mark.
+That's right, a question mark.
 You can append this operator to a value of type `Result`,
 and Rust will internally expand this to something very similar to
 the `match` we just wrote.
