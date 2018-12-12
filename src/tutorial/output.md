@@ -165,7 +165,7 @@ Some CLI applications run less than a second,
 others take minutes or hours.
 If you are writing one of the latter types of programs,
 you might want to show the user that something is happening.
-For this, you should try to printing useful status updates,
+For this, you should try to print useful status updates,
 ideally in a form that can be easily consumed.
 
 Using the [indicatif] crate,
