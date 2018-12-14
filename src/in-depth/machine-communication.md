@@ -224,7 +224,7 @@ even while _ripgrep_ is still searching.
 <aside>
 
 **Aside:**
-This is how Visual Studio Code uses _ripgrip_ for its code search.
+This is how Visual Studio Code uses _ripgrep_ for its code search.
 
 </aside>
 
