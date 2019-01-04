@@ -164,31 +164,65 @@ We'll need to capture the output somehow.
 Rust's standard library has some neat abstractions
 for dealing with I/O (input/output)
 and we'll make use of one called [`std::io::Write`].
-This is a trait that abstracts over things we can write to,
+This is a [trait][trpl-traits] that abstracts over things we can write to,
 which includes strings but also `stdout`.
 
+[trpl-traits]: https://doc.rust-lang.org/book/ch10-02-traits.html
 [`std::io::Write`]: https://doc.rust-lang.org/1.31.0/std/io/trait.Write.html
 
-<aside class="note">
+If this is the first time you've heard "trait"
+in the context of Rust,
+you are in for a treat.
+Traits are one of the most powerful features of Rust.
+You can think of them like interfaces in Java,
+or type classes in Haskell
+(whatever you are more familiar with).
+They allow you to abstract over behavior
+that can be shared by different types.
+Code that uses traits can
+express ideas in very generic and flexible ways.
+This means it can also get difficult to read, though.
+Don't let that intimidate you:
+Even people who have used Rust for years
+don't always get what generic code does immediately.
+In that case,
+it helps to think of concrete uses.
+For example,
+in our case,
+the behavior that we abstract over is "write to it".
+Examples for the types that implement ("impl") it
+include:
+The terminal's standard output,
+files,
+a buffer in memory,
+or TCP network connections.
+(Scroll down in the [documentation for `std::io::Write`][`std::io::Write`]
+to see a list of "Implementors".)
 
-**Note:**
-We could also make this function return a `String`,
-but that would change its behavior.
-Instead of writing to the terminal directly,
-it would then collect everything into a string,
-and dump all the results in one go at the end.
-
-</aside>
-
-Let's change our function to also accept a parameter `writer`
-that implements `Write`.
-In our test, we can then supply a simple string
-to make assertions on.
-Instead of `println!(…)` we can just use `writeln!(writer, …)`.
+With that knowledge,
+let's change our function to accept a third parameter.
+It should be of any type that implements `Write`.
+This way,
+we can then supply a simple string
+in our tests
+and make assertions on it.
+Here is how we can write this version of `find_matches`:
 
 ```rust,ignore
 {{#include testing/src/main.rs:25:31}}
 ```
+
+The new parameter is `mut writer`,
+i.e., a mutable thing we call "writer".
+Its type is `impl std::io::Write`,
+which you can read as
+"a placeholder for any type that implements the `Write` trait".
+Also note how we
+replaced the `println!(…)`
+we used earlier
+with `writeln!(writer, …)`.
+`println!` works the same as `writeln!`
+but always uses standard output.
 
 Now we can test for the output:
 
@@ -220,6 +254,17 @@ we give an empty vector as "writer" in our tests
 in the `assert_eq!` we use a `b"foo"`.
 (The `b` prefix makes this a _byte string literal_
 so its type is going to be `&[u8]` instead of `&str`).
+
+</aside>
+
+<aside class="note">
+
+**Note:**
+We could also make this function return a `String`,
+but that would change its behavior.
+Instead of writing to the terminal directly,
+it would then collect everything into a string,
+and dump all the results in one go at the end.
 
 </aside>
 
