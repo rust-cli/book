@@ -189,9 +189,9 @@ In that case,
 it helps to think of concrete uses.
 For example,
 in our case,
-the behavior that we abstract ove "write to it".
+the behavior that we abstract over is "write to it".
 Examples for the types that implement ("impl") it
-are:
+include:
 The terminal's standard output,
 files,
 a buffer in memory,
