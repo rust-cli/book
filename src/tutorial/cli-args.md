@@ -117,7 +117,7 @@ and it’ll generate the code that parses the arguments into the fields.
 
 Let's first import `structopt` by adding
 `structopt = "0.2.10"` to the `[dependencies]` section
-or our `Cargo.toml` file.
+of our `Cargo.toml` file.
 
 Now, we can write `use structopt::StructOpt;` in our code,
 and add `#[derive(StructOpt)]` right above our `struct Cli`.
