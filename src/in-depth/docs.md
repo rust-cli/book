@@ -5,8 +5,8 @@ a `--help` section in the command
 and a manual (`man`) page.
 
 Both can be automatically generated
-when using `clap`,
-via the `man` backend.
+when using `clap` v3 (in unreleased alpha,
+at time of writing), via the `man`backend.
 
 ```rust,ignore
 #[derive(Clap)]
