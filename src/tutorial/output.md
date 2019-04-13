@@ -266,7 +266,7 @@ so you can programmatically adjust these settings,
 and, for example, also show _info_ level messages by default.
 
 There are a lot of alternative logging adapters out there,
-and also alternatives or extension to `log`.
+and also alternatives or extensions to `log`.
 If you know your application will have a lot to log,
 make sure to review them,
 and make your users' life easier.
