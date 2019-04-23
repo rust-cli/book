@@ -219,6 +219,11 @@ To turn these wrapped error types
 into something that humans will actually want to read,
 we can further add the [`exitfailure`] crate,
 and use its type as the return type of our `main` function.
+
+Let's first import the crates by adding
+`failure = "0.1.5"` and `exitfailure = "0.5.1"` to the `[dependencies]` section
+of our `Cargo.toml` file.
+
 The full example will then look like this:
 
 [`exitfailure`]: https://docs.rs/exitfailure
