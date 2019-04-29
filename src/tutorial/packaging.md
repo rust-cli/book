@@ -336,7 +336,7 @@ Just look at [the "Installation" section][rg-install] of its README!
 Note that it lists a few different options how you can install it:
 It starts with a link to the GitHub releases
 which contain the binaries so you can download them directly;
-then it lists how to install it using a bunch of different package manages;
+then it lists how to install it using a bunch of different package managers;
 finally, you can also install it using `cargo install`.
 
 This seems like a very good idea:
