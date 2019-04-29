@@ -116,7 +116,7 @@ for line in content.lines() {
 ```
 
 Sadly, this is not very easy to test.
-First off all, it's in the main function, so we can't easily call it.
+First of all, it's in the main function, so we can't easily call it.
 This is easily fixed by moving this piece of code into a function:
 
 ```rust,no_run
