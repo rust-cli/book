@@ -155,7 +155,7 @@ There are a few more things happening here
 that are not required to understand to work with this.
 For example,
 the error type in our `main` function is `Box<dyn std::error::Error>`.
-But we've above seen that `read_to_string` returns a [`std::io::Error`].
+But we've seen above that `read_to_string` returns a [`std::io::Error`].
 This works because `?` expands to code that  _converts_ error types.
 
 `Box<dyn std::error::Error>` is also an interesting type.
