@@ -433,7 +433,7 @@ as `Command::main_binary()` needs to compile your main binary.
 
 ## Generating test files
 
-The test we've just seen only checks that our program writes an error messages
+The test we've just seen only checks that our program writes an error message
 when the input file doesn't exist.
 That's an important test to have,
 but maybe not the most important one:
