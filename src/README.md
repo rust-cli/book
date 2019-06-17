@@ -7,7 +7,7 @@ Command line applications are also a great way to get started with learning Rust
 or to introduce Rust to your team!
 
 Writing a program with a simple command line interface (CLI)
-is great a exercise for a beginner
+is a great exercise for a beginner
 who is new to the language and wants to get a feel for it.
 There are many aspects to this topic, though,
 that often only reveal themselves later on.
