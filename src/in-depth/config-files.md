@@ -23,7 +23,7 @@ struct MyConfig {
 }
 
 fn main() -> Result<(), io::Error> {
-    let cfg: ConfyConfig = confy::load("my_app")?;
+    let cfg: MyConfig = confy::load("my_app")?;
     println!("{:#?}", cfg);
     Ok(())
 }
