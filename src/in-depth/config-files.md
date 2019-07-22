@@ -8,7 +8,7 @@ for short- and long-term files.
 There are multiple solutions to this,
 some being more low-level than others.
 
-The easiest crate to use for this is `confy`.
+The easiest crate to use for this is [`confy`](https://crates.io/crates/confy).
 It asks you for the name of your application
 and requires you to specify the config layout
 via a `struct` (that is `Serialize`, `Deserialize`)
@@ -42,6 +42,6 @@ this crate might be for you!
 
 1. Evaluate crates that exist
 2. Cli-args + multiple configs + env variables
-3. Can `configure` do all this? Is there a nice wrapper around it?
+3. Can [`configure`](https://docs.rs/configure/0.1.1/configure/) do all this? Is there a nice wrapper around it?
 
 </aside>
