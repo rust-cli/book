@@ -513,7 +513,7 @@ If you have a program which consumes arbitrary files and parses them,
 try to write a [fuzzer] to find bugs in edge cases.
 
 [`proptest`]: https://docs.rs/proptest
-[fuzzer]: https://fuzz.rs/book/introduction.html
+[fuzzer]: https://rust-fuzz.github.io/book/introduction.html
 
 <aside>
 
