@@ -288,13 +288,13 @@ At the very least, requesting Windows maintainers, or running your code on free 
 
 ### Create and/or Comment on Issues
 
-The survey pointed out that there are many small issues with crates in our ecosystem. Some pointed to issues in my own crates, which I had no idea about! Instead of struggling in silence, I'd have wished these people would have pinged me in a Github issue, or gitter, or irc, or discord, or even email! I love helping people out, but if I don't know about something I can't help.
+The survey pointed out that there are many small issues with crates in our ecosystem. Some pointed to issues in my own crates, which I had no idea about! Instead of struggling in silence, I'd have wished these people would have pinged me in a Github issue, or irc, or discord, or even email! I love helping people out, but if I don't know about something I can't help.
 
 Creating and commenting on issues (both in your own repositories and of the crates you use) is a *HUGE* help. 
 
 Speaking to people in person I often hear phrases like, "Meh, it was just a minor issue, I didn't want to burden the project with that!" or "I'm *sure* they already know about `x`!", or the worse, "I don't want to embarras them by publicly list the issue!"
 
-Please, *please* if you see an issue, or have a question contact the crate team. Each project will be a little different, but whether it's an issue, irc, discord, gitter, whatever, I can almost certainly say the project will be thankful for the contribution.
+Please, *please* if you see an issue, or have a question contact the crate team. Each project will be a little different, but whether it's an issue, irc, discord, whatever, I can almost certainly say the project will be thankful for the contribution.
 
 ## What the Working Group Will Do
 
@@ -305,13 +305,13 @@ Our current mission can be summarized as:
 
 While the first point is about making existing crates better – by applying what we've laid out above – the second point is about getting towards a set of easy to find and easy to use solutions for some of the gaps that were mentioned. For example, we need an ergonomic cross-platform terminal color crate that a lot of people can _just use_, in contrast to being overwhelmed by the existing 10 solutions whose feature support is not easy to compare.
 
-We've already mentioned some of the projects, but we'll keep you updated on more in our newsletter. (If you want to be even more up-to-date on our efforts, join our [Gitter channel](https://gitter.im/rust-lang/WG-CLI) where we discuss this!)
+We've already mentioned some of the projects, but we'll keep you updated on more in our newsletter. (If you want to be even more up-to-date on our efforts, join our [Discord channel](https://discord.gg/dwq4Zme) where we discuss this!)
 
 # Thank you!
 
-With this said, we want to thank all respondents and those that have been working away at the listed issues, gitter chat, and assisting us in so many shapes and fasions!
+With this said, we want to thank all respondents and those that have been working away at the listed issues, Discord chat, and assisting us in so many shapes and fashions!
 
-The CLI-WG also has a [Gitter channel](https://gitter.im/rust-lang/WG-CLI) that is open everyone who wishes to contribute. All of the issues opened on [the CLI-WG repository](https://github.com/rust-lang-nursery/cli-wg) are open for comments if you have opinions on these matters.
+The CLI-WG also has a [Discord channel](https://discord.gg/dwq4Zme) that is open everyone who wishes to contribute. All of the issues opened on [the CLI-WG repository](https://github.com/rust-lang-nursery/cli-wg) are open for comments if you have opinions on these matters.
 
 One final time, thank you so much to all the over 1,000 respondents!
 

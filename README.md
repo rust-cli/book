@@ -11,7 +11,6 @@ It also contains the CLAiR, the [Command Line Applications in Rust][clair] book.
 - [Announcement of this WG](https://internals.rust-lang.org/t/announcing-the-cli-working-group/6872/1)
 - Chat with us
   - [Discord](https://discord.gg/dwq4Zme)
-  - [Gitter](https://gitter.im/rust-lang/WG-CLI)
 
 ## Our goal
 
