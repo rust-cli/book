@@ -51,7 +51,7 @@ Many times throughout the survey there were responses requesting the ability to 
 
 This just re-enforces the need in our mind for better documentation and examples. I plan on revisiting the documentation and examples for my own crates because of these responses.
 
-The CLI-WG has a list of "Tracking Issues" in our repository for discussing solutions and problems releated to the working group. Because of the survey, we've opened up more issues to address concerns raised. 
+The CLI-WG has a list of "Tracking Issues" in our repository for discussing solutions and problems related to the working group. Because of the survey, we've opened up more issues to address concerns raised. 
 
 For this first section we've opened two issues:
 
@@ -174,7 +174,7 @@ The other more complete list of distribution methods selected was (number of res
 
 People who have been using Rust, we asked for their reasons to pick it as the language for their CLI app. And we are happy to say that most people are really enjoying the language itself! We can all agree that this is a very solid reason. Close second is Cargo and the crates ecosystem, as well as runtime performance.
 
-It's interesting to see that not very many people said that the documentation, safety, or static binaries were things that sold them on Rust -- which we assume is partially because the competetion here is pretty tough, but also because we can do better in these areas (as the Where to Improve section also mentions).
+It's interesting to see that not very many people said that the documentation, safety, or static binaries were things that sold them on Rust -- which we assume is partially because the competition here is pretty tough, but also because we can do better in these areas (as the Where to Improve section also mentions).
 
 [![Bar chart showing reasons to use Rust for CLI apps](why-rust.svg)](why-rust.svg)
 
@@ -188,7 +188,7 @@ Python took the far lead. The top languages were:
 * Ruby 13% (116 responses)
 * Bash 11% (100 responses)
 
-There were many other languages as well, but the numbers started quickly dropping off after the above. Here's the word cloud (link cotains higher resolution image):
+There were many other languages as well, but the numbers started quickly dropping off after the above. Here's the word cloud (link contains higher resolution image):
 
 [![Bubble chart showing other languages](languages.svg)](languages.svg)
 
@@ -219,7 +219,7 @@ To address the above bullets we've opened:
 
 The other bullets are well known, such as compile times, and being actively worked on by other Teams.
 
-*As an aside, many respondants said Rust was already doing great things in the CLI space compared to other languages (♥).*
+*As an aside, many respondents said Rust was already doing great things in the CLI space compared to other languages (♥).*
 
 ## Anything else?
 
@@ -274,9 +274,9 @@ Make sure to link to these examples from somewhere in your project. If people ca
 
 If you don't have time to write the examples, open issues requesting examples, or drop a request in the weekly Call for Participation section of [This Week in Rust](https://this-week-in-rust.org/). There were numerous replies to the survey saying people would like to contribute but don't know where to start! This is a perfect place!
 
-### Review the Documenation
+### Review the Documentation
 
-If you already have API docs, have someone else take a quick look at them and give feedback. As the author of a crate, it's very simple to be so acustomed to how something is working, that the API docs end up lacking for someone who isn't at intatemly familar with them as the author.
+If you already have API docs, have someone else take a quick look at them and give feedback. As the author of a crate, it's very simple to be so accustomed to how something is working, that the API docs end up lacking for someone who isn't at intimately familiar with them as the author.
 
 Again, opening issues requesting docs reviews is a perfect way to get new eyes on the project and get feedback!
 
@@ -284,7 +284,7 @@ Again, opening issues requesting docs reviews is a perfect way to get new eyes o
 
 There are many Windows users out there, and making your CLI application work the same for them as it does for a macOS or Linux user is such a big accomplishment. With Rust, it's often somewhat trivial to ensure the experience is the same crossplatform. Of course there are edge cases like terminal color and the like, but that is something we hope to rectify over the coming months.
 
-At the very least, requesting Windows maintainers, or running your code on free CI providers that have Windows support, like [AppVeyor](https://www.appveyor.com/), can make a tremendous differnce!
+At the very least, requesting Windows maintainers, or running your code on free CI providers that have Windows support, like [AppVeyor](https://www.appveyor.com/), can make a tremendous difference!
 
 ### Create and/or Comment on Issues
 
@@ -292,7 +292,7 @@ The survey pointed out that there are many small issues with crates in our ecosy
 
 Creating and commenting on issues (both in your own repositories and of the crates you use) is a *HUGE* help. 
 
-Speaking to people in person I often hear phrases like, "Meh, it was just a minor issue, I didn't want to burden the project with that!" or "I'm *sure* they already know about `x`!", or the worse, "I don't want to embarras them by publicly list the issue!"
+Speaking to people in person I often hear phrases like, "Meh, it was just a minor issue, I didn't want to burden the project with that!" or "I'm *sure* they already know about `x`!", or the worse, "I don't want to embarrass them by publicly list the issue!"
 
 Please, *please* if you see an issue, or have a question contact the crate team. Each project will be a little different, but whether it's an issue, irc, discord, whatever, I can almost certainly say the project will be thankful for the contribution.
 
