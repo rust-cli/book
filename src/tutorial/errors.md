@@ -43,7 +43,7 @@ to get up to speed.
 
 ## Unwrapping
 
-Now, we were able to access content of the file,
+Now, we were able to access the content of the file,
 but we can't really do anything with it after the `match` block.
 For this, we'll need to somehow deal with the error case.
 The challenge is that all arms of a `match` block need to return something of the same type.
@@ -182,7 +182,7 @@ Error: Os { code: 2, kind: NotFound, message: "No such file or directory" }
 ```
 
 In cases where your code doesn't literally contain the file name,
-it'd be very hard to tell which file was `NotFound`.
+it would be very hard to tell which file was `NotFound`.
 There are multiple ways to deal with this.
 
 For example, we can create our own error type,
