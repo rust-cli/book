@@ -177,7 +177,9 @@ When you run `std::fs::read_to_string("test.txt")?`
 but the file `test.txt` doesn't exist,
 you get this output:
 
-> Error: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+```text
+Error: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+```
 
 In cases where your code doesn't literally contain the file name,
 it'd be very hard to tell which file was `NotFound`.
@@ -193,7 +195,9 @@ and then use that to build a custom error message:
 Now,
 running this we'll get our custom error message:
 
-> Error: CustomError("Error reading `test.txt`: No such file or directory (os error 2)")
+```text
+Error: CustomError("Error reading `test.txt`: No such file or directory (os error 2)")
+```
 
 Not very pretty,
 but we can easily adapt the debug output for our type later on.
@@ -234,5 +238,7 @@ The full example will then look like this:
 
 This will print an error:
 
-> Error: could not read file `test.txt`  
-> Info: caused by No such file or directory (os error 2)
+```text
+Error: could not read file `test.txt`
+Info: caused by No such file or directory (os error 2)
+```
