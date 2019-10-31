@@ -6,7 +6,7 @@ and a manual (`man`) page.
 
 Both can be automatically generated
 when using `clap` v3 (in unreleased alpha,
-at time of writing), via the `man`backend.
+at time of writing), via the `man` backend.
 
 ```rust,ignore
 #[derive(Clap)]
@@ -50,7 +50,7 @@ fn main() {
 ```
 
 When you now compile your application
-there will be a `head.1` file 
+there will be a `head.1` file
 in your project directory.
 
 If you open that in `man`
