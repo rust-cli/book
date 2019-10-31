@@ -240,7 +240,7 @@ $ env RUST_LOG=output_log=info cargo run --bin output-log
 
 In Windows PowerShell, you can run it like this:
 ```console
-$ $env:RUST_LOG="output_log=info" //set the env var for the current session
+$ $env:RUST_LOG="output_log=info"
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log.exe`
@@ -250,7 +250,6 @@ $ cargo run --bin output-log
 
 In Windows CMD, you can run it like this:
 ```console
-$ rem set the env var for the current session
 $ set RUST_LOG=output_log=info
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
