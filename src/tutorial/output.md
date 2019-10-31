@@ -228,8 +228,7 @@ Here's a quick example:
 ```
 
 Assuming you have this file as `src/bin/output-log.rs`,
-
-In Linux and macOS, you can run it like this:
+on Linux and macOS, you can run it like this:
 ```console
 $ env RUST_LOG=output_log=info cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
