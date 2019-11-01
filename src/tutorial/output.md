@@ -121,7 +121,7 @@ Printing to the terminal is surprisingly slow!
 If you call things like `println!` in a loop,
 it can easily become a bottleneck in an otherwise fast program.
 To speed this up,
-there's two things you can do.
+there are two things you can do.
 
 First,
 you might want to reduce the number of writes
@@ -214,7 +214,7 @@ use an environment variable to specify which parts of your application
 you want to log
 (and at which level you want to log them).
 It will prefix your log messages with a timestamp
-and the module where the log messages comes from.
+and the module where the log messages come from.
 Since libraries can also use `log`,
 you easily configure their log output, too.
 
