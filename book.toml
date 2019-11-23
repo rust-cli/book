@@ -4,6 +4,7 @@ title = "Command Line Applications in Rust"
 # ...but friends call it "Clair"
 authors = ["The Rust CLI Working Group"]
 multilingual = false
+language = "en"
 src = "src"
 
 [output.html]
