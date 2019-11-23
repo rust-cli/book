@@ -63,7 +63,7 @@ The main way to use the crate is this:
 [ctrlc]: https://crates.io/crates/ctrlc
 
 ```rust,ignore
-{{#include signals-ctrlc.rs:1:7}}
+{{#include signals-ctrlc.rs}}
 ```
 
 This is, of course, not that helpful:
@@ -93,7 +93,7 @@ and it is currently the library with the widest community support.
 Here's a simple example:
 
 ```rust,ignore
-{{#include signals-hooked.rs:1:14}}
+{{#include signals-hooked.rs}}
 ```
 
 [signal-hook-post]: https://vorner.github.io/2018/06/28/signal-hook.html
@@ -113,7 +113,7 @@ Using [crossbeam-channel] it would look something like this:
 [crossbeam-channel]: https://crates.io/crates/crossbeam-channel
 
 ```rust,ignore
-{{#include signals-channels.rs:1:31}}
+{{#include signals-channels.rs}}
 ```
 
 ## Using futures and streams
