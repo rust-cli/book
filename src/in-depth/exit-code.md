@@ -28,7 +28,8 @@ The Rust library [`exitcode`] provides these same codes,
 ready to be used in your application.
 Please see its API documentation for the possible values to use.
 
-One way to use it is like this:
+After you add the `exitcode` dependency to your `Cargo.toml`,
+you can use it like this:
 
 ```rust,ignore
 fn main() {
