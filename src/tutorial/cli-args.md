@@ -32,8 +32,8 @@ The standard library contains the function
 The first entry (at index `0`) will be the name your program was called as (e.g. `grrs`),
 the ones that follow are what the user wrote afterwards.
 
-[`std::env::args()`]: https://doc.rust-lang.org/1.31.0/std/env/fn.args.html
-[iterator]: https://doc.rust-lang.org/1.31.0/std/iter/index.html
+[`std::env::args()`]: https://doc.rust-lang.org/1.39.0/std/env/fn.args.html
+[iterator]: https://doc.rust-lang.org/1.39.0/std/iter/index.html
 
 Getting the raw arguments this way is quite easy:
 
@@ -71,15 +71,15 @@ Let's start with this:
 This defines a new structure (a [`struct`])
 that has two fields to store data in: `pattern`, and `path`.
 
-[`struct`]: https://doc.rust-lang.org/1.31.0/book/ch05-00-structs.html
+[`struct`]: https://doc.rust-lang.org/1.39.0/book/ch05-00-structs.html
 
 <aside>
 
 **Aside:**
 [`PathBuf`] is like a [`String`] but for file system paths that works cross-platform.
 
-[`PathBuf`]: https://doc.rust-lang.org/1.31.0/std/path/struct.PathBuf.html
-[`String`]: https://doc.rust-lang.org/1.31.0/std/string/struct.String.html
+[`PathBuf`]: https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html
+[`String`]: https://doc.rust-lang.org/1.39.0/std/string/struct.String.html
 
 </aside>
 

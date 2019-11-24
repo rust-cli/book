@@ -26,7 +26,7 @@ It's not very pretty,
 and in the next chapter on [Nicer error reporting]
 we will look at how to improve this.
 
-[`.expect`]: https://doc.rust-lang.org/1.31.0/std/result/enum.Result.html#method.expect
+[`.expect`]: https://doc.rust-lang.org/1.39.0/std/result/enum.Result.html#method.expect
 [Nicer error reporting]:./errors.html
 
 </aside>
@@ -50,6 +50,6 @@ Find a way to optimize it!
 (One idea might be to use a [`BufReader`]
 instead of `read_to_string()`.)
 
-[`BufReader`]: https://doc.rust-lang.org/1.31.0/std/io/struct.BufReader.html
+[`BufReader`]: https://doc.rust-lang.org/1.39.0/std/io/struct.BufReader.html
 
 </aside>

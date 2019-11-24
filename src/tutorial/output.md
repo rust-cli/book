@@ -64,9 +64,9 @@ debug output (human-readable but targeted at developers) uses the [`Debug`] trai
 You can find more information about the syntax you can use in `println!`
 in the [documentation for the `std::fmt` module][std::fmt].
 
-[`Display`]: https://doc.rust-lang.org/1.31.0/std/fmt/trait.Display.html
-[`Debug`]: https://doc.rust-lang.org/1.31.0/std/fmt/trait.Debug.html
-[std::fmt]: https://doc.rust-lang.org/1.31.0/std/fmt/index.html
+[`Display`]: https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html
+[`Debug`]: https://doc.rust-lang.org/1.39.0/std/fmt/trait.Debug.html
+[std::fmt]: https://doc.rust-lang.org/1.39.0/std/fmt/index.html
 
 </aside>
 
@@ -157,7 +157,7 @@ writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 
 You can also combine the two approaches.
 
-[`BufWriter`]: https://doc.rust-lang.org/1.31.0/std/io/struct.BufWriter.html
+[`BufWriter`]: https://doc.rust-lang.org/1.39.0/std/io/struct.BufWriter.html
 
 ## Showing a progress bar
 

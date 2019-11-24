@@ -69,8 +69,8 @@ but also what GitHub shows by default on repository pages.
 
 [crates.io]: https://crates.io/
 [crates.io account page]: https://crates.io/me
-[publishing guide]: https://doc.rust-lang.org/1.31.0/cargo/reference/publishing.html
-[cargo's manifest format]: https://doc.rust-lang.org/1.31.0/cargo/reference/manifest.html
+[publishing guide]: https://doc.rust-lang.org/1.39.0/cargo/reference/publishing.html
+[cargo's manifest format]: https://doc.rust-lang.org/1.39.0/cargo/reference/manifest.html
 
 ### How to install a binary from crates.io
 

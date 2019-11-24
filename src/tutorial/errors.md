@@ -16,9 +16,9 @@ a `String`
 or an error of some type
 (in this case [`std::io::Error`]).
 
-[`read_to_string`]: https://doc.rust-lang.org/1.31.0/std/fs/fn.read_to_string.html
-[`Result`]: https://doc.rust-lang.org/1.31.0/std/result/index.html
-[`std::io::Error`]: https://doc.rust-lang.org/1.31.0/std/io/type.Result.html
+[`read_to_string`]: https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html
+[`Result`]: https://doc.rust-lang.org/1.39.0/std/result/index.html
+[`std::io::Error`]: https://doc.rust-lang.org/1.39.0/std/io/type.Result.html
 
 How do you know which it is?
 Since `Result` is an `enum`,
@@ -36,7 +36,7 @@ match result {
 
 **Aside:**
 Not sure what enums are or how they work in Rust?
-[Check this chapter of the Rust book](https://doc.rust-lang.org/1.31.0/book/ch06-00-enums.html)
+[Check this chapter of the Rust book](https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html)
 to get up to speed.
 
 </aside>
@@ -164,7 +164,7 @@ that implements the standard [`Error`][`std::error::Error`] trait.
 This means that basically all errors can be put into this box,
 so we can use `?` on all of the usual functions that return `Result`s.
 
-[`std::error::Error`]: https://doc.rust-lang.org/1.31.0/std/error/trait.Error.html
+[`std::error::Error`]: https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html
 
 </aside>
 
