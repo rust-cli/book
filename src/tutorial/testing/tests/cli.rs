@@ -4,7 +4,7 @@ use predicates::prelude::*; // Used for writing assertions
 
 #[test]
 fn file_doesnt_exist() -> Result<(), Box<std::error::Error>> {
-    let mut cmd = Command::main_binary()?;
+    let mut cmd = Command::cargo_bin("grrs")?;
     cmd.arg("foobar")
         .arg("test/file/doesnt/exist");
     cmd.assert()
@@ -22,7 +22,7 @@ fn find_content_in_file() -> Result<(), Box<std::error::Error>> {
     let mut file = NamedTempFile::new()?;
     writeln!(file, "A test\nActual content\nMore content\nAnother test")?;
 
-    let mut cmd = Command::main_binary()?;
+    let mut cmd = Command::cargo_bin("grrs")?;
     cmd.arg("test")
         .arg(file.path());
     cmd.assert()

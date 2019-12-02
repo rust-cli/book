@@ -429,7 +429,7 @@ You can run this test with
 `cargo test`,
 just the tests we wrote above.
 It might take a little longer the first time,
-as `Command::main_binary()` needs to compile your main binary.
+as `Command::cargo_bin("grrs")` needs to compile your main binary.
 
 ## Generating test files
 
