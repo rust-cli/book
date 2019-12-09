@@ -1,0 +1,16 @@
+[book]
+#  This book is called
+title = "Command Line Applications in Rust"
+# ...but friends call it "Clair"
+authors = ["The Rust CLI Working Group"]
+multilingual = false
+language = "en"
+src = "src"
+
+[output.html]
+curly-quotes = true
+additional-css = ["src/special-content.css"]
+git-repository-url = "https://github.com/rust-lang-nursery/cli-wg"
+
+# Linkcheck doesn't find images/SVG so it's not enabled for now
+# [output.linkcheck]

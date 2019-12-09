@@ -1,0 +1,832 @@
+<svg viewBox="0,0,932,932" width="932" height="932" text-anchor="middle" style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 10px; line-height: normal; font-family: sans-serif; width: 100%; height: auto;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g transform="translate(329.5579169210682,477.411217480722)">
+    <circle r="68.47542756829102" fill="#ddd" id="O-62802-leaf-0"></circle>
+    <clipPath id="O-62802-clip-0">
+      <use xlink:href="#O-62802-leaf-0"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-0)">
+      <tspan x="0" y="3">platform specific</tspan>
+    </text>
+    <title>platform specific,7</title>
+  </g>
+  <g transform="translate(513.7056703811714,477.411217480722)">
+    <circle r="112.81387923259466" fill="#ddd" id="O-62802-leaf-1"></circle>
+    <clipPath id="O-62802-clip-1">
+      <use xlink:href="#O-62802-leaf-1"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-1)">
+      <tspan x="0" y="3">wrote it myself</tspan>
+    </text>
+    <title>wrote it myself,19</title>
+  </g>
+  <g transform="translate(392.8868406647785,551.1691554540861)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-2"></circle>
+    <clipPath id="O-62802-clip-2">
+      <use xlink:href="#O-62802-leaf-2"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-2)">
+      <tspan x="0" y="3">ipc</tspan>
+    </text>
+    <title>ipc,1</title>
+  </g>
+  <g transform="translate(390.30562587107124,388.1935372720428)">
+    <circle r="36.601655624771446" fill="#ddd" id="O-62802-leaf-3"></circle>
+    <clipPath id="O-62802-clip-3">
+      <use xlink:href="#O-62802-leaf-3"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-3)">
+      <tspan x="0" y="3">xml</tspan>
+    </text>
+    <title>xml,2</title>
+  </g>
+  <g transform="translate(429.80754382515386,591.4223019791682)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-4"></circle>
+    <clipPath id="O-62802-clip-4">
+      <use xlink:href="#O-62802-leaf-4"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-4)">
+      <tspan x="0" y="3">standard paths</tspan>
+    </text>
+    <title>standard paths,1</title>
+  </g>
+  <g transform="translate(445.57144195892994,353.3340239864009)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-5"></circle>
+    <clipPath id="O-62802-clip-5">
+      <use xlink:href="#O-62802-leaf-5"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-5)">
+      <tspan x="0" y="3">packaging</tspan>
+    </text>
+    <title>packaging,1</title>
+  </g>
+  <g transform="translate(326.31624118306627,606.5767187825052)">
+    <circle r="57.87229895369552" fill="#ddd" id="O-62802-leaf-6"></circle>
+    <clipPath id="O-62802-clip-6">
+      <use xlink:href="#O-62802-leaf-6"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-6)">
+      <tspan x="0" y="3">paths</tspan>
+    </text>
+    <title>paths,5</title>
+  </g>
+  <g transform="translate(512.0948389778873,702.882756206415)">
+    <circle r="109.80496687431432" fill="#ddd" id="O-62802-leaf-7"></circle>
+    <clipPath id="O-62802-clip-7">
+      <use xlink:href="#O-62802-leaf-7"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-7)">
+      <tspan x="0" y="3">config files</tspan>
+    </text>
+    <title>config files,18</title>
+  </g>
+  <g transform="translate(309.894265705734,362.92606635975375)">
+    <circle r="44.827690010879934" fill="#ddd" id="O-62802-leaf-8"></circle>
+    <clipPath id="O-62802-clip-8">
+      <use xlink:href="#O-62802-leaf-8"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-8)">
+      <tspan x="0" y="3">streaming</tspan>
+    </text>
+    <title>streaming,3</title>
+  </g>
+  <g transform="translate(338.15782911605805,730.1372614110858)">
+    <circle r="63.395927183243316" fill="#ddd" id="O-62802-leaf-9"></circle>
+    <clipPath id="O-62802-clip-9">
+      <use xlink:href="#O-62802-leaf-9"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-9)">
+      <tspan x="0" y="3">errors</tspan>
+    </text>
+    <title>errors,6</title>
+  </g>
+  <g transform="translate(522.158626496345,293.45757484943863)">
+    <circle r="68.47542756829102" fill="#ddd" id="O-62802-leaf-10"></circle>
+    <clipPath id="O-62802-clip-10">
+      <use xlink:href="#O-62802-leaf-10"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-10)">
+      <tspan x="0" y="3">http</tspan>
+    </text>
+    <title>http,7</title>
+  </g>
+  <g transform="translate(399.7892288177749,323.54404099002886)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-11"></circle>
+    <clipPath id="O-62802-clip-11">
+      <use xlink:href="#O-62802-leaf-11"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-11)">
+      <tspan x="0" y="3">ide</tspan>
+    </text>
+    <title>ide,1</title>
+  </g>
+  <g transform="translate(668.0470770724979,593.8151215986105)">
+    <circle r="77.64383668479188" fill="#ddd" id="O-62802-leaf-12"></circle>
+    <clipPath id="O-62802-clip-12">
+      <use xlink:href="#O-62802-leaf-12"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-12)">
+      <tspan x="0" y="3">cross platform</tspan>
+    </text>
+    <title>cross platform,9</title>
+  </g>
+  <g transform="translate(345.8360470196955,286.685524087795)">
+    <circle r="36.601655624771446" fill="#ddd" id="O-62802-leaf-13"></circle>
+    <clipPath id="O-62802-clip-13">
+      <use xlink:href="#O-62802-leaf-13"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-13)">
+      <tspan x="0" y="3">gui</tspan>
+    </text>
+    <title>gui,2</title>
+  </g>
+  <g transform="translate(262.60883407826157,547.8995590921282)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-14"></circle>
+    <clipPath id="O-62802-clip-14">
+      <use xlink:href="#O-62802-leaf-14"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-14)">
+      <tspan x="0" y="3">games</tspan>
+    </text>
+    <title>games,1</title>
+  </g>
+  <g transform="translate(592.9318208745726,360.1054626938476)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-15"></circle>
+    <clipPath id="O-62802-clip-15">
+      <use xlink:href="#O-62802-leaf-15"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-15)">
+      <tspan x="0" y="3">unstable features</tspan>
+    </text>
+    <title>unstable features,1</title>
+  </g>
+  <g transform="translate(426.53824130049946,275.9211005282584)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-16"></circle>
+    <clipPath id="O-62802-clip-16">
+      <use xlink:href="#O-62802-leaf-16"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-16)">
+      <tspan x="0" y="3">guides</tspan>
+    </text>
+    <title>guides,1</title>
+  </g>
+  <g transform="translate(256.3824148197284,413.4101871074842)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-17"></circle>
+    <clipPath id="O-62802-clip-17">
+      <use xlink:href="#O-62802-leaf-17"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-17)">
+      <tspan x="0" y="3">domain specific</tspan>
+    </text>
+    <title>domain specific,1</title>
+  </g>
+  <g transform="translate(631.4477610032709,398.83499255193914)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-18"></circle>
+    <clipPath id="O-62802-clip-18">
+      <use xlink:href="#O-62802-leaf-18"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-18)">
+      <tspan x="0" y="3">wrote pr</tspan>
+    </text>
+    <title>wrote pr,1</title>
+  </g>
+  <g transform="translate(223.19726848808497,495.78214749005355)">
+    <circle r="36.601655624771446" fill="#ddd" id="O-62802-leaf-19"></circle>
+    <clipPath id="O-62802-clip-19">
+      <use xlink:href="#O-62802-leaf-19"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-19)">
+      <tspan x="0" y="3">interactive clis</tspan>
+    </text>
+    <title>interactive clis,2</title>
+  </g>
+  <g transform="translate(205.36499788354013,432.9211403436901)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-20"></circle>
+    <clipPath id="O-62802-clip-20">
+      <use xlink:href="#O-62802-leaf-20"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-20)">
+      <tspan x="0" y="3">stream files</tspan>
+    </text>
+    <title>stream files,1</title>
+  </g>
+  <g transform="translate(654.8433849349442,488.2541210890325)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-21"></circle>
+    <clipPath id="O-62802-clip-21">
+      <use xlink:href="#O-62802-leaf-21"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-21)">
+      <tspan x="0" y="3">term escape codes</tspan>
+    </text>
+    <title>term escape codes,1</title>
+  </g>
+  <g transform="translate(671.3122252839562,436.17503291935503)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-22"></circle>
+    <clipPath id="O-62802-clip-22">
+      <use xlink:href="#O-62802-leaf-22"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-22)">
+      <tspan x="0" y="3">parsing inputs</tspan>
+    </text>
+    <title>parsing inputs,1</title>
+  </g>
+  <g transform="translate(387.8386826917423,223.27283125132746)">
+    <circle r="36.601655624771446" fill="#ddd" id="O-62802-leaf-23"></circle>
+    <clipPath id="O-62802-clip-23">
+      <use xlink:href="#O-62802-leaf-23"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-23)">
+      <tspan x="0" y="3">crate usage</tspan>
+    </text>
+    <title>crate usage,2</title>
+  </g>
+  <g transform="translate(164.91387553481013,637.0605554714944)">
+    <circle r="103.52511557972251" fill="#ddd" id="O-62802-leaf-24"></circle>
+    <clipPath id="O-62802-clip-24">
+      <use xlink:href="#O-62802-leaf-24"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-24)">
+      <tspan x="0" y="3">tui</tspan>
+    </text>
+    <title>tui,16</title>
+  </g>
+  <g transform="translate(211.8356580320622,346.35644684417235)">
+    <circle r="51.762557789861255" fill="#ddd" id="O-62802-leaf-25"></circle>
+    <clipPath id="O-62802-clip-25">
+      <use xlink:href="#O-62802-leaf-25"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-25)">
+      <tspan x="0" y="3">readline</tspan>
+    </text>
+    <title>readline,4</title>
+  </g>
+  <g transform="translate(617.6994213879469,311.42261056051234)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-26"></circle>
+    <clipPath id="O-62802-clip-26">
+      <use xlink:href="#O-62802-leaf-26"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-26)">
+      <tspan x="0" y="3">feature bloat</tspan>
+    </text>
+    <title>feature bloat,1</title>
+  </g>
+  <g transform="translate(255.85583101226018,236.85658144379101)">
+    <circle r="63.395927183243316" fill="#ddd" id="O-62802-leaf-27"></circle>
+    <clipPath id="O-62802-clip-27">
+      <use xlink:href="#O-62802-leaf-27"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-27)">
+      <tspan x="0" y="3">signals</tspan>
+    </text>
+    <title>signals,6</title>
+  </g>
+  <g transform="translate(656.2153615166452,350.1521404186039)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-28"></circle>
+    <clipPath id="O-62802-clip-28">
+      <use xlink:href="#O-62802-leaf-28"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-28)">
+      <tspan x="0" y="3">ide support</tspan>
+    </text>
+    <title>ide support,1</title>
+  </g>
+  <g transform="translate(453.15785406726843,224.9763409177251)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-29"></circle>
+    <clipPath id="O-62802-clip-29">
+      <use xlink:href="#O-62802-leaf-29"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-29)">
+      <tspan x="0" y="3">use atom</tspan>
+    </text>
+    <title>use atom,1</title>
+  </g>
+  <g transform="translate(158.50241137079882,504.95120180022076)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-30"></circle>
+    <clipPath id="O-62802-clip-30">
+      <use xlink:href="#O-62802-leaf-30"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-30)">
+      <tspan x="0" y="3">pretty colored log output</tspan>
+    </text>
+    <title>pretty colored log output,1</title>
+  </g>
+  <g transform="translate(722.077326698557,382.9296658788056)">
+    <circle r="44.827690010879934" fill="#ddd" id="O-62802-leaf-31"></circle>
+    <clipPath id="O-62802-clip-31">
+      <use xlink:href="#O-62802-leaf-31"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-31)">
+      <tspan x="0" y="3">async io</tspan>
+    </text>
+    <title>async io,3</title>
+  </g>
+  <g transform="translate(728.2823823992576,483.9092063195442)">
+    <circle r="44.827690010879934" fill="#ddd" id="O-62802-leaf-32"></circle>
+    <clipPath id="O-62802-clip-32">
+      <use xlink:href="#O-62802-leaf-32"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-32)">
+      <tspan x="0" y="3">man pages</tspan>
+    </text>
+    <title>man pages,3</title>
+  </g>
+  <g transform="translate(231.441822748689,780.5325998553092)">
+    <circle r="51.762557789861255" fill="#ddd" id="O-62802-leaf-33"></circle>
+    <clipPath id="O-62802-clip-33">
+      <use xlink:href="#O-62802-leaf-33"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-33)">
+      <tspan x="0" y="3">testing</tspan>
+    </text>
+    <title>testing,4</title>
+  </g>
+  <g transform="translate(157.81518751974232,406.0423445858228)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-34"></circle>
+    <clipPath id="O-62802-clip-34">
+      <use xlink:href="#O-62802-leaf-34"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-34)">
+      <tspan x="0" y="3">pretty output</tspan>
+    </text>
+    <title>pretty output,1</title>
+  </g>
+  <g transform="translate(844.1994776486126,426.10584180485876)">
+    <circle r="81.84379006602649" fill="#ddd" id="O-62802-leaf-35"></circle>
+    <clipPath id="O-62802-clip-35">
+      <use xlink:href="#O-62802-leaf-35"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-35)">
+      <tspan x="0" y="3">colors</tspan>
+    </text>
+    <title>colors,10</title>
+  </g>
+  <g transform="translate(628.6216406964509,231.66470970438326)">
+    <circle r="51.762557789861255" fill="#ddd" id="O-62802-leaf-36"></circle>
+    <clipPath id="O-62802-clip-36">
+      <use xlink:href="#O-62802-leaf-36"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-36)">
+      <tspan x="0" y="3">opened a pr</tspan>
+    </text>
+    <title>opened a pr,4</title>
+  </g>
+  <g transform="translate(650.5780153176252,698.7546003282614)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-37"></circle>
+    <clipPath id="O-62802-clip-37">
+      <use xlink:href="#O-62802-leaf-37"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-37)">
+      <tspan x="0" y="3">parsing data formats</tspan>
+    </text>
+    <title>parsing data formats,1</title>
+  </g>
+  <g transform="translate(94.64057941915553,455.9381010680773)">
+    <circle r="51.762557789861255" fill="#ddd" id="O-62802-leaf-38"></circle>
+    <clipPath id="O-62802-clip-38">
+      <use xlink:href="#O-62802-leaf-38"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-38)">
+      <tspan x="0" y="3">1 0 crates</tspan>
+    </text>
+    <title>1 0 crates,4</title>
+  </g>
+  <g transform="translate(506.12838172488796,186.71906325657636)">
+    <circle r="36.601655624771446" fill="#ddd" id="O-62802-leaf-39"></circle>
+    <clipPath id="O-62802-clip-39">
+      <use xlink:href="#O-62802-leaf-39"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-39)">
+      <tspan x="0" y="3">credentials</tspan>
+    </text>
+    <title>credentials,2</title>
+  </g>
+  <g transform="translate(333.80043302515736,169.74472098071624)">
+    <circle r="36.601655624771446" fill="#ddd" id="O-62802-leaf-40"></circle>
+    <clipPath id="O-62802-clip-40">
+      <use xlink:href="#O-62802-leaf-40"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-40)">
+      <tspan x="0" y="3">autocompletion</tspan>
+    </text>
+    <title>autocompletion,2</title>
+  </g>
+  <g transform="translate(731.2332010187372,277.76905872586303)">
+    <circle r="57.87229895369552" fill="#ddd" id="O-62802-leaf-41"></circle>
+    <clipPath id="O-62802-clip-41">
+      <use xlink:href="#O-62802-leaf-41"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-41)">
+      <tspan x="0" y="3">crate discovery</tspan>
+    </text>
+    <title>crate discovery,5</title>
+  </g>
+  <g transform="translate(406.21812259018066,792.240199808246)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-42"></circle>
+    <clipPath id="O-62802-clip-42">
+      <use xlink:href="#O-62802-leaf-42"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-42)">
+      <tspan x="0" y="3">web scraping</tspan>
+    </text>
+    <title>web scraping,1</title>
+  </g>
+  <g transform="translate(431.62953749869723,174.77688163030183)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-43"></circle>
+    <clipPath id="O-62802-clip-43">
+      <use xlink:href="#O-62802-leaf-43"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-43)">
+      <tspan x="0" y="3">glob</tspan>
+    </text>
+    <title>glob,1</title>
+  </g>
+  <g transform="translate(590.1273145911541,105.1254863075759)">
+    <circle r="77.64383668479188" fill="#ddd" id="O-62802-leaf-44"></circle>
+    <clipPath id="O-62802-clip-44">
+      <use xlink:href="#O-62802-leaf-44"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-44)">
+      <tspan x="0" y="3">logging</tspan>
+    </text>
+    <title>logging,9</title>
+  </g>
+  <g transform="translate(764.1316320125206,548.1509056672692)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-45"></circle>
+    <clipPath id="O-62802-clip-45">
+      <use xlink:href="#O-62802-leaf-45"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-45)">
+      <tspan x="0" y="3">tests</tspan>
+    </text>
+    <title>tests,1</title>
+  </g>
+  <g transform="translate(468.32832173514106,120.71492337927464)">
+    <circle r="36.601655624771446" fill="#ddd" id="O-62802-leaf-46"></circle>
+    <clipPath id="O-62802-clip-46">
+      <use xlink:href="#O-62802-leaf-46"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-46)">
+      <tspan x="0" y="3">open a pr</tspan>
+    </text>
+    <title>open a pr,2</title>
+  </g>
+  <g transform="translate(172.50351131124722,276.11685787946203)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-47"></circle>
+    <clipPath id="O-62802-clip-47">
+      <use xlink:href="#O-62802-leaf-47"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-47)">
+      <tspan x="0" y="3">ascii art</tspan>
+    </text>
+    <title>ascii art,1</title>
+  </g>
+  <g transform="translate(120.80012555336464,352.1964414733845)">
+    <circle r="36.601655624771446" fill="#ddd" id="O-62802-leaf-48"></circle>
+    <clipPath id="O-62802-clip-48">
+      <use xlink:href="#O-62802-leaf-48"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-48)">
+      <tspan x="0" y="3">exit code</tspan>
+    </text>
+    <title>exit code,2</title>
+  </g>
+  <g transform="translate(391.03847383808477,138.22801464476606)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-49"></circle>
+    <clipPath id="O-62802-clip-49">
+      <use xlink:href="#O-62802-leaf-49"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-49)">
+      <tspan x="0" y="3">rest apis</tspan>
+    </text>
+    <title>rest apis,1</title>
+  </g>
+  <g transform="translate(661.753642606065,784.6425979999804)">
+    <circle r="57.87229895369552" fill="#ddd" id="O-62802-leaf-50"></circle>
+    <clipPath id="O-62802-clip-50">
+      <use xlink:href="#O-62802-leaf-50"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-50)">
+      <tspan x="0" y="3">windows</tspan>
+    </text>
+    <title>windows,5</title>
+  </g>
+  <g transform="translate(704.9544408074098,693.5914154603556)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-51"></circle>
+    <clipPath id="O-62802-clip-51">
+      <use xlink:href="#O-62802-leaf-51"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-51)">
+      <tspan x="0" y="3">cross paltform</tspan>
+    </text>
+    <title>cross paltform,1</title>
+  </g>
+  <g transform="translate(59.721993242845656,540.2130442623438)">
+    <circle r="36.601655624771446" fill="#ddd" id="O-62802-leaf-52"></circle>
+    <clipPath id="O-62802-clip-52">
+      <use xlink:href="#O-62802-leaf-52"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-52)">
+      <tspan x="0" y="3">terminal escapes</tspan>
+    </text>
+    <title>terminal escapes,2</title>
+  </g>
+  <g transform="translate(448.9841934149444,826.2183885951366)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-53"></circle>
+    <clipPath id="O-62802-clip-53">
+      <use xlink:href="#O-62802-leaf-53"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-53)">
+      <tspan x="0" y="3">fancy output</tspan>
+    </text>
+    <title>fancy output,1</title>
+  </g>
+  <g transform="translate(359.09616175102303,819.8622007078762)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-54"></circle>
+    <clipPath id="O-62802-clip-54">
+      <use xlink:href="#O-62802-leaf-54"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-54)">
+      <tspan x="0" y="3">fixed it myself</tspan>
+    </text>
+    <title>fixed it myself,1</title>
+  </g>
+  <g transform="translate(774.1268081743804,601.8496075186144)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-55"></circle>
+    <clipPath id="O-62802-clip-55">
+      <use xlink:href="#O-62802-leaf-55"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-55)">
+      <tspan x="0" y="3">structuring app code</tspan>
+    </text>
+    <title>structuring app code,1</title>
+  </g>
+  <g transform="translate(816.6687610103274,533.2075391224076)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-56"></circle>
+    <clipPath id="O-62802-clip-56">
+      <use xlink:href="#O-62802-leaf-56"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-56)">
+      <tspan x="0" y="3">no-std</tspan>
+    </text>
+    <title>no-std,1</title>
+  </g>
+  <g transform="translate(62.678691656907404,382.05268062349546)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-57"></circle>
+    <clipPath id="O-62802-clip-57">
+      <use xlink:href="#O-62802-leaf-57"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-57)">
+      <tspan x="0" y="3">terminal abstraction</tspan>
+    </text>
+    <title>terminal abstraction,1</title>
+  </g>
+  <g transform="translate(107.17405512881157,277.3651564319261)">
+    <circle r="36.601655624771446" fill="#ddd" id="O-62802-leaf-58"></circle>
+    <clipPath id="O-62802-clip-58">
+      <use xlink:href="#O-62802-leaf-58"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-58)">
+      <tspan x="0" y="3">pipes</tspan>
+    </text>
+    <title>pipes,2</title>
+  </g>
+  <g transform="translate(272.81199679514884,146.2946305632563)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-59"></circle>
+    <clipPath id="O-62802-clip-59">
+      <use xlink:href="#O-62802-leaf-59"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-59)">
+      <tspan x="0" y="3">all in one library</tspan>
+    </text>
+    <title>all in one library,1</title>
+  </g>
+  <g transform="translate(805.3597301976245,322.56750134654897)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-60"></circle>
+    <clipPath id="O-62802-clip-60">
+      <use xlink:href="#O-62802-leaf-60"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-60)">
+      <tspan x="0" y="3">best practices</tspan>
+    </text>
+    <title>best practices,1</title>
+  </g>
+  <g transform="translate(749.6015273702089,662.1256914343585)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-61"></circle>
+    <clipPath id="O-62802-clip-61">
+      <use xlink:href="#O-62802-leaf-61"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-61)">
+      <tspan x="0" y="3">localization</tspan>
+    </text>
+    <title>localization,1</title>
+  </g>
+  <g transform="translate(735.347999437005,738.9751760014967)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-62"></circle>
+    <clipPath id="O-62802-clip-62">
+      <use xlink:href="#O-62802-leaf-62"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-62)">
+      <tspan x="0" y="3">translation</tspan>
+    </text>
+    <title>translation,1</title>
+  </g>
+  <g transform="translate(411.91063400487946,87.75220799447118)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-63"></circle>
+    <clipPath id="O-62802-clip-63">
+      <use xlink:href="#O-62802-leaf-63"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-63)">
+      <tspan x="0" y="3">more community maintained crates</tspan>
+    </text>
+    <title>more community maintained crates,1</title>
+  </g>
+  <g transform="translate(701.0749511674896,196.5771702439646)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-64"></circle>
+    <clipPath id="O-62802-clip-64">
+      <use xlink:href="#O-62802-leaf-64"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-64)">
+      <tspan x="0" y="3">packages</tspan>
+    </text>
+    <title>packages,1</title>
+  </g>
+  <g transform="translate(583.4428381178818,821.6434181227946)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-65"></circle>
+    <clipPath id="O-62802-clip-65">
+      <use xlink:href="#O-62802-leaf-65"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-65)">
+      <tspan x="0" y="3">parse input data</tspan>
+    </text>
+    <title>parse input data,1</title>
+  </g>
+  <g transform="translate(501.5596587581849,841.0263111694883)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-66"></circle>
+    <clipPath id="O-62802-clip-66">
+      <use xlink:href="#O-62802-leaf-66"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-66)">
+      <tspan x="0" y="3">cross compile</tspan>
+    </text>
+    <title>cross compile,1</title>
+  </g>
+  <g transform="translate(303.8768052485779,815.6579601216462)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-67"></circle>
+    <clipPath id="O-62802-clip-67">
+      <use xlink:href="#O-62802-leaf-67"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-67)">
+      <tspan x="0" y="3">sustainability</tspan>
+    </text>
+    <title>sustainability,1</title>
+  </g>
+  <g transform="translate(164.92183941692883,222.0245998538149)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-68"></circle>
+    <clipPath id="O-62802-clip-68">
+      <use xlink:href="#O-62802-leaf-68"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-68)">
+      <tspan x="0" y="3">config file</tspan>
+    </text>
+    <title>config file,1</title>
+  </g>
+  <g transform="translate(493.57918324111967,60.44975858588214)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-69"></circle>
+    <clipPath id="O-62802-clip-69">
+      <use xlink:href="#O-62802-leaf-69"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-69)">
+      <tspan x="0" y="3">crate features</tspan>
+    </text>
+    <title>crate features,1</title>
+  </g>
+  <g transform="translate(802.5014352077109,648.5222404821154)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-70"></circle>
+    <clipPath id="O-62802-clip-70">
+      <use xlink:href="#O-62802-leaf-70"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-70)">
+      <tspan x="0" y="3">translated docs</tspan>
+    </text>
+    <title>translated docs,1</title>
+  </g>
+  <g transform="translate(327.91212138689946,864.7064841071569)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-71"></circle>
+    <clipPath id="O-62802-clip-71">
+      <use xlink:href="#O-62802-leaf-71"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-71)">
+      <tspan x="0" y="3">lock files</tspan>
+    </text>
+    <title>lock files,1</title>
+  </g>
+  <g transform="translate(401.8622325757867,853.8403894947669)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-72"></circle>
+    <clipPath id="O-62802-clip-72">
+      <use xlink:href="#O-62802-leaf-72"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-72)">
+      <tspan x="0" y="3">system notifications</tspan>
+    </text>
+    <title>system notifications,1</title>
+  </g>
+  <g transform="translate(347.10575453808497,105.77234792948036)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-73"></circle>
+    <clipPath id="O-62802-clip-73">
+      <use xlink:href="#O-62802-leaf-73"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-73)">
+      <tspan x="0" y="3">standardized output</tspan>
+    </text>
+    <title>standardized output,1</title>
+  </g>
+  <g transform="translate(826.6639371721872,586.9062409737529)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-74"></circle>
+    <clipPath id="O-62802-clip-74">
+      <use xlink:href="#O-62802-leaf-74"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-74)">
+      <tspan x="0" y="3">gaming</tspan>
+    </text>
+    <title>gaming,1</title>
+  </g>
+  <g transform="translate(689.4622018013101,143.20490985352785)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-75"></circle>
+    <clipPath id="O-62802-clip-75">
+      <use xlink:href="#O-62802-leaf-75"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-75)">
+      <tspan x="0" y="3">parser generator</tspan>
+    </text>
+    <title>parser generator,1</title>
+  </g>
+  <g transform="translate(550.5248999137316,865.2308414397794)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-76"></circle>
+    <clipPath id="O-62802-clip-76">
+      <use xlink:href="#O-62802-leaf-76"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-76)">
+      <tspan x="0" y="3">consult community docs</tspan>
+    </text>
+    <title>consult community docs,1</title>
+  </g>
+  <g transform="translate(151.81754833398088,768.67542702489)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-77"></circle>
+    <clipPath id="O-62802-clip-77">
+      <use xlink:href="#O-62802-leaf-77"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-77)">
+      <tspan x="0" y="3">process info</tspan>
+    </text>
+    <title>process info,1</title>
+  </g>
+  <g transform="translate(779.9950859998041,707.5094519754997)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-78"></circle>
+    <clipPath id="O-62802-clip-78">
+      <use xlink:href="#O-62802-leaf-78"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-78)">
+      <tspan x="0" y="3">binary bloat</tspan>
+    </text>
+    <title>binary bloat,1</title>
+  </g>
+  <g transform="translate(218.5571118605405,152.6082339526602)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-79"></circle>
+    <clipPath id="O-62802-clip-79">
+      <use xlink:href="#O-62802-leaf-79"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-79)">
+      <tspan x="0" y="3">in main</tspan>
+    </text>
+    <title>in main,1</title>
+  </g>
+  <g transform="translate(293.41955783951624,95.71022036773309)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-80"></circle>
+    <clipPath id="O-62802-clip-80">
+      <use xlink:href="#O-62802-leaf-80"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-80)">
+      <tspan x="0" y="3">templating</tspan>
+    </text>
+    <title>templating,1</title>
+  </g>
+  <g transform="translate(165.98100131071766,167.41386553253852)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-81"></circle>
+    <clipPath id="O-62802-clip-81">
+      <use xlink:href="#O-62802-leaf-81"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-81)">
+      <tspan x="0" y="3">magic</tspan>
+    </text>
+    <title>magic,1</title>
+  </g>
+  <g transform="translate(111.20120279631334,212.14799476390345)">
+    <circle r="25.881278894930627" fill="#ddd" id="O-62802-leaf-82"></circle>
+    <clipPath id="O-62802-clip-82">
+      <use xlink:href="#O-62802-leaf-82"></use>
+    </clipPath>
+    <text clip-path="url(#O-62802-clip-82)">
+      <tspan x="0" y="3">filed issue</tspan>
+    </text>
+    <title>filed issue,1</title>
+  </g>
+</svg>

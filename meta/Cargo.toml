@@ -1,0 +1,77 @@
+[package]
+name = "CLAiR"
+version = "0.1.0"
+authors = ["Pascal Hertleif <killercup@gmail.com>"]
+edition = "2018"
+
+[[bin]]
+name = "cli-args-struct"
+path = "src/tutorial/cli-args-struct.rs"
+
+[[bin]]
+name = "cli-args-structopt"
+path = "src/tutorial/cli-args-structopt.rs"
+
+[[bin]]
+name = "impl-draft-shortcut"
+path = "src/tutorial/impl-draft-shortcut.rs"
+
+[[bin]]
+name = "impl-draft"
+path = "src/tutorial/impl-draft.rs"
+
+[[bin]]
+name = "errors-custom"
+path = "src/tutorial/errors-custom.rs"
+
+[[bin]]
+name = "errors-exit"
+path = "src/tutorial/errors-exit.rs"
+
+[[bin]]
+name = "output-progressbar"
+path = "src/tutorial/output-progressbar.rs"
+
+[[bin]]
+name = "output-log"
+path = "src/tutorial/output-log.rs"
+
+[[bin]]
+name = "machine-communication"
+path = "src/in-depth/machine-communication.rs"
+
+[[bin]]
+name = "machine-communication-convey"
+path = "src/in-depth/machine-communication-convey.rs"
+
+[[bin]]
+name = "signals-ctrlc"
+path = "src/in-depth/signals-ctrlc.rs"
+
+[[bin]]
+name = "signals-hooked"
+path = "src/in-depth/signals-hooked.rs"
+
+[[bin]]
+name = "signals-channels"
+path = "src/in-depth/signals-channels.rs"
+
+[workspace]
+members = [
+    "src/tutorial/testing",
+]
+
+[dependencies]
+structopt = "0.2.10"
+failure = "0.1.3"
+exitfailure = "0.5.1"
+indicatif = "0.10.1"
+log = "0.4.6"
+env_logger = "0.6.0"
+serde_json = "1"
+convey = { version = "0.2", git = "https://github.com/killercup/convey", rev = "1e356d4634821764e58f842e9140a74c76b781b8" }
+serde_derive = "1.0.80"
+serde = "1.0.80"
+ctrlc = "3.1.1"
+crossbeam-channel = "0.3.2"
+signal-hook = "0.1.6"

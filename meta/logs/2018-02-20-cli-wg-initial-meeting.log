@@ -1,0 +1,264 @@
+18:00 <killercup> hey @/all, welcome to the first CLI working group meeting!
+18:00 <killercup> This meeting about the goals and format of the working group
+18:00 <killercup> It is not about concrete details, I want to keep it focused on big picture for now
+18:01 <killercup> The time box is an hour (let's see if I manage to keep us on schedule)
+...
+18:02 <killercup> first of all, thank you all for showing up!
+18:02 <killercup> and for discussion so much stuff already!
+...
+18:02 <killercup> if you haven't seen it yet, the etherpad is packed with cool ideas: https://public.etherpad-mozilla.org/p/rust-cli-wg
+18:04 <killercup> i want to go through the "goals" for a bit
+18:04 <killercup> > - Rust is known to be a very good language for writing CLI tools
+18:04 <killercup> > - "Writing a CLI tool" is a good way to get started with Rust as a beginner
+18:04 <killercup> > - Make it easy to ship well-tested binaries
+18:04 <killercup> > - "Writing seamless binaries in Rust should be effortless"
+18:04 <killercup> does anyone want to add something to that list?
+18:04 <killercup> or, even better, want to compress some of the points into a new one? :)
+18:05 <Dylan-DPC> how about "work effectively the same on all platforms"?
+18:05 <killercup> i think it's important to have a good slogan and something we can use when deciding what to do and what not to focus on
+18:05 <epage> Agreed.
+18:06 <killercup> @Dylan-DPC you mean like "i'm sure my rust cli app works on a mac even though i haven't tested it"?
+18:06 <Dylan-DPC> yeh
+18:07 <Dylan-DPC> as in the user doesn't have to bother about different platforms
+18:07 <yoshuawuyts> that's a pretty cool goal!
+18:07 <killercup> cool. that's really ambitious, though!
+18:07 <epage> Seems like some of the high level ideas
+18:07 <epage> - Fun / low friction
+18:07 <epage> - Cross-platform
+18:07 <epage> - End-user consumable (distribution)
+18:07 <epage> - Releasing with confidence
+18:08 <epage> Now how to capture that in a slogan :)
+18:08 <mattgathu> agreed. platform compatibility is a great goal
+...
+18:08 <yoshuawuyts> that's a pretty good summary ^
+18:08 <Eijebong> Very ambitious though
+18:08 <killercup> great summary!
+18:08 <killercup> i like @yoshuawuyts' "Writing seamless binaries in Rust should be effortless" as a base but like to make it a bit more concrete
+18:08 <yoshuawuyts> @epage probably would add to that "Should feel native to the platform"
+...
+18:09 <Eijebong> Like file locations for config files are different on each platform, coloring is different (I think we have some abstraction around that already)
+18:09 <dherman> I'd say the things that are nonobvious so far are 1) how to develop a test harness for a CLI tool and 2) how to structure error handling
+18:09 <sharkdp> ..., file path handling
+18:09 <dherman> there are a few Windows gotchas as well
+...
+18:10 <yoshuawuyts> these all sounds like very concrete things we could work on!
+...
+18:12 <yoshuawuyts> @killercup yeah, I like having that slogan as a base - and then expand with the list of @epage for more detail :D
+18:12 <killercup> so, i'm trying to come up with a sentence that covers this, something like "frictionless" and with "known best practices"
+...
+18:13 <epage> @yoshuawuyts to be clear, my list was created to help us brainstorm parts to include in the slogan
+18:13 <yoshuawuyts> gotcha!
+18:14 <yoshuawuyts> killercup: sounds like "doing the right thing for reach platform should be straight forward" or something
+18:14 <epage> "Frictionlessly creating CLIs with industry best practices"?
+18:14 <yoshuawuyts> but then, nicer
+18:15 <killercup> "Writing CLI apps in Rust is a frictionless experience with known best practices that work across platforms, good documentation, and effortless distribution"
+18:15 <killercup> maybe a bit shorter :D
+18:15 <epage> Those last to fall under frictionless to me
+18:15 <killercup> [edit] maybe make it a bit shorter :D
+18:16 <Dylan-DPC> "writing cross-platform frictionless apps" 
+18:16 <mattgathu> > "Frictionlessly creating CLIs with industry best practices”?
+18:16 <mattgathu> “Frictionlessly creating world class CLIs"
+18:16 <mattgathu> [edit] > "Frictionlessly creating CLIs with industry best practices”?
+18:16 <mattgathu> [edit] “Frictionlessly creating world class CLIs"
+18:16 <epage> "frictionless" is meant to describe the process, not the app
+18:16 <Dylan-DPC> fair point
+18:16 <killercup> @epage yeah, i wanted to specify what is frictionless about it
+18:17 <yoshuawuyts> don't mind having @killercup's version as a "working title" - can always revisit later
+18:17 <epage> "Rust makes best-practice CLI applications frictionless through <something> crates and documentation"?
+18:17 <killercup> i think we're on the same page, i'll paste the suggested ones in the etherpad and we can decide later on
+...
+18:18 <killercup> cool, so, next point
+19:18 <killercup> what areas need out focus?
+18:19 <killercup> like, there are a lot of efforts to make writing CLI apps easier
+18:19 <killercup> where do we need to help out?
+18:19 <Eijebong> File management (cross platform stuff)
+18:19 <spacekookie> Especially for config files that would be great
+18:19 <killercup> @Eijebong like, dealing with paths or dealing with config files?
+18:20 <spacekookie> For linux under ~/.config, under Mac ~/Library (I think?), Windows…no idea
+18:20 <mattgathu> app packaging
+18:20 <Dylan-DPC> is there any plan to make one crate that others can use and extend?
+18:20 <vitiral> conglomeration crates / ecosystem discovery / API uniformity
+18:20 <TeXitoi> maybe we should define CLI tools before
+18:20 <Eijebong> If I need a config file, I don't want to know that it should be `${XDG_CONFIG:${XDG_HOME}/.config:/home/${user}/.config` on linux, `%AppDir%/App/` on windows and something else on osx (paths are probably all wrong :D)
+18:20 <yoshuawuyts> `~/.config`, `~/.local`, `~/.cache`
+18:21 <Eijebong> @yoshuawuyts Plz respect `${XDG_*}`stuff :o 
+18:21 <spacekookie> @TeXitoi Fair point, would a (n)curses tui count as a CLI?
+18:21 <killercup> @TeXitoi ah good point, how'd you define it?
+...
+18:22 <vitiral> there is a crate for "determing system configuration" and it's apparently not as easy as it sounds
+18:22 <TeXitoi> I'd define as a program that is launch in a terminal with parameter, no user interaction during the execution, and that do work on files, network and/or output to terminal
+18:22 <epage> So speaking of where the files are, the app_dirs crate exists.  Is it a discovery issue, maturity issue, or something else?
+18:22 <vitiral> but it is definitely something that should be solved
+18:22 <TeXitoi> (thus ncurses is not in my definition)
+18:22 <vitiral> @epage that's the one!
+18:23 <yoshuawuyts> this one? https://github.com/AndyBarron/app-dirs-rs
+18:23 <vitiral> it hasn't had an update and I heard from @BurntSushi that it is not maintained
+18:23 <TeXitoi> (neither is daemons)
+18:23 <killercup> @TeXitoi good definition, and i think it's fair to start with this
+18:25 <TeXitoi> (config files may or may not enter in my definition)
+18:25 <killercup> okay, so we have
+18:25 <killercup> 
+18:25 <killercup> - dealing with configs
+18:25 <killercup> - packaging
+18:25 <killercup> - crate discovery
+18:25 <killercup> - testing cli apps (@dherman mentioned this earlier)
+18:25 <killercup> - error handling and user facing output
+18:26 <sharkdp> So I am obviously biased, but one area that we have been struggling with in `fd` is the handling of file paths across platforms
+18:26 <epage> How so?
+18:26 <sharkdp> Things like: absolute paths on Windows (UNC prefixes)
+18:26 <sharkdp> or: UTF-8 filenames on MacOS (the filesystem normalizes UTF-8 strings)
+18:27 <vitiral> @TeXitoi 
+18:27 <vitiral> > I'd define as a program that is launch in a terminal with parameter, no user interaction during the execution, and that do work on files, network and/or output to terminal
+18:27 <vitiral> I'd like to ammend this to: launch in a terminal with configuration [cmd-args, ENV, config-files], runs to completion with no/minimal user interaction and does work on files, network and/or std{in,out,err}
+18:27 <killercup> one common theme i sense here is that there are some efforts (a.k.a. crates) but there are no solutions that solve enough of the issues
+18:27 <dherman> @sharkdp I had to create a little half-baked crate for turning a regular path into a verbatim path -- feels like a more polished crate waiting to happen
+18:27 <TeXitoi> @sharkdp fd?
+18:27 <dherman> @sharkdp https://github.com/notion-cli/notion/blob/master/crates/verbatim/src/lib.rs
+18:27 <vitiral> @sharkdp https://crates.io/crates/abs_path look like what you want?
+18:28 <sharkdp> @TeXitoi https://github.com/sharkdp/fd
+18:29 <TeXitoi> @sharkdp thanks
+18:29 <vitiral> @killercup more important, all solutions are disjointed. There is no unified API or even an understanding of where the holes are most of the time
+18:29 <Dylan-DPC> so is our main priority to build a master crate here? or fix existing issues everywhere?
+18:30 <killercup> @vitiral that's what we're here to do: create a good end-to-end story :)
+18:30 <vitiral> @Dylan-DPC this is a _team_, so I think the solution will be to experiment with lots of approaches -- but try to unify efforts as much as possible
+18:30 <spacekookie> @Dylan-DPC It could probably be a mix of the two approaches. With good documentation where to find what
+18:30 <killercup> that brings us to the next point on my agenda that also let's me answer @Dylan-DPC question!
+...
+18:30 <killercup> how should we fix this?
+18:31 <killercup> (the "### How to get there" part of the etherpad)
+18:31 <Dylan-DPC> @vitiral i know but my question was like "what should we focus more on". 
+18:31 <yoshuawuyts> probably part code, part guides, right?
+18:32 <killercup> i think a nice approach is trying to write an "ideal guide"
+18:32 <epage> Part code, part guides, part tools to make life easier
+18:32 <killercup> to see where the holes are
+18:32 <epage> That works
+18:32 <yoshuawuyts> what do you mean by an "ideal guide"?
+18:32 <mattgathu> about focus - I think addressing universal issues would be a good start
+18:33 <mattgathu> issues that affect majority of CLI tools
+18:33 <Dylan-DPC> yeah i agree
+18:33 <killercup> @yoshuawuyts  you write a guide that describes what writing a CLI app in rust is like _in the future_, and then see where it doesn't yet work in the present
+18:33 <epage> Kind of like steve's 2018 blog post
+18:33 <yoshuawuyts> cool!
+18:33 <vitiral> The basic problem, from a newbie's perspective, is that these tools are disjointed. Rust's `stdlib` is small, but there is no "extended stdlib". It would be great (IMO) if someone could say "gosh, one of the worst things about rust is that the stdlib is so small" and people would reply "then use CRATEX" (I'm biased, as I have started the [ergo ecosystem](https://github.com/rust-crates/ergo) to solve this problem)
+18:34 <sharkdp> @killercup That sounds like a great idea
+18:34 <killercup> @vitiral that's one solution, but another might be "click on 'CLI apps' on rust-lang.org" and it has a guide that starts with `cargo new --template rust-lang/cli`
+18:34 <Dylan-DPC> yeah
+18:35 <sharkdp> I'm not sure we necessarily need an extended standard library, as there are great crates for a lot of things already (clap, termcolor, etc.)
+18:35 <vitiral> @killercup where it downloads an "official" template of some kind from crates.io?
+18:36 <killercup> @vitiral exactly, and that templates already contains a bunch of `extern crate foo;` and a good readme and ci setup for example
+18:36 <Dylan-DPC> or we could create a crate so anyone working on CLIs can use the crate as a base crate. The only issue being that existing crates might have to rewrite some stuff
+18:36 <vitiral> @sharkdp just to be clear, the "extended standard library" is just a conglomeration of those great crates. It's goals are to reduce boilerplate and unify the api+docs
+...
+18:36 <vitiral> @killercup I like the idea of "official templates" regardless of other decisions :thumbsup: 
+...
+18:37 <yoshuawuyts> `cargo new --template cli` and `ergo` aren't mutually exclusive either :D
+...
+18:37 <vitiral> maybe they could be distributed via rustup/cargo directly?
+18:37 <vitiral> and you could also provide a github url or something?
+18:38 <killercup> let's not talk about the details for now, and the cargo folks probably already have some plans
+18:38 <vitiral> okay, good point
+18:38 <epage> Crate-wise, I think the thing that could be valuable is to expand on an idea I've seen floated from time to time, creating higher level abstractions over the existing libs.  For example, `std::path` is pretty low level when you compare it to `pathlib` in Python.  If we provide some higher level libs (at the cost of performance or lack of platform neutrality) that'd be a big help for people.  They could then progress to the lower level stuff in inner
+18:38 <epage> loops 
+...
+18:39 <Dylan-DPC> @epage +1 ya but i guess we need to provide some customisability as well 
+18:39 <vitiral> except it shouldn't lack platform neutrality
+18:39 <epage> Well, @vitiral , we have already been talking about it :)
+18:39 <killercup> @epage yep, that's basically why i wrote quicli :)
+18:39 <killercup> process-wise we now need decide how do proceed
+18:39 <Dylan-DPC> the reason why a lot of people start their own crates from scratch is because a certain base crate doesn't provide what you want
+18:39 <vitiral> @epage (ssh... they don't have to know :laughing:)
+18:39 <epage> What I meant by lack of platform neutrality is that it might make assumptions about the meaning of `.`, `..`, `//` which `std::path` doesn't do today but I think people expect
+18:40 <mattgathu> @vitiral isn’t the “high level abstractions” what `ergo` somehow aims to provide. right?
+18:40 <vitiral> @mattgathu yes
+18:40 <yoshuawuyts> Someone should probably kickstart the "ideal guide" I reckon?
+18:40 <vitiral> [edit] @mattgathu yes (edit: that is one of its goals)
+18:40 <epage> So what do we need to discuss about the ideal guide or how do we get organized into writing it?
+18:41 <Dylan-DPC> uhmm let's cover the broader topics first
+18:41 <vitiral> personally I think the cookbook is a great place to start. How would the cookbook look in a perfect world?
+18:41 <killercup> i think it'd make sense to have smaller groups of people "claim" problem spaces, and have this working group be more about orchestration
+...
+18:42 <killercup> we have this repo: https://github.com/rust-lang-nursery/cli-wg
+18:42 <killercup> where i'll also post the logs of this meeting and the etherpad notes
+18:42 <vitiral> @killercup do we have edit access/how should we open a repo, etc?
+...
+18:43 <vitiral> You are all welcome to have editor access on rust-crates (which is the owner of ergo)
+18:43 <vitiral> https://github.com/rust-crates/
+18:43 <Dylan-DPC> great
+18:43 <vitiral> we can make any repos we want. Or we can use a different organization
+18:44 <epage> @killercup so is your thought that, say the guide group, would have a subfolder and start posting PRs of md files for it?
+18:44 <killercup> i'd like to use the cli-wg repo for orchestration of efforts, and maybe we can create rust-crates repos for individual implementations?
+18:44 <killercup> @epage for example, yeah
+18:45 <vitiral> @killercup I just made you full admin on rust-crates. I've been meaning to and forgot
+18:45 <Dylan-DPC> yeah that's why i was suggesting an organisation
+18:45 <killercup> @epage or just discuss stuff in issues
+18:45 <killercup> the idea is to have a single repo where we can track stuff we are working on
+18:45 <killercup> and also talk about integration issues, and common efforts
+18:45 <killercup> @vitiral thanks!
+18:45 <yoshuawuyts> sounds reasonable
+18:46 <epage> btw when getting to implementation, `crate-ci` is possible home for relevant tools (like packaging)
+18:46 <vitiral> I agree -- `cli-wg` is a great place to document RFC's/discussions, open and discuss issues, keep notes of meetings and document our progress/efforts
+18:47 <killercup> the best case scenario is that we'll open a bunch of tracking issues, e.g. "How to do configuration management in CLI apps" and then over the next few months fill them with good discussions and links to PRs implementing stuff to get towards that ideal guide's future
+18:48 <vitiral> it probably wouldn't be a bad idea to copy/paste the doodle as our first "roadmap" and open an issue to discuss it further
+18:49 <killercup> i'm also very certain we can't solve all the problems at once, so i'd like to settle on some, let's say 3, that we want to tackle _right now_
+18:49 <killercup> well, not "right now" right now, but "next"
+18:49 <spacekookie> And the rest of the doodle could be split up into multiple parts that are somewhat related. Makes it less monolithic
+18:50 <killercup> [edit] i think you all mean "etherpad" and not "the thing to find dates for meetings" ;)
+...
+18:51 <killercup> so, when there are some tracking issues/ideal guides open, let's try to put some momentum behind a few of them instead of everyone doing something only by themselves :)
+18:52 <Dylan-DPC> we can divide it into milestones and address certain issues in each milestone (preferably a quarter of the year)
+18:52 <spacekookie> I don't have any projects myself so I'd love to contribute wherever needed :P
+...
+18:53 <killercup> [edit] perfect! that conveniently brings us to the next point in my secret agenda for this meeting (that is totally not a post-it with "what, how, who, when")!
+18:53 <killercup> how should we do meetings?
+18:53 <Dylan-DPC> like this? :P
+18:54 <killercup> that's one possibility, yeah
+18:54 <killercup> but more like, should we check in with each other every week?
+18:54 <mattgathu> biweekly?
+18:54 <spacekookie> Gitter is pretty convenient. Though if you stop reading for like 5 minutes it's super hard to catch up :joy:
+18:54 <yoshuawuyts> yeah, think bi-weekly is a good one
+18:54 <Dylan-DPC> haha true kat
+18:54 <epage> Also, if we're breaking down into sub-groups, that'll help with catching up
+18:54 <killercup> every two weeks sounds good
+...
+18:55 <Dylan-DPC> sub groups could meet up every week
+18:55 <spacekookie> @epage :+1: Would we have different gitter channels then?
+18:55 <Dylan-DPC> we can create rooms
+18:55 <epage> Rooms seems reasonable.  It'll make it easier to peek in on each other
+18:55 <killercup> @spacekookie feel free to create new ones, but i personally like how people lurking in a room can chime in and help ;)
+18:56 <epage> As long as the meetings for the different groups aren't at the same time ;)
+18:56 <Dylan-DPC> well you can be in 2 rooms at the same time ;)
+18:57 <Aaronepower> Hello, I think rooms should only be created if the traffic warrants it, this isn't a very high volume channel so unless there is a lot of talking over.
+18:57 <yoshuawuyts> aye, agree
+18:57 <vitiral> @Aaronepower I agree, nothing is more depressing than sitting in an empty room :frowning: 
+18:57 <Aaronepower> [edit] Hello, I think rooms should only be created if the traffic warrants it, this isn't a very high volume channel so unless there is a lot of talking over it'd probably be easier to keep it to a single channel.
+...
+18:57 <killercup> let's create new rooms lazily
+18:58 <Dylan-DPC> if we discuss all the subgroups in one place then everyone will toe in with their comments and it will become one entire group instead of sub groups
+18:58 <Aaronepower> @Dylan-DPC Is that a bad thing?
+18:58 <Dylan-DPC> it isn't. but it kinda defeats the purpose of a subgroup
+18:59 <killercup> i think for the initial setup and writing guides it might also be helpful to use a non-text medium like video chat, because it's more personal and we can write a guide/speak at the same time :)
+18:59 <yoshuawuyts> Dylan-DPC: we're 20 people, and it hasn't been a problem so far - creating rooms once it becomes a problem sounds like a good outcome (:
+...
+18:59 <Dylan-DPC> also multiple subgroups can't have a meeting at the same time unless they converge it into 1 
+...
+19:00 <Dylan-DPC> [edit] @killercup so what's the plan  next?
+19:01 <killercup> next up, we should all open issues on https://github.com/rust-lang-nursery/cli-wg !
+...
+19:02 <killercup> i'll send out a doodle (the meeting time decider thing!) for the next WG meeting in two about two weeks
+...
+19:03 <spacekookie> 1. Do we just open issues for the initial batch of jobs?
+19:03 <spacekookie> 2. Does one person does it so we don't accidentally have two issues for one task?
+...
+19:06 <spacekookie> I was about to open an issue for the config crate thingy but was waiting for someone else to open an issue so I have a template what to write :P
+19:06 <yoshuawuyts> speaking of opening things on github: people alright if I PR the stuff we discussed here as a meeting note for today?
+...
+19:08 <killercup> and with that, thank you @/all for the great meeting! it's not easy to find a format for this group, and settle on stuff to work on, but i'm confident we're on a good way! (and we can always improve our process once we have a couple things going!)
+19:08 <kbknapp> Correct me if I'm wrong, but I see this being a two part thing; part 1 we've already started which is *identify* areas we can *action*. Part 2 then becomes actioning those items. As far as action items go, there seems to be some common abstract ideas coming from here such as, "specific crate assistance" (i.e. an already existing crate can be helped, enhanced, etc.), "docs" (from crate docs, to how-tos, to blogs, etc.), and "new crates" (existing
+19:08 <kbknapp> gaps in the ecosystem where a new crate could come in) and each of those could be broken down as well.
+19:09 <kbknapp> I think breaking some of this into "bite sized chunks" could help us make more progress, especially since for many this is a side project
+...
+19:11 <kbknapp> And like @killercup already said, *we* don't necessarily need to action these items ourselves (I mean, if we can it's awesome, but it's not a must), but what can really help is finding those items, maybe mentoring/guiding and informing the Rust community about them
+19:11 <killercup> exactly. i'll try to open one issue per area we want to work on. for each, we then decide the course of action (improve or create) as well as find maintainers (we, others)
+...
+19:13 <killercup> the "ideal guide" thing will be a bit orthogonal to that, and I hope it'll work as a driver to create new issues/ideas to improve
+...
