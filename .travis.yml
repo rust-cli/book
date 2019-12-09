@@ -15,7 +15,7 @@ before_install:
 script:
   - ~/.local/bin/mdbook build
   - ~/.local/bin/mdbook test
-  - cargo test --all
+  # - cargo test --all
 
 deploy:
   provider: pages
