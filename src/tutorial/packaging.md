@@ -213,7 +213,7 @@ as well as instructions on how to set this up.
 It also includes support for Windows using AppVeyor.
 
 If you'd rather set this up locally
-and generate the release files on your on machine,
+and generate the release files on your own machine,
 still have a look at trust.
 It uses [cross] internally,
 which works similar to cargo
