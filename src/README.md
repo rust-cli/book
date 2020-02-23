@@ -27,4 +27,4 @@ you can find its source [in the CLI WG repository][book-src].
 We'd love to hear your feedback!
 Thank you!
 
-[book-src]: https://github.com/rust-lang-nursery/cli-wg
+[book-src]: https://github.com/rust-cli/book
