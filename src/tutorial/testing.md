@@ -521,6 +521,6 @@ try to write a [fuzzer] to find bugs in edge cases.
 You can find the full, runnable source code used in this chapter
 [in this book's repository][src].
 
-[src]: https://github.com/rust-lang-nursery/cli-wg/tree/master/src/tutorial/testing
+[src]: https://github.com/rust-cli/book/tree/master/src/tutorial/testing
 
 </aside>

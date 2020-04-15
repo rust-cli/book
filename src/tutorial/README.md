@@ -78,6 +78,6 @@ Make sure you run Rust 1.31.0 (or later)
 and that you have `edition = "2018"` set
 in the `[package]` section of your `Cargo.toml` file.
 
-[Rust 2018]: https://rust-lang-nursery.github.io/edition-guide/
+[Rust 2018]: https://doc.rust-lang.org/edition-guide/index.html
 
 </aside>

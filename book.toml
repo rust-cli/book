@@ -10,7 +10,7 @@ src = "src"
 [output.html]
 curly-quotes = true
 additional-css = ["src/special-content.css"]
-git-repository-url = "https://github.com/rust-lang-nursery/cli-wg"
+git-repository-url = "https://github.com/rust-cli/book"
 
 # Linkcheck doesn't find images/SVG so it's not enabled for now
 # [output.linkcheck]
