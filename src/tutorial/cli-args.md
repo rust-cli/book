@@ -58,7 +58,7 @@ We haven't talked about any default values,
 so we expect our users to always provide two values.
 Furthermore, we can say a bit about their types:
 The pattern is expected to be a string,
-while the second argument is expect to be a path to a file.
+while the second argument is expected to be a path to a file.
 
 In Rust, it is very common to structure programs around the data they deal with
 so this way of looking at CLI arguments fits very well.
