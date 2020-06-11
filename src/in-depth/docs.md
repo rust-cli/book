@@ -5,7 +5,7 @@ a `--help` section in the command
 and a manual (`man`) page.
 
 Both can be automatically generated
-when using `clap` v3 (in unreleased alpha,
+when using `clap` v3 (in unreleased beta,
 at time of writing), via the `man` backend.
 
 ```rust,ignore

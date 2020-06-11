@@ -139,7 +139,7 @@ that explicitly need external libraries to be installed on the target system
 (like using the system's version of OpenSSL),
 this binary will only depend on common system libraries.
 That means,
-you take that one file, 
+you take that one file,
 send it to people running the same operating system as you,
 and they'll be able to run it.
 
@@ -315,8 +315,9 @@ it might be as easy as adding a file to your repository
 but for others you'll often need to send in patches yourself
 and add your tool to their repositories.
 There are helpful tools like
-[cargo-rpm](https://crates.io/crates/cargo-rpm) and
-[cargo-deb](https://crates.io/crates/cargo-deb),
+[cargo-rpm](https://crates.io/crates/cargo-rpm),
+[cargo-deb](https://crates.io/crates/cargo-deb), and
+[cargo-aur](https://crates.io/crates/cargo-aur),
 but describing how they work
 and how to correctly package your tool
 for those different systems is beyond the scope of this chapter.
