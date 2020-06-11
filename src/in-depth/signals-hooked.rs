@@ -1,7 +1,7 @@
 use signal_hook::{iterator::Signals, SIGINT};
 use std::{error::Error, thread, time::Duration};
 
-fn main() -> Result<(), Box<Error>> {
+fn main() -> Result<(), Box<dyn Error>> {
     let signals = Signals::new(&[SIGINT])?;
 
     thread::spawn(move || {
