@@ -35,7 +35,7 @@ the ones that follow are what the user wrote afterwards.
 [`std::env::args()`]: https://doc.rust-lang.org/1.39.0/std/env/fn.args.html
 [iterator]: https://doc.rust-lang.org/1.39.0/std/iter/index.html
 
-Getting the raw arguments this way is quite easy (in file src/main.rs, after fn main() {):
+Getting the raw arguments this way is quite easy (in file `src/main.rs`, after `fn main() {`):
 
 ```rust,ignore
 {{#include cli-args-struct.rs:10:11}}
@@ -60,9 +60,9 @@ Furthermore, we can say a bit about their types:
 The pattern is expected to be a string,
 while the second argument is expected to be a path to a file.
 
-In Rust, it is very common to structure programs around the data they deal with
-so this way of looking at CLI arguments fits very well.
-Let's start with this (in file src/main.rs, before fn main() {):
+In Rust, it is common to structure programs around the data they handle, so this
+way of looking at CLI arguments fits very well. Let's start with this (in file
+`src/main.rs`, before `fn main() {`):
 
 ```rust,ignore
 {{#include cli-args-struct.rs:3:7}}
@@ -123,7 +123,7 @@ Now, we can write `use structopt::StructOpt;` in our code,
 and add `#[derive(StructOpt)]` right above our `struct Cli`.
 Let's also write some documentation comments along the way.
 
-It’ll look like this (in file src/main.rs, before fn main() {):
+It’ll look like this (in file `src/main.rs`, before `fn main() {`):
 
 ```rust,ignore
 {{#include cli-args-structopt.rs:3:14}}
