@@ -206,31 +206,20 @@ This pattern is in fact very common.
 It has one problem, though:
 We don't store the original error,
 only its string representation.
-The often used [`failure`] library has a neat solution for that:
+The often used [`anyhow`] library has a neat solution for that:
 Similar to our `CustomError` type,
-it has a [`Context`] type
-that contains a description as well as the original error.
-The library also brings with it an extension trait ([`ResultExt`])
-that adds [`context()`] and [`with_context()`] methods to `Result`.
+its [`Context`] trait can be used to add a description.
+Additionally, it also keeps the original error,
+so we get a "chain" of error messages pointing out the root cause.
 
-[`failure`]: https://docs.rs/failure
-[`Context`]: https://docs.rs/failure/0.1.7/failure/struct.Context.html
-[`ResultExt`]: https://docs.rs/failure/0.1.7/failure/trait.ResultExt.html
-[`context()`]: https://docs.rs/failure/0.1.7/failure/trait.ResultExt.html#tymethod.context
-[`with_context()`]: https://docs.rs/failure/0.1.7/failure/trait.ResultExt.html#tymethod.with_context
+[`anyhow`]: https://docs.rs/anyhow
+[`Context`]: https://docs.rs/anyhow/1.0/anyhow/trait.Context.html
 
-To turn these wrapped error types
-into something that humans will actually want to read,
-we can further add the [`exitfailure`] crate,
-and use its type as the return type of our `main` function.
-
-Let's first import the crates by adding
-`failure = "0.1.7"` and `exitfailure = "0.5.1"` to the `[dependencies]` section
+Let's first import the `anyhow` crate by adding
+`anyhow = "1.0"` to the `[dependencies]` section
 of our `Cargo.toml` file.
 
 The full example will then look like this:
-
-[`exitfailure`]: https://docs.rs/exitfailure
 
 ```rust,ignore
 {{#include errors-exit.rs}}
@@ -240,5 +229,7 @@ This will print an error:
 
 ```text
 Error: could not read file `test.txt`
-Info: caused by No such file or directory (os error 2)
+
+Caused by:
+    No such file or directory (os error 2)
 ```
