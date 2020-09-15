@@ -208,13 +208,14 @@ We don't store the original error,
 only its string representation.
 The often used [`anyhow`] library has a neat solution for that:
 Similar to our `CustomError` type,
-it has a [`Context`] trait
-that contains a description as well as the original error.
+its [`Context`] trait can be used to add a description.
+Additionally, it also keeps the original error,
+so we get a "chain" of error messages pointing out the root cause.
 
 [`anyhow`]: https://docs.rs/anyhow
 [`Context`]: https://docs.rs/anyhow/1.0/anyhow/trait.Context.html
 
-Let's first import `anyhow` crate by adding
+Let's first import the `anyhow` crate by adding
 `anyhow = "1.0"` to the `[dependencies]` section
 of our `Cargo.toml` file.
 
