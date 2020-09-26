@@ -209,7 +209,7 @@ and make assertions on it.
 Here is how we can write this version of `find_matches`:
 
 ```rust,ignore
-{{#include testing/src/main.rs:25:31}}
+{{#include testing/src/main.rs:24:30}}
 ```
 
 The new parameter is `mut writer`,
@@ -227,7 +227,7 @@ but always uses standard output.
 Now we can test for the output:
 
 ```rust,ignore
-{{#include testing/src/main.rs:33:38}}
+{{#include testing/src/main.rs:32:37}}
 ```
 
 To now use this in our application code,
@@ -238,7 +238,7 @@ that builds on what we've seen in the previous chapters
 and uses our extracted `find_matches` function:
 
 ```rust,ignore
-{{#include testing/src/main.rs:15:23}}
+{{#include testing/src/main.rs:14:22}}
 ```
 
 [stdout]: https://doc.rust-lang.org/1.39.0/std/io/fn.stdout.html
@@ -410,7 +410,7 @@ They are only required when developing the crate,
 not when using it.
 
 ```toml
-{{#include testing/Cargo.toml:12:14}}
+{{#include testing/Cargo.toml:11:13}}
 ```
 
 [`assert_cmd`]: https://docs.rs/assert_cmd
@@ -455,7 +455,7 @@ we'll be using the [`tempfile`] crate.
 Let's add it to the `dev-dependencies` in our `Cargo.toml`:
 
 ```toml
-{{#include testing/Cargo.toml:15}}
+{{#include testing/Cargo.toml:14}}
 ```
 
 [`tempfile`]: https://docs.rs/tempfile/3/tempfile/
