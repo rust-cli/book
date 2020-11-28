@@ -50,7 +50,7 @@ to define callbacks that get executed when an event occurs.
 There is also [structured exception handling]
 which handles all the various types of system exceptions such as division by zero, invalid access exceptions, stack overflow, and so on
 
-[Console Handlers]: https://docs.microsoft.com/de-de/windows/console/console-control-handlers
+[Console Handlers]: https://docs.microsoft.com/en-us/windows/console/console-control-handlers
 [structured exception handling]: https://docs.microsoft.com/en-us/windows/desktop/debug/structured-exception-handling
 
 ## First off: Handling Ctrl+C
