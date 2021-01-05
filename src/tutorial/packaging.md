@@ -97,7 +97,7 @@ Have a look at `cargo install --help` for details.
 
 ### When to use it
 
-`cargo install` is a simple way to publish a binary crate.
+`cargo install` is a simple way to install a binary crate.
 It's very convenient for Rust developers to use,
 but has some significant downsides:
 Since it will always compile your source from scratch,
