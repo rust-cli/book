@@ -3,14 +3,7 @@ rust: beta
 
 before_install:
   - mkdir -pv ~/.local/bin
-  - curl -LSfs https://japaric.github.io/trust/install.sh |
-    sh -s --
-    --git rust-lang-nursery/mdBook
-    --crate mdbook
-    --force
-    --target x86_64-unknown-linux-gnu
-    --tag v0.3.5
-    --to ~/.local/bin
+  - curl -LSfs https://github.com/rust-lang/mdBook/releases/download/v0.4.5/mdbook-v0.4.5-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory ~/.local/bin
 
 script:
   - ~/.local/bin/mdbook build
