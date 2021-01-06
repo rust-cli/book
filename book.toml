@@ -11,6 +11,7 @@ src = "src"
 curly-quotes = true
 additional-css = ["src/special-content.css"]
 git-repository-url = "https://github.com/rust-cli/book"
+site-url = "/book/"
 
 # Linkcheck doesn't find images/SVG so it's not enabled for now
 # [output.linkcheck]
