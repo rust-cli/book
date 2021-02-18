@@ -508,7 +508,7 @@ For example,
 if you have extracted parts of your program
 and find yourself writing a lot of example cases as unit tests
 while trying to come up with all the edge cases,
-your should look into [`proptest`].
+you should look into [`proptest`].
 If you have a program which consumes arbitrary files and parses them,
 try to write a [fuzzer] to find bugs in edge cases.
 
