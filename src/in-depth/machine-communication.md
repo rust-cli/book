@@ -256,6 +256,6 @@ that fits your use case.
 
 **TODO:**
 Talk about how work with stdin
-(see [#95](https://github.com/rust-lang-nursery/cli-wg/issues/95))
+(see [#95](https://github.com/rust-cli/meta/issues/95))
 
 </aside>
