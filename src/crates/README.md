@@ -25,7 +25,7 @@ There is always new crates being released that can be useful in the development 
 - [wasm-pack](https://crates.io/crates/wasm-pack) - tool for building WebAssembly
 
 ## Other crates
-Due to the constantly-changing landscape of Rust crates, a good place to find crates is the [lib.rs](lib.rs) crate index.
+Due to the constantly-changing landscape of Rust crates, a good place to find crates is the [lib.rs](https://lib.rs) crate index.
 Here are a few specific categories that might be useful for building CLI's:
 - [Command-line interface](https://lib.rs/command-line-interface)
 - [Configuration](https://lib.rs/config)
