@@ -62,7 +62,7 @@ members = [
 ]
 
 [dependencies]
-structopt = "0.2.10"
+structopt = "0.3.21"
 failure = "0.1.3"
 exitfailure = "0.5.1"
 anyhow = "1.0"
