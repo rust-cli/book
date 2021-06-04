@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Nicer error reporting - Command Line Applications in Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../src/special-content.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Getting started</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> A command line app in 15 minutes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> Project setup</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> Parsing command line arguments</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> First implementation</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html" class="active"><strong aria-hidden="true">1.4.</strong> Nicer error reporting</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html"><strong aria-hidden="true">1.5.</strong> Output for humans and machines</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> Packaging and distributing a Rust tool</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> In-depth topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> Signal handling</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> Using config files</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> Exit codes</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> Communicating with humans</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> Communicating with machines</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> Rendering documentation for your CLI apps</a></li></ol></li><li class="chapter-item expanded "><a href="../crates/index.html"><strong aria-hidden="true">3.</strong> Useful crates</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Command Line Applications in Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/rust-cli/book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#nicer-error-reporting" id="nicer-error-reporting">Nicer error reporting</a></h1>
+<p>We all can do nothing but accept the fact that errors will occur.
+And in contrast to many other languages,
+it’s very hard not to notice and deal with this reality
+when using Rust:
+As it doesn’t have exceptions,
+all possible error states are often encoded in the return types of functions.</p>
+<h2><a class="header" href="#results" id="results">Results</a></h2>
+<p>A function like <a href="https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html"><code>read_to_string</code></a> doesn’t return a string.
+Instead, it returns a <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a>
+that contains either
+a <code>String</code>
+or an error of some type
+(in this case <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>).</p>
+<p>How do you know which it is?
+Since <code>Result</code> is an <code>enum</code>,
+you can use <code>match</code> to check which variant it is:</p>
+<pre><pre class="playground"><code class="language-rust no_run">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let result = std::fs::read_to_string(&quot;test.txt&quot;);
+match result {
+    Ok(content) =&gt; { println!(&quot;File content: {}&quot;, content); }
+    Err(error) =&gt; { println!(&quot;Oh noes: {}&quot;, error); }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<aside>
+<p><strong>Aside:</strong>
+Not sure what enums are or how they work in Rust?
+<a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">Check this chapter of the Rust book</a>
+to get up to speed.</p>
+</aside>
+<h2><a class="header" href="#unwrapping" id="unwrapping">Unwrapping</a></h2>
+<p>Now, we were able to access the content of the file,
+but we can’t really do anything with it after the <code>match</code> block.
+For this, we’ll need to somehow deal with the error case.
+The challenge is that all arms of a <code>match</code> block need to return something of the same type.
+But there’s a neat trick to get around that:</p>
+<pre><pre class="playground"><code class="language-rust no_run">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let result = std::fs::read_to_string(&quot;test.txt&quot;);
+let content = match result {
+    Ok(content) =&gt; { content },
+    Err(error) =&gt; { panic!(&quot;Can't deal with {}, just exit here&quot;, error); }
+};
+println!(&quot;file content: {}&quot;, content);
+<span class="boring">}
+</span></code></pre></pre>
+<p>We can use the String in <code>content</code> after the match block.
+If <code>result</code> were an error, the String wouldn’t exist.
+But since the program would exit before it ever reached a point where we use <code>content</code>,
+it’s fine.</p>
+<p>This may seem drastic,
+but it’s very convenient.
+If your program needs to read that file and can’t do anything if the file doesn’t exist,
+exiting is a valid strategy.
+There’s even a shortcut method on <code>Result</code>s, called <code>unwrap</code>:</p>
+<pre><pre class="playground"><code class="language-rust no_run">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let content = std::fs::read_to_string(&quot;test.txt&quot;).unwrap();
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#no-need-to-panic" id="no-need-to-panic">No need to panic</a></h2>
+<p>Of course, aborting the program is not the only way to deal with errors.
+Instead of the <code>panic!</code>, we can also easily write <code>return</code>:</p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">fn main() -&gt; Result&lt;(), Box&lt;std::error::Error&gt;&gt; {
+</span>let result = std::fs::read_to_string(&quot;test.txt&quot;);
+let _content = match result {
+    Ok(content) =&gt; { content },
+    Err(error) =&gt; { return Err(error.into()); }
+};
+<span class="boring">Ok(())
+</span><span class="boring">}
+</span></code></pre></pre>
+<p>This, however changes the return type our function needs.
+Indeed, there was something hidden in our examples all this time:
+The function signature this code lives in.
+And in this last example with <code>return</code>,
+it becomes important.
+Here’s the <em>full</em> example:</p>
+<pre><pre class="playground"><code class="language-rust no_run">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let result = std::fs::read_to_string(&quot;test.txt&quot;);
+    let content = match result {
+        Ok(content) =&gt; { content },
+        Err(error) =&gt; { return Err(error.into()); }
+    };
+    println!(&quot;file content: {}&quot;, content);
+    Ok(())
+}
+</code></pre></pre>
+<p>Our return type is a <code>Result</code>!
+This is why we can write <code>return Err(error);</code> in the second match arm.
+See how there is an <code>Ok(())</code> at the bottom?
+It’s the default return value of the function and means
+“Result is okay, and has no content”.</p>
+<aside>
+<p><strong>Aside:</strong>
+Why is this not written as <code>return Ok(());</code>?
+It easily could be – this is totally valid as well.
+The last expression of any block in Rust is its return value,
+and it is customary to omit needless <code>return</code>s.</p>
+</aside>
+<h2><a class="header" href="#question-mark" id="question-mark">Question Mark</a></h2>
+<p>Just like calling <code>.unwrap()</code> is a shortcut
+for the <code>match</code> with <code>panic!</code> in the error arm,
+we have another shortcut for the <code>match</code> that <code>return</code>s in the error arm:
+<code>?</code>.</p>
+<p>That’s right, a question mark.
+You can append this operator to a value of type <code>Result</code>,
+and Rust will internally expand this to something very similar to
+the <code>match</code> we just wrote.</p>
+<p>Give it a try:</p>
+<pre><pre class="playground"><code class="language-rust no_run">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let content = std::fs::read_to_string(&quot;test.txt&quot;)?;
+    println!(&quot;file content: {}&quot;, content);
+    Ok(())
+}
+</code></pre></pre>
+<p>Very concise!</p>
+<aside>
+<p><strong>Aside:</strong>
+There are a few more things happening here
+that are not required to understand to work with this.
+For example,
+the error type in our <code>main</code> function is <code>Box&lt;dyn std::error::Error&gt;</code>.
+But we’ve seen above that <code>read_to_string</code> returns a <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>.
+This works because <code>?</code> expands to code that  <em>converts</em> error types.</p>
+<p><code>Box&lt;dyn std::error::Error&gt;</code> is also an interesting type.
+It’s a <code>Box</code> that can contain <em>any</em> type
+that implements the standard <a href="https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html"><code>Error</code></a> trait.
+This means that basically all errors can be put into this box,
+so we can use <code>?</code> on all of the usual functions that return <code>Result</code>s.</p>
+</aside>
+<h2><a class="header" href="#providing-context" id="providing-context">Providing Context</a></h2>
+<p>The errors you get when using <code>?</code> in your <code>main</code> function are okay,
+but they are not great.
+For example:
+When you run <code>std::fs::read_to_string(&quot;test.txt&quot;)?</code>
+but the file <code>test.txt</code> doesn’t exist,
+you get this output:</p>
+<pre><code class="language-text">Error: Os { code: 2, kind: NotFound, message: &quot;No such file or directory&quot; }
+</code></pre>
+<p>In cases where your code doesn’t literally contain the file name,
+it would be very hard to tell which file was <code>NotFound</code>.
+There are multiple ways to deal with this.</p>
+<p>For example, we can create our own error type,
+and then use that to build a custom error message:</p>
+<pre><code class="language-rust ignore">#[derive(Debug)]
+struct CustomError(String);
+
+fn main() -&gt; Result&lt;(), CustomError&gt; {
+    let path = &quot;test.txt&quot;;
+    let content = std::fs::read_to_string(path)
+        .map_err(|err| CustomError(format!(&quot;Error reading `{}`: {}&quot;, path, err)))?;
+    println!(&quot;file content: {}&quot;, content);
+    Ok(())
+}
+</code></pre>
+<p>Now,
+running this we’ll get our custom error message:</p>
+<pre><code class="language-text">Error: CustomError(&quot;Error reading `test.txt`: No such file or directory (os error 2)&quot;)
+</code></pre>
+<p>Not very pretty,
+but we can easily adapt the debug output for our type later on.</p>
+<p>This pattern is in fact very common.
+It has one problem, though:
+We don’t store the original error,
+only its string representation.
+The often used <a href="https://docs.rs/anyhow"><code>anyhow</code></a> library has a neat solution for that:
+Similar to our <code>CustomError</code> type,
+its <a href="https://docs.rs/anyhow/1.0/anyhow/trait.Context.html"><code>Context</code></a> trait can be used to add a description.
+Additionally, it also keeps the original error,
+so we get a “chain” of error messages pointing out the root cause.</p>
+<p>Let’s first import the <code>anyhow</code> crate by adding
+<code>anyhow = &quot;1.0&quot;</code> to the <code>[dependencies]</code> section
+of our <code>Cargo.toml</code> file.</p>
+<p>The full example will then look like this:</p>
+<pre><code class="language-rust ignore">use anyhow::{Context, Result};
+
+fn main() -&gt; Result&lt;()&gt; {
+    let path = &quot;test.txt&quot;;
+    let content = std::fs::read_to_string(path)
+        .with_context(|| format!(&quot;could not read file `{}`&quot;, path))?;
+    println!(&quot;file content: {}&quot;, content);
+    Ok(())
+}
+</code></pre>
+<p>This will print an error:</p>
+<pre><code class="language-text">Error: could not read file `test.txt`
+
+Caused by:
+    No such file or directory (os error 2)
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../tutorial/impl-draft.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../tutorial/output.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../tutorial/impl-draft.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../tutorial/output.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

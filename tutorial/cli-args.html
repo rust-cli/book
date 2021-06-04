@@ -1,0 +1,406 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Parsing command line arguments - Command Line Applications in Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../src/special-content.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Getting started</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> A command line app in 15 minutes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> Project setup</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html" class="active"><strong aria-hidden="true">1.2.</strong> Parsing command line arguments</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> First implementation</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> Nicer error reporting</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html"><strong aria-hidden="true">1.5.</strong> Output for humans and machines</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> Packaging and distributing a Rust tool</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> In-depth topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> Signal handling</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> Using config files</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> Exit codes</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> Communicating with humans</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> Communicating with machines</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> Rendering documentation for your CLI apps</a></li></ol></li><li class="chapter-item expanded "><a href="../crates/index.html"><strong aria-hidden="true">3.</strong> Useful crates</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Command Line Applications in Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/rust-cli/book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#parsing-command-line-arguments" id="parsing-command-line-arguments">Parsing command line arguments</a></h1>
+<p>A typical invocation of our CLI tool will look like this:</p>
+<pre><code class="language-console">$ grrs foobar test.txt
+</code></pre>
+<p>We expect our program to look at <code>test.txt</code>
+and print out the lines that contain <code>foobar</code>.
+But how do we get these two values?</p>
+<p>The text after the name of the program is often called
+the “command line arguments”,
+or “command line flags”
+(especially when they look like <code>--this</code>).
+Internally, the operating system usually represents them
+as a list of strings –
+roughly speaking, they get separated by spaces.</p>
+<p>There are many ways to think about these arguments,
+and how to parse them
+into something more easy to work with.
+You will also need to tell the users of your program
+which arguments they need to give
+and in which format they are expected.</p>
+<h2><a class="header" href="#getting-the-arguments" id="getting-the-arguments">Getting the arguments</a></h2>
+<p>The standard library contains the function
+<a href="https://doc.rust-lang.org/1.39.0/std/env/fn.args.html"><code>std::env::args()</code></a> that gives you an <a href="https://doc.rust-lang.org/1.39.0/std/iter/index.html">iterator</a> of the given arguments.
+The first entry (at index <code>0</code>) will be the name your program was called as (e.g. <code>grrs</code>),
+the ones that follow are what the user wrote afterwards.</p>
+<p>Getting the raw arguments this way is quite easy (in file <code>src/main.rs</code>, after <code>fn main() {</code>):</p>
+<pre><code class="language-rust ignore">let pattern = std::env::args().nth(1).expect(&quot;no pattern given&quot;);
+let path = std::env::args().nth(2).expect(&quot;no path given&quot;);
+</code></pre>
+<h2><a class="header" href="#cli-arguments-as-data-type" id="cli-arguments-as-data-type">CLI arguments as data type</a></h2>
+<p>Instead of thinking about them as a bunch of text,
+it often pays off to think of CLI arguments as a custom data type
+that represents the inputs to your program.</p>
+<p>Look at <code>grrs foobar test.txt</code>:
+There are two arguments,
+first the <code>pattern</code> (the string to look for),
+and then the <code>path</code> (the file to look in).</p>
+<p>What more can we say about them?
+Well, for a start, both are required.
+We haven’t talked about any default values,
+so we expect our users to always provide two values.
+Furthermore, we can say a bit about their types:
+The pattern is expected to be a string,
+while the second argument is expected to be a path to a file.</p>
+<p>In Rust, it is common to structure programs around the data they handle, so this
+way of looking at CLI arguments fits very well. Let’s start with this (in file
+<code>src/main.rs</code>, before <code>fn main() {</code>):</p>
+<pre><code class="language-rust ignore">struct Cli {
+    pattern: String,
+    path: std::path::PathBuf,
+}
+
+</code></pre>
+<p>This defines a new structure (a <a href="https://doc.rust-lang.org/1.39.0/book/ch05-00-structs.html"><code>struct</code></a>)
+that has two fields to store data in: <code>pattern</code>, and <code>path</code>.</p>
+<aside>
+<p><strong>Aside:</strong>
+<a href="https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html"><code>PathBuf</code></a> is like a <a href="https://doc.rust-lang.org/1.39.0/std/string/struct.String.html"><code>String</code></a> but for file system paths that work cross-platform.</p>
+</aside>
+<p>Now, we still need to get the actual arguments our program got into this form.
+One option would be to manually parse the list of strings we get from the operating system
+and build the structure ourselves.
+It would look something like this:</p>
+<pre><code class="language-rust ignore">let pattern = std::env::args().nth(1).expect(&quot;no pattern given&quot;);
+let path = std::env::args().nth(2).expect(&quot;no path given&quot;);
+let args = Cli {
+    pattern: pattern,
+    path: std::path::PathBuf::from(path),
+};
+</code></pre>
+<p>This works, but it’s not very convenient.
+How would you deal with the requirement to support
+<code>--pattern=&quot;foo&quot;</code> or <code>--pattern &quot;foo&quot;</code>?
+How would you implement <code>--help</code>?</p>
+<h2><a class="header" href="#parsing-cli-arguments-with-structopt" id="parsing-cli-arguments-with-structopt">Parsing CLI arguments with StructOpt</a></h2>
+<p>A much nicer way is to use one of the many available libraries.
+The most popular library for parsing command line arguments
+is called <a href="https://clap.rs/"><code>clap</code></a>.
+It has all the functionality you’d expect,
+including support for sub-commands, shell completions, and great help messages.</p>
+<p>The <a href="https://docs.rs/structopt"><code>structopt</code></a> library builds on <code>clap</code>
+and provides a “derive” macro
+to generate <code>clap</code> code for <code>struct</code> definitions.
+This is quite nice:
+All we have to do is annotate a struct
+and it’ll generate the code that parses the arguments into the fields.</p>
+<p>Let’s first import <code>structopt</code> by adding
+<code>structopt = &quot;0.3.13&quot;</code> to the <code>[dependencies]</code> section
+of our <code>Cargo.toml</code> file.</p>
+<p>Now, we can write <code>use structopt::StructOpt;</code> in our code,
+and add <code>#[derive(StructOpt)]</code> right above our <code>struct Cli</code>.
+Let’s also write some documentation comments along the way.</p>
+<p>It’ll look like this (in file <code>src/main.rs</code>, before <code>fn main() {</code>):</p>
+<pre><code class="language-rust ignore">use structopt::StructOpt;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(StructOpt)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    #[structopt(parse(from_os_str))]
+    path: std::path::PathBuf,
+}
+
+</code></pre>
+<aside class="node">
+<p><strong>Note:</strong>
+There are a lot of custom attributes you can add to fields.
+For example,
+we added one to tell structopt how to parse the <code>PathBuf</code> type.
+To say you want to use this field for the argument after <code>-o</code> or <code>--output</code>,
+you’d add <code>#[structopt(short = &quot;o&quot;, long = &quot;output&quot;)]</code>.
+For more information,
+see the <a href="https://docs.rs/structopt">structopt documentation</a>.</p>
+</aside>
+<p>Right below the <code>Cli</code> struct our template contains its <code>main</code> function.
+When the program starts, it will call this function.
+The first line is:</p>
+<pre><code class="language-rust ignore">fn main() {
+    let args = Cli::from_args();
+}
+</code></pre>
+<p>This will try to parse the arguments into our <code>Cli</code> struct.</p>
+<p>But what if that fails?
+That’s the beauty of this approach:
+Clap knows which fields to expect,
+and what their expected format is.
+It can automatically generate a nice <code>--help</code> message,
+as well as give some great errors
+to suggest you pass <code>--output</code> when you wrote <code>--putput</code>.</p>
+<aside class="note">
+<p><strong>Note:</strong>
+The <code>from_args</code> method is meant to be used in your <code>main</code> function.
+When it fails,
+it will print out an error or help message
+and immediately exit the program.
+Don’t use it in other places!</p>
+</aside>
+<h2><a class="header" href="#this-is-what-it-may-look-like" id="this-is-what-it-may-look-like">This is what it may look like</a></h2>
+<p>Running it without any arguments:</p>
+<pre><code class="language-console">$ cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 10.16s
+     Running `target/debug/grrs`
+error: The following required arguments were not provided:
+    &lt;pattern&gt;
+    &lt;path&gt;
+
+USAGE:
+    grrs &lt;pattern&gt; &lt;path&gt;
+
+For more information try --help
+</code></pre>
+<p>We can pass arguments when using <code>cargo run</code> directly by writing them after  <code>--</code>:</p>
+<pre><code class="language-console">$ cargo run -- some-pattern some-file
+    Finished dev [unoptimized + debuginfo] target(s) in 0.11s
+     Running `target/debug/grrs some-pattern some-file`
+</code></pre>
+<p>As you can see,
+there is no output.
+Which is good:
+That just means there is no error and our program ended.</p>
+<aside class="exercise">
+<p><strong>Exercise for the reader:</strong>
+Make this program output its arguments!</p>
+</aside>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../tutorial/setup.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../tutorial/impl-draft.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../tutorial/setup.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../tutorial/impl-draft.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

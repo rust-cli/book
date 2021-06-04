@@ -1,0 +1,698 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Testing - Command Line Applications in Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../src/special-content.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Getting started</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> A command line app in 15 minutes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> Project setup</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> Parsing command line arguments</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> First implementation</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> Nicer error reporting</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html"><strong aria-hidden="true">1.5.</strong> Output for humans and machines</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html" class="active"><strong aria-hidden="true">1.6.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> Packaging and distributing a Rust tool</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> In-depth topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> Signal handling</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> Using config files</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> Exit codes</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> Communicating with humans</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> Communicating with machines</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> Rendering documentation for your CLI apps</a></li></ol></li><li class="chapter-item expanded "><a href="../crates/index.html"><strong aria-hidden="true">3.</strong> Useful crates</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Command Line Applications in Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/rust-cli/book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#testing" id="testing">Testing</a></h1>
+<p>Over decades of software development,
+people have discovered one truth:
+Untested software rarely works.
+(Many people would go as far as saying: 
+“Most tested software doesn’t work either.”
+But we are all optimists here, right?)
+So, to ensure that your program does what you expect it to do,
+it is wise to test it.</p>
+<p>One easy way to do that is
+to write a <code>README</code> file
+that describes what your program should do.
+And when you feel ready to make a new release,
+go through the <code>README</code> and ensure that
+the behavior is still as expected.
+You can make this a more rigorous exercise
+by also writing down how your program should react to erroneous inputs.</p>
+<p>Here’s another fancy idea:
+Write that <code>README</code> before you write the code.</p>
+<aside>
+<p><strong>Aside:</strong>
+Have a look at
+<a href="https://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a> (TDD)
+if you haven’t heard of it.</p>
+</aside>
+<h2><a class="header" href="#automated-testing" id="automated-testing">Automated testing</a></h2>
+<p>Now, this is all fine and dandy,
+but doing all of this manually?
+That can take a lot of time.
+At the same time,
+many people have come to enjoy telling computers to do things for them.
+Let’s talk about how to automate these tests.</p>
+<p>Rust has a built-in test framework,
+so let’s start by writing a first test:</p>
+<pre><code class="language-rust ignore">#[test]
+fn check_answer_validity() {
+    assert_eq!(answer(), 42);
+}
+</code></pre>
+<p>You can put this snippet of code in pretty much any file
+and <code>cargo test</code> will find
+and run it.
+The key here is the <code>#[test]</code> attribute.
+It allows the build system to discover such functions
+and run them as tests,
+verifying that they don’t panic.</p>
+<aside class="exercise">
+<p><strong>Exercise for the reader:</strong>
+Make this test work.</p>
+<p>You should end up with output like the following:</p>
+<pre><code class="language-text">running 1 test
+test check_answer_validity ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+</aside>
+<p>Now that we’ve seen <em>how</em> we can write tests,
+we still need to figure out <em>what</em> to test.
+As you’ve seen it’s fairly easy to write assertions
+for functions.
+But a CLI application is often more than one function!
+Worse, it often deals with user input,
+reads files,
+and writes output.</p>
+<h2><a class="header" href="#making-your-code-testable" id="making-your-code-testable">Making your code testable</a></h2>
+<p>There are two complementary approaches to testing functionality:
+Testing the small units that you build your complete application from,
+these are called “unit tests”.
+There is also testing the final application “from the outside”
+called “black box tests” or “integration tests”.
+Let’s begin with the first one.</p>
+<p>To figure out what we should test,
+let’s see what our program features are.
+Mainly, <code>grrs</code> is supposed to print out the lines that match a given pattern.
+So, let’s write unit tests for <em>exactly this</em>:
+We want to ensure that our most important piece of logic works,
+and we want to do it in a way that is not dependent
+on any of the setup code we have around it
+(that deals with CLI arguments, for example).</p>
+<p>Going back to our <a href="impl-draft.html">first implementation</a> of <code>grrs</code>,
+we added this block of code to the <code>main</code> function:</p>
+<pre><code class="language-rust ignore">// ...
+for line in content.lines() {
+    if line.contains(&amp;args.pattern) {
+        println!(&quot;{}&quot;, line);
+    }
+}
+</code></pre>
+<p>Sadly, this is not very easy to test.
+First of all, it’s in the main function, so we can’t easily call it.
+This is easily fixed by moving this piece of code into a function:</p>
+<pre><pre class="playground"><code class="language-rust no_run">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn find_matches(content: &amp;str, pattern: &amp;str) {
+    for line in content.lines() {
+        if line.contains(pattern) {
+            println!(&quot;{}&quot;, line);
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Now we can call this function in our test,
+and see what its output is:</p>
+<pre><code class="language-rust ignore">#[test]
+fn find_a_match() {
+    find_matches(&quot;lorem ipsum\ndolor sit amet&quot;, &quot;lorem&quot;);
+    assert_eq!( // uhhhh
+</code></pre>
+<p>Or… can we?
+Right now, <code>find_matches</code> prints directly to <code>stdout</code>, i.e., the terminal.
+We can’t easily capture this in a test!
+This is a problem that often comes up
+when writing tests after the implementation:
+We have written a function that is firmly integrated
+in the context it is used in.</p>
+<aside class="note">
+<p><strong>Note:</strong>
+This is totally fine when writing small CLI applications.
+There’s no need to make everything testable!
+It is important to think about
+which parts of your code you might want to write unit tests for, however.
+While we’ll see that it’s easy to change this function to be testable,
+this is not always the case.</p>
+</aside>
+<p>Alright, how can we make this testable?
+We’ll need to capture the output somehow.
+Rust’s standard library has some neat abstractions
+for dealing with I/O (input/output)
+and we’ll make use of one called <a href="https://doc.rust-lang.org/1.39.0/std/io/trait.Write.html"><code>std::io::Write</code></a>.
+This is a <a href="https://doc.rust-lang.org/book/ch10-02-traits.html">trait</a> that abstracts over things we can write to,
+which includes strings but also <code>stdout</code>.</p>
+<p>If this is the first time you’ve heard “trait”
+in the context of Rust,
+you are in for a treat.
+Traits are one of the most powerful features of Rust.
+You can think of them like interfaces in Java,
+or type classes in Haskell
+(whatever you are more familiar with).
+They allow you to abstract over behavior
+that can be shared by different types.
+Code that uses traits can
+express ideas in very generic and flexible ways.
+This means it can also get difficult to read, though.
+Don’t let that intimidate you:
+Even people who have used Rust for years
+don’t always get what generic code does immediately.
+In that case,
+it helps to think of concrete uses.
+For example,
+in our case,
+the behavior that we abstract over is “write to it”.
+Examples for the types that implement (”impl”) it
+include:
+The terminal’s standard output,
+files,
+a buffer in memory,
+or TCP network connections.
+(Scroll down in the <a href="https://doc.rust-lang.org/1.39.0/std/io/trait.Write.html">documentation for <code>std::io::Write</code></a>
+to see a list of “Implementors”.)</p>
+<p>With that knowledge,
+let’s change our function to accept a third parameter.
+It should be of any type that implements <code>Write</code>.
+This way,
+we can then supply a simple string
+in our tests
+and make assertions on it.
+Here is how we can write this version of <code>find_matches</code>:</p>
+<pre><code class="language-rust ignore">fn find_matches(content: &amp;str, pattern: &amp;str, mut writer: impl std::io::Write) {
+    for line in content.lines() {
+        if line.contains(pattern) {
+            writeln!(writer, &quot;{}&quot;, line);
+        }
+    }
+}
+</code></pre>
+<p>The new parameter is <code>mut writer</code>,
+i.e., a mutable thing we call “writer”.
+Its type is <code>impl std::io::Write</code>,
+which you can read as
+“a placeholder for any type that implements the <code>Write</code> trait”.
+Also note how we
+replaced the <code>println!(…)</code>
+we used earlier
+with <code>writeln!(writer, …)</code>.
+<code>println!</code> works the same as <code>writeln!</code>
+but always uses standard output.</p>
+<p>Now we can test for the output:</p>
+<pre><code class="language-rust ignore">#[test]
+fn find_a_match() {
+    let mut result = Vec::new();
+    find_matches(&quot;lorem ipsum\ndolor sit amet&quot;, &quot;lorem&quot;, &amp;mut result);
+    assert_eq!(result, b&quot;lorem ipsum\n&quot;);
+}
+</code></pre>
+<p>To now use this in our application code,
+we have to change the call to <code>find_matches</code> in <code>main</code>
+by adding <a href="https://doc.rust-lang.org/1.39.0/std/io/fn.stdout.html"><code>&amp;mut std::io::stdout()</code></a> as the third parameter.
+Here’s an example of a main function
+that builds on what we’ve seen in the previous chapters
+and uses our extracted <code>find_matches</code> function:</p>
+<pre><code class="language-rust ignore">fn main() -&gt; Result&lt;()&gt; {
+    let args = Cli::from_args();
+    let content = std::fs::read_to_string(&amp;args.path)
+        .with_context(|| format!(&quot;could not read file `{}`&quot;, args.path.display()))?;
+
+    find_matches(&amp;content, &amp;args.pattern, &amp;mut std::io::stdout());
+
+    Ok(())
+}
+</code></pre>
+<aside class="note">
+<p><strong>Note:</strong>
+Since <code>stdout</code> expects bytes (not strings),
+we use <code>std::io::Write</code> instead of <code>std::fmt::Write</code>.
+As a result,
+we give an empty vector as “writer” in our tests
+(its type will be inferred to <code>Vec&lt;u8&gt;</code>),
+in the <code>assert_eq!</code> we use a <code>b&quot;foo&quot;</code>.
+(The <code>b</code> prefix makes this a <em>byte string literal</em>
+so its type is going to be <code>&amp;[u8]</code> instead of <code>&amp;str</code>).</p>
+</aside>
+<aside class="note">
+<p><strong>Note:</strong>
+We could also make this function return a <code>String</code>,
+but that would change its behavior.
+Instead of writing to the terminal directly,
+it would then collect everything into a string,
+and dump all the results in one go at the end.</p>
+</aside>
+<aside class="exercise">
+<p><strong>Exercise for the reader:</strong>
+<a href="https://doc.rust-lang.org/1.39.0/std/macro.writeln.html"><code>writeln!</code></a> returns an <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>io::Result</code></a>
+because writing can fail,
+for example when the buffer is full and cannot be expanded.
+Add error handling to <code>find_matches</code>.</p>
+</aside>
+<p>We’ve just seen how to make this piece of code easily testable.
+We have</p>
+<ol>
+<li>identified one of the core pieces of our application,</li>
+<li>put it into its own function,</li>
+<li>and made it more flexible.</li>
+</ol>
+<p>Even though the goal was to make it testable,
+the result we ended up with
+is actually a very idiomatic and reusable piece of Rust code.
+That’s awesome!</p>
+<h2><a class="header" href="#splitting-your-code-into-library-and-binary-targets" id="splitting-your-code-into-library-and-binary-targets">Splitting your code into library and binary targets</a></h2>
+<p>We can do one more thing here.
+So far we’ve put everything we wrote into the <code>src/main.rs</code> file.
+This means our current project produces a single binary.
+But we can also make our code available as a library, like this:</p>
+<ol>
+<li>Put the <code>find_matches</code> function into a new <code>src/lib.rs</code>.</li>
+<li>Add a <code>pub</code> in front of the <code>fn</code> (so it’s <code>pub fn find_matches</code>)
+to make it something that users of our library can access.</li>
+<li>Remove <code>find_matches</code> from <code>src/main.rs</code>.</li>
+<li>In the <code>fn main</code>, prepend the call to <code>find_matches</code> with <code>grrs::</code>,
+so it’s now <code>grrs::find_matches(…)</code>.
+This means it uses the function from the library we just wrote!</li>
+</ol>
+<p>The way Rust deals with projects is quite flexible
+and it’s a good idea to think about
+what to put into the library part of your crate early on.
+You can for example think about writing a library
+for your application-specific logic first
+and then use it in your CLI just like any other library.
+Or, if your project has multiple binaries,
+you can put the common functionality into the library part of that crate.</p>
+<aside class="note">
+<p><strong>Note:</strong>
+Speaking of putting everything into a <code>src/main.rs</code>:
+If we continue to do that,
+it’ll become difficult to read.
+The <a href="https://doc.rust-lang.org/1.39.0/book/ch07-00-managing-growing-projects-with-packages-crates-and-modules.html">module system</a> can help you structure and organize your code.</p>
+</aside>
+<h2><a class="header" href="#testing-cli-applications-by-running-them" id="testing-cli-applications-by-running-them">Testing CLI applications by running them</a></h2>
+<p>Thus far, we’ve gone out of our way
+to test the <em>business logic</em> of our application,
+which turned out to be the <code>find_matches</code> function.
+This is very valuable
+and is a great first step
+towards a well-tested code base.
+(Usually, these kinds of tests are called “unit tests”.)</p>
+<p>There is a lot of code we aren’t testing, though:
+Everything that we wrote to deal with the outside world!
+Imagine you wrote the main function,
+but accidentally left in a hard-coded string
+instead of using the argument of the user-supplied path.
+We should write tests for that, too!
+(This level of testing is often called
+“integration testing”, or “system testing”.)</p>
+<p>At its core,
+we are still writing functions
+and annotating them with <code>#[test]</code>.
+It’s just a matter of what we do inside these functions.
+For example, we’ll want to use the main binary of our project,
+and run it like a regular program.
+We will also put these tests into a new file in a new directory:
+<code>tests/cli.rs</code>.</p>
+<aside>
+<p><strong>Aside:</strong>
+By convention,
+<code>cargo</code> will look for integration tests in the <code>tests/</code> directory.
+Similarly,
+it will look for benchmarks in <code>benches/</code>,
+and examples in <code>examples</code>/.
+These conventions also extend to your main source code:
+libraries have a <code>src/lib.rs</code> file,
+the main binary is <code>src/main.rs</code>,
+or, if there are multiple binaries,
+cargo expects them to be in <code>src/bin/&lt;name&gt;.rs</code>.
+Following these conventions will make your code base more discoverable
+by people used to reading Rust code.</p>
+</aside>
+<p>To recall,
+<code>grrs</code> is a small tool that searches for a string in a file.
+We have previously tested that we can find a match.
+Let’s think about what other functionality we can test.</p>
+<p>Here is what I came up with.</p>
+<ul>
+<li>What happens when the file doesn’t exist?</li>
+<li>What is the output when there is no match?</li>
+<li>Does our program exit with an error when we forget one (or both) arguments?</li>
+</ul>
+<p>These are all valid test cases.
+Additionally,
+we should also include one test case
+for the “happy path”,
+i.e., we found at least one match
+and we print it.</p>
+<p>To make these kinds of tests easier,
+we’re going to use the <a href="https://docs.rs/assert_cmd"><code>assert_cmd</code></a> crate.
+It has a bunch of neat helpers
+that allow us to run our main binary
+and see how it behaves.
+Further,
+we’ll also add the <a href="https://docs.rs/predicates"><code>predicates</code></a> crate
+which helps us write assertions
+that <code>assert_cmd</code> can test against
+(and that have great error messages).
+We’ll add those dependencies not to the main list,
+but to a “dev dependencies” section in our <code>Cargo.toml</code>.
+They are only required when developing the crate,
+not when using it.</p>
+<pre><code class="language-toml">[dev-dependencies]
+assert_cmd = &quot;0.10&quot;
+predicates = &quot;1&quot;
+</code></pre>
+<p>This sounds like a lot of setup.
+Nevertheless –
+let’s dive right in
+and create our <code>tests/cli.rs</code> file:</p>
+<pre><code class="language-rust ignore">use assert_cmd::prelude::*; // Add methods on commands
+use predicates::prelude::*; // Used for writing assertions
+use std::process::Command; // Run programs
+
+#[test]
+fn file_doesnt_exist() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let mut cmd = Command::cargo_bin(&quot;grrs&quot;)?;
+
+    cmd.arg(&quot;foobar&quot;).arg(&quot;test/file/doesnt/exist&quot;);
+    cmd.assert()
+        .failure()
+        .stderr(predicate::str::contains(&quot;No such file or directory&quot;));
+
+    Ok(())
+}
+</code></pre>
+<p>You can run this test with
+<code>cargo test</code>,
+just the tests we wrote above.
+It might take a little longer the first time,
+as <code>Command::cargo_bin(&quot;grrs&quot;)</code> needs to compile your main binary.</p>
+<h2><a class="header" href="#generating-test-files" id="generating-test-files">Generating test files</a></h2>
+<p>The test we’ve just seen only checks that our program writes an error message
+when the input file doesn’t exist.
+That’s an important test to have,
+but maybe not the most important one:
+Let’s now test that we will actually print the matches we found in a file!</p>
+<p>We’ll need to have a file whose content we know,
+so that we can know what our program <em>should</em> return
+and check this expectation in our code.
+One idea might be to add a file to the project with custom content
+and use that in our tests.
+Another would be to create temporary files in our tests.
+For this tutorial,
+we’ll have a look at the latter approach.
+Mainly, because it is more flexible and will also work in other cases;
+for example, when you are testing programs that change the files.</p>
+<p>To create these temporary files,
+we’ll be using the <a href="https://docs.rs/tempfile/3/tempfile/"><code>tempfile</code></a> crate.
+Let’s add it to the <code>dev-dependencies</code> in our <code>Cargo.toml</code>:</p>
+<pre><code class="language-toml">tempfile = &quot;3&quot;
+</code></pre>
+<p>Here is a new test case
+(that you can write below the other one)
+that first creates a temp file
+(a “named” one so we can get its path),
+fills it with some text,
+and then runs our program
+to see if we get the correct output.
+When the <code>file</code> goes out of scope
+(at the end of the function),
+the actual temporary file will automatically get deleted.</p>
+<pre><code class="language-rust ignore">use std::io::{self, Write};
+use tempfile::NamedTempFile;
+
+#[test]
+fn find_content_in_file() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let mut file = NamedTempFile::new()?;
+    writeln!(file, &quot;A test\nActual content\nMore content\nAnother test&quot;)?;
+
+    let mut cmd = Command::cargo_bin(&quot;grrs&quot;)?;
+    cmd.arg(&quot;test&quot;).arg(file.path());
+    cmd.assert()
+        .success()
+        .stdout(predicate::str::contains(&quot;test\nAnother test&quot;));
+
+    Ok(())
+}
+</code></pre>
+<aside class="exercise">
+<p><strong>Exercise for the reader:</strong>
+Add integration tests for passing an empty string as pattern.
+Adjust the program as needed.</p>
+</aside>
+<h2><a class="header" href="#what-to-test" id="what-to-test">What to test?</a></h2>
+<p>While it can certainly be fun to write integration tests,
+it will also take some time to write them,
+as well as to update them when your application’s behavior changes.
+To make sure you use your time wisely,
+you should ask yourself what you should test.</p>
+<p>In general it’s a good idea to write integration tests
+for all types of behavior that a user can observe.
+That means that you don’t need to cover all edge cases:
+It usually suffices to have examples for the different types
+and rely on unit tests to cover the edge cases.</p>
+<p>It is also a good idea not to focus your tests on things you can’t actively control.
+It would be a bad idea to test the exact layout of <code>--help</code>
+as it is generated for you.
+Instead, you might just want to check that certain elements are present.</p>
+<p>Depending on the nature of your program,
+you can also try to add more testing techniques.
+For example,
+if you have extracted parts of your program
+and find yourself writing a lot of example cases as unit tests
+while trying to come up with all the edge cases,
+you should look into <a href="https://docs.rs/proptest"><code>proptest</code></a>.
+If you have a program which consumes arbitrary files and parses them,
+try to write a <a href="https://rust-fuzz.github.io/book/introduction.html">fuzzer</a> to find bugs in edge cases.</p>
+<aside>
+<p><strong>Aside:</strong>
+You can find the full, runnable source code used in this chapter
+<a href="https://github.com/rust-cli/book/tree/master/src/tutorial/testing">in this book’s repository</a>.</p>
+</aside>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../tutorial/output.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../tutorial/packaging.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../tutorial/output.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../tutorial/packaging.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

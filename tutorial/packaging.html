@@ -1,0 +1,515 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Packaging and distributing a Rust tool - Command Line Applications in Rust</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../src/special-content.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Getting started</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> A command line app in 15 minutes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> Project setup</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> Parsing command line arguments</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> First implementation</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> Nicer error reporting</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html"><strong aria-hidden="true">1.5.</strong> Output for humans and machines</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html" class="active"><strong aria-hidden="true">1.7.</strong> Packaging and distributing a Rust tool</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> In-depth topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> Signal handling</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> Using config files</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> Exit codes</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> Communicating with humans</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> Communicating with machines</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> Rendering documentation for your CLI apps</a></li></ol></li><li class="chapter-item expanded "><a href="../crates/index.html"><strong aria-hidden="true">3.</strong> Useful crates</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Command Line Applications in Rust</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/rust-cli/book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#packaging-and-distributing-a-rust-tool" id="packaging-and-distributing-a-rust-tool">Packaging and distributing a Rust tool</a></h1>
+<p>If you feel confident that your program is ready for other people to use,
+it is time to package and release it!</p>
+<p>There are a few approaches,
+and we’ll look at three of them
+from “quickest to set up” to “most convenient for users”.</p>
+<h2><a class="header" href="#quickest-cargo-publish" id="quickest-cargo-publish">Quickest: <code>cargo publish</code></a></h2>
+<p>The easiest way to publish your app is with cargo.
+Do you remember how we added external dependencies to our project?
+Cargo downloaded them from its default “crate registry”, <a href="https://crates.io/">crates.io</a>.
+With <code>cargo publish</code>,
+you too can publish crates to <a href="https://crates.io/">crates.io</a>.
+And this works for all crates,
+including those with binary targets.</p>
+<p>Publishing a crate to <a href="https://crates.io/">crates.io</a> is pretty straightforward:
+If you haven’t already, create an account on <a href="https://crates.io/">crates.io</a>.
+Currently, this is done via authorizing you on GitHub,
+so you’ll need to have a GitHub account
+(and be logged in there).
+Next, you log in using cargo on your local machine.
+For that, go to your
+<a href="https://crates.io/me">crates.io account page</a>,
+create a new token,
+and then run <code>cargo login &lt;your-new-token&gt;</code>.
+You only need to do this once per computer.
+You can learn more about this
+in cargo’s <a href="https://doc.rust-lang.org/1.39.0/cargo/reference/publishing.html">publishing guide</a>.</p>
+<p>Now that cargo as well as crates.io know you,
+you are ready to publish crates.
+Before you hastily go ahead and publish a new crate (version),
+it’s a good idea to open your <code>Cargo.toml</code> once more
+and make sure you added the necessary metadata.
+You can find all the possible fields you can set
+in the documentation for <a href="https://doc.rust-lang.org/1.39.0/cargo/reference/manifest.html">cargo’s manifest format</a>.
+Here’s a quick overview of some common entries:</p>
+<pre><code class="language-toml">[package]
+name = &quot;grrs&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;Your Name &lt;your@email.com&gt;&quot;]
+license = &quot;MIT OR Apache-2.0&quot;
+description = &quot;A tool to search files&quot;
+readme = &quot;README.md&quot;
+homepage = &quot;https://github.com/you/grrs&quot;
+repository = &quot;https://github.com/you/grrs&quot;
+keywords = [&quot;cli&quot;, &quot;search&quot;, &quot;demo&quot;]
+categories = [&quot;command-line-utilities&quot;]
+</code></pre>
+<aside class="note">
+<p><strong>Note:</strong>
+This example includes the mandatory license field
+with a common choice for Rust projects:
+The same license that is also used for the compiler itself.
+It also refers to a <code>README.md</code> file.
+It should include a quick description of what your project is about,
+and will be included not only on the crates.io page of your crate,
+but also what GitHub shows by default on repository pages.</p>
+</aside>
+<h3><a class="header" href="#how-to-install-a-binary-from-cratesio" id="how-to-install-a-binary-from-cratesio">How to install a binary from crates.io</a></h3>
+<p>We’ve seen how to publish a crate to crates.io,
+and you might be wondering how to install it.
+In contrast to libraries,
+which cargo will download and compile for you
+when you run <code>cargo build</code> (or a similar command),
+you’ll need to tell it to explicitly install binaries.</p>
+<p>This is done using
+<code>cargo install &lt;crate-name&gt;</code>.
+It will by default download the crate,
+compile all the binary targets it contains
+(in “release” mode, so it might take a while)
+and copy them into the <code>~/.cargo/bin/</code> directory.
+(Make sure that your shell knows to look there for binaries!)</p>
+<p>It’s also possible to
+install crates from git repositories,
+only install specific binaries of a crate,
+and specify an alternative directory to install them to.
+Have a look at <code>cargo install --help</code> for details.</p>
+<h3><a class="header" href="#when-to-use-it" id="when-to-use-it">When to use it</a></h3>
+<p><code>cargo install</code> is a simple way to install a binary crate.
+It’s very convenient for Rust developers to use,
+but has some significant downsides:
+Since it will always compile your source from scratch,
+users of your tool will need to have
+Rust, cargo, and all other system dependencies your project requires
+to be installed on their machine.
+Compiling large Rust codebases can also take some time.</p>
+<p>Furthermore, there is no simple way to update tools installed with cargo:
+The user will need to run <code>cargo install</code> again at some point,
+and pass the <code>--force</code> flag to overwrite the old binaries.
+This is a <a href="https://github.com/rust-lang/cargo/issues/2082">missing feature</a>
+and there are subcommands <a href="https://crates.io/crates/cargo-update">like this one</a>
+you can install to add that,
+though.</p>
+<p>It’s best to use this for distributing tools
+that are targeted at other Rust developers.
+For example:
+A lot of cargo subcommands
+like <code>cargo-tree</code> or <code>cargo-outdated</code>
+can be installed with it.</p>
+<h2><a class="header" href="#distributing-binaries" id="distributing-binaries">Distributing binaries</a></h2>
+<p>Rust is a language that compiles to native code
+and by default statically links all dependencies.
+When you run <code>cargo build</code>
+on your project that contains a binary called <code>grrs</code>,
+you’ll end up with a binary file called <code>grrs</code>.
+Try it out:
+Using <code>cargo build</code>, it’ll be <code>target/debug/grrs</code>,
+and when you run <code>cargo build --release</code>, it’ll be <code>target/release/grrs</code>.
+Unless you use crates
+that explicitly need external libraries to be installed on the target system
+(like using the system’s version of OpenSSL),
+this binary will only depend on common system libraries.
+That means,
+you take that one file,
+send it to people running the same operating system as you,
+and they’ll be able to run it.</p>
+<p>This is already very powerful!
+It works around two of the downsides we just saw for <code>cargo install</code>:
+There is no need to have Rust installed on the user’s machine,
+and instead of it taking a minute to compile,
+they can instantly run the binary.</p>
+<p>So, as we’ve seen,
+<code>cargo build</code> <em>already</em> builds binaries for us.
+The only issue is,
+those are not guaranteed to work on all platforms.
+If you run <code>cargo build</code> on your Windows machine,
+you won’t get a binary that works on a Mac by default.
+Is there a way to generate these binaries
+for all the interesting platforms
+automatically?</p>
+<h3><a class="header" href="#building-binary-releases-on-ci" id="building-binary-releases-on-ci">Building binary releases on CI</a></h3>
+<p>If your tool is open sourced
+and hosted on GitHub,
+it’s quite easy to set up a free CI (continuous integration) service
+like <a href="https://travis-ci.com/">Travis CI</a>.
+(There are other services that also work on other platforms, but Travis is very popular.)
+This basically runs setup commands
+in a virtual machine
+each time you push changes to your repository.
+What those commands are,
+and the types of machines they run on,
+is configurable.
+For example:
+A good idea is to run <code>cargo test</code>
+on a machine with Rust and some common build tools installed.
+If this fails,
+you know there are issues in the most recent changes.</p>
+<p>We can also use this
+to build binaries and upload them to GitHub!
+Indeed, if we run
+<code>cargo build --release</code>
+and upload the binary somewhere,
+we should be all set, right?
+Not quite.
+We still need to make sure the binaries we build
+are compatible with as many systems as possible.
+For example,
+on Linux we can compile not for the current system,
+but instead for the <code>x86_64-unknown-linux-musl</code> target,
+to not depend on default system libraries.
+On macOS, we can set <code>MACOSX_DEPLOYMENT_TARGET</code> to <code>10.7</code>
+to only depend on system features present in versions 10.7 and older.</p>
+<p>You can see one example of building binaries using this approach
+<a href="https://github.com/rustwasm/wasm-pack/blob/51e6351c28fbd40745719e6d4a7bf26dadd30c85/.travis.yml#L74-L91">here</a> for Linux and macOS
+and <a href="https://github.com/rustwasm/wasm-pack/blob/51e6351c28fbd40745719e6d4a7bf26dadd30c85/.appveyor.yml">here</a> for Windows (using AppVeyor).</p>
+<p>Another way is to use pre-built (Docker) images
+that contain all the tools we need
+to build binaries.
+This allows us to easily target more exotic platforms, too.
+The <a href="https://github.com/japaric/trust">trust</a> project contains
+scripts that you can include in your project
+as well as instructions on how to set this up.
+It also includes support for Windows using AppVeyor.</p>
+<p>If you’d rather set this up locally
+and generate the release files on your own machine,
+still have a look at trust.
+It uses <a href="https://github.com/rust-embedded/cross">cross</a> internally,
+which works similar to cargo
+but forwards commands to a cargo process inside a Docker container.
+The definitions of the images are also available in
+<a href="https://github.com/rust-embedded/cross">cross’ repository</a>.</p>
+<h3><a class="header" href="#how-to-install-these-binaries" id="how-to-install-these-binaries">How to install these binaries</a></h3>
+<p>You point your users to your release page
+that might look something <a href="https://github.com/rustwasm/wasm-pack/releases/tag/v0.5.1">like this one</a>,
+and they can download the artifacts we’ve just created.
+The release artifacts we’ve just generated are nothing special:
+At the end, they are just archive files that contain our binaries!
+This means that users of your tool
+can download them with their browser,
+extract them (often happens automatically),
+and copy the binaries to a place they like.</p>
+<p>This does require some experience with manually “installing” programs,
+so you want to add a section to your README file
+on how to install this program.</p>
+<aside class="note">
+<p><strong>Note:</strong>
+If you used <a href="https://github.com/japaric/trust">trust</a> to build your binaries and added them to GitHub releases,
+you can also tell people to run
+<code>curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git your-name/repo-name</code>
+if you think that makes it easier.</p>
+</aside>
+<h3><a class="header" href="#when-to-use-it-1" id="when-to-use-it-1">When to use it</a></h3>
+<p>Having binary releases is a good idea in general,
+there’s hardly any downside to it.
+It does not solve the problem of users having to manually
+install and update
+your tools,
+but they can quickly get the latest releases version
+without the need to install Rust.</p>
+<h3><a class="header" href="#what-to-package-in-addition-to-your-binaries" id="what-to-package-in-addition-to-your-binaries">What to package in addition to your binaries</a></h3>
+<p>Right now,
+when a user downloads our release builds,
+they will get a <code>.tar.gz</code> file
+that only contains binary files.
+So, in our example project,
+they will just get a single <code>grrs</code> file they can run.
+But there are some more files we already have in our repository
+that they might want to have.
+The README file that tells them how to use this tool,
+and the license file(s),
+for example.
+Since we already have them,
+they are easy to add.</p>
+<p>There are some more interesting files
+that make sense especially for command-line tools,
+though:
+How about we also ship a man page in addition to that README file,
+and config files that add completions of the possible flags to your shell?
+You can write these by hand,
+but <em>clap</em>, the argument parsing library we use
+(which structopt builds upon)
+has a way to generate all these files for us.
+See <a href="../in-depth/docs.html">this in-depth chapter</a>
+for more details.</p>
+<h2><a class="header" href="#getting-your-app-into-package-repositories" id="getting-your-app-into-package-repositories">Getting your app into package repositories</a></h2>
+<p>Both approaches we’ve seen so far
+are not how you typically install software on your machine.
+Especially command-line tools
+you install using global package managers
+on most operating systems.
+The advantages for users are quite obvious:
+There is no need to think about how to install your program,
+if it can be installed the same way as they install the other tools.
+These package managers also allow users to update their programs
+when a new version is available.</p>
+<p>Sadly, supporting different systems means
+you’ll have to look at how these different systems work.
+For some,
+it might be as easy as adding a file to your repository
+(e.g. adding a Formula file like <a href="https://github.com/BurntSushi/ripgrep/blob/31adff6f3c4bfefc9e77df40871f2989443e6827/pkg/brew/ripgrep-bin.rb">this</a> for macOS’s <code>brew</code>),
+but for others you’ll often need to send in patches yourself
+and add your tool to their repositories.
+There are helpful tools like
+<a href="https://crates.io/crates/cargo-rpm">cargo-rpm</a>,
+<a href="https://crates.io/crates/cargo-deb">cargo-deb</a>, and
+<a href="https://crates.io/crates/cargo-aur">cargo-aur</a>,
+but describing how they work
+and how to correctly package your tool
+for those different systems is beyond the scope of this chapter.</p>
+<p>Instead,
+let’s have a look at a tool that is written in Rust
+and that is available in many different package managers.</p>
+<h3><a class="header" href="#an-example-ripgrep" id="an-example-ripgrep">An example: ripgrep</a></h3>
+<p><a href="https://github.com/BurntSushi/ripgrep">ripgrep</a> is an alternative to <code>grep</code>/<code>ack</code>/<code>ag</code> and is written in Rust.
+It’s quite successful and is packaged for many operating systems:
+Just look at <a href="https://github.com/BurntSushi/ripgrep/tree/31adff6f3c4bfefc9e77df40871f2989443e6827#installation">the “Installation” section</a> of its README!</p>
+<p>Note that it lists a few different options how you can install it:
+It starts with a link to the GitHub releases
+which contain the binaries so you can download them directly;
+then it lists how to install it using a bunch of different package managers;
+finally, you can also install it using <code>cargo install</code>.</p>
+<p>This seems like a very good idea:
+Don’t pick and choose one of the approaches presented here,
+but start with <code>cargo install</code>,
+add binary releases,
+and finally start distributing your tool using system package managers.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../tutorial/testing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../in-depth/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../tutorial/testing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../in-depth/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
