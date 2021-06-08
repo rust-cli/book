@@ -70,7 +70,7 @@ exiting is a valid strategy.
 There's even a shortcut method on `Result`s, called `unwrap`:
 
 ```rust,no_run
-let content = std::fs::read_to_string("test.txt").unwrap();
+let result = std::fs::read_to_string("test.txt").unwrap();
 ```
 
 ## No need to panic
