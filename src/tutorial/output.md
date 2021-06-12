@@ -230,7 +230,7 @@ Here's a quick example:
 Assuming you have this file as `src/bin/output-log.rs`,
 on Linux and macOS, you can run it like this:
 ```console
-$ env RUST_LOG=output_log=info cargo run --bin output-log
+$ env RUST_LOG=info cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log`
 [2018-11-30T20:25:52Z INFO  output_log] starting up
@@ -239,7 +239,7 @@ $ env RUST_LOG=output_log=info cargo run --bin output-log
 
 In Windows PowerShell, you can run it like this:
 ```console
-$ $env:RUST_LOG="output_log=info"
+$ $env:RUST_LOG="info"
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log.exe`
@@ -249,7 +249,7 @@ $ cargo run --bin output-log
 
 In Windows CMD, you can run it like this:
 ```console
-$ set RUST_LOG=output_log=info
+$ set RUST_LOG=info
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log.exe`
