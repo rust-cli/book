@@ -208,3 +208,59 @@ That just means there is no error and our program ended.
 Make this program output its arguments!
 
 </aside>
+
+
+## Parsing CLI arguments with 'Clap v3 beta' and dealing with stdin and stdout
+Similar to StructOpt, it is also possible with Clap v3 (currently in beta) to
+define the command-line options as a `struct` and derive the rest.
+
+The following code also illustrates how to read input either from file, if
+provided as a command-line argument, or from `stdin`  otherwise. Same applies
+to output: If the output-file not given as command-line argument, the output is
+written per default to `stdout`.
+
+```rust,ignore
+{{#include cli-args-clap3-stdin-stdout.rs}}
+```
+
+Now the program could be used in four different ways
+
+
+```console
+cargo run --bin cli-args-clap3-stdin-stdout -- < input.csv > output.csv
+cargo run --bin cli-args-clap3-stdin-stdout --  input.csv > output.csv
+cargo run --bin cli-args-clap3-stdin-stdout -- --output output.csv < input.csv  
+cargo run --bin cli-args-clap3-stdin-stdout -- --output output.csv input.csv  
+```
+
+The help message looks like below:
+
+```console
+cargo run --bin cli-args-clap3-stdin-stdout -- --help
+CLAiR 0.1
+A sample-program
+
+The program is a show-case how to read data either from file or stdin and write data either to file
+or stdout
+
+USAGE:
+    cli-args-clap3-stdin-stdout [OPTIONS] [input]
+
+ARGS:
+    <input>
+            Optional input file; default stdin
+
+FLAGS:
+    -h, --help
+            Prints help information
+
+    -V, --version
+            Prints version information
+
+
+OPTIONS:
+    -o, --output <output>
+            Optional output file; default stdout
+
+
+```

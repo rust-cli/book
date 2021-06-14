@@ -13,6 +13,10 @@ name = "cli-args-structopt"
 path = "src/tutorial/cli-args-structopt.rs"
 
 [[bin]]
+name = "cli-args-clap3-stdin-stdout"
+path = "src/tutorial/cli-args-clap3-stdin-stdout.rs"
+
+[[bin]]
 name = "impl-draft-shortcut"
 path = "src/tutorial/impl-draft-shortcut.rs"
 
@@ -62,6 +66,8 @@ members = [
 ]
 
 [dependencies]
+clap = "3.0.0-beta.2"
+csv = "1.1.6"
 structopt = "0.3.21"
 failure = "0.1.3"
 exitfailure = "0.5.1"
