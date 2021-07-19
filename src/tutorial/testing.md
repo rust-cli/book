@@ -3,7 +3,7 @@
 Over decades of software development,
 people have discovered one truth:
 Untested software rarely works.
-(Many people would go as far as saying: 
+(Many people would go as far as saying:
 "Most tested software doesn't work either."
 But we are all optimists here, right?)
 So, to ensure that your program does what you expect it to do,
@@ -451,14 +451,14 @@ Mainly, because it is more flexible and will also work in other cases;
 for example, when you are testing programs that change the files.
 
 To create these temporary files,
-we'll be using the [`tempfile`] crate.
+we'll be using the [`assert_fs`] crate.
 Let's add it to the `dev-dependencies` in our `Cargo.toml`:
 
 ```toml
 {{#include testing/Cargo.toml:14}}
 ```
 
-[`tempfile`]: https://docs.rs/tempfile/3/tempfile/
+[`assert_fs`]: https://docs.rs/assert_fs
 
 Here is a new test case
 (that you can write below the other one)
@@ -472,7 +472,7 @@ When the `file` goes out of scope
 the actual temporary file will automatically get deleted.
 
 ```rust,ignore
-{{#include testing/tests/cli.rs:17:34}}
+{{#include testing/tests/cli.rs:17:32}}
 ```
 
 <aside class="exercise">

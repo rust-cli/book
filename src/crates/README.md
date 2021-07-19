@@ -4,6 +4,7 @@ There is always new crates being released that can be useful in the development 
 ## Crates referenced in this book
 - [anyhow](https://crates.io/crates/anyhow) - provides `anyhow::Error` for easy error handling
 - [assert_cmd](https://crates.io/crates/assert_cmd) - simplifies integration testing of CLIs
+- [assert_fs](https://crates.io/crates/assert_fs) - Setup input files and test output files
 - [atty](https://crates.io/crates/atty) - detected whether application is running in a tty
 - [clap-verbosity-flag](https://crates.io/crates/clap-verbosity-flag) - adds a `--verbose` flag to structopt CLIs
 - [clap](https://crates.io/crates/clap) - command line argument parser
