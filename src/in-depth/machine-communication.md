@@ -228,28 +228,6 @@ This is how Visual Studio Code uses _ripgrep_ for its code search.
 
 </aside>
 
-## Abstract over human and machine output
-
-[convey] is an in-development library
-that tries to make it easier to output messages
-in formats suitable for both humans and machines.
-You define your own message types,
-and implement a `Render` trait
-(either manually, with the help of macros, or using a derive attribute)
-to say how they should be formatted.
-Currently,
-it supports printing human output
-(incl. auto-detecting whether it should be colored),
-writing JSON documents
-(either to the `stdout` or to a file),
-or both at the same time.
-
-[convey]: https://crates.io/crates/convey
-
-Even if you do not use this library,
-it might be a good idea to write a similar abstraction
-that fits your use case.
-
 ## How to deal with input piped into us
 
 <aside class="todo">
