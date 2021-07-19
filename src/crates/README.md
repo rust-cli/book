@@ -8,7 +8,6 @@ There is always new crates being released that can be useful in the development 
 - [clap-verbosity-flag](https://crates.io/crates/clap-verbosity-flag) - adds a `--verbose` flag to structopt CLIs
 - [clap](https://crates.io/crates/clap) - command line argument parser
 - [confy](https://crates.io/crates/confy) - boilerplate-free configuration management
-- [convey](https://crates.io/crates/convey) - easy output for machines and humans
 - [crossbeam-channel](https://crates.io/crates/crossbeam-channel) - provides multi-producer multi-consumer channels for message passing
 - [ctrlc](https://crates.io/crates/ctrlc) - easy ctrl-c handler
 - [env_logger](https://crates.io/crates/env_logger) - implements a logger configurable via environment variables
