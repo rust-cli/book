@@ -38,6 +38,14 @@ and print each one that contains our pattern:
 {{#include impl-draft.rs:21:25}}
 ```
 
+## Wrapping up
+
+Your code should now look like:
+
+```rust,ignore
+{{#include impl-draft.rs}}
+```
+
 Give it a try: `cargo run -- main src/main.rs` should work now!
 
 <aside class="exercise">
