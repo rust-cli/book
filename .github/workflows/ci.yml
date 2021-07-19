@@ -1,0 +1,34 @@
+name: ci
+on:
+  pull_request:
+    paths:
+    - '**'
+    - '!*.md'
+    - "!/LICENSE"
+  push:
+    branches:
+    - master
+    paths:
+    - '**'
+    - '!*.md'
+    - "!/LICENSE"
+jobs:
+  test:
+    name: Test
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+        rust: ["stable"]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: ${{ matrix.rust }}
+        profile: minimal
+        override: true
+    - uses: Swatinem/rust-cache@v1
+    - name: Default features
+      run: cargo test --workspace
