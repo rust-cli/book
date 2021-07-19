@@ -10,10 +10,10 @@ name = "grrs"
 path = "src/main.rs"
 
 [dependencies]
-structopt = "0.2.10"
+structopt = "0.3.22"
 anyhow = "1.0"
 
 [dev-dependencies]
-assert_cmd = "0.10"
-predicates = "1"
+assert_cmd = "1.0"
+predicates = "2.0"
 tempfile = "3"
