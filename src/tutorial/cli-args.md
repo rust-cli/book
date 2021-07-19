@@ -171,7 +171,13 @@ Don't use it in other places!
 
 </aside>
 
-## This is what it may look like
+## Wrapping up
+
+Your code should now look like:
+
+```rust,ignore
+{{#include cli-args-structopt.rs}}
+```
 
 Running it without any arguments:
 
