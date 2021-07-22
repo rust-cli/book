@@ -365,7 +365,7 @@ By convention,
 `cargo` will look for integration tests in the `tests/` directory.
 Similarly,
 it will look for benchmarks in `benches/`,
-and examples in `examples`/.
+and examples in `examples/`.
 These conventions also extend to your main source code:
 libraries have a `src/lib.rs` file,
 the main binary is `src/main.rs`,
