@@ -106,9 +106,6 @@ Rust, cargo, and all other system dependencies your project requires
 to be installed on their machine.
 Compiling large Rust codebases can also take some time.
 
-[cargo-issue-2082]: https://github.com/rust-lang/cargo/issues/2082
-[cargo-update]: https://crates.io/crates/cargo-update
-
 It's best to use this for distributing tools
 that are targeted at other Rust developers.
 For example:
