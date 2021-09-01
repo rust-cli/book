@@ -10,7 +10,7 @@ name = "grrs"
 path = "src/main.rs"
 
 [dependencies]
-structopt = "0.3.22"
+structopt = "0.3.23"
 anyhow = "1.0"
 
 [dev-dependencies]
