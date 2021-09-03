@@ -116,7 +116,7 @@ and it’ll generate the code that parses the arguments into the fields.
 [`structopt`]: https://docs.rs/structopt
 
 Let's first import `structopt` by adding
-`structopt = "0.3.13"` to the `[dependencies]` section
+`structopt = "0.3"` to the `[dependencies]` section
 of our `Cargo.toml` file.
 
 Now, we can write `use structopt::StructOpt;` in our code,
