@@ -207,7 +207,7 @@ It has one problem, though:
 We don't store the original error,
 only its string representation.
 The often used [`anyhow`] library has a neat solution for that:
-Similar to our `CustomError` type,
+similar to our `CustomError` type,
 its [`Context`] trait can be used to add a description.
 Additionally, it also keeps the original error,
 so we get a "chain" of error messages pointing out the root cause.
