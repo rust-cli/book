@@ -1,4 +1,4 @@
-# Parsing command line arguments
+# Parsing command-line arguments
 
 A typical invocation of our CLI tool will look like this:
 
@@ -11,8 +11,8 @@ and print out the lines that contain `foobar`.
 But how do we get these two values?
 
 The text after the name of the program is often called
-the "command line arguments",
-or "command line flags"
+the "command-line arguments",
+or "command-line flags"
 (especially when they look like `--this`).
 Internally, the operating system usually represents them
 as a list of strings –
@@ -100,7 +100,7 @@ How would you implement `--help`?
 ## Parsing CLI arguments with StructOpt
 
 A much nicer way is to use one of the many available libraries.
-The most popular library for parsing command line arguments
+The most popular library for parsing command-line arguments
 is called [`clap`].
 It has all the functionality you'd expect,
 including support for sub-commands, shell completions, and great help messages.
