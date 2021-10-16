@@ -21,7 +21,7 @@ What follows are chapters that go into more detail
 on some of these aspects.
 
 One last thing before we dive right into CLI applications:
-If you found an error in this book
+If you find an error in this book
 or want to help us write more content for it,
 you can find its source [in the CLI WG repository][book-src].
 We'd love to hear your feedback!
