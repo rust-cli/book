@@ -58,7 +58,7 @@ members = [
 ]
 
 [dependencies]
-structopt = "0.3.21"
+structopt = "0.3.25"
 anyhow = "1.0"
 indicatif = "0.16.2"
 log = "0.4.14"
