@@ -4,49 +4,28 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Output for humans and machines - Command Line Applications in Rust</title>
-        
-        
-
-
         <!-- Custom HTML head -->
-        
-
-
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        
         <link rel="icon" href="../favicon.svg">
-        
-        
         <link rel="shortcut icon" href="../favicon.png">
-        
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
-        
         <link rel="stylesheet" href="../css/print.css" media="print">
-        
-
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        
         <link rel="stylesheet" href="../fonts/fonts.css">
-        
-
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
         <link rel="stylesheet" href="../src/special-content.css">
-        
-
-        
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -105,7 +84,6 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
@@ -122,33 +100,26 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                        
                     </div>
 
                     <h1 class="menu-title">Command Line Applications in Rust</h1>
 
                     <div class="right-buttons">
-                        
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        
-                        
                         <a href="https://github.com/rust-cli/book" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -156,8 +127,6 @@
                         </ul>
                     </div>
                 </div>
-                
-
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -169,8 +138,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#output" id="output">Output</a></h1>
-<h2><a class="header" href="#printing-hello-world" id="printing-hello-world">Printing “Hello World”</a></h2>
+                        <h1 id="output"><a class="header" href="#output">Output</a></h1>
+<h2 id="printing-hello-world"><a class="header" href="#printing-hello-world">Printing “Hello World”</a></h2>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -179,7 +148,7 @@
 </span></code></pre></pre>
 <p>Well, that was easy.
 Great, onto the next topic.</p>
-<h2><a class="header" href="#using-println" id="using-println">Using println</a></h2>
+<h2 id="using-println"><a class="header" href="#using-println">Using println</a></h2>
 <p>You can pretty much print all the things you like
 with the <code>println!</code> macro.
 This macro has some pretty amazing capabilities,
@@ -225,7 +194,7 @@ debug output (human-readable but targeted at developers) uses the <a href="https
 You can find more information about the syntax you can use in <code>println!</code>
 in the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/index.html">documentation for the <code>std::fmt</code> module</a>.</p>
 </aside>
-<h2><a class="header" href="#printing-errors" id="printing-errors">Printing errors</a></h2>
+<h2 id="printing-errors"><a class="header" href="#printing-errors">Printing errors</a></h2>
 <p>Printing errors should be done via <code>stderr</code>
 to make it easier for users
 and other tools
@@ -260,7 +229,7 @@ Always be careful when manually printing them!</p>
 when dealing with raw escape codes
 to make your (and your user’s) life easier.</p>
 </aside>
-<h2><a class="header" href="#a-note-on-printing-performance" id="a-note-on-printing-performance">A note on printing performance</a></h2>
+<h2 id="a-note-on-printing-performance"><a class="header" href="#a-note-on-printing-performance">A note on printing performance</a></h2>
 <p>Printing to the terminal is surprisingly slow!
 If you call things like <code>println!</code> in a loop,
 it can easily become a bottleneck in an otherwise fast program.
@@ -301,7 +270,7 @@ writeln!(handle, &quot;foo: {}&quot;, 42); // add `?` if you care about errors h
 <span class="boring">}
 </span></code></pre></pre>
 <p>You can also combine the two approaches.</p>
-<h2><a class="header" href="#showing-a-progress-bar" id="showing-a-progress-bar">Showing a progress bar</a></h2>
+<h2 id="showing-a-progress-bar"><a class="header" href="#showing-a-progress-bar">Showing a progress bar</a></h2>
 <p>Some CLI applications run less than a second,
 others take minutes or hours.
 If you are writing one of the latter types of programs,
@@ -325,7 +294,7 @@ Here’s a quick example:</p>
 <p>See the <a href="https://docs.rs/indicatif">documentation</a>
 and <a href="https://github.com/mitsuhiko/indicatif/tree/master/examples">examples</a>
 for more information.</p>
-<h2><a class="header" href="#logging" id="logging">Logging</a></h2>
+<h2 id="logging"><a class="header" href="#logging">Logging</a></h2>
 <p>To make it easier to understand what is happening in our program,
 we might want to add some log statements.
 This is usually easy while writing your application.
@@ -411,67 +380,38 @@ to add a <code>--verbose</code> to a project using <code>structopt</code>.</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="../tutorial/errors.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
-
-                        
                             <a rel="next" href="../tutorial/testing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
-
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
                     <a rel="prev" href="../tutorial/errors.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
-
-                
                     <a rel="next" href="../tutorial/testing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
-
-        
-
-        
-
-        
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-        
-
-        
-
-        
         <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
-        
-
         <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-        
-
-        
-
     </body>
 </html>

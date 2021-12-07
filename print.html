@@ -4,51 +4,29 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Command Line Applications in Rust</title>
-        
         <meta name="robots" content="noindex" />
-        
-        
-
-
         <!-- Custom HTML head -->
-        
-
-
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        
         <link rel="icon" href="favicon.svg">
-        
-        
         <link rel="shortcut icon" href="favicon.png">
-        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
-        
         <link rel="stylesheet" href="css/print.css" media="print">
-        
-
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
         <link rel="stylesheet" href="fonts/fonts.css">
-        
-
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
         <link rel="stylesheet" href="src/special-content.css">
-        
-
-        
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -107,7 +85,6 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
@@ -124,33 +101,26 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                        
                     </div>
 
                     <h1 class="menu-title">Command Line Applications in Rust</h1>
 
                     <div class="right-buttons">
-                        
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        
-                        
                         <a href="https://github.com/rust-cli/book" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -158,8 +128,6 @@
                         </ul>
                     </div>
                 </div>
-                
-
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -171,7 +139,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#command-line-apps-in-rust" id="command-line-apps-in-rust">Command line apps in Rust</a></h1>
+                        <h1 id="command-line-apps-in-rust"><a class="header" href="#command-line-apps-in-rust">Command line apps in Rust</a></h1>
 <p>Rust is a statically compiled, fast language with great tooling and a rapidly growing ecosystem.
 That makes it a great fit for writing command line applications:
 They should be small, portable, and quick to run.
@@ -195,7 +163,7 @@ or want to help us write more content for it,
 you can find its source <a href="https://github.com/rust-cli/book">in the CLI WG repository</a>.
 We’d love to hear your feedback!
 Thank you!</p>
-<h1><a class="header" href="#learning-rust-by-writing-a-command-line-app-in-15-minutes" id="learning-rust-by-writing-a-command-line-app-in-15-minutes">Learning Rust by Writing a Command Line App in 15 Minutes</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="learning-rust-by-writing-a-command-line-app-in-15-minutes"><a class="header" href="#learning-rust-by-writing-a-command-line-app-in-15-minutes">Learning Rust by Writing a Command Line App in 15 Minutes</a></h1>
 <p>This tutorial will guide you through writing
 a CLI (command line interface) application
 in <a href="https://rust-lang.org/">Rust</a>.
@@ -255,7 +223,7 @@ add <code>extern crate foo;</code> invocations, for example.</p>
 and that you have <code>edition = &quot;2018&quot;</code> set
 in the <code>[package]</code> section of your <code>Cargo.toml</code> file.</p>
 </aside>
-<h1><a class="header" href="#project-setup" id="project-setup">Project setup</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="project-setup"><a class="header" href="#project-setup">Project setup</a></h1>
 <p>If you haven’t already,
 <a href="https://www.rust-lang.org/tools/install">install Rust</a> on your computer
 (it should only take a few minutes).
@@ -273,7 +241,7 @@ incl. a list of dependencies/external libraries we use.</li>
 </ul>
 <p>If you can execute <code>cargo run</code> in the <code>grrs</code> directory
 and get a “Hello World”, you’re all set up.</p>
-<h2><a class="header" href="#what-it-might-look-like" id="what-it-might-look-like">What it might look like</a></h2>
+<h2 id="what-it-might-look-like"><a class="header" href="#what-it-might-look-like">What it might look like</a></h2>
 <pre><code class="language-console">$ cargo new grrs
      Created binary (application) `grrs` package
 $ cd grrs/
@@ -283,7 +251,7 @@ $ cargo run
      Running `target/debug/grrs`
 Hello, world!
 </code></pre>
-<h1><a class="header" href="#parsing-command-line-arguments" id="parsing-command-line-arguments">Parsing command-line arguments</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="parsing-command-line-arguments"><a class="header" href="#parsing-command-line-arguments">Parsing command-line arguments</a></h1>
 <p>A typical invocation of our CLI tool will look like this:</p>
 <pre><code class="language-console">$ grrs foobar test.txt
 </code></pre>
@@ -303,7 +271,7 @@ into something more easy to work with.
 You will also need to tell the users of your program
 which arguments they need to give
 and in which format they are expected.</p>
-<h2><a class="header" href="#getting-the-arguments" id="getting-the-arguments">Getting the arguments</a></h2>
+<h2 id="getting-the-arguments"><a class="header" href="#getting-the-arguments">Getting the arguments</a></h2>
 <p>The standard library contains the function
 <a href="https://doc.rust-lang.org/1.39.0/std/env/fn.args.html"><code>std::env::args()</code></a> that gives you an <a href="https://doc.rust-lang.org/1.39.0/std/iter/index.html">iterator</a> of the given arguments.
 The first entry (at index <code>0</code>) will be the name your program was called as (e.g. <code>grrs</code>),
@@ -312,7 +280,7 @@ the ones that follow are what the user wrote afterwards.</p>
 <pre><code class="language-rust ignore">let pattern = std::env::args().nth(1).expect(&quot;no pattern given&quot;);
 let path = std::env::args().nth(2).expect(&quot;no path given&quot;);
 </code></pre>
-<h2><a class="header" href="#cli-arguments-as-data-type" id="cli-arguments-as-data-type">CLI arguments as data type</a></h2>
+<h2 id="cli-arguments-as-data-type"><a class="header" href="#cli-arguments-as-data-type">CLI arguments as data type</a></h2>
 <p>Instead of thinking about them as a bunch of text,
 it often pays off to think of CLI arguments as a custom data type
 that represents the inputs to your program.</p>
@@ -357,7 +325,7 @@ let args = Cli {
 How would you deal with the requirement to support
 <code>--pattern=&quot;foo&quot;</code> or <code>--pattern &quot;foo&quot;</code>?
 How would you implement <code>--help</code>?</p>
-<h2><a class="header" href="#parsing-cli-arguments-with-structopt" id="parsing-cli-arguments-with-structopt">Parsing CLI arguments with StructOpt</a></h2>
+<h2 id="parsing-cli-arguments-with-structopt"><a class="header" href="#parsing-cli-arguments-with-structopt">Parsing CLI arguments with StructOpt</a></h2>
 <p>A much nicer way is to use one of the many available libraries.
 The most popular library for parsing command-line arguments
 is called <a href="https://clap.rs/"><code>clap</code></a>.
@@ -422,7 +390,7 @@ it will print out an error or help message
 and immediately exit the program.
 Don’t use it in other places!</p>
 </aside>
-<h2><a class="header" href="#wrapping-up" id="wrapping-up">Wrapping up</a></h2>
+<h2 id="wrapping-up"><a class="header" href="#wrapping-up">Wrapping up</a></h2>
 <p>Your code should now look like:</p>
 <pre><code class="language-rust ignore">#![allow(unused)]
 
@@ -468,7 +436,7 @@ That just means there is no error and our program ended.</p>
 <p><strong>Exercise for the reader:</strong>
 Make this program output its arguments!</p>
 </aside>
-<h1><a class="header" href="#first-implementation-of-grrs" id="first-implementation-of-grrs">First implementation of <em>grrs</em></a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="first-implementation-of-grrs"><a class="header" href="#first-implementation-of-grrs">First implementation of <em>grrs</em></a></h1>
 <p>After the last chapter on command line arguments,
 we have our input data,
 and we can start to write our actual tool.
@@ -497,7 +465,7 @@ and print each one that contains our pattern:</p>
     }
 }
 </code></pre>
-<h2><a class="header" href="#wrapping-up-1" id="wrapping-up-1">Wrapping up</a></h2>
+<h2 id="wrapping-up-1"><a class="header" href="#wrapping-up-1">Wrapping up</a></h2>
 <p>Your code should now look like:</p>
 <pre><code class="language-rust ignore">#![allow(unused)]
 
@@ -537,14 +505,14 @@ Find a way to optimize it!
 (One idea might be to use a <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufReader.html"><code>BufReader</code></a>
 instead of <code>read_to_string()</code>.)</p>
 </aside>
-<h1><a class="header" href="#nicer-error-reporting" id="nicer-error-reporting">Nicer error reporting</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="nicer-error-reporting"><a class="header" href="#nicer-error-reporting">Nicer error reporting</a></h1>
 <p>We all can do nothing but accept the fact that errors will occur.
 And in contrast to many other languages,
 it’s very hard not to notice and deal with this reality
 when using Rust:
 As it doesn’t have exceptions,
 all possible error states are often encoded in the return types of functions.</p>
-<h2><a class="header" href="#results" id="results">Results</a></h2>
+<h2 id="results"><a class="header" href="#results">Results</a></h2>
 <p>A function like <a href="https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html"><code>read_to_string</code></a> doesn’t return a string.
 Instead, it returns a <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a>
 that contains either
@@ -570,7 +538,7 @@ Not sure what enums are or how they work in Rust?
 <a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">Check this chapter of the Rust book</a>
 to get up to speed.</p>
 </aside>
-<h2><a class="header" href="#unwrapping" id="unwrapping">Unwrapping</a></h2>
+<h2 id="unwrapping"><a class="header" href="#unwrapping">Unwrapping</a></h2>
 <p>Now, we were able to access the content of the file,
 but we can’t really do anything with it after the <code>match</code> block.
 For this, we’ll need to somehow deal with the error case.
@@ -602,7 +570,7 @@ There’s even a shortcut method on <code>Result</code>s, called <code>unwrap</c
 </span>let content = std::fs::read_to_string(&quot;test.txt&quot;).unwrap();
 <span class="boring">}
 </span></code></pre></pre>
-<h2><a class="header" href="#no-need-to-panic" id="no-need-to-panic">No need to panic</a></h2>
+<h2 id="no-need-to-panic"><a class="header" href="#no-need-to-panic">No need to panic</a></h2>
 <p>Of course, aborting the program is not the only way to deal with errors.
 Instead of the <code>panic!</code>, we can also easily write <code>return</code>:</p>
 <pre><pre class="playground"><code class="language-rust no_run"><span class="boring">fn main() -&gt; Result&lt;(), Box&lt;std::error::Error&gt;&gt; {
@@ -642,7 +610,7 @@ It easily could be – this is totally valid as well.
 The last expression of any block in Rust is its return value,
 and it is customary to omit needless <code>return</code>s.</p>
 </aside>
-<h2><a class="header" href="#question-mark" id="question-mark">Question Mark</a></h2>
+<h2 id="question-mark"><a class="header" href="#question-mark">Question Mark</a></h2>
 <p>Just like calling <code>.unwrap()</code> is a shortcut
 for the <code>match</code> with <code>panic!</code> in the error arm,
 we have another shortcut for the <code>match</code> that <code>return</code>s in the error arm:
@@ -673,7 +641,7 @@ that implements the standard <a href="https://doc.rust-lang.org/1.39.0/std/error
 This means that basically all errors can be put into this box,
 so we can use <code>?</code> on all of the usual functions that return <code>Result</code>s.</p>
 </aside>
-<h2><a class="header" href="#providing-context" id="providing-context">Providing Context</a></h2>
+<h2 id="providing-context"><a class="header" href="#providing-context">Providing Context</a></h2>
 <p>The errors you get when using <code>?</code> in your <code>main</code> function are okay,
 but they are not great.
 For example:
@@ -733,8 +701,8 @@ fn main() -&gt; Result&lt;()&gt; {
 Caused by:
     No such file or directory (os error 2)
 </code></pre>
-<h1><a class="header" href="#output" id="output">Output</a></h1>
-<h2><a class="header" href="#printing-hello-world" id="printing-hello-world">Printing “Hello World”</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="output"><a class="header" href="#output">Output</a></h1>
+<h2 id="printing-hello-world"><a class="header" href="#printing-hello-world">Printing “Hello World”</a></h2>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -743,7 +711,7 @@ Caused by:
 </span></code></pre></pre>
 <p>Well, that was easy.
 Great, onto the next topic.</p>
-<h2><a class="header" href="#using-println" id="using-println">Using println</a></h2>
+<h2 id="using-println"><a class="header" href="#using-println">Using println</a></h2>
 <p>You can pretty much print all the things you like
 with the <code>println!</code> macro.
 This macro has some pretty amazing capabilities,
@@ -789,7 +757,7 @@ debug output (human-readable but targeted at developers) uses the <a href="https
 You can find more information about the syntax you can use in <code>println!</code>
 in the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/index.html">documentation for the <code>std::fmt</code> module</a>.</p>
 </aside>
-<h2><a class="header" href="#printing-errors" id="printing-errors">Printing errors</a></h2>
+<h2 id="printing-errors"><a class="header" href="#printing-errors">Printing errors</a></h2>
 <p>Printing errors should be done via <code>stderr</code>
 to make it easier for users
 and other tools
@@ -824,7 +792,7 @@ Always be careful when manually printing them!</p>
 when dealing with raw escape codes
 to make your (and your user’s) life easier.</p>
 </aside>
-<h2><a class="header" href="#a-note-on-printing-performance" id="a-note-on-printing-performance">A note on printing performance</a></h2>
+<h2 id="a-note-on-printing-performance"><a class="header" href="#a-note-on-printing-performance">A note on printing performance</a></h2>
 <p>Printing to the terminal is surprisingly slow!
 If you call things like <code>println!</code> in a loop,
 it can easily become a bottleneck in an otherwise fast program.
@@ -865,7 +833,7 @@ writeln!(handle, &quot;foo: {}&quot;, 42); // add `?` if you care about errors h
 <span class="boring">}
 </span></code></pre></pre>
 <p>You can also combine the two approaches.</p>
-<h2><a class="header" href="#showing-a-progress-bar" id="showing-a-progress-bar">Showing a progress bar</a></h2>
+<h2 id="showing-a-progress-bar"><a class="header" href="#showing-a-progress-bar">Showing a progress bar</a></h2>
 <p>Some CLI applications run less than a second,
 others take minutes or hours.
 If you are writing one of the latter types of programs,
@@ -889,7 +857,7 @@ Here’s a quick example:</p>
 <p>See the <a href="https://docs.rs/indicatif">documentation</a>
 and <a href="https://github.com/mitsuhiko/indicatif/tree/master/examples">examples</a>
 for more information.</p>
-<h2><a class="header" href="#logging" id="logging">Logging</a></h2>
+<h2 id="logging"><a class="header" href="#logging">Logging</a></h2>
 <p>To make it easier to understand what is happening in our program,
 we might want to add some log statements.
 This is usually easy while writing your application.
@@ -970,7 +938,7 @@ can make the difference between minutes and hours of debugging.
 The <a href="https://crates.io/crates/clap-verbosity-flag">clap-verbosity-flag</a> crate contains a quick way
 to add a <code>--verbose</code> to a project using <code>structopt</code>.</p>
 </aside>
-<h1><a class="header" href="#testing" id="testing">Testing</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="testing"><a class="header" href="#testing">Testing</a></h1>
 <p>Over decades of software development,
 people have discovered one truth:
 Untested software rarely works.
@@ -995,7 +963,7 @@ Have a look at
 <a href="https://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a> (TDD)
 if you haven’t heard of it.</p>
 </aside>
-<h2><a class="header" href="#automated-testing" id="automated-testing">Automated testing</a></h2>
+<h2 id="automated-testing"><a class="header" href="#automated-testing">Automated testing</a></h2>
 <p>Now, this is all fine and dandy,
 but doing all of this manually?
 That can take a lot of time.
@@ -1034,7 +1002,7 @@ But a CLI application is often more than one function!
 Worse, it often deals with user input,
 reads files,
 and writes output.</p>
-<h2><a class="header" href="#making-your-code-testable" id="making-your-code-testable">Making your code testable</a></h2>
+<h2 id="making-your-code-testable"><a class="header" href="#making-your-code-testable">Making your code testable</a></h2>
 <p>There are two complementary approaches to testing functionality:
 Testing the small units that you build your complete application from,
 these are called “unit tests”.
@@ -1123,7 +1091,7 @@ it helps to think of concrete uses.
 For example,
 in our case,
 the behavior that we abstract over is “write to it”.
-Examples for the types that implement (”impl”) it
+Examples for the types that implement (“impl”) it
 include:
 The terminal’s standard output,
 files,
@@ -1219,7 +1187,7 @@ We have</p>
 the result we ended up with
 is actually a very idiomatic and reusable piece of Rust code.
 That’s awesome!</p>
-<h2><a class="header" href="#splitting-your-code-into-library-and-binary-targets" id="splitting-your-code-into-library-and-binary-targets">Splitting your code into library and binary targets</a></h2>
+<h2 id="splitting-your-code-into-library-and-binary-targets"><a class="header" href="#splitting-your-code-into-library-and-binary-targets">Splitting your code into library and binary targets</a></h2>
 <p>We can do one more thing here.
 So far we’ve put everything we wrote into the <code>src/main.rs</code> file.
 This means our current project produces a single binary.
@@ -1248,7 +1216,7 @@ If we continue to do that,
 it’ll become difficult to read.
 The <a href="https://doc.rust-lang.org/1.39.0/book/ch07-00-managing-growing-projects-with-packages-crates-and-modules.html">module system</a> can help you structure and organize your code.</p>
 </aside>
-<h2><a class="header" href="#testing-cli-applications-by-running-them" id="testing-cli-applications-by-running-them">Testing CLI applications by running them</a></h2>
+<h2 id="testing-cli-applications-by-running-them"><a class="header" href="#testing-cli-applications-by-running-them">Testing CLI applications by running them</a></h2>
 <p>Thus far, we’ve gone out of our way
 to test the <em>business logic</em> of our application,
 which turned out to be the <code>find_matches</code> function.
@@ -1346,7 +1314,7 @@ fn file_doesnt_exist() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; 
 just the tests we wrote above.
 It might take a little longer the first time,
 as <code>Command::cargo_bin(&quot;grrs&quot;)</code> needs to compile your main binary.</p>
-<h2><a class="header" href="#generating-test-files" id="generating-test-files">Generating test files</a></h2>
+<h2 id="generating-test-files"><a class="header" href="#generating-test-files">Generating test files</a></h2>
 <p>The test we’ve just seen only checks that our program writes an error message
 when the input file doesn’t exist.
 That’s an important test to have,
@@ -1398,7 +1366,7 @@ fn find_content_in_file() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&g
 Add integration tests for passing an empty string as pattern.
 Adjust the program as needed.</p>
 </aside>
-<h2><a class="header" href="#what-to-test" id="what-to-test">What to test?</a></h2>
+<h2 id="what-to-test"><a class="header" href="#what-to-test">What to test?</a></h2>
 <p>While it can certainly be fun to write integration tests,
 it will also take some time to write them,
 as well as to update them when your application’s behavior changes.
@@ -1427,13 +1395,13 @@ try to write a <a href="https://rust-fuzz.github.io/book/introduction.html">fuzz
 You can find the full, runnable source code used in this chapter
 <a href="https://github.com/rust-cli/book/tree/master/src/tutorial/testing">in this book’s repository</a>.</p>
 </aside>
-<h1><a class="header" href="#packaging-and-distributing-a-rust-tool" id="packaging-and-distributing-a-rust-tool">Packaging and distributing a Rust tool</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="packaging-and-distributing-a-rust-tool"><a class="header" href="#packaging-and-distributing-a-rust-tool">Packaging and distributing a Rust tool</a></h1>
 <p>If you feel confident that your program is ready for other people to use,
 it is time to package and release it!</p>
 <p>There are a few approaches,
 and we’ll look at three of them
 from “quickest to set up” to “most convenient for users”.</p>
-<h2><a class="header" href="#quickest-cargo-publish" id="quickest-cargo-publish">Quickest: <code>cargo publish</code></a></h2>
+<h2 id="quickest-cargo-publish"><a class="header" href="#quickest-cargo-publish">Quickest: <code>cargo publish</code></a></h2>
 <p>The easiest way to publish your app is with cargo.
 Do you remember how we added external dependencies to our project?
 Cargo downloaded them from its default “crate registry”, <a href="https://crates.io/">crates.io</a>.
@@ -1484,7 +1452,7 @@ It should include a quick description of what your project is about,
 and will be included not only on the crates.io page of your crate,
 but also what GitHub shows by default on repository pages.</p>
 </aside>
-<h3><a class="header" href="#how-to-install-a-binary-from-cratesio" id="how-to-install-a-binary-from-cratesio">How to install a binary from crates.io</a></h3>
+<h3 id="how-to-install-a-binary-from-cratesio"><a class="header" href="#how-to-install-a-binary-from-cratesio">How to install a binary from crates.io</a></h3>
 <p>We’ve seen how to publish a crate to crates.io,
 and you might be wondering how to install it.
 In contrast to libraries,
@@ -1503,7 +1471,7 @@ install crates from git repositories,
 only install specific binaries of a crate,
 and specify an alternative directory to install them to.
 Have a look at <code>cargo install --help</code> for details.</p>
-<h3><a class="header" href="#when-to-use-it" id="when-to-use-it">When to use it</a></h3>
+<h3 id="when-to-use-it"><a class="header" href="#when-to-use-it">When to use it</a></h3>
 <p><code>cargo install</code> is a simple way to install a binary crate.
 It’s very convenient for Rust developers to use,
 but has some significant downsides:
@@ -1518,7 +1486,7 @@ For example:
 A lot of cargo subcommands
 like <code>cargo-tree</code> or <code>cargo-outdated</code>
 can be installed with it.</p>
-<h2><a class="header" href="#distributing-binaries" id="distributing-binaries">Distributing binaries</a></h2>
+<h2 id="distributing-binaries"><a class="header" href="#distributing-binaries">Distributing binaries</a></h2>
 <p>Rust is a language that compiles to native code
 and by default statically links all dependencies.
 When you run <code>cargo build</code>
@@ -1549,7 +1517,7 @@ you won’t get a binary that works on a Mac by default.
 Is there a way to generate these binaries
 for all the interesting platforms
 automatically?</p>
-<h3><a class="header" href="#building-binary-releases-on-ci" id="building-binary-releases-on-ci">Building binary releases on CI</a></h3>
+<h3 id="building-binary-releases-on-ci"><a class="header" href="#building-binary-releases-on-ci">Building binary releases on CI</a></h3>
 <p>If your tool is open sourced
 and hosted on GitHub,
 it’s quite easy to set up a free CI (continuous integration) service
@@ -1600,7 +1568,7 @@ which works similar to cargo
 but forwards commands to a cargo process inside a Docker container.
 The definitions of the images are also available in
 <a href="https://github.com/rust-embedded/cross">cross’ repository</a>.</p>
-<h3><a class="header" href="#how-to-install-these-binaries" id="how-to-install-these-binaries">How to install these binaries</a></h3>
+<h3 id="how-to-install-these-binaries"><a class="header" href="#how-to-install-these-binaries">How to install these binaries</a></h3>
 <p>You point your users to your release page
 that might look something <a href="https://github.com/rustwasm/wasm-pack/releases/tag/v0.5.1">like this one</a>,
 and they can download the artifacts we’ve just created.
@@ -1620,7 +1588,7 @@ you can also tell people to run
 <code>curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git your-name/repo-name</code>
 if you think that makes it easier.</p>
 </aside>
-<h3><a class="header" href="#when-to-use-it-1" id="when-to-use-it-1">When to use it</a></h3>
+<h3 id="when-to-use-it-1"><a class="header" href="#when-to-use-it-1">When to use it</a></h3>
 <p>Having binary releases is a good idea in general,
 there’s hardly any downside to it.
 It does not solve the problem of users having to manually
@@ -1628,7 +1596,7 @@ install and update
 your tools,
 but they can quickly get the latest releases version
 without the need to install Rust.</p>
-<h3><a class="header" href="#what-to-package-in-addition-to-your-binaries" id="what-to-package-in-addition-to-your-binaries">What to package in addition to your binaries</a></h3>
+<h3 id="what-to-package-in-addition-to-your-binaries"><a class="header" href="#what-to-package-in-addition-to-your-binaries">What to package in addition to your binaries</a></h3>
 <p>Right now,
 when a user downloads our release builds,
 they will get a <code>.tar.gz</code> file
@@ -1653,7 +1621,7 @@ but <em>clap</em>, the argument parsing library we use
 has a way to generate all these files for us.
 See <a href="tutorial/../in-depth/docs.html">this in-depth chapter</a>
 for more details.</p>
-<h2><a class="header" href="#getting-your-app-into-package-repositories" id="getting-your-app-into-package-repositories">Getting your app into package repositories</a></h2>
+<h2 id="getting-your-app-into-package-repositories"><a class="header" href="#getting-your-app-into-package-repositories">Getting your app into package repositories</a></h2>
 <p>Both approaches we’ve seen so far
 are not how you typically install software on your machine.
 Especially command-line tools
@@ -1681,7 +1649,7 @@ for those different systems is beyond the scope of this chapter.</p>
 <p>Instead,
 let’s have a look at a tool that is written in Rust
 and that is available in many different package managers.</p>
-<h3><a class="header" href="#an-example-ripgrep" id="an-example-ripgrep">An example: ripgrep</a></h3>
+<h3 id="an-example-ripgrep"><a class="header" href="#an-example-ripgrep">An example: ripgrep</a></h3>
 <p><a href="https://github.com/BurntSushi/ripgrep">ripgrep</a> is an alternative to <code>grep</code>/<code>ack</code>/<code>ag</code> and is written in Rust.
 It’s quite successful and is packaged for many operating systems:
 Just look at <a href="https://github.com/BurntSushi/ripgrep/tree/31adff6f3c4bfefc9e77df40871f2989443e6827#installation">the “Installation” section</a> of its README!</p>
@@ -1695,10 +1663,10 @@ Don’t pick and choose one of the approaches presented here,
 but start with <code>cargo install</code>,
 add binary releases,
 and finally start distributing your tool using system package managers.</p>
-<h1><a class="header" href="#in-depth-topics" id="in-depth-topics">In-depth topics</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="in-depth-topics"><a class="header" href="#in-depth-topics">In-depth topics</a></h1>
 <p>A small collection of chapters covering some more details
 that you might care about when writing your command line application.</p>
-<h1><a class="header" href="#signal-handling" id="signal-handling">Signal handling</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="signal-handling"><a class="header" href="#signal-handling">Signal handling</a></h1>
 <p>Processes
 like command line applications
 need to react to signals sent by the operating system.
@@ -1726,7 +1694,7 @@ remove temporary files,
 or reset system settings,
 read on.</p>
 </aside>
-<h2><a class="header" href="#differences-between-operating-systems" id="differences-between-operating-systems">Differences between operating systems</a></h2>
+<h2 id="differences-between-operating-systems"><a class="header" href="#differences-between-operating-systems">Differences between operating systems</a></h2>
 <p>On Unix systems
 (like Linux, macOS, and FreeBSD)
 a process can receive <a href="https://manpages.ubuntu.com/manpages/bionic/en/man7/signal.7.html">signals</a>.
@@ -1739,7 +1707,7 @@ You can use <a href="https://docs.microsoft.com/en-us/windows/console/console-co
 to define callbacks that get executed when an event occurs.
 There is also <a href="https://docs.microsoft.com/en-us/windows/desktop/debug/structured-exception-handling">structured exception handling</a>
 which handles all the various types of system exceptions such as division by zero, invalid access exceptions, stack overflow, and so on</p>
-<h2><a class="header" href="#first-off-handling-ctrlc" id="first-off-handling-ctrlc">First off: Handling Ctrl+C</a></h2>
+<h2 id="first-off-handling-ctrlc"><a class="header" href="#first-off-handling-ctrlc">First off: Handling Ctrl+C</a></h2>
 <p>The <a href="https://crates.io/crates/ctrlc">ctrlc</a> crate does just what the name suggests:
 It allows you to react to the user pressing <kbd>Ctrl</kbd>+<kbd>C</kbd>,
 in a cross-platform way.
@@ -1770,7 +1738,7 @@ and in hot loops,
 or when waiting for a thread,
 you periodically check its value
 and break when it becomes true.</p>
-<h2><a class="header" href="#handling-other-types-of-signals" id="handling-other-types-of-signals">Handling other types of signals</a></h2>
+<h2 id="handling-other-types-of-signals"><a class="header" href="#handling-other-types-of-signals">Handling other types of signals</a></h2>
 <p>The <a href="https://crates.io/crates/ctrlc">ctrlc</a> crate only handles <kbd>Ctrl</kbd>+<kbd>C</kbd>,
 or, what on Unix systems would be called <code>SIGINT</code> (the “interrupt” signal).
 To react to more Unix signals,
@@ -1797,7 +1765,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
     Ok(())
 }
 </code></pre>
-<h2><a class="header" href="#using-channels" id="using-channels">Using channels</a></h2>
+<h2 id="using-channels"><a class="header" href="#using-channels">Using channels</a></h2>
 <p>Instead of setting a variable
 and having other parts of the program check it,
 you can use channels:
@@ -1840,7 +1808,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }
 </code></pre>
-<h2><a class="header" href="#using-futures-and-streams" id="using-futures-and-streams">Using futures and streams</a></h2>
+<h2 id="using-futures-and-streams"><a class="header" href="#using-futures-and-streams">Using futures and streams</a></h2>
 <p>If you are using <a href="https://tokio.rs/">tokio</a>,
 you are most likely already writing your application
 with asynchronous patterns and an event-driven design.
@@ -1849,14 +1817,14 @@ you can enable signal-hook’s <code>tokio-support</code> feature.
 This allows you to call <a href="https://docs.rs/signal-hook/0.1.6/signal_hook/iterator/struct.Signals.html#method.into_async"><code>.into_async()</code></a>
 on signal-hook’s <code>Signals</code> types
 to get a new type that implements <code>futures::Stream</code>.</p>
-<h2><a class="header" href="#what-to-do-when-you-receive-another-ctrlc-while-youre-handling-the-first-ctrlc" id="what-to-do-when-you-receive-another-ctrlc-while-youre-handling-the-first-ctrlc">What to do when you receive another Ctrl+C while you’re handling the first Ctrl+C</a></h2>
+<h2 id="what-to-do-when-you-receive-another-ctrlc-while-youre-handling-the-first-ctrlc"><a class="header" href="#what-to-do-when-you-receive-another-ctrlc-while-youre-handling-the-first-ctrlc">What to do when you receive another Ctrl+C while you’re handling the first Ctrl+C</a></h2>
 <p>Most users will press <kbd>Ctrl</kbd>+<kbd>C</kbd>,
 and then give your program a few seconds to exit,
 or tell them what’s going on.
 If that doesn’t happen,
 they will press <kbd>Ctrl</kbd>+<kbd>C</kbd> again.
 The typical behavior is to have the application quit immediately.</p>
-<h1><a class="header" href="#using-config-files" id="using-config-files">Using config files</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-config-files"><a class="header" href="#using-config-files">Using config files</a></h1>
 <p>Dealing with configurations can be annoying
 especially if you support multiple operating systems
 which all have their own places
@@ -1885,7 +1853,7 @@ fn main() -&gt; Result&lt;(), io::Error&gt; {
 for which you of course surrender configurability.
 But if a simple config is all you want,
 this crate might be for you!</p>
-<h2><a class="header" href="#configuration-environments" id="configuration-environments">Configuration environments</a></h2>
+<h2 id="configuration-environments"><a class="header" href="#configuration-environments">Configuration environments</a></h2>
 <aside class="todo">
 <p><strong>TODO</strong></p>
 <ol>
@@ -1894,7 +1862,7 @@ this crate might be for you!</p>
 <li>Can <a href="https://docs.rs/configure/0.1.1/configure/"><code>configure</code></a> do all this? Is there a nice wrapper around it?</li>
 </ol>
 </aside>
-<h1><a class="header" href="#exit-codes" id="exit-codes">Exit codes</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exit-codes"><a class="header" href="#exit-codes">Exit codes</a></h1>
 <p>A program doesn’t always succeed.
 And when an error occurs,
 you should make sure to emit the necessary information correctly.
@@ -1940,12 +1908,12 @@ you can use it like this:</p>
     }
 }
 </code></pre>
-<h1><a class="header" href="#communicating-with-humans" id="communicating-with-humans">Communicating with humans</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="communicating-with-humans"><a class="header" href="#communicating-with-humans">Communicating with humans</a></h1>
 <p>Make sure to read <a href="in-depth/../tutorial/output.html">the chapter on CLI output</a>
 in the tutorial first.
 It covers how to write output to the terminal,
 while this chapter will talk about <em>what</em> to output.</p>
-<h2><a class="header" href="#when-everything-is-fine" id="when-everything-is-fine">When everything is fine</a></h2>
+<h2 id="when-everything-is-fine"><a class="header" href="#when-everything-is-fine">When everything is fine</a></h2>
 <p>It is useful to report on the application’s progress
 even when everything is fine.
 Try to be informative and concise in these messages.
@@ -1965,7 +1933,7 @@ or even a progress bar and indicator for long-running actions.
 The user should at no point
 get the feeling that the application is doing something mysterious
 that they cannot follow.</p>
-<h2><a class="header" href="#when-its-hard-to-tell-whats-going-on" id="when-its-hard-to-tell-whats-going-on">When it’s hard to tell what’s going on</a></h2>
+<h2 id="when-its-hard-to-tell-whats-going-on"><a class="header" href="#when-its-hard-to-tell-whats-going-on">When it’s hard to tell what’s going on</a></h2>
 <p>When communicating non-nominal state it’s important to be consistent.
 A heavily logging application that doesn’t follow strict logging levels
 provides the same amount, or even less information
@@ -1998,7 +1966,7 @@ making it easy to use a tool like <code>grep</code> to filter for them.
 A message should provide enough context by itself
 to be useful in a filtered log
 while not being <em>too</em> verbose at the same time.</p>
-<h3><a class="header" href="#example-log-statements" id="example-log-statements">Example log statements</a></h3>
+<h3 id="example-log-statements"><a class="header" href="#example-log-statements">Example log statements</a></h3>
 <pre><code class="language-console">error: could not find `Cargo.toml` in `/home/you/project/`
 </code></pre>
 <pre><code class="language-console">=&gt; Downloading repository index
@@ -2019,7 +1987,7 @@ while not being <em>too</em> verbose at the same time.</p>
  [7/7] Running WASM-bindgen...
  Done in 1 second
 </code></pre>
-<h2><a class="header" href="#when-panicking" id="when-panicking">When panicking</a></h2>
+<h2 id="when-panicking"><a class="header" href="#when-panicking">When panicking</a></h2>
 <p>One aspect often forgotten is that
 your program also outputs something when it crashes.
 In Rust, “crashes” are most often “panics”
@@ -2070,7 +2038,7 @@ We take privacy seriously, and do not perform any automated error collection. In
 
 Thank you kindly!
 </code></pre>
-<h1><a class="header" href="#communicating-with-machines" id="communicating-with-machines">Communicating with machines</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="communicating-with-machines"><a class="header" href="#communicating-with-machines">Communicating with machines</a></h1>
 <p>The power of command-line tools really comes to shine
 when you are able to combine them.
 This is not a new idea:
@@ -2090,7 +2058,7 @@ Make sure to read <a href="in-depth/../tutorial/output.html">the chapter on CLI 
 in the tutorial first.
 It covers how to write output to the terminal.</p>
 </aside>
-<h2><a class="header" href="#whos-reading-this" id="whos-reading-this">Who’s reading this?</a></h2>
+<h2 id="whos-reading-this"><a class="header" href="#whos-reading-this">Who’s reading this?</a></h2>
 <p>The first question to ask is:
 Is our output for a human in front of a colorful terminal,
 or for another program?
@@ -2140,7 +2108,7 @@ proptest-regressions
 src
 target
 </code></pre>
-<h2><a class="header" href="#easy-output-formats-for-machines" id="easy-output-formats-for-machines">Easy output formats for machines</a></h2>
+<h2 id="easy-output-formats-for-machines"><a class="header" href="#easy-output-formats-for-machines">Easy output formats for machines</a></h2>
 <p>Historically,
 the only type of output command-line tools produced were strings.
 This is usually fine for people in front of terminals,
@@ -2165,7 +2133,7 @@ it will just filter line by line.</p>
 <p>The downside of this is that you can’t use
 an easy <code>grep</code> invocation to filter all the directories that <code>ls</code> gave you.
 For that, each directory item would need to carry additional data.</p>
-<h2><a class="header" href="#json-output-for-machines" id="json-output-for-machines">JSON output for machines</a></h2>
+<h2 id="json-output-for-machines"><a class="header" href="#json-output-for-machines">JSON output for machines</a></h2>
 <p>Tab-separated values is a simple way
 to output structured data
 but it requires the other program to know which fields to expect
@@ -2236,7 +2204,7 @@ $ cargo run -q -- --json
 </code></pre>
 <p>(Running <code>cargo</code> with <code>-q</code> suppresses its usual output.
 The arguments after <code>--</code> are passed to our program.)</p>
-<h3><a class="header" href="#practical-example-ripgrep" id="practical-example-ripgrep">Practical example: ripgrep</a></h3>
+<h3 id="practical-example-ripgrep"><a class="header" href="#practical-example-ripgrep">Practical example: ripgrep</a></h3>
 <p><em><a href="https://github.com/BurntSushi/ripgrep">ripgrep</a></em> is a replacement for <em>grep</em> or <em>ag</em>, written in Rust.
 By default it will produce output like this:</p>
 <pre><code class="language-console">$ rg default
@@ -2266,13 +2234,13 @@ even while <em>ripgrep</em> is still searching.</p>
 <p><strong>Aside:</strong>
 This is how Visual Studio Code uses <em>ripgrep</em> for its code search.</p>
 </aside>
-<h2><a class="header" href="#how-to-deal-with-input-piped-into-us" id="how-to-deal-with-input-piped-into-us">How to deal with input piped into us</a></h2>
+<h2 id="how-to-deal-with-input-piped-into-us"><a class="header" href="#how-to-deal-with-input-piped-into-us">How to deal with input piped into us</a></h2>
 <aside class="todo">
 <p><strong>TODO:</strong>
 Talk about how work with stdin
 (see <a href="https://github.com/rust-cli/meta/issues/95">#95</a>)</p>
 </aside>
-<h1><a class="header" href="#rendering-documentation-for-your-cli-apps" id="rendering-documentation-for-your-cli-apps">Rendering documentation for your CLI apps</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rendering-documentation-for-your-cli-apps"><a class="header" href="#rendering-documentation-for-your-cli-apps">Rendering documentation for your CLI apps</a></h1>
 <p>Documentation for CLIs usually consists of
 a <code>--help</code> section in the command
 and a manual (<code>man</code>) page.</p>
@@ -2319,9 +2287,9 @@ there will be a <code>head.1</code> file
 in your project directory.</p>
 <p>If you open that in <code>man</code>
 you’ll be able to admire your free documentation.</p>
-<h1><a class="header" href="#useful-crates" id="useful-crates">Useful crates</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="useful-crates"><a class="header" href="#useful-crates">Useful crates</a></h1>
 <p>There is always new crates being released that can be useful in the development of command line applications.</p>
-<h2><a class="header" href="#crates-referenced-in-this-book" id="crates-referenced-in-this-book">Crates referenced in this book</a></h2>
+<h2 id="crates-referenced-in-this-book"><a class="header" href="#crates-referenced-in-this-book">Crates referenced in this book</a></h2>
 <ul>
 <li><a href="https://crates.io/crates/anyhow">anyhow</a> - provides <code>anyhow::Error</code> for easy error handling</li>
 <li><a href="https://crates.io/crates/assert_cmd">assert_cmd</a> - simplifies integration testing of CLIs</li>
@@ -2345,7 +2313,7 @@ you’ll be able to admire your free documentation.</p>
 <li><a href="https://crates.io/crates/tokio">tokio</a> - asynchronous runtime</li>
 <li><a href="https://crates.io/crates/wasm-pack">wasm-pack</a> - tool for building WebAssembly</li>
 </ul>
-<h2><a class="header" href="#other-crates" id="other-crates">Other crates</a></h2>
+<h2 id="other-crates"><a class="header" href="#other-crates">Other crates</a></h2>
 <p>Due to the constantly-changing landscape of Rust crates, a good place to find crates is the <a href="https://lib.rs">lib.rs</a> crate index.
 Here are a few specific categories that might be useful for building CLI’s:</p>
 <ul>
@@ -2362,59 +2330,31 @@ Here are a few specific categories that might be useful for building CLI’s:</p
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
-
-                        
-
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-
-                
             </nav>
 
         </div>
 
-        
-
-        
-
-        
-
-        
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-        
-
-        
-
-        
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
-
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-        
-
-        
-        
         <script type="text/javascript">
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
-        
-        
-
     </body>
 </html>

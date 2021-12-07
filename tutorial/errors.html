@@ -4,49 +4,28 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Nicer error reporting - Command Line Applications in Rust</title>
-        
-        
-
-
         <!-- Custom HTML head -->
-        
-
-
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        
         <link rel="icon" href="../favicon.svg">
-        
-        
         <link rel="shortcut icon" href="../favicon.png">
-        
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
-        
         <link rel="stylesheet" href="../css/print.css" media="print">
-        
-
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        
         <link rel="stylesheet" href="../fonts/fonts.css">
-        
-
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
         <link rel="stylesheet" href="../src/special-content.css">
-        
-
-        
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -105,7 +84,6 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
@@ -122,33 +100,26 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                        
                     </div>
 
                     <h1 class="menu-title">Command Line Applications in Rust</h1>
 
                     <div class="right-buttons">
-                        
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        
-                        
                         <a href="https://github.com/rust-cli/book" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -156,8 +127,6 @@
                         </ul>
                     </div>
                 </div>
-                
-
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -169,14 +138,14 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#nicer-error-reporting" id="nicer-error-reporting">Nicer error reporting</a></h1>
+                        <h1 id="nicer-error-reporting"><a class="header" href="#nicer-error-reporting">Nicer error reporting</a></h1>
 <p>We all can do nothing but accept the fact that errors will occur.
 And in contrast to many other languages,
 it’s very hard not to notice and deal with this reality
 when using Rust:
 As it doesn’t have exceptions,
 all possible error states are often encoded in the return types of functions.</p>
-<h2><a class="header" href="#results" id="results">Results</a></h2>
+<h2 id="results"><a class="header" href="#results">Results</a></h2>
 <p>A function like <a href="https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html"><code>read_to_string</code></a> doesn’t return a string.
 Instead, it returns a <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a>
 that contains either
@@ -202,7 +171,7 @@ Not sure what enums are or how they work in Rust?
 <a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">Check this chapter of the Rust book</a>
 to get up to speed.</p>
 </aside>
-<h2><a class="header" href="#unwrapping" id="unwrapping">Unwrapping</a></h2>
+<h2 id="unwrapping"><a class="header" href="#unwrapping">Unwrapping</a></h2>
 <p>Now, we were able to access the content of the file,
 but we can’t really do anything with it after the <code>match</code> block.
 For this, we’ll need to somehow deal with the error case.
@@ -234,7 +203,7 @@ There’s even a shortcut method on <code>Result</code>s, called <code>unwrap</c
 </span>let content = std::fs::read_to_string(&quot;test.txt&quot;).unwrap();
 <span class="boring">}
 </span></code></pre></pre>
-<h2><a class="header" href="#no-need-to-panic" id="no-need-to-panic">No need to panic</a></h2>
+<h2 id="no-need-to-panic"><a class="header" href="#no-need-to-panic">No need to panic</a></h2>
 <p>Of course, aborting the program is not the only way to deal with errors.
 Instead of the <code>panic!</code>, we can also easily write <code>return</code>:</p>
 <pre><pre class="playground"><code class="language-rust no_run"><span class="boring">fn main() -&gt; Result&lt;(), Box&lt;std::error::Error&gt;&gt; {
@@ -274,7 +243,7 @@ It easily could be – this is totally valid as well.
 The last expression of any block in Rust is its return value,
 and it is customary to omit needless <code>return</code>s.</p>
 </aside>
-<h2><a class="header" href="#question-mark" id="question-mark">Question Mark</a></h2>
+<h2 id="question-mark"><a class="header" href="#question-mark">Question Mark</a></h2>
 <p>Just like calling <code>.unwrap()</code> is a shortcut
 for the <code>match</code> with <code>panic!</code> in the error arm,
 we have another shortcut for the <code>match</code> that <code>return</code>s in the error arm:
@@ -305,7 +274,7 @@ that implements the standard <a href="https://doc.rust-lang.org/1.39.0/std/error
 This means that basically all errors can be put into this box,
 so we can use <code>?</code> on all of the usual functions that return <code>Result</code>s.</p>
 </aside>
-<h2><a class="header" href="#providing-context" id="providing-context">Providing Context</a></h2>
+<h2 id="providing-context"><a class="header" href="#providing-context">Providing Context</a></h2>
 <p>The errors you get when using <code>?</code> in your <code>main</code> function are okay,
 but they are not great.
 For example:
@@ -370,67 +339,38 @@ Caused by:
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="../tutorial/impl-draft.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
-
-                        
                             <a rel="next" href="../tutorial/output.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
-
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
                     <a rel="prev" href="../tutorial/impl-draft.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
-
-                
                     <a rel="next" href="../tutorial/output.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
-
-        
-
-        
-
-        
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-        
-
-        
-
-        
         <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
-        
-
         <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-        
-
-        
-
     </body>
 </html>
