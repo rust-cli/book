@@ -254,13 +254,6 @@ users of your tool will need to have
 Rust, cargo, and all other system dependencies your project requires
 to be installed on their machine.
 Compiling large Rust codebases can also take some time.</p>
-<p>Furthermore, there is no simple way to update tools installed with cargo:
-The user will need to run <code>cargo install</code> again at some point,
-and pass the <code>--force</code> flag to overwrite the old binaries.
-This is a <a href="https://github.com/rust-lang/cargo/issues/2082">missing feature</a>
-and there are subcommands <a href="https://crates.io/crates/cargo-update">like this one</a>
-you can install to add that,
-though.</p>
 <p>It’s best to use this for distributing tools
 that are targeted at other Rust developers.
 For example:

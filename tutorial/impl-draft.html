@@ -198,6 +198,36 @@ and print each one that contains our pattern:</p>
     }
 }
 </code></pre>
+<h2><a class="header" href="#wrapping-up" id="wrapping-up">Wrapping up</a></h2>
+<p>Your code should now look like:</p>
+<pre><code class="language-rust ignore">#![allow(unused)]
+
+use structopt::StructOpt;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(StructOpt)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    #[structopt(parse(from_os_str))]
+    path: std::path::PathBuf,
+}
+
+fn main() {
+
+let args = Cli::from_args();
+let content = std::fs::read_to_string(&amp;args.path)
+    .expect(&quot;could not read file&quot;);
+
+for line in content.lines() {
+    if line.contains(&amp;args.pattern) {
+        println!(&quot;{}&quot;, line);
+    }
+}
+
+}
+</code></pre>
 <p>Give it a try: <code>cargo run -- main src/main.rs</code> should work now!</p>
 <aside class="exercise">
 <p><strong>Exercise for the reader:</strong>

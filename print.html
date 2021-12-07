@@ -190,7 +190,7 @@ as well as the main aspects of CLI applications.
 What follows are chapters that go into more detail
 on some of these aspects.</p>
 <p>One last thing before we dive right into CLI applications:
-If you found an error in this book
+If you find an error in this book
 or want to help us write more content for it,
 you can find its source <a href="https://github.com/rust-cli/book">in the CLI WG repository</a>.
 We’d love to hear your feedback!
@@ -283,7 +283,7 @@ $ cargo run
      Running `target/debug/grrs`
 Hello, world!
 </code></pre>
-<h1><a class="header" href="#parsing-command-line-arguments" id="parsing-command-line-arguments">Parsing command line arguments</a></h1>
+<h1><a class="header" href="#parsing-command-line-arguments" id="parsing-command-line-arguments">Parsing command-line arguments</a></h1>
 <p>A typical invocation of our CLI tool will look like this:</p>
 <pre><code class="language-console">$ grrs foobar test.txt
 </code></pre>
@@ -291,8 +291,8 @@ Hello, world!
 and print out the lines that contain <code>foobar</code>.
 But how do we get these two values?</p>
 <p>The text after the name of the program is often called
-the “command line arguments”,
-or “command line flags”
+the “command-line arguments”,
+or “command-line flags”
 (especially when they look like <code>--this</code>).
 Internally, the operating system usually represents them
 as a list of strings –
@@ -359,7 +359,7 @@ How would you deal with the requirement to support
 How would you implement <code>--help</code>?</p>
 <h2><a class="header" href="#parsing-cli-arguments-with-structopt" id="parsing-cli-arguments-with-structopt">Parsing CLI arguments with StructOpt</a></h2>
 <p>A much nicer way is to use one of the many available libraries.
-The most popular library for parsing command line arguments
+The most popular library for parsing command-line arguments
 is called <a href="https://clap.rs/"><code>clap</code></a>.
 It has all the functionality you’d expect,
 including support for sub-commands, shell completions, and great help messages.</p>
@@ -422,7 +422,26 @@ it will print out an error or help message
 and immediately exit the program.
 Don’t use it in other places!</p>
 </aside>
-<h2><a class="header" href="#this-is-what-it-may-look-like" id="this-is-what-it-may-look-like">This is what it may look like</a></h2>
+<h2><a class="header" href="#wrapping-up" id="wrapping-up">Wrapping up</a></h2>
+<p>Your code should now look like:</p>
+<pre><code class="language-rust ignore">#![allow(unused)]
+
+use structopt::StructOpt;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(StructOpt)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    #[structopt(parse(from_os_str))]
+    path: std::path::PathBuf,
+}
+
+fn main() {
+    let args = Cli::from_args();
+}
+</code></pre>
 <p>Running it without any arguments:</p>
 <pre><code class="language-console">$ cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 10.16s
@@ -476,6 +495,36 @@ and print each one that contains our pattern:</p>
     if line.contains(&amp;args.pattern) {
         println!(&quot;{}&quot;, line);
     }
+}
+</code></pre>
+<h2><a class="header" href="#wrapping-up-1" id="wrapping-up-1">Wrapping up</a></h2>
+<p>Your code should now look like:</p>
+<pre><code class="language-rust ignore">#![allow(unused)]
+
+use structopt::StructOpt;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(StructOpt)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    #[structopt(parse(from_os_str))]
+    path: std::path::PathBuf,
+}
+
+fn main() {
+
+let args = Cli::from_args();
+let content = std::fs::read_to_string(&amp;args.path)
+    .expect(&quot;could not read file&quot;);
+
+for line in content.lines() {
+    if line.contains(&amp;args.pattern) {
+        println!(&quot;{}&quot;, line);
+    }
+}
+
 }
 </code></pre>
 <p>Give it a try: <code>cargo run -- main src/main.rs</code> should work now!</p>
@@ -660,7 +709,7 @@ It has one problem, though:
 We don’t store the original error,
 only its string representation.
 The often used <a href="https://docs.rs/anyhow"><code>anyhow</code></a> library has a neat solution for that:
-Similar to our <code>CustomError</code> type,
+similar to our <code>CustomError</code> type,
 its <a href="https://docs.rs/anyhow/1.0/anyhow/trait.Context.html"><code>Context</code></a> trait can be used to add a description.
 Additionally, it also keeps the original error,
 so we get a “chain” of error messages pointing out the root cause.</p>
@@ -878,14 +927,14 @@ fn main() {
 </code></pre>
 <p>Assuming you have this file as <code>src/bin/output-log.rs</code>,
 on Linux and macOS, you can run it like this:</p>
-<pre><code class="language-console">$ env RUST_LOG=output_log=info cargo run --bin output-log
+<pre><code class="language-console">$ env RUST_LOG=info cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log`
 [2018-11-30T20:25:52Z INFO  output_log] starting up
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 </code></pre>
 <p>In Windows PowerShell, you can run it like this:</p>
-<pre><code class="language-console">$ $env:RUST_LOG=&quot;output_log=info&quot;
+<pre><code class="language-console">$ $env:RUST_LOG=&quot;info&quot;
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log.exe`
@@ -893,7 +942,7 @@ $ cargo run --bin output-log
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 </code></pre>
 <p>In Windows CMD, you can run it like this:</p>
-<pre><code class="language-console">$ set RUST_LOG=output_log=info
+<pre><code class="language-console">$ set RUST_LOG=info
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log.exe`
@@ -925,7 +974,7 @@ to add a <code>--verbose</code> to a project using <code>structopt</code>.</p>
 <p>Over decades of software development,
 people have discovered one truth:
 Untested software rarely works.
-(Many people would go as far as saying: 
+(Many people would go as far as saying:
 “Most tested software doesn’t work either.”
 But we are all optimists here, right?)
 So, to ensure that your program does what you expect it to do,
@@ -1229,7 +1278,7 @@ By convention,
 <code>cargo</code> will look for integration tests in the <code>tests/</code> directory.
 Similarly,
 it will look for benchmarks in <code>benches/</code>,
-and examples in <code>examples</code>/.
+and examples in <code>examples/</code>.
 These conventions also extend to your main source code:
 libraries have a <code>src/lib.rs</code> file,
 the main binary is <code>src/main.rs</code>,
@@ -1268,9 +1317,9 @@ We’ll add those dependencies not to the main list,
 but to a “dev dependencies” section in our <code>Cargo.toml</code>.
 They are only required when developing the crate,
 not when using it.</p>
-<pre><code class="language-toml">[dev-dependencies]
-assert_cmd = &quot;0.10&quot;
-predicates = &quot;1&quot;
+<pre><code class="language-toml">
+[dependencies]
+structopt = &quot;0.3.25&quot;
 </code></pre>
 <p>This sounds like a lot of setup.
 Nevertheless –
@@ -1287,7 +1336,7 @@ fn file_doesnt_exist() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; 
     cmd.arg(&quot;foobar&quot;).arg(&quot;test/file/doesnt/exist&quot;);
     cmd.assert()
         .failure()
-        .stderr(predicate::str::contains(&quot;No such file or directory&quot;));
+        .stderr(predicate::str::contains(&quot;could not read file&quot;));
 
     Ok(())
 }
@@ -1314,9 +1363,9 @@ we’ll have a look at the latter approach.
 Mainly, because it is more flexible and will also work in other cases;
 for example, when you are testing programs that change the files.</p>
 <p>To create these temporary files,
-we’ll be using the <a href="https://docs.rs/tempfile/3/tempfile/"><code>tempfile</code></a> crate.
+we’ll be using the <a href="https://docs.rs/assert_fs"><code>assert_fs</code></a> crate.
 Let’s add it to the <code>dev-dependencies</code> in our <code>Cargo.toml</code>:</p>
-<pre><code class="language-toml">tempfile = &quot;3&quot;
+<pre><code class="language-toml">anyhow = &quot;1.0&quot;
 </code></pre>
 <p>Here is a new test case
 (that you can write below the other one)
@@ -1328,13 +1377,12 @@ to see if we get the correct output.
 When the <code>file</code> goes out of scope
 (at the end of the function),
 the actual temporary file will automatically get deleted.</p>
-<pre><code class="language-rust ignore">use std::io::{self, Write};
-use tempfile::NamedTempFile;
+<pre><code class="language-rust ignore">use assert_fs::prelude::*;
 
 #[test]
 fn find_content_in_file() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
-    let mut file = NamedTempFile::new()?;
-    writeln!(file, &quot;A test\nActual content\nMore content\nAnother test&quot;)?;
+    let file = assert_fs::NamedTempFile::new(&quot;sample.txt&quot;)?;
+    file.write_str(&quot;A test\nActual content\nMore content\nAnother test&quot;)?;
 
     let mut cmd = Command::cargo_bin(&quot;grrs&quot;)?;
     cmd.arg(&quot;test&quot;).arg(file.path());
@@ -1464,13 +1512,6 @@ users of your tool will need to have
 Rust, cargo, and all other system dependencies your project requires
 to be installed on their machine.
 Compiling large Rust codebases can also take some time.</p>
-<p>Furthermore, there is no simple way to update tools installed with cargo:
-The user will need to run <code>cargo install</code> again at some point,
-and pass the <code>--force</code> flag to overwrite the old binaries.
-This is a <a href="https://github.com/rust-lang/cargo/issues/2082">missing feature</a>
-and there are subcommands <a href="https://crates.io/crates/cargo-update">like this one</a>
-you can install to add that,
-though.</p>
 <p>It’s best to use this for distributing tools
 that are targeted at other Rust developers.
 For example:
@@ -2225,23 +2266,6 @@ even while <em>ripgrep</em> is still searching.</p>
 <p><strong>Aside:</strong>
 This is how Visual Studio Code uses <em>ripgrep</em> for its code search.</p>
 </aside>
-<h2><a class="header" href="#abstract-over-human-and-machine-output" id="abstract-over-human-and-machine-output">Abstract over human and machine output</a></h2>
-<p><a href="https://crates.io/crates/convey">convey</a> is an in-development library
-that tries to make it easier to output messages
-in formats suitable for both humans and machines.
-You define your own message types,
-and implement a <code>Render</code> trait
-(either manually, with the help of macros, or using a derive attribute)
-to say how they should be formatted.
-Currently,
-it supports printing human output
-(incl. auto-detecting whether it should be colored),
-writing JSON documents
-(either to the <code>stdout</code> or to a file),
-or both at the same time.</p>
-<p>Even if you do not use this library,
-it might be a good idea to write a similar abstraction
-that fits your use case.</p>
 <h2><a class="header" href="#how-to-deal-with-input-piped-into-us" id="how-to-deal-with-input-piped-into-us">How to deal with input piped into us</a></h2>
 <aside class="todo">
 <p><strong>TODO:</strong>
@@ -2301,11 +2325,11 @@ you’ll be able to admire your free documentation.</p>
 <ul>
 <li><a href="https://crates.io/crates/anyhow">anyhow</a> - provides <code>anyhow::Error</code> for easy error handling</li>
 <li><a href="https://crates.io/crates/assert_cmd">assert_cmd</a> - simplifies integration testing of CLIs</li>
+<li><a href="https://crates.io/crates/assert_fs">assert_fs</a> - Setup input files and test output files</li>
 <li><a href="https://crates.io/crates/atty">atty</a> - detected whether application is running in a tty</li>
 <li><a href="https://crates.io/crates/clap-verbosity-flag">clap-verbosity-flag</a> - adds a <code>--verbose</code> flag to structopt CLIs</li>
 <li><a href="https://crates.io/crates/clap">clap</a> - command line argument parser</li>
 <li><a href="https://crates.io/crates/confy">confy</a> - boilerplate-free configuration management</li>
-<li><a href="https://crates.io/crates/convey">convey</a> - easy output for machines and humans</li>
 <li><a href="https://crates.io/crates/crossbeam-channel">crossbeam-channel</a> - provides multi-producer multi-consumer channels for message passing</li>
 <li><a href="https://crates.io/crates/ctrlc">ctrlc</a> - easy ctrl-c handler</li>
 <li><a href="https://crates.io/crates/env_logger">env_logger</a> - implements a logger configurable via environment variables</li>

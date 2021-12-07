@@ -365,23 +365,6 @@ even while <em>ripgrep</em> is still searching.</p>
 <p><strong>Aside:</strong>
 This is how Visual Studio Code uses <em>ripgrep</em> for its code search.</p>
 </aside>
-<h2><a class="header" href="#abstract-over-human-and-machine-output" id="abstract-over-human-and-machine-output">Abstract over human and machine output</a></h2>
-<p><a href="https://crates.io/crates/convey">convey</a> is an in-development library
-that tries to make it easier to output messages
-in formats suitable for both humans and machines.
-You define your own message types,
-and implement a <code>Render</code> trait
-(either manually, with the help of macros, or using a derive attribute)
-to say how they should be formatted.
-Currently,
-it supports printing human output
-(incl. auto-detecting whether it should be colored),
-writing JSON documents
-(either to the <code>stdout</code> or to a file),
-or both at the same time.</p>
-<p>Even if you do not use this library,
-it might be a good idea to write a similar abstraction
-that fits your use case.</p>
 <h2><a class="header" href="#how-to-deal-with-input-piped-into-us" id="how-to-deal-with-input-piped-into-us">How to deal with input piped into us</a></h2>
 <aside class="todo">
 <p><strong>TODO:</strong>

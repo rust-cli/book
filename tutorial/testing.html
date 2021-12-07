@@ -173,7 +173,7 @@
 <p>Over decades of software development,
 people have discovered one truth:
 Untested software rarely works.
-(Many people would go as far as saying: 
+(Many people would go as far as saying:
 “Most tested software doesn’t work either.”
 But we are all optimists here, right?)
 So, to ensure that your program does what you expect it to do,
@@ -477,7 +477,7 @@ By convention,
 <code>cargo</code> will look for integration tests in the <code>tests/</code> directory.
 Similarly,
 it will look for benchmarks in <code>benches/</code>,
-and examples in <code>examples</code>/.
+and examples in <code>examples/</code>.
 These conventions also extend to your main source code:
 libraries have a <code>src/lib.rs</code> file,
 the main binary is <code>src/main.rs</code>,
@@ -516,9 +516,9 @@ We’ll add those dependencies not to the main list,
 but to a “dev dependencies” section in our <code>Cargo.toml</code>.
 They are only required when developing the crate,
 not when using it.</p>
-<pre><code class="language-toml">[dev-dependencies]
-assert_cmd = &quot;0.10&quot;
-predicates = &quot;1&quot;
+<pre><code class="language-toml">
+[dependencies]
+structopt = &quot;0.3.25&quot;
 </code></pre>
 <p>This sounds like a lot of setup.
 Nevertheless –
@@ -535,7 +535,7 @@ fn file_doesnt_exist() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; 
     cmd.arg(&quot;foobar&quot;).arg(&quot;test/file/doesnt/exist&quot;);
     cmd.assert()
         .failure()
-        .stderr(predicate::str::contains(&quot;No such file or directory&quot;));
+        .stderr(predicate::str::contains(&quot;could not read file&quot;));
 
     Ok(())
 }
@@ -562,9 +562,9 @@ we’ll have a look at the latter approach.
 Mainly, because it is more flexible and will also work in other cases;
 for example, when you are testing programs that change the files.</p>
 <p>To create these temporary files,
-we’ll be using the <a href="https://docs.rs/tempfile/3/tempfile/"><code>tempfile</code></a> crate.
+we’ll be using the <a href="https://docs.rs/assert_fs"><code>assert_fs</code></a> crate.
 Let’s add it to the <code>dev-dependencies</code> in our <code>Cargo.toml</code>:</p>
-<pre><code class="language-toml">tempfile = &quot;3&quot;
+<pre><code class="language-toml">anyhow = &quot;1.0&quot;
 </code></pre>
 <p>Here is a new test case
 (that you can write below the other one)
@@ -576,13 +576,12 @@ to see if we get the correct output.
 When the <code>file</code> goes out of scope
 (at the end of the function),
 the actual temporary file will automatically get deleted.</p>
-<pre><code class="language-rust ignore">use std::io::{self, Write};
-use tempfile::NamedTempFile;
+<pre><code class="language-rust ignore">use assert_fs::prelude::*;
 
 #[test]
 fn find_content_in_file() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
-    let mut file = NamedTempFile::new()?;
-    writeln!(file, &quot;A test\nActual content\nMore content\nAnother test&quot;)?;
+    let file = assert_fs::NamedTempFile::new(&quot;sample.txt&quot;)?;
+    file.write_str(&quot;A test\nActual content\nMore content\nAnother test&quot;)?;
 
     let mut cmd = Command::cargo_bin(&quot;grrs&quot;)?;
     cmd.arg(&quot;test&quot;).arg(file.path());

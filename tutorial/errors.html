@@ -341,7 +341,7 @@ It has one problem, though:
 We don’t store the original error,
 only its string representation.
 The often used <a href="https://docs.rs/anyhow"><code>anyhow</code></a> library has a neat solution for that:
-Similar to our <code>CustomError</code> type,
+similar to our <code>CustomError</code> type,
 its <a href="https://docs.rs/anyhow/1.0/anyhow/trait.Context.html"><code>Context</code></a> trait can be used to add a description.
 Additionally, it also keeps the original error,
 so we get a “chain” of error messages pointing out the root cause.</p>

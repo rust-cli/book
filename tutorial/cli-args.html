@@ -169,7 +169,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#parsing-command-line-arguments" id="parsing-command-line-arguments">Parsing command line arguments</a></h1>
+                        <h1><a class="header" href="#parsing-command-line-arguments" id="parsing-command-line-arguments">Parsing command-line arguments</a></h1>
 <p>A typical invocation of our CLI tool will look like this:</p>
 <pre><code class="language-console">$ grrs foobar test.txt
 </code></pre>
@@ -177,8 +177,8 @@
 and print out the lines that contain <code>foobar</code>.
 But how do we get these two values?</p>
 <p>The text after the name of the program is often called
-the “command line arguments”,
-or “command line flags”
+the “command-line arguments”,
+or “command-line flags”
 (especially when they look like <code>--this</code>).
 Internally, the operating system usually represents them
 as a list of strings –
@@ -245,7 +245,7 @@ How would you deal with the requirement to support
 How would you implement <code>--help</code>?</p>
 <h2><a class="header" href="#parsing-cli-arguments-with-structopt" id="parsing-cli-arguments-with-structopt">Parsing CLI arguments with StructOpt</a></h2>
 <p>A much nicer way is to use one of the many available libraries.
-The most popular library for parsing command line arguments
+The most popular library for parsing command-line arguments
 is called <a href="https://clap.rs/"><code>clap</code></a>.
 It has all the functionality you’d expect,
 including support for sub-commands, shell completions, and great help messages.</p>
@@ -308,7 +308,26 @@ it will print out an error or help message
 and immediately exit the program.
 Don’t use it in other places!</p>
 </aside>
-<h2><a class="header" href="#this-is-what-it-may-look-like" id="this-is-what-it-may-look-like">This is what it may look like</a></h2>
+<h2><a class="header" href="#wrapping-up" id="wrapping-up">Wrapping up</a></h2>
+<p>Your code should now look like:</p>
+<pre><code class="language-rust ignore">#![allow(unused)]
+
+use structopt::StructOpt;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(StructOpt)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    #[structopt(parse(from_os_str))]
+    path: std::path::PathBuf,
+}
+
+fn main() {
+    let args = Cli::from_args();
+}
+</code></pre>
 <p>Running it without any arguments:</p>
 <pre><code class="language-console">$ cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 10.16s

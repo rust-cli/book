@@ -363,14 +363,14 @@ fn main() {
 </code></pre>
 <p>Assuming you have this file as <code>src/bin/output-log.rs</code>,
 on Linux and macOS, you can run it like this:</p>
-<pre><code class="language-console">$ env RUST_LOG=output_log=info cargo run --bin output-log
+<pre><code class="language-console">$ env RUST_LOG=info cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log`
 [2018-11-30T20:25:52Z INFO  output_log] starting up
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 </code></pre>
 <p>In Windows PowerShell, you can run it like this:</p>
-<pre><code class="language-console">$ $env:RUST_LOG=&quot;output_log=info&quot;
+<pre><code class="language-console">$ $env:RUST_LOG=&quot;info&quot;
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log.exe`
@@ -378,7 +378,7 @@ $ cargo run --bin output-log
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 </code></pre>
 <p>In Windows CMD, you can run it like this:</p>
-<pre><code class="language-console">$ set RUST_LOG=output_log=info
+<pre><code class="language-console">$ set RUST_LOG=info
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log.exe`
