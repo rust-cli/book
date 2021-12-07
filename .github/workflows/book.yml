@@ -1,0 +1,25 @@
+name: book
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+jobs:
+  book:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup
+        uses: peaceiris/actions-mdbook@v1
+        with:
+          mdbook-version: '0.4.5'
+      - name: Build
+        run: mdbook build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/master' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./book
