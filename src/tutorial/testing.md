@@ -455,7 +455,7 @@ we'll be using the [`assert_fs`] crate.
 Let's add it to the `dev-dependencies` in our `Cargo.toml`:
 
 ```toml
-{{#include testing/Cargo.toml:14}}
+{{#include testing/Cargo.toml:19}}
 ```
 
 [`assert_fs`]: https://docs.rs/assert_fs
