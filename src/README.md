@@ -23,7 +23,7 @@ on some of these aspects.
 One last thing before we dive right into CLI applications:
 If you find an error in this book
 or want to help us write more content for it,
-you can find its source [in the CLI WG repository][book-src].
+you can find its source [in the CLI book repository][book-src].
 We'd love to hear your feedback!
 Thank you!
 
