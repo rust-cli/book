@@ -410,7 +410,7 @@ They are only required when developing the crate,
 not when using it.
 
 ```toml
-{{#include testing/Cargo.toml:11:13}}
+{{#include testing/Cargo.toml:16:18}}
 ```
 
 [`assert_cmd`]: https://docs.rs/assert_cmd
