@@ -485,9 +485,9 @@ We’ll add those dependencies not to the main list,
 but to a “dev dependencies” section in our <code>Cargo.toml</code>.
 They are only required when developing the crate,
 not when using it.</p>
-<pre><code class="language-toml">
-[dependencies]
-structopt = &quot;0.3.25&quot;
+<pre><code class="language-toml">[dev-dependencies]
+assert_cmd = &quot;2.0&quot;
+predicates = &quot;2.1&quot;
 </code></pre>
 <p>This sounds like a lot of setup.
 Nevertheless –
