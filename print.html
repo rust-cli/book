@@ -441,11 +441,11 @@ Make this program output its arguments!</p>
 we have our input data,
 and we can start to write our actual tool.
 Our <code>main</code> function only contains this line right now:</p>
-<pre><code class="language-rust ignore">let args = Cli::from_args();
+<pre><code class="language-rust ignore">    let args = Cli::from_args();
 </code></pre>
 <p>Let’s start by opening the file we got.</p>
-<pre><code class="language-rust ignore">let content = std::fs::read_to_string(&amp;args.path)
-    .expect(&quot;could not read file&quot;);
+<pre><code class="language-rust ignore">    let content = std::fs::read_to_string(&amp;args.path)
+        .expect(&quot;could not read file&quot;);
 </code></pre>
 <aside>
 <p><strong>Aside:</strong>
@@ -459,11 +459,11 @@ we will look at how to improve this.</p>
 </aside>
 <p>Now, let’s iterate over the lines
 and print each one that contains our pattern:</p>
-<pre><code class="language-rust ignore">for line in content.lines() {
-    if line.contains(&amp;args.pattern) {
-        println!(&quot;{}&quot;, line);
+<pre><code class="language-rust ignore">    for line in content.lines() {
+        if line.contains(&amp;args.pattern) {
+            println!(&quot;{}&quot;, line);
+        }
     }
-}
 </code></pre>
 <h2 id="wrapping-up-1"><a class="header" href="#wrapping-up-1">Wrapping up</a></h2>
 <p>Your code should now look like:</p>
@@ -483,15 +483,15 @@ struct Cli {
 
 fn main() {
 
-let args = Cli::from_args();
-let content = std::fs::read_to_string(&amp;args.path)
-    .expect(&quot;could not read file&quot;);
+    let args = Cli::from_args();
+    let content = std::fs::read_to_string(&amp;args.path)
+        .expect(&quot;could not read file&quot;);
 
-for line in content.lines() {
-    if line.contains(&amp;args.pattern) {
-        println!(&quot;{}&quot;, line);
+    for line in content.lines() {
+        if line.contains(&amp;args.pattern) {
+            println!(&quot;{}&quot;, line);
+        }
     }
-}
 
 }
 </code></pre>
