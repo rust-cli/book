@@ -112,7 +112,7 @@ This is quite nice:
 All we have to do is annotate a struct
 and it’ll generate the code that parses the arguments into the fields.
 
-[`clap`]: https://clap.rs/
+[`clap`]: https://docs.rs/clap/
 [`structopt`]: https://docs.rs/structopt
 
 Let's first import `structopt` by adding
