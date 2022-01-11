@@ -274,7 +274,7 @@ How about we also ship a man page in addition to that README file,
 and config files that add completions of the possible flags to your shell?
 You can write these by hand,
 but _clap_, the argument parsing library we use
-(which structopt builds upon)
+(which clap builds upon)
 has a way to generate all these files for us.
 See [this in-depth chapter][clap-man-pages]
 for more details.

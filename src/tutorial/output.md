@@ -279,7 +279,7 @@ and someone (e.g., you, in the future) needs to figure out why,
 being able to pass `--verbose` to get additional log output
 can make the difference between minutes and hours of debugging.
 The [clap-verbosity-flag] crate contains a quick way
-to add a `--verbose` to a project using `structopt`.
+to add a `--verbose` to a project using `clap`.
 
 [clap-verbosity-flag]: https://crates.io/crates/clap-verbosity-flag
 

@@ -9,8 +9,8 @@ name = "cli-args-struct"
 path = "src/tutorial/cli-args-struct.rs"
 
 [[bin]]
-name = "cli-args-structopt"
-path = "src/tutorial/cli-args-structopt.rs"
+name = "cli-args-clap"
+path = "src/tutorial/cli-args-clap.rs"
 
 [[bin]]
 name = "impl-draft-shortcut"
@@ -58,7 +58,7 @@ members = [
 ]
 
 [dependencies]
-structopt = "0.3.25"
+clap = { version = "3.0", features = ["derive"] }
 anyhow = "1.0"
 indicatif = "0.16.2"
 log = "0.4.14"

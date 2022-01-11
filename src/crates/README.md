@@ -6,7 +6,7 @@ There is always new crates being released that can be useful in the development 
 - [assert_cmd](https://crates.io/crates/assert_cmd) - simplifies integration testing of CLIs
 - [assert_fs](https://crates.io/crates/assert_fs) - Setup input files and test output files
 - [atty](https://crates.io/crates/atty) - detected whether application is running in a tty
-- [clap-verbosity-flag](https://crates.io/crates/clap-verbosity-flag) - adds a `--verbose` flag to structopt CLIs
+- [clap-verbosity-flag](https://crates.io/crates/clap-verbosity-flag) - adds a `--verbose` flag to clap CLIs
 - [clap](https://crates.io/crates/clap) - command line argument parser
 - [confy](https://crates.io/crates/confy) - boilerplate-free configuration management
 - [crossbeam-channel](https://crates.io/crates/crossbeam-channel) - provides multi-producer multi-consumer channels for message passing
@@ -20,7 +20,6 @@ There is always new crates being released that can be useful in the development 
 - [proptest](https://crates.io/crates/proptest) - property testing framework
 - [serde_json](https://crates.io/crates/serde_json) - serialize/deserialize to JSON
 - [signal-hook](https://crates.io/crates/signal-hook) - handles UNIX signals
-- [structopt](https://crates.io/crates/structopt) - parses command line arguments into a struct
 - [tokio](https://crates.io/crates/tokio) - asynchronous runtime
 - [wasm-pack](https://crates.io/crates/wasm-pack) - tool for building WebAssembly
 

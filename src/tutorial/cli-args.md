@@ -97,7 +97,7 @@ How would you deal with the requirement to support
 `--pattern="foo"` or `--pattern "foo"`?
 How would you implement `--help`?
 
-## Parsing CLI arguments with StructOpt
+## Parsing CLI arguments with Clap
 
 A much nicer way is to use one of the many available libraries.
 The most popular library for parsing command-line arguments
@@ -105,28 +105,20 @@ is called [`clap`].
 It has all the functionality you'd expect,
 including support for sub-commands, shell completions, and great help messages.
 
-The [`structopt`] library builds on `clap`
-and provides a "derive" macro
-to generate `clap` code for `struct` definitions.
-This is quite nice:
-All we have to do is annotate a struct
-and it’ll generate the code that parses the arguments into the fields.
-
 [`clap`]: https://docs.rs/clap/
-[`structopt`]: https://docs.rs/structopt
 
-Let's first import `structopt` by adding
-`structopt = "0.3.13"` to the `[dependencies]` section
+Let's first import `clap` by adding
+`clap = { version = "3.0", features = ["derive"] }` to the `[dependencies]` section
 of our `Cargo.toml` file.
 
-Now, we can write `use structopt::StructOpt;` in our code,
-and add `#[derive(StructOpt)]` right above our `struct Cli`.
+Now, we can write `use clap::Parser;` in our code,
+and add `#[derive(Parser)]` right above our `struct Cli`.
 Let's also write some documentation comments along the way.
 
 It’ll look like this (in file `src/main.rs`, before `fn main() {`):
 
 ```rust,ignore
-{{#include cli-args-structopt.rs:3:14}}
+{{#include cli-args-clap.rs:3:14}}
 ```
 
 <aside class="node">
@@ -134,11 +126,11 @@ It’ll look like this (in file `src/main.rs`, before `fn main() {`):
 **Note:**
 There are a lot of custom attributes you can add to fields.
 For example,
-we added one to tell structopt how to parse the `PathBuf` type.
+we added one to tell clap how to parse the `PathBuf` type.
 To say you want to use this field for the argument after `-o` or `--output`,
-you'd add `#[structopt(short = "o", long = "output")]`.
+you'd add `#[clap(short = 'o', long = "output")]`.
 For more information,
-see the [structopt documentation][`structopt`].
+see the [clap documentation][`clap`].
 
 </aside>
 
@@ -147,7 +139,7 @@ When the program starts, it will call this function.
 The first line is:
 
 ```rust,ignore
-{{#include cli-args-structopt.rs:15:18}}
+{{#include cli-args-clap.rs:15:18}}
 ```
 
 This will try to parse the arguments into our `Cli` struct.
@@ -163,7 +155,7 @@ to suggest you pass `--output` when you wrote `--putput`.
 <aside class="note">
 
 **Note:**
-The `from_args` method is meant to be used in your `main` function.
+The `parse` method is meant to be used in your `main` function.
 When it fails,
 it will print out an error or help message
 and immediately exit the program.
@@ -176,7 +168,7 @@ Don't use it in other places!
 Your code should now look like:
 
 ```rust,ignore
-{{#include cli-args-structopt.rs}}
+{{#include cli-args-clap.rs}}
 ```
 
 Running it without any arguments:
