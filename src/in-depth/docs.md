@@ -4,9 +4,10 @@ Documentation for CLIs usually consists of
 a `--help` section in the command
 and a manual (`man`) page.
 
+TODO: `man` generation is being implemented with [clap-rs/clap#3174](https://github.com/clap-rs/clap/pull/3174).
+
 Both can be automatically generated
-when using `clap` v3 (in unreleased beta,
-at time of writing), via the `man` backend.
+when using `clap`, via `clap_man` crate.
 
 ```rust,ignore
 #[derive(Clap)]
