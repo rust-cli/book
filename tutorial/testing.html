@@ -341,7 +341,7 @@ Here’s an example of a main function
 that builds on what we’ve seen in the previous chapters
 and uses our extracted <code>find_matches</code> function:</p>
 <pre><code class="language-rust ignore">fn main() -&gt; Result&lt;()&gt; {
-    let args = Cli::from_args();
+    let args = Cli::parse();
     let content = std::fs::read_to_string(&amp;args.path)
         .with_context(|| format!(&quot;could not read file `{}`&quot;, args.path.display()))?;
 

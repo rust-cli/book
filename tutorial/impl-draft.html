@@ -143,7 +143,7 @@
 we have our input data,
 and we can start to write our actual tool.
 Our <code>main</code> function only contains this line right now:</p>
-<pre><code class="language-rust ignore">    let args = Cli::from_args();
+<pre><code class="language-rust ignore">    let args = Cli::parse();
 </code></pre>
 <p>Let’s start by opening the file we got.</p>
 <pre><code class="language-rust ignore">    let content = std::fs::read_to_string(&amp;args.path)
@@ -171,21 +171,21 @@ and print each one that contains our pattern:</p>
 <p>Your code should now look like:</p>
 <pre><code class="language-rust ignore">#![allow(unused)]
 
-use structopt::StructOpt;
+use clap::Parser;
 
 /// Search for a pattern in a file and display the lines that contain it.
-#[derive(StructOpt)]
+#[derive(Parser)]
 struct Cli {
     /// The pattern to look for
     pattern: String,
     /// The path to the file to read
-    #[structopt(parse(from_os_str))]
+    #[clap(parse(from_os_str))]
     path: std::path::PathBuf,
 }
 
 fn main() {
 
-    let args = Cli::from_args();
+    let args = Cli::parse();
     let content = std::fs::read_to_string(&amp;args.path)
         .expect(&quot;could not read file&quot;);
 

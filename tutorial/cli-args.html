@@ -212,34 +212,28 @@ let args = Cli {
 How would you deal with the requirement to support
 <code>--pattern=&quot;foo&quot;</code> or <code>--pattern &quot;foo&quot;</code>?
 How would you implement <code>--help</code>?</p>
-<h2 id="parsing-cli-arguments-with-structopt"><a class="header" href="#parsing-cli-arguments-with-structopt">Parsing CLI arguments with StructOpt</a></h2>
+<h2 id="parsing-cli-arguments-with-clap"><a class="header" href="#parsing-cli-arguments-with-clap">Parsing CLI arguments with Clap</a></h2>
 <p>A much nicer way is to use one of the many available libraries.
 The most popular library for parsing command-line arguments
 is called <a href="https://docs.rs/clap/"><code>clap</code></a>.
 It has all the functionality you’d expect,
 including support for sub-commands, shell completions, and great help messages.</p>
-<p>The <a href="https://docs.rs/structopt"><code>structopt</code></a> library builds on <code>clap</code>
-and provides a “derive” macro
-to generate <code>clap</code> code for <code>struct</code> definitions.
-This is quite nice:
-All we have to do is annotate a struct
-and it’ll generate the code that parses the arguments into the fields.</p>
-<p>Let’s first import <code>structopt</code> by adding
-<code>structopt = &quot;0.3.13&quot;</code> to the <code>[dependencies]</code> section
+<p>Let’s first import <code>clap</code> by adding
+<code>clap = { version = &quot;3.0&quot;, features = [&quot;derive&quot;] }</code> to the <code>[dependencies]</code> section
 of our <code>Cargo.toml</code> file.</p>
-<p>Now, we can write <code>use structopt::StructOpt;</code> in our code,
-and add <code>#[derive(StructOpt)]</code> right above our <code>struct Cli</code>.
+<p>Now, we can write <code>use clap::Parser;</code> in our code,
+and add <code>#[derive(Parser)]</code> right above our <code>struct Cli</code>.
 Let’s also write some documentation comments along the way.</p>
 <p>It’ll look like this (in file <code>src/main.rs</code>, before <code>fn main() {</code>):</p>
-<pre><code class="language-rust ignore">use structopt::StructOpt;
+<pre><code class="language-rust ignore">use clap::Parser;
 
 /// Search for a pattern in a file and display the lines that contain it.
-#[derive(StructOpt)]
+#[derive(Parser)]
 struct Cli {
     /// The pattern to look for
     pattern: String,
     /// The path to the file to read
-    #[structopt(parse(from_os_str))]
+    #[clap(parse(from_os_str))]
     path: std::path::PathBuf,
 }
 
@@ -248,17 +242,17 @@ struct Cli {
 <p><strong>Note:</strong>
 There are a lot of custom attributes you can add to fields.
 For example,
-we added one to tell structopt how to parse the <code>PathBuf</code> type.
+we added one to tell clap how to parse the <code>PathBuf</code> type.
 To say you want to use this field for the argument after <code>-o</code> or <code>--output</code>,
-you’d add <code>#[structopt(short = &quot;o&quot;, long = &quot;output&quot;)]</code>.
+you’d add <code>#[clap(short = 'o', long = &quot;output&quot;)]</code>.
 For more information,
-see the <a href="https://docs.rs/structopt">structopt documentation</a>.</p>
+see the <a href="https://docs.rs/clap/">clap documentation</a>.</p>
 </aside>
 <p>Right below the <code>Cli</code> struct our template contains its <code>main</code> function.
 When the program starts, it will call this function.
 The first line is:</p>
 <pre><code class="language-rust ignore">fn main() {
-    let args = Cli::from_args();
+    let args = Cli::parse();
 }
 </code></pre>
 <p>This will try to parse the arguments into our <code>Cli</code> struct.</p>
@@ -271,7 +265,7 @@ as well as give some great errors
 to suggest you pass <code>--output</code> when you wrote <code>--putput</code>.</p>
 <aside class="note">
 <p><strong>Note:</strong>
-The <code>from_args</code> method is meant to be used in your <code>main</code> function.
+The <code>parse</code> method is meant to be used in your <code>main</code> function.
 When it fails,
 it will print out an error or help message
 and immediately exit the program.
@@ -281,20 +275,20 @@ Don’t use it in other places!</p>
 <p>Your code should now look like:</p>
 <pre><code class="language-rust ignore">#![allow(unused)]
 
-use structopt::StructOpt;
+use clap::Parser;
 
 /// Search for a pattern in a file and display the lines that contain it.
-#[derive(StructOpt)]
+#[derive(Parser)]
 struct Cli {
     /// The pattern to look for
     pattern: String,
     /// The path to the file to read
-    #[structopt(parse(from_os_str))]
+    #[clap(parse(from_os_str))]
     path: std::path::PathBuf,
 }
 
 fn main() {
-    let args = Cli::from_args();
+    let args = Cli::parse();
 }
 </code></pre>
 <p>Running it without any arguments:</p>

@@ -273,19 +273,19 @@ This can make implementations as simple as using a regular <code>println!</code>
 <p>Here’s a simple example,
 using the <code>json!</code> macro from <a href="https://crates.io/crates/serde_json">serde_json</a>
 to quickly write valid JSON in your Rust source code:</p>
-<pre><code class="language-rust ignore">use structopt::StructOpt;
+<pre><code class="language-rust ignore">use clap::Parser;
 use serde_json::json;
 
 /// Search for a pattern in a file and display the lines that contain it.
-#[derive(StructOpt)]
+#[derive(Parser)]
 struct Cli {
     /// Output JSON instead of human readable messages
-    #[structopt(long = &quot;json&quot;)]
+    #[clap(long = &quot;json&quot;)]
     json: bool,
 }
 
 fn main() {
-    let args = Cli::from_args();
+    let args = Cli::parse();
     if args.json {
         println!(&quot;{}&quot;, json!({
             &quot;type&quot;: &quot;message&quot;,
