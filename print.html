@@ -2238,9 +2238,9 @@ Talk about how work with stdin
 <p>Documentation for CLIs usually consists of
 a <code>--help</code> section in the command
 and a manual (<code>man</code>) page.</p>
+<p>TODO: <code>man</code> generation is being implemented with <a href="https://github.com/clap-rs/clap/pull/3174">clap-rs/clap#3174</a>.</p>
 <p>Both can be automatically generated
-when using <code>clap</code> v3 (in unreleased beta,
-at time of writing), via the <code>man</code> backend.</p>
+when using <code>clap</code>, via <code>clap_man</code> crate.</p>
 <pre><code class="language-rust ignore">#[derive(Clap)]
 pub struct Head {
     /// file to load
