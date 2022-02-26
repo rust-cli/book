@@ -2,7 +2,7 @@ use std::time::Duration;
 use crossbeam_channel::{bounded, tick, Receiver, select};
 use anyhow::Result;
 
-fn ctrl_channel() -> Result<Receiver<()>, ctrlc::Error> {
+fn ctrl_channel() -> Result<Receiver<()>> {
     let (sender, receiver) = bounded(100);
     ctrlc::set_handler(move || {
         let _ = sender.send(());
