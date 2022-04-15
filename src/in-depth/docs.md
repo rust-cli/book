@@ -5,10 +5,10 @@ a `--help` section in the command
 and a manual (`man`) page.
 
 Both can be automatically generated
-when using `clap`, via `clap_man` crate.
+when using `clap`, via `clap_mangen` crate.
 
 ```rust,ignore
-#[derive(Clap)]
+#[derive(Parser)]
 pub struct Head {
     /// file to load
     #[clap(parse(from_os_str))]
@@ -31,20 +31,22 @@ we simply put the `man` file
 next to our `src` folder.
 
 ```rust,ignore
-use clap::IntoApp;
-use clap_generate::gen_manuals;
+use clap::CommandFactory;
 
 #[path="src/cli.rs"]
 mod cli;
 
-fn main() {
-    let app = cli::Head::into_app();
-    for man in gen_manuals(&app) {
-        let name = "head.1";
-        let mut out = fs::File::create(name).unwrap();
-        use std::io::Write;
-        out.write_all(man.render().as_bytes()).unwrap();
-    }
+fn main() -> std::io::Result<()> {
+    let out_dir = std::path::PathBuf::from(std::env::var_os("OUT_DIR").ok_or_else(|| std::io::ErrorKind::NotFound)?);
+    let cmd = cli::Head::command();
+
+    let man = clap_mangen::Man::new(cmd);
+    let mut buffer: Vec<u8> = Default::default();
+    man.render(&mut buffer)?;
+
+    std::fs::write(out_dir.join("head.1"), buffer)?;
+
+    Ok(())
 }
 ```
 
