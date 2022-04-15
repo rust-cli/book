@@ -2238,10 +2238,9 @@ Talk about how work with stdin
 <p>Documentation for CLIs usually consists of
 a <code>--help</code> section in the command
 and a manual (<code>man</code>) page.</p>
-<p>TODO: <code>man</code> generation is being implemented with <a href="https://github.com/clap-rs/clap/pull/3174">clap-rs/clap#3174</a>.</p>
 <p>Both can be automatically generated
-when using <code>clap</code>, via <code>clap_man</code> crate.</p>
-<pre><code class="language-rust ignore">#[derive(Clap)]
+when using <code>clap</code>, via <code>clap_mangen</code> crate.</p>
+<pre><code class="language-rust ignore">#[derive(Parser)]
 pub struct Head {
     /// file to load
     #[clap(parse(from_os_str))]
@@ -2260,20 +2259,22 @@ in code.</p>
 but for now
 we simply put the <code>man</code> file
 next to our <code>src</code> folder.</p>
-<pre><code class="language-rust ignore">use clap::IntoApp;
-use clap_generate::gen_manuals;
+<pre><code class="language-rust ignore">use clap::CommandFactory;
 
 #[path=&quot;src/cli.rs&quot;]
 mod cli;
 
-fn main() {
-    let app = cli::Head::into_app();
-    for man in gen_manuals(&amp;app) {
-        let name = &quot;head.1&quot;;
-        let mut out = fs::File::create(name).unwrap();
-        use std::io::Write;
-        out.write_all(man.render().as_bytes()).unwrap();
-    }
+fn main() -&gt; std::io::Result&lt;()&gt; {
+    let out_dir = std::path::PathBuf::from(std::env::var_os(&quot;OUT_DIR&quot;).ok_or_else(|| std::io::ErrorKind::NotFound)?);
+    let cmd = cli::Head::command();
+
+    let man = clap_mangen::Man::new(cmd);
+    let mut buffer: Vec&lt;u8&gt; = Default::default();
+    man.render(&amp;mut buffer)?;
+
+    std::fs::write(out_dir.join(&quot;head.1&quot;), buffer)?;
+
+    Ok(())
 }
 </code></pre>
 <p>When you now compile your application
