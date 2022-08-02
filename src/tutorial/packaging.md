@@ -304,7 +304,7 @@ it might be as easy as adding a file to your repository
 but for others you'll often need to send in patches yourself
 and add your tool to their repositories.
 There are helpful tools like
-[cargo-rpm](https://crates.io/crates/cargo-rpm),
+[cargo-bundle](https://crates.io/crates/cargo-bundle),
 [cargo-deb](https://crates.io/crates/cargo-deb), and
 [cargo-aur](https://crates.io/crates/cargo-aur),
 but describing how they work
