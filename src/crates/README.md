@@ -1,7 +1,10 @@
 # Useful crates
+
 There is always new crates being released that can be useful in the development of command line applications.
 
+
 ## Crates referenced in this book
+
 - [anyhow](https://crates.io/crates/anyhow) - provides `anyhow::Error` for easy error handling
 - [assert_cmd](https://crates.io/crates/assert_cmd) - simplifies integration testing of CLIs
 - [assert_fs](https://crates.io/crates/assert_fs) - Setup input files and test output files
@@ -23,9 +26,23 @@ There is always new crates being released that can be useful in the development 
 - [tokio](https://crates.io/crates/tokio) - asynchronous runtime
 - [wasm-pack](https://crates.io/crates/wasm-pack) - tool for building WebAssembly
 
+
+## Tables
+
+There are a few libraries for pretty-printing tables to the console:
+
+- [cli-table](https://crates.io/crates/cli-table)
+- [comfy-table](https://crates.io/crates/comfy-table)
+- [prettytable](https://crates.io/crates/prettytable-rs)
+- [tabled](https://crates.io/crates/tabled)
+- [term-table](https://crates.io/crates/term-table)
+
+
 ## Other crates
+
 Due to the constantly-changing landscape of Rust crates, a good place to find crates is the [lib.rs](https://lib.rs) crate index.
 Here are a few specific categories that might be useful for building CLI's:
+
 - [Command-line interface](https://lib.rs/command-line-interface)
 - [Configuration](https://lib.rs/config)
 - [Database interfaces](https://lib.rs/database)
