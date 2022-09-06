@@ -77,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Getting started</a></li><li class="chapter-item expanded "><a href="tutorial/index.html"><strong aria-hidden="true">1.</strong> A command line app in 15 minutes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> Project setup</a></li><li class="chapter-item expanded "><a href="tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> Parsing command line arguments</a></li><li class="chapter-item expanded "><a href="tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> First implementation</a></li><li class="chapter-item expanded "><a href="tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> Nicer error reporting</a></li><li class="chapter-item expanded "><a href="tutorial/output.html"><strong aria-hidden="true">1.5.</strong> Output for humans and machines</a></li><li class="chapter-item expanded "><a href="tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> Testing</a></li><li class="chapter-item expanded "><a href="tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> Packaging and distributing a Rust tool</a></li></ol></li><li class="chapter-item expanded "><a href="in-depth/index.html"><strong aria-hidden="true">2.</strong> In-depth topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> Signal handling</a></li><li class="chapter-item expanded "><a href="in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> Using config files</a></li><li class="chapter-item expanded "><a href="in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> Exit codes</a></li><li class="chapter-item expanded "><a href="in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> Communicating with humans</a></li><li class="chapter-item expanded "><a href="in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> Communicating with machines</a></li><li class="chapter-item expanded "><a href="in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> Rendering documentation for your CLI apps</a></li></ol></li><li class="chapter-item expanded "><a href="crates/index.html"><strong aria-hidden="true">3.</strong> Useful crates</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Getting started</a></li><li class="chapter-item expanded "><a href="tutorial/index.html"><strong aria-hidden="true">1.</strong> A command line app in 15 minutes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> Project setup</a></li><li class="chapter-item expanded "><a href="tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> Parsing command line arguments</a></li><li class="chapter-item expanded "><a href="tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> First implementation</a></li><li class="chapter-item expanded "><a href="tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> Nicer error reporting</a></li><li class="chapter-item expanded "><a href="tutorial/output.html"><strong aria-hidden="true">1.5.</strong> Output for humans and machines</a></li><li class="chapter-item expanded "><a href="tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> Testing</a></li><li class="chapter-item expanded "><a href="tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> Packaging and distributing a Rust tool</a></li></ol></li><li class="chapter-item expanded "><a href="in-depth/index.html"><strong aria-hidden="true">2.</strong> In-depth topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> Signal handling</a></li><li class="chapter-item expanded "><a href="in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> Using config files</a></li><li class="chapter-item expanded "><a href="in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> Exit codes</a></li><li class="chapter-item expanded "><a href="in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> Communicating with humans</a></li><li class="chapter-item expanded "><a href="in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> Communicating with machines</a></li><li class="chapter-item expanded "><a href="in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> Rendering documentation for your CLI apps</a></li></ol></li><li class="chapter-item expanded "><a href="resources/index.html"><strong aria-hidden="true">3.</strong> Resources</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -2283,8 +2283,11 @@ there will be a <code>head.1</code> file
 in your project directory.</p>
 <p>If you open that in <code>man</code>
 you’ll be able to admire your free documentation.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="useful-crates"><a class="header" href="#useful-crates">Useful crates</a></h1>
-<p>There is always new crates being released that can be useful in the development of command line applications.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="resources"><a class="header" href="#resources">Resources</a></h1>
+<p>Collaboration / help</p>
+<ul>
+<li><a href="https://discord.com/channels/273534239310479360/943315667430563862">cli-and-tui Discord Channel</a></li>
+</ul>
 <h2 id="crates-referenced-in-this-book"><a class="header" href="#crates-referenced-in-this-book">Crates referenced in this book</a></h2>
 <ul>
 <li><a href="https://crates.io/crates/anyhow">anyhow</a> - provides <code>anyhow::Error</code> for easy error handling</li>
@@ -2309,8 +2312,8 @@ you’ll be able to admire your free documentation.</p>
 <li><a href="https://crates.io/crates/wasm-pack">wasm-pack</a> - tool for building WebAssembly</li>
 </ul>
 <h2 id="other-crates"><a class="header" href="#other-crates">Other crates</a></h2>
-<p>Due to the constantly-changing landscape of Rust crates, a good place to find crates is the <a href="https://lib.rs">lib.rs</a> crate index.
-Here are a few specific categories that might be useful for building CLI’s:</p>
+<p>Due to the constantly-changing landscape of Rust crates, a good place to find
+crates is the <a href="https://lib.rs">lib.rs</a> crate index, including:</p>
 <ul>
 <li><a href="https://lib.rs/command-line-interface">Command-line interface</a></li>
 <li><a href="https://lib.rs/config">Configuration</a></li>
@@ -2319,6 +2322,11 @@ Here are a few specific categories that might be useful for building CLI’s:</p
 <li><a href="https://lib.rs/filesystem">Filesystem</a></li>
 <li><a href="https://lib.rs/web-programming/http-client">HTTP Client</a></li>
 <li><a href="https://lib.rs/os">Operating systems</a></li>
+</ul>
+<p>Other resources:</p>
+<ul>
+<li><a href="https://rust-lang-nursery.github.io/rust-cookbook/">Rust Cookbook</a></li>
+<li><a href="https://github.com/rosetta-rs">rosetta-rs</a></li>
 </ul>
 
                     </main>
