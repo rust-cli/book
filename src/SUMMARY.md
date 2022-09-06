@@ -17,4 +17,4 @@
   - [Communicating with humans](./in-depth/human-communication.md)
   - [Communicating with machines](./in-depth/machine-communication.md)
   - [Rendering documentation for your CLI apps](./in-depth/docs.md)
-- [Useful crates](./crates/README.md)
+- [Resources](./resources/README.md)
