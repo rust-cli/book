@@ -5,7 +5,8 @@ a `--help` section in the command
 and a manual (`man`) page.
 
 Both can be automatically generated
-when using `clap`, via `clap_mangen` crate.
+when using [`clap`](https://crates.io/crates/clap), via
+[`clap_mangen`](https://crates.io/crates/clap_mangen) crate.
 
 ```rust,ignore
 #[derive(Parser)]
