@@ -1,5 +1,8 @@
 # Resources
 
+Collaboration / help
+- [cli-and-tui Discord Channel](https://discord.com/channels/273534239310479360/943315667430563862)
+
 ## Crates referenced in this book
 
 - [anyhow](https://crates.io/crates/anyhow) - provides `anyhow::Error` for easy error handling
