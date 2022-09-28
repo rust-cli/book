@@ -170,7 +170,7 @@ to quickly write valid JSON in your Rust source code:
 [serde_json]: https://crates.io/crates/serde_json
 
 ```rust,ignore
-{{#include machine-communication.rs:1:22}}
+{{#include machine-communication.rs}}
 ```
 
 And here is the output:
