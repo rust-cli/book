@@ -148,10 +148,9 @@ when using <a href="https://crates.io/crates/clap"><code>clap</code></a>, via
 <pre><code class="language-rust ignore">#[derive(Parser)]
 pub struct Head {
     /// file to load
-    #[clap(parse(from_os_str))]
     pub file: PathBuf,
     /// how many lines to print
-    #[clap(short = &quot;n&quot;, default_value = &quot;5&quot;)]
+    #[arg(short = &quot;n&quot;, default_value = &quot;5&quot;)]
     pub count: usize,
 }
 </code></pre>

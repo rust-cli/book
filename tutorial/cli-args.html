@@ -219,7 +219,7 @@ is called <a href="https://docs.rs/clap/"><code>clap</code></a>.
 It has all the functionality you’d expect,
 including support for sub-commands, shell completions, and great help messages.</p>
 <p>Let’s first import <code>clap</code> by adding
-<code>clap = { version = &quot;3.0&quot;, features = [&quot;derive&quot;] }</code> to the <code>[dependencies]</code> section
+<code>clap = { version = &quot;4.0&quot;, features = [&quot;derive&quot;] }</code> to the <code>[dependencies]</code> section
 of our <code>Cargo.toml</code> file.</p>
 <p>Now, we can write <code>use clap::Parser;</code> in our code,
 and add <code>#[derive(Parser)]</code> right above our <code>struct Cli</code>.
@@ -233,10 +233,8 @@ struct Cli {
     /// The pattern to look for
     pattern: String,
     /// The path to the file to read
-    #[clap(parse(from_os_str))]
     path: std::path::PathBuf,
 }
-
 </code></pre>
 <aside class="node">
 <p><strong>Note:</strong>
@@ -244,7 +242,7 @@ There are a lot of custom attributes you can add to fields.
 For example,
 we added one to tell clap how to parse the <code>PathBuf</code> type.
 To say you want to use this field for the argument after <code>-o</code> or <code>--output</code>,
-you’d add <code>#[clap(short = 'o', long = &quot;output&quot;)]</code>.
+you’d add <code>#[arg(short = 'o', long = &quot;output&quot;)]</code>.
 For more information,
 see the <a href="https://docs.rs/clap/">clap documentation</a>.</p>
 </aside>
@@ -283,7 +281,6 @@ struct Cli {
     /// The pattern to look for
     pattern: String,
     /// The path to the file to read
-    #[clap(parse(from_os_str))]
     path: std::path::PathBuf,
 }
 

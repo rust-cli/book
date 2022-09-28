@@ -5,17 +5,20 @@ use serde_json::json;
 #[derive(Parser)]
 struct Cli {
     /// Output JSON instead of human readable messages
-    #[clap(long = "json")]
+    #[arg(long = "json")]
     json: bool,
 }
 
 fn main() {
     let args = Cli::parse();
     if args.json {
-        println!("{}", json!({
-            "type": "message",
-            "content": "Hello world",
-        }));
+        println!(
+            "{}",
+            json!({
+                "type": "message",
+                "content": "Hello world",
+            })
+        );
     } else {
         println!("Hello world");
     }

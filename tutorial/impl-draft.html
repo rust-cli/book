@@ -146,8 +146,7 @@ Our <code>main</code> function only contains this line right now:</p>
 <pre><code class="language-rust ignore">    let args = Cli::parse();
 </code></pre>
 <p>Let’s start by opening the file we got.</p>
-<pre><code class="language-rust ignore">    let content = std::fs::read_to_string(&amp;args.path)
-        .expect(&quot;could not read file&quot;);
+<pre><code class="language-rust ignore">    let content = std::fs::read_to_string(&amp;args.path).expect(&quot;could not read file&quot;);
 </code></pre>
 <aside>
 <p><strong>Aside:</strong>
@@ -179,22 +178,18 @@ struct Cli {
     /// The pattern to look for
     pattern: String,
     /// The path to the file to read
-    #[clap(parse(from_os_str))]
     path: std::path::PathBuf,
 }
 
 fn main() {
-
     let args = Cli::parse();
-    let content = std::fs::read_to_string(&amp;args.path)
-        .expect(&quot;could not read file&quot;);
+    let content = std::fs::read_to_string(&amp;args.path).expect(&quot;could not read file&quot;);
 
     for line in content.lines() {
         if line.contains(&amp;args.pattern) {
             println!(&quot;{}&quot;, line);
         }
     }
-
 }
 </code></pre>
 <p>Give it a try: <code>cargo run -- main src/main.rs</code> should work now!</p>

@@ -280,17 +280,20 @@ use serde_json::json;
 #[derive(Parser)]
 struct Cli {
     /// Output JSON instead of human readable messages
-    #[clap(long = &quot;json&quot;)]
+    #[arg(long = &quot;json&quot;)]
     json: bool,
 }
 
 fn main() {
     let args = Cli::parse();
     if args.json {
-        println!(&quot;{}&quot;, json!({
-            &quot;type&quot;: &quot;message&quot;,
-            &quot;content&quot;: &quot;Hello world&quot;,
-        }));
+        println!(
+            &quot;{}&quot;,
+            json!({
+                &quot;type&quot;: &quot;message&quot;,
+                &quot;content&quot;: &quot;Hello world&quot;,
+            })
+        );
     } else {
         println!(&quot;Hello world&quot;);
     }

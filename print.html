@@ -332,7 +332,7 @@ is called <a href="https://docs.rs/clap/"><code>clap</code></a>.
 It has all the functionality you’d expect,
 including support for sub-commands, shell completions, and great help messages.</p>
 <p>Let’s first import <code>clap</code> by adding
-<code>clap = { version = &quot;3.0&quot;, features = [&quot;derive&quot;] }</code> to the <code>[dependencies]</code> section
+<code>clap = { version = &quot;4.0&quot;, features = [&quot;derive&quot;] }</code> to the <code>[dependencies]</code> section
 of our <code>Cargo.toml</code> file.</p>
 <p>Now, we can write <code>use clap::Parser;</code> in our code,
 and add <code>#[derive(Parser)]</code> right above our <code>struct Cli</code>.
@@ -346,10 +346,8 @@ struct Cli {
     /// The pattern to look for
     pattern: String,
     /// The path to the file to read
-    #[clap(parse(from_os_str))]
     path: std::path::PathBuf,
 }
-
 </code></pre>
 <aside class="node">
 <p><strong>Note:</strong>
@@ -357,7 +355,7 @@ There are a lot of custom attributes you can add to fields.
 For example,
 we added one to tell clap how to parse the <code>PathBuf</code> type.
 To say you want to use this field for the argument after <code>-o</code> or <code>--output</code>,
-you’d add <code>#[clap(short = 'o', long = &quot;output&quot;)]</code>.
+you’d add <code>#[arg(short = 'o', long = &quot;output&quot;)]</code>.
 For more information,
 see the <a href="https://docs.rs/clap/">clap documentation</a>.</p>
 </aside>
@@ -396,7 +394,6 @@ struct Cli {
     /// The pattern to look for
     pattern: String,
     /// The path to the file to read
-    #[clap(parse(from_os_str))]
     path: std::path::PathBuf,
 }
 
@@ -438,8 +435,7 @@ Our <code>main</code> function only contains this line right now:</p>
 <pre><code class="language-rust ignore">    let args = Cli::parse();
 </code></pre>
 <p>Let’s start by opening the file we got.</p>
-<pre><code class="language-rust ignore">    let content = std::fs::read_to_string(&amp;args.path)
-        .expect(&quot;could not read file&quot;);
+<pre><code class="language-rust ignore">    let content = std::fs::read_to_string(&amp;args.path).expect(&quot;could not read file&quot;);
 </code></pre>
 <aside>
 <p><strong>Aside:</strong>
@@ -471,22 +467,18 @@ struct Cli {
     /// The pattern to look for
     pattern: String,
     /// The path to the file to read
-    #[clap(parse(from_os_str))]
     path: std::path::PathBuf,
 }
 
 fn main() {
-
     let args = Cli::parse();
-    let content = std::fs::read_to_string(&amp;args.path)
-        .expect(&quot;could not read file&quot;);
+    let content = std::fs::read_to_string(&amp;args.path).expect(&quot;could not read file&quot;);
 
     for line in content.lines() {
         if line.contains(&amp;args.pattern) {
             println!(&quot;{}&quot;, line);
         }
     }
-
 }
 </code></pre>
 <p>Give it a try: <code>cargo run -- main src/main.rs</code> should work now!</p>
@@ -1101,13 +1093,13 @@ we can then supply a simple string
 in our tests
 and make assertions on it.
 Here is how we can write this version of <code>find_matches</code>:</p>
-<pre><code class="language-rust ignore">fn find_matches(content: &amp;str, pattern: &amp;str, mut writer: impl std::io::Write) {
-    for line in content.lines() {
+<pre><code class="language-rust ignore">    for line in content.lines() {
         if line.contains(pattern) {
             writeln!(writer, &quot;{}&quot;, line);
         }
     }
 }
+
 </code></pre>
 <p>The new parameter is <code>mut writer</code>,
 i.e., a mutable thing we call “writer”.
@@ -1121,8 +1113,7 @@ with <code>writeln!(writer, …)</code>.
 <code>println!</code> works the same as <code>writeln!</code>
 but always uses standard output.</p>
 <p>Now we can test for the output:</p>
-<pre><code class="language-rust ignore">#[test]
-fn find_a_match() {
+<pre><code class="language-rust ignore">fn find_a_match() {
     let mut result = Vec::new();
     find_matches(&quot;lorem ipsum\ndolor sit amet&quot;, &quot;lorem&quot;, &amp;mut result);
     assert_eq!(result, b&quot;lorem ipsum\n&quot;);
@@ -1134,8 +1125,7 @@ by adding <a href="https://doc.rust-lang.org/1.39.0/std/io/fn.stdout.html"><code
 Here’s an example of a main function
 that builds on what we’ve seen in the previous chapters
 and uses our extracted <code>find_matches</code> function:</p>
-<pre><code class="language-rust ignore">fn main() -&gt; Result&lt;()&gt; {
-    let args = Cli::parse();
+<pre><code class="language-rust ignore">    let args = Cli::parse();
     let content = std::fs::read_to_string(&amp;args.path)
         .with_context(|| format!(&quot;could not read file `{}`&quot;, args.path.display()))?;
 
@@ -1143,6 +1133,7 @@ and uses our extracted <code>find_matches</code> function:</p>
 
     Ok(())
 }
+
 </code></pre>
 <aside class="note">
 <p><strong>Note:</strong>
@@ -2174,17 +2165,20 @@ use serde_json::json;
 #[derive(Parser)]
 struct Cli {
     /// Output JSON instead of human readable messages
-    #[clap(long = &quot;json&quot;)]
+    #[arg(long = &quot;json&quot;)]
     json: bool,
 }
 
 fn main() {
     let args = Cli::parse();
     if args.json {
-        println!(&quot;{}&quot;, json!({
-            &quot;type&quot;: &quot;message&quot;,
-            &quot;content&quot;: &quot;Hello world&quot;,
-        }));
+        println!(
+            &quot;{}&quot;,
+            json!({
+                &quot;type&quot;: &quot;message&quot;,
+                &quot;content&quot;: &quot;Hello world&quot;,
+            })
+        );
     } else {
         println!(&quot;Hello world&quot;);
     }
@@ -2244,10 +2238,9 @@ when using <a href="https://crates.io/crates/clap"><code>clap</code></a>, via
 <pre><code class="language-rust ignore">#[derive(Parser)]
 pub struct Head {
     /// file to load
-    #[clap(parse(from_os_str))]
     pub file: PathBuf,
     /// how many lines to print
-    #[clap(short = &quot;n&quot;, default_value = &quot;5&quot;)]
+    #[arg(short = &quot;n&quot;, default_value = &quot;5&quot;)]
     pub count: usize,
 }
 </code></pre>
