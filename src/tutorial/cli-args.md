@@ -108,7 +108,7 @@ including support for sub-commands, shell completions, and great help messages.
 [`clap`]: https://docs.rs/clap/
 
 Let's first import `clap` by adding
-`clap = { version = "3.0", features = ["derive"] }` to the `[dependencies]` section
+`clap = { version = "4.0", features = ["derive"] }` to the `[dependencies]` section
 of our `Cargo.toml` file.
 
 Now, we can write `use clap::Parser;` in our code,
@@ -118,7 +118,7 @@ Let's also write some documentation comments along the way.
 It’ll look like this (in file `src/main.rs`, before `fn main() {`):
 
 ```rust,ignore
-{{#include cli-args-clap.rs:3:14}}
+{{#include cli-args-clap.rs:3:12}}
 ```
 
 <aside class="node">
@@ -128,7 +128,7 @@ There are a lot of custom attributes you can add to fields.
 For example,
 we added one to tell clap how to parse the `PathBuf` type.
 To say you want to use this field for the argument after `-o` or `--output`,
-you'd add `#[clap(short = 'o', long = "output")]`.
+you'd add `#[arg(short = 'o', long = "output")]`.
 For more information,
 see the [clap documentation][`clap`].
 
@@ -139,7 +139,7 @@ When the program starts, it will call this function.
 The first line is:
 
 ```rust,ignore
-{{#include cli-args-clap.rs:15:18}}
+{{#include cli-args-clap.rs:14:16}}
 ```
 
 This will try to parse the arguments into our `Cli` struct.
