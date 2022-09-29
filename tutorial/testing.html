@@ -307,13 +307,13 @@ we can then supply a simple string
 in our tests
 and make assertions on it.
 Here is how we can write this version of <code>find_matches</code>:</p>
-<pre><code class="language-rust ignore">    for line in content.lines() {
+<pre><code class="language-rust ignore">fn find_matches(content: &amp;str, pattern: &amp;str, mut writer: impl std::io::Write) {
+    for line in content.lines() {
         if line.contains(pattern) {
             writeln!(writer, &quot;{}&quot;, line);
         }
     }
 }
-
 </code></pre>
 <p>The new parameter is <code>mut writer</code>,
 i.e., a mutable thing we call “writer”.
@@ -327,7 +327,8 @@ with <code>writeln!(writer, …)</code>.
 <code>println!</code> works the same as <code>writeln!</code>
 but always uses standard output.</p>
 <p>Now we can test for the output:</p>
-<pre><code class="language-rust ignore">fn find_a_match() {
+<pre><code class="language-rust ignore">#[test]
+fn find_a_match() {
     let mut result = Vec::new();
     find_matches(&quot;lorem ipsum\ndolor sit amet&quot;, &quot;lorem&quot;, &amp;mut result);
     assert_eq!(result, b&quot;lorem ipsum\n&quot;);
@@ -339,7 +340,8 @@ by adding <a href="https://doc.rust-lang.org/1.39.0/std/io/fn.stdout.html"><code
 Here’s an example of a main function
 that builds on what we’ve seen in the previous chapters
 and uses our extracted <code>find_matches</code> function:</p>
-<pre><code class="language-rust ignore">    let args = Cli::parse();
+<pre><code class="language-rust ignore">fn main() -&gt; Result&lt;()&gt; {
+    let args = Cli::parse();
     let content = std::fs::read_to_string(&amp;args.path)
         .with_context(|| format!(&quot;could not read file `{}`&quot;, args.path.display()))?;
 
@@ -347,7 +349,6 @@ and uses our extracted <code>find_matches</code> function:</p>
 
     Ok(())
 }
-
 </code></pre>
 <aside class="note">
 <p><strong>Note:</strong>
