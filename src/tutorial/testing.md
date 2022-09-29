@@ -209,7 +209,7 @@ and make assertions on it.
 Here is how we can write this version of `find_matches`:
 
 ```rust,ignore
-{{#include testing/src/main.rs:24:30}}
+{{#include testing/src/main.rs:23:29}}
 ```
 
 The new parameter is `mut writer`,
@@ -227,7 +227,7 @@ but always uses standard output.
 Now we can test for the output:
 
 ```rust,ignore
-{{#include testing/src/main.rs:32:37}}
+{{#include testing/src/main.rs:31:36}}
 ```
 
 To now use this in our application code,
@@ -238,7 +238,7 @@ that builds on what we've seen in the previous chapters
 and uses our extracted `find_matches` function:
 
 ```rust,ignore
-{{#include testing/src/main.rs:14:22}}
+{{#include testing/src/main.rs:13:21}}
 ```
 
 [stdout]: https://doc.rust-lang.org/1.39.0/std/io/fn.stdout.html
