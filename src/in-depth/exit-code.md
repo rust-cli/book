@@ -24,7 +24,7 @@ Beyond that, people have done many things in their programs.
 So, what to do?
 The BSD ecosystem has collected a common definition for their exit codes
 (you can find them [here][`sysexits.h`]).
-The Rust library [`exitcode`] provides these same codes,
+The Rust library [`sysexits`] provides these same codes,
 ready to be used in your application.
 Please see its API documentation for the possible values to use.
 
@@ -32,25 +32,24 @@ After you add the `exitcode` dependency to your `Cargo.toml`,
 you can use it like this:
 
 ```rust,ignore
-fn main() {
+fn main() -> sysexits::ExitCode {
     // ...actual work...
     match result {
         Ok(_) => {
             println!("Done!");
-            std::process::exit(exitcode::OK);
+            sysexits::ExitCode::Ok
         }
         Err(CustomError::CantReadConfig(e)) => {
             eprintln!("Error: {}", e);
-            std::process::exit(exitcode::CONFIG);
+            sysexits::ExitCode::Config
         }
         Err(e) => {
             eprintln!("Error: {}", e);
-            std::process::exit(exitcode::DATAERR);
+            sysexits::ExitCode::DataErr
         }
     }
 }
 ```
 
-
-[`exitcode`]: https://crates.io/crates/exitcode
+[`sysexits`]: https://crates.io/crates/sysexits
 [`sysexits.h`]: https://www.freebsd.org/cgi/man.cgi?query=sysexits&apropos=0&sektion=0&manpath=FreeBSD+11.2-stable&arch=default&format=html
