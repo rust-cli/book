@@ -230,10 +230,58 @@ This is how Visual Studio Code uses _ripgrep_ for its code search.
 
 ## How to deal with input piped into us
 
-<aside class="todo">
 
-**TODO:**
-Talk about how work with stdin
-(see [#95](https://github.com/rust-cli/meta/issues/95))
+Rust programs can read data passed in via `stdin`, whether that's through
+piping or text entered while the program is running. Rust's standard library
+provides us with
+[`std::io::stdin`](https://doc.rust-lang.org/std/io/fn.stdin.html) that can
+read the lines passed in.
 
-</aside>
+Here's a program that counts the words in all of the lines of what's passed in
+via `stdin`. Note, the `-` arg for accepting input from stdin comes from the [Command Line Interface Guidelines](https://clig.dev), a helpful resource when building CLIs.
+
+``` rust,ignore
+use std::io::stdin;
+
+fn main() {
+    let mut total_word_count = 0;
+
+    let error = "pass in - to read from stdin";
+    let file = std::env::args().nth(1).expect(error);
+
+    if file == "-" {
+        for line in stdin().lines() {
+            let line = line.unwrap();
+            if !line.trim().is_empty() {
+                total_word_count += line.split(' ').count();
+            }
+        }
+
+        println!("Total words from stdin: {}", total_word_count)
+    } else {
+        panic!("{}", error)
+    }
+}
+```
+
+If you run that program with text piped in and the `-` arg, it'll output the
+word count:
+
+``` console
+$ echo "hi there friend\!" | cargo run -- -
+Total words from stdin: 3
+```
+
+stdin can also be used interactively. If you run the program with just `cargo
+run -- -`, nothing is displayed but you can enter text. This approach to
+reading stdin is a blocking behavior for you program. If you enter text and
+press Ctrl+D (sends an End of File (EOF) signal to stdin), it'll output the
+word count. Nifty!
+
+``` console
+$ cargo run --
+Hello there.
+My name is Ferris!
+^D
+Total words from stdin: 6
+```
