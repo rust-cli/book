@@ -241,27 +241,7 @@ Here's a program that counts the words in all of the lines of what's passed in
 via `stdin`. Note, the `-` arg for accepting input from stdin comes from the [Command Line Interface Guidelines](https://clig.dev), a helpful resource when building CLIs.
 
 ``` rust,ignore
-use std::io::stdin;
-
-fn main() {
-    let mut total_word_count = 0;
-
-    let error = "pass in - to read from stdin";
-    let file = std::env::args().nth(1).expect(error);
-
-    if file == "-" {
-        for line in stdin().lines() {
-            let line = line.unwrap();
-            if !line.trim().is_empty() {
-                total_word_count += line.split(' ').count();
-            }
-        }
-
-        println!("Total words from stdin: {}", total_word_count)
-    } else {
-        panic!("{}", error)
-    }
-}
+{{#include machine-communication-stdin.rs}}
 ```
 
 If you run that program with text piped in and the `-` arg, it'll output the

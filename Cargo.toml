@@ -41,6 +41,10 @@ name = "machine-communication"
 path = "src/in-depth/machine-communication.rs"
 
 [[bin]]
+name = "machine-communication-stdin"
+path = "src/in-depth/machine-communication-stdin.rs"
+
+[[bin]]
 name = "signals-ctrlc"
 path = "src/in-depth/signals-ctrlc.rs"
 
