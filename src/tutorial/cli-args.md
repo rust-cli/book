@@ -126,8 +126,7 @@ It’ll look like this (in file `src/main.rs`, before `fn main() {`):
 **Note:**
 There are a lot of custom attributes you can add to fields.
 For example,
-we added one to tell clap how to parse the `PathBuf` type.
-To say you want to use this field for the argument after `-o` or `--output`,
+to say you want to use this field for the argument after `-o` or `--output`,
 you'd add `#[arg(short = 'o', long = "output")]`.
 For more information,
 see the [clap documentation][`clap`].
