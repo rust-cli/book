@@ -5,7 +5,7 @@ use std::path::PathBuf;
 #[derive(Parser)]
 #[command(arg_required_else_help = true)]
 struct Cli {
-    /// The path to the file to read, use - to read from stdin
+    /// The path to the file to read
     file: PathBuf,
 }
 
