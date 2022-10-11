@@ -1,5 +1,5 @@
 use clap::{CommandFactory, Parser};
-use std::{io::stdin, path::PathBuf};
+use std::{io::{stdin, BufReader, BufRead}, path::PathBuf, fs::File};
 use atty::Stream;
 
 /// Count the number of lines in a file or stdin
@@ -13,28 +13,28 @@ struct Cli {
 fn main() {
     let args = Cli::parse();
 
-    let mut word_count = 0;
+    let word_count;
     let mut file = args.file;
 
     if file == PathBuf::from("-") {
         if atty::is(Stream::Stdin) {
             Cli::command().print_help().unwrap();
             ::std::process::exit(0);
-        } else {
-            file = PathBuf::from("stdin");
-            for line in stdin().lines() {
-                let line = line.unwrap();
-                if !line.trim().is_empty() {
-                    word_count += line.split(' ').count();
-                }
-            }
         }
+
+        file = PathBuf::from("stdin");
+        word_count = words_in_buf_reader(BufReader::new(stdin().lock()));
     } else {
-        let content = std::fs::read_to_string(&file).unwrap();
-        for line in content.lines() {
-            word_count += line.split(' ').count();
-        }
+        word_count = words_in_buf_reader(BufReader::new(File::open(&file).unwrap()));
     }
 
     println!("Words from {}: {}", file.to_str().unwrap(), word_count)
+}
+
+fn words_in_buf_reader<R: BufRead>(buf_reader: R) -> usize {
+    let mut count = 0;
+    for line in buf_reader.lines() {
+        count += line.unwrap().split(' ').count()
+    }
+    count
 }
