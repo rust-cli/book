@@ -1,12 +1,12 @@
 use clap::Parser;
-use std::io::stdin;
+use std::{io::stdin, path::PathBuf};
 
 /// Count the number of lines in a file
 #[derive(Parser)]
 #[command(arg_required_else_help = true)]
 struct Cli {
     /// The path to the file to read, use - to read from stdin
-    file: String,
+    file: PathBuf,
 }
 
 fn main() {
@@ -15,8 +15,8 @@ fn main() {
     let mut word_count = 0;
     let mut file = args.file;
 
-    if file == "-" {
-        file = String::from("stdin");
+    if file == PathBuf::from("-") {
+        file = PathBuf::from("stdin");
         for line in stdin().lines() {
             let line = line.unwrap();
             if !line.trim().is_empty() {
@@ -30,5 +30,5 @@ fn main() {
         }
     }
 
-    println!("Total words from {}: {}", file, word_count)
+    println!("Total words from {}: {}", file.to_str().unwrap(), word_count)
 }
