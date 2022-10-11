@@ -7,6 +7,7 @@ name = "CLAiR"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "atty",
  "clap",
  "crossbeam-channel",
  "ctrlc",

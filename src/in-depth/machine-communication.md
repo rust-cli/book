@@ -230,38 +230,42 @@ This is how Visual Studio Code uses _ripgrep_ for its code search.
 
 ## How to deal with input piped into us
 
+Let's say we have a program that reads the number of words in a file:
 
-Rust programs can read data passed in via `stdin`, whether that's through
-piping or text entered while the program is running. Rust's standard library
-provides us with
-[`std::io::stdin`](https://doc.rust-lang.org/std/io/fn.stdin.html) that can
-read the lines passed in.
+``` rust,ignore
+{{#include machine-communication-wc.rs}}
+```
 
-Here's a program that counts the words in all of the lines of what's passed in
-via `stdin`. Note, the `-` arg for accepting input from stdin comes from the [Command Line Interface Guidelines](https://clig.dev), a helpful resource when building CLIs.
+It takes the path to a file, reads it line by line, and counts the number of
+words separated by a space.
+
+When you run it, it outputs the total words in the file:
+
+``` console
+$ cargo run README.md
+Words in README.md: 47
+```
+
+But what if we wanted to count the number of words piped into the program?
+Rust programs can read data passed in via stdin with the
+[`std::io::stdin`](https://doc.rust-lang.org/std/io/fn.stdin.html) from the
+standard library. Similar to reading the lines of a file, it can read the lines
+from stdin.
+
+Here's a program that counts the words of what's piped in via stdin
 
 ``` rust,ignore
 {{#include machine-communication-stdin.rs}}
 ```
 
-If you run that program with text piped in and the `-` arg, it'll output the
-word count:
+If you run that program with text piped in, with `-` representing the intent to
+read from `stdin`, it'll output the word count:
 
 ``` console
-$ echo "hi there friend\!" | cargo run -- -
-Total words from stdin: 3
+$ echo "hi there friend" | cargo run -- -
+Words from stdin: 3
 ```
 
-stdin can also be used interactively. If you run the program with just `cargo
-run -- -`, nothing is displayed but you can enter text. This approach to
-reading stdin is a blocking behavior for you program. If you enter text and
-press Ctrl+D (sends an End of File (EOF) signal to stdin), it'll output the
-word count. Nifty!
-
-``` console
-$ cargo run --
-Hello there.
-My name is Ferris!
-^D
-Total words from stdin: 6
-```
+It requires that stdin is not interactive because we're expecting input that's
+piped through to the program, not text that's typed in at runtime. If stdin is
+a tty, it outputs the help docs so that it's clear why it doesn't work.
