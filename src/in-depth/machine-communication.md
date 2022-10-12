@@ -247,10 +247,11 @@ Words in README.md: 47
 ```
 
 But what if we wanted to count the number of words piped into the program?
-Rust programs can read data passed in via stdin with the
-[`std::io::stdin`](https://doc.rust-lang.org/std/io/fn.stdin.html) from the
-standard library. Similar to reading the lines of a file, it can read the lines
-from stdin.
+Rust programs can read data passed in via stdin with the with [the Stdin
+struct](https://doc.rust-lang.org/std/io/struct.Stdin.html) which you can
+obtain via [the stdin function](https://doc.rust-lang.org/std/io/fn.stdin.html)
+from the standard library. Similar to reading the lines of a file, it can read
+the lines from stdin.
 
 Here's a program that counts the words of what's piped in via stdin
 
