@@ -230,10 +230,43 @@ This is how Visual Studio Code uses _ripgrep_ for its code search.
 
 ## How to deal with input piped into us
 
-<aside class="todo">
+Let's say we have a program that reads the number of words in a file:
 
-**TODO:**
-Talk about how work with stdin
-(see [#95](https://github.com/rust-cli/meta/issues/95))
+``` rust,ignore
+{{#include machine-communication-wc.rs}}
+```
 
-</aside>
+It takes the path to a file, reads it line by line, and counts the number of
+words separated by a space.
+
+When you run it, it outputs the total words in the file:
+
+``` console
+$ cargo run README.md
+Words in README.md: 47
+```
+
+But what if we wanted to count the number of words piped into the program?
+Rust programs can read data passed in via stdin with the with [the Stdin
+struct](https://doc.rust-lang.org/std/io/struct.Stdin.html) which you can
+obtain via [the stdin function](https://doc.rust-lang.org/std/io/fn.stdin.html)
+from the standard library. Similar to reading the lines of a file, it can read
+the lines from stdin.
+
+Here's a program that counts the words of what's piped in via stdin
+
+``` rust,ignore
+{{#include machine-communication-stdin.rs}}
+```
+
+If you run that program with text piped in, with `-` representing the intent to
+read from `stdin`, it'll output the word count:
+
+``` console
+$ echo "hi there friend" | cargo run -- -
+Words from stdin: 3
+```
+
+It requires that stdin is not interactive because we're expecting input that's
+piped through to the program, not text that's typed in at runtime. If stdin is
+a tty, it outputs the help docs so that it's clear why it doesn't work.
