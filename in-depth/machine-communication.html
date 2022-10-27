@@ -338,11 +338,92 @@ even while <em>ripgrep</em> is still searching.</p>
 This is how Visual Studio Code uses <em>ripgrep</em> for its code search.</p>
 </aside>
 <h2 id="how-to-deal-with-input-piped-into-us"><a class="header" href="#how-to-deal-with-input-piped-into-us">How to deal with input piped into us</a></h2>
-<aside class="todo">
-<p><strong>TODO:</strong>
-Talk about how work with stdin
-(see <a href="https://github.com/rust-cli/meta/issues/95">#95</a>)</p>
-</aside>
+<p>Let’s say we have a program that reads the number of words in a file:</p>
+<pre><code class="language-rust ignore">use clap::Parser;
+use std::path::PathBuf;
+
+/// Count the number of lines in a file
+#[derive(Parser)]
+#[command(arg_required_else_help = true)]
+struct Cli {
+    /// The path to the file to read
+    file: PathBuf,
+}
+
+fn main() {
+    let args = Cli::parse();
+    let mut word_count = 0;
+    let file = args.file;
+
+    for line in std::fs::read_to_string(&amp;file).unwrap().lines() {
+        word_count += line.split(' ').count();
+    }
+
+    println!(&quot;Words in {}: {}&quot;, file.to_str().unwrap(), word_count)
+}
+</code></pre>
+<p>It takes the path to a file, reads it line by line, and counts the number of
+words separated by a space.</p>
+<p>When you run it, it outputs the total words in the file:</p>
+<pre><code class="language-console">$ cargo run README.md
+Words in README.md: 47
+</code></pre>
+<p>But what if we wanted to count the number of words piped into the program?
+Rust programs can read data passed in via stdin with the with <a href="https://doc.rust-lang.org/std/io/struct.Stdin.html">the Stdin
+struct</a> which you can
+obtain via <a href="https://doc.rust-lang.org/std/io/fn.stdin.html">the stdin function</a>
+from the standard library. Similar to reading the lines of a file, it can read
+the lines from stdin.</p>
+<p>Here’s a program that counts the words of what’s piped in via stdin</p>
+<pre><code class="language-rust ignore">use clap::{CommandFactory, Parser};
+use std::{io::{stdin, BufReader, BufRead}, path::PathBuf, fs::File};
+use atty::Stream;
+
+/// Count the number of lines in a file or stdin
+#[derive(Parser)]
+#[command(arg_required_else_help = true)]
+struct Cli {
+    /// The path to the file to read, use - to read from stdin (must not be a tty)
+    file: PathBuf,
+}
+
+fn main() {
+    let args = Cli::parse();
+
+    let word_count;
+    let mut file = args.file;
+
+    if file == PathBuf::from(&quot;-&quot;) {
+        if atty::is(Stream::Stdin) {
+            Cli::command().print_help().unwrap();
+            ::std::process::exit(2);
+        }
+
+        file = PathBuf::from(&quot;&lt;stdin&gt;&quot;);
+        word_count = words_in_buf_reader(BufReader::new(stdin().lock()));
+    } else {
+        word_count = words_in_buf_reader(BufReader::new(File::open(&amp;file).unwrap()));
+    }
+
+    println!(&quot;Words from {}: {}&quot;, file.to_string_lossy(), word_count)
+}
+
+fn words_in_buf_reader&lt;R: BufRead&gt;(buf_reader: R) -&gt; usize {
+    let mut count = 0;
+    for line in buf_reader.lines() {
+        count += line.unwrap().split(' ').count()
+    }
+    count
+}
+</code></pre>
+<p>If you run that program with text piped in, with <code>-</code> representing the intent to
+read from <code>stdin</code>, it’ll output the word count:</p>
+<pre><code class="language-console">$ echo &quot;hi there friend&quot; | cargo run -- -
+Words from stdin: 3
+</code></pre>
+<p>It requires that stdin is not interactive because we’re expecting input that’s
+piped through to the program, not text that’s typed in at runtime. If stdin is
+a tty, it outputs the help docs so that it’s clear why it doesn’t work.</p>
 
                     </main>
 
