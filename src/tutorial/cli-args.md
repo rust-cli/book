@@ -75,7 +75,7 @@ that has two fields to store data in: `pattern`, and `path`.
 
 <aside>
 
-**Aside:**
+**Note:**
 [`PathBuf`] is like a [`String`] but for file system paths that work cross-platform.
 
 [`PathBuf`]: https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html
