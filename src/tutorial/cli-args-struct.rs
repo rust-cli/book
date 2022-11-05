@@ -9,6 +9,8 @@ fn main() {
 
 let pattern = std::env::args().nth(1).expect("no pattern given");
 let path = std::env::args().nth(2).expect("no path given");
+println!("pattern: {}", pattern);
+println!("path: {}", path);
 let args = Cli {
     pattern: pattern,
     path: std::path::PathBuf::from(path),

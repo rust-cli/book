@@ -35,10 +35,23 @@ the ones that follow are what the user wrote afterwards.
 [`std::env::args()`]: https://doc.rust-lang.org/1.39.0/std/env/fn.args.html
 [iterator]: https://doc.rust-lang.org/1.39.0/std/iter/index.html
 
-Getting the raw arguments this way is quite easy (in file `src/main.rs`, after `fn main() {`):
+Getting the raw arguments this way is quite easy (in file `src/main.rs`, after `fn main() {`),
+and you can use [println!] to print arguments to the standard output:
 
 ```rust,ignore
-{{#include cli-args-struct.rs:10:11}}
+{{#include cli-args-struct.rs:10:13}}
+```
+
+[println!]: https://doc.rust-lang.org/std/macro.println.html
+
+If you can execute `cargo run -- pattern path` you might see something like this:
+
+```console
+cargo run -- pattern path
+    Finished dev [unoptimized + debuginfo] target(s) in 0.80s
+     Running `target/debug/grrs pattern path`
+pattern: pattern
+path: path
 ```
 
 ## CLI arguments as data type
@@ -89,7 +102,7 @@ and build the structure ourselves.
 It would look something like this:
 
 ```rust,ignore
-{{#include cli-args-struct.rs:10:15}}
+{{#include cli-args-struct.rs:10:17}}
 ```
 
 This works, but it's not very convenient.
