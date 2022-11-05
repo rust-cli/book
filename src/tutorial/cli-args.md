@@ -103,9 +103,11 @@ A much nicer way is to use one of the many available libraries.
 The most popular library for parsing command-line arguments
 is called [`clap`].
 It has all the functionality you'd expect,
-including support for sub-commands, shell completions, and great help messages.
+including support for [sub-commands], [shell completions], and great help messages.
 
 [`clap`]: https://docs.rs/clap/
+[sub-commands]: https://docs.rs/clap/latest/clap/trait.Subcommand.html
+[shell completions]: https://docs.rs/clap_complete/
 
 Let's first import `clap` by adding
 `clap = { version = "4.0", features = ["derive"] }` to the `[dependencies]` section
