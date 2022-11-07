@@ -437,7 +437,7 @@ Our <code>main</code> function only contains this line right now:</p>
 <pre><code class="language-rust ignore">    let content = std::fs::read_to_string(&amp;args.path).expect(&quot;could not read file&quot;);
 </code></pre>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 See that <a href="https://doc.rust-lang.org/1.39.0/std/result/enum.Result.html#method.expect"><code>.expect</code></a> method here?
 This is a shortcut function to quit that will make the program exit immediately
 when the value (in this case the input file)
