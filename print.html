@@ -558,9 +558,9 @@ There’s even a shortcut method on <code>Result</code>s, called <code>unwrap</c
 <h2 id="no-need-to-panic"><a class="header" href="#no-need-to-panic">No need to panic</a></h2>
 <p>Of course, aborting the program is not the only way to deal with errors.
 Instead of the <code>panic!</code>, we can also easily write <code>return</code>:</p>
-<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">fn main() -&gt; Result&lt;(), Box&lt;std::error::Error&gt;&gt; {
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 </span>let result = std::fs::read_to_string(&quot;test.txt&quot;);
-let _content = match result {
+let content = match result {
     Ok(content) =&gt; { content },
     Err(error) =&gt; { return Err(error.into()); }
 };
