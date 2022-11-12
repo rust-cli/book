@@ -17,7 +17,7 @@ Let’s start by opening the file we got.
 
 <aside>
 
-**Aside:**
+**Note:**
 See that [`.expect`] method here?
 This is a shortcut function to quit that will make the program exit immediately
 when the value (in this case the input file)

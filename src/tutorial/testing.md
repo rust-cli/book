@@ -23,7 +23,7 @@ Write that `README` before you write the code.
 
 <aside>
 
-**Aside:**
+**Note:**
 Have a look at
 [test-driven development] (TDD)
 if you haven't heard of it.
@@ -360,7 +360,7 @@ We will also put these tests into a new file in a new directory:
 
 <aside>
 
-**Aside:**
+**Note:**
 By convention,
 `cargo` will look for integration tests in the `tests/` directory.
 Similarly,
@@ -517,7 +517,7 @@ try to write a [fuzzer] to find bugs in edge cases.
 
 <aside>
 
-**Aside:**
+**Note:**
 You can find the full, runnable source code used in this chapter
 [in this book's repository][src].
 
