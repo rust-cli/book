@@ -34,7 +34,7 @@ match result {
 
 <aside>
 
-**Aside:**
+**Note:**
 Not sure what enums are or how they work in Rust?
 [Check this chapter of the Rust book](https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html)
 to get up to speed.
@@ -116,7 +116,7 @@ It's the default return value of the function and means
 
 <aside>
 
-**Aside:**
+**Note:**
 Why is this not written as `return Ok(());`?
 It easily could be – this is totally valid as well.
 The last expression of any block in Rust is its return value,
@@ -150,7 +150,7 @@ Very concise!
 
 <aside>
 
-**Aside:**
+**Note:**
 There are a few more things happening here
 that are not required to understand to work with this.
 For example,

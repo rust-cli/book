@@ -18,7 +18,7 @@ Let's see how we can do this.
 
 <aside>
 
-**Aside:**
+**Note:**
 Make sure to read [the chapter on CLI output][output]
 in the tutorial first.
 It covers how to write output to the terminal.
@@ -223,7 +223,7 @@ even while _ripgrep_ is still searching.
 
 <aside>
 
-**Aside:**
+**Note:**
 This is how Visual Studio Code uses _ripgrep_ for its code search.
 
 </aside>

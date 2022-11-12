@@ -58,7 +58,7 @@ you can in most cases add a `#[derive(Debug)]` above their definition.
 
 <aside>
 
-**Aside:**
+**Note:**
 "User-friendly" printing is done using the [`Display`] trait,
 debug output (human-readable but targeted at developers) uses the [`Debug`] trait.
 You can find more information about the syntax you can use in `println!`
@@ -80,7 +80,7 @@ or more tools.
 
 <aside>
 
-**Aside:**
+**Note:**
 On most operating systems,
 a program can write to two output streams, `stdout` and `stderr`.
 `stdout` is for the program's actual output,
