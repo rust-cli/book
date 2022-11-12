@@ -518,7 +518,7 @@ match result {
 <span class="boring">}
 </span></code></pre></pre>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 Not sure what enums are or how they work in Rust?
 <a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">Check this chapter of the Rust book</a>
 to get up to speed.</p>
@@ -589,7 +589,7 @@ See how there is an <code>Ok(())</code> at the bottom?
 It’s the default return value of the function and means
 “Result is okay, and has no content”.</p>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 Why is this not written as <code>return Ok(());</code>?
 It easily could be – this is totally valid as well.
 The last expression of any block in Rust is its return value,
@@ -613,7 +613,7 @@ the <code>match</code> we just wrote.</p>
 </code></pre></pre>
 <p>Very concise!</p>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 There are a few more things happening here
 that are not required to understand to work with this.
 For example,
@@ -736,7 +736,7 @@ println!(&quot;The list is: {:?}&quot;, xs);
 <p>If you want your own data types to be printable for debugging and logging,
 you can in most cases add a <code>#[derive(Debug)]</code> above their definition.</p>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 “User-friendly” printing is done using the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html"><code>Display</code></a> trait,
 debug output (human-readable but targeted at developers) uses the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Debug.html"><code>Debug</code></a> trait.
 You can find more information about the syntax you can use in <code>println!</code>
@@ -749,7 +749,7 @@ and other tools
 to pipe their outputs to files
 or more tools.</p>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 On most operating systems,
 a program can write to two output streams, <code>stdout</code> and <code>stderr</code>.
 <code>stdout</code> is for the program’s actual output,
@@ -943,7 +943,7 @@ by also writing down how your program should react to erroneous inputs.</p>
 <p>Here’s another fancy idea:
 Write that <code>README</code> before you write the code.</p>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 Have a look at
 <a href="https://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a> (TDD)
 if you haven’t heard of it.</p>
@@ -1226,7 +1226,7 @@ and run it like a regular program.
 We will also put these tests into a new file in a new directory:
 <code>tests/cli.rs</code>.</p>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 By convention,
 <code>cargo</code> will look for integration tests in the <code>tests/</code> directory.
 Similarly,
@@ -1376,7 +1376,7 @@ you should look into <a href="https://docs.rs/proptest"><code>proptest</code></a
 If you have a program which consumes arbitrary files and parses them,
 try to write a <a href="https://rust-fuzz.github.io/book/introduction.html">fuzzer</a> to find bugs in edge cases.</p>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 You can find the full, runnable source code used in this chapter
 <a href="https://github.com/rust-cli/book/tree/master/src/tutorial/testing">in this book’s repository</a>.</p>
 </aside>
@@ -2038,7 +2038,7 @@ we should provide not just pretty output for humans,
 but also a version tailored to what other programs need.
 Let’s see how we can do this.</p>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 Make sure to read <a href="in-depth/../tutorial/output.html">the chapter on CLI output</a>
 in the tutorial first.
 It covers how to write output to the terminal.</p>
@@ -2219,7 +2219,7 @@ that reads these documents as they come in and show the matches
 (as well the files they are in)
 even while <em>ripgrep</em> is still searching.</p>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 This is how Visual Studio Code uses <em>ripgrep</em> for its code search.</p>
 </aside>
 <h2 id="how-to-deal-with-input-piped-into-us"><a class="header" href="#how-to-deal-with-input-piped-into-us">How to deal with input piped into us</a></h2>

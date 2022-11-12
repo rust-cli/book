@@ -188,7 +188,7 @@ println!(&quot;The list is: {:?}&quot;, xs);
 <p>If you want your own data types to be printable for debugging and logging,
 you can in most cases add a <code>#[derive(Debug)]</code> above their definition.</p>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 “User-friendly” printing is done using the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html"><code>Display</code></a> trait,
 debug output (human-readable but targeted at developers) uses the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Debug.html"><code>Debug</code></a> trait.
 You can find more information about the syntax you can use in <code>println!</code>
@@ -201,7 +201,7 @@ and other tools
 to pipe their outputs to files
 or more tools.</p>
 <aside>
-<p><strong>Aside:</strong>
+<p><strong>Note:</strong>
 On most operating systems,
 a program can write to two output streams, <code>stdout</code> and <code>stderr</code>.
 <code>stdout</code> is for the program’s actual output,
