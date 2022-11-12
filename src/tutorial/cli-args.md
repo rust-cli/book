@@ -54,6 +54,29 @@ pattern: pattern
 path: path
 ```
 
+Another way to print out a value using the Debug format is to use the [dbg! macro], 
+which prints the file and line number of where that `dbg!` macro call occurs 
+in your code along with the resulting value of that expression:
+
+```rust,ignore
+let pattern = std::env::args().nth(1).expect("no pattern given");
+let path = std::env::args().nth(2).expect("no path given");
+dbg!(pattern);
+dbg!(path);
+```
+
+execute again `cargo run -- pattern path` you might see something like this:
+
+```console
+cargo run -- pattern path
+    Finished dev [unoptimized + debuginfo] target(s) in 0.23s
+     Running `target/debug/grrs main src/main.rs`
+[src/main.rs:4] pattern = "pattern"
+[src/main.rs:5] path = "path"
+```
+
+[dbg! macro]: https://doc.rust-lang.org/std/macro.dbg.html
+
 ## CLI arguments as data type
 
 Instead of thinking about them as a bunch of text,
