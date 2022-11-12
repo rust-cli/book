@@ -79,9 +79,9 @@ Of course, aborting the program is not the only way to deal with errors.
 Instead of the `panic!`, we can also easily write `return`:
 
 ```rust,no_run
-# fn main() -> Result<(), Box<std::error::Error>> {
+# fn main() -> Result<(), Box<dyn std::error::Error>> {
 let result = std::fs::read_to_string("test.txt");
-let _content = match result {
+let content = match result {
     Ok(content) => { content },
     Err(error) => { return Err(error.into()); }
 };
