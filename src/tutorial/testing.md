@@ -46,6 +46,10 @@ Rust has a built-in test framework,
 so let's start by writing a first test:
 
 ```rust,ignore
+# fn answer() -> i32 {
+#   42
+# }
+#
 #[test]
 fn check_answer_validity() {
     assert_eq!(answer(), 42);
