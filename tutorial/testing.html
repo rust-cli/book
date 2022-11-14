@@ -172,7 +172,11 @@ many people have come to enjoy telling computers to do things for them.
 Let’s talk about how to automate these tests.</p>
 <p>Rust has a built-in test framework,
 so let’s start by writing a first test:</p>
-<pre><code class="language-rust ignore">#[test]
+<pre><code class="language-rust ignore"><span class="boring">fn answer() -&gt; i32 {
+</span><span class="boring">  42
+</span><span class="boring">}
+</span><span class="boring">
+</span>#[test]
 fn check_answer_validity() {
     assert_eq!(answer(), 42);
 }
