@@ -9,7 +9,7 @@ println!("Hello World");
 Well, that was easy.
 Great, onto the next topic.
 
-## Using println
+## Using `println!`
 
 You can pretty much print all the things you like
 with the `println!` macro.
@@ -192,7 +192,7 @@ we might want to add some log statements.
 This is usually easy while writing your application.
 But it will become super helpful when running this program again in half a year.
 In some regard,
-logging is the same as using `println`,
+logging is the same as using `println!`,
 except that you can specify the importance of a message.
 The levels you can usually use are _error_, _warn_, _info_, _debug_, and _trace_
 (_error_ has the highest priority, _trace_ the lowest).
