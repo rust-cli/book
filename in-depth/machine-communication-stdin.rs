@@ -1,6 +1,10 @@
 use clap::{CommandFactory, Parser};
-use std::{io::{stdin, BufReader, BufRead}, path::PathBuf, fs::File};
-use atty::Stream;
+use is_terminal::IsTerminal as _;
+use std::{
+    fs::File,
+    io::{stdin, BufRead, BufReader},
+    path::PathBuf,
+};
 
 /// Count the number of lines in a file or stdin
 #[derive(Parser)]
@@ -17,7 +21,7 @@ fn main() {
     let mut file = args.file;
 
     if file == PathBuf::from("-") {
-        if atty::is(Stream::Stdin) {
+        if stdin().is_terminal() {
             Cli::command().print_help().unwrap();
             ::std::process::exit(2);
         }

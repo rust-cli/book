@@ -163,10 +163,10 @@ It covers how to write output to the terminal.</p>
 Is our output for a human in front of a colorful terminal,
 or for another program?
 To answer this,
-we can use a crate like <a href="https://crates.io/crates/atty">atty</a>:</p>
-<pre><code class="language-rust ignore">use atty::Stream;
+we can use a crate like <a href="https://crates.io/crates/is-terminal">is-terminal</a>:</p>
+<pre><code class="language-rust ignore">use is_terminal::IsTerminal as _;
 
-if atty::is(Stream::Stdout) {
+if std::io::stdout().is_terminal() {
     println!(&quot;I'm a terminal&quot;);
 } else {
     println!(&quot;I'm not&quot;);
@@ -376,8 +376,12 @@ from the standard library. Similar to reading the lines of a file, it can read
 the lines from stdin.</p>
 <p>Here’s a program that counts the words of what’s piped in via stdin</p>
 <pre><code class="language-rust ignore">use clap::{CommandFactory, Parser};
-use std::{io::{stdin, BufReader, BufRead}, path::PathBuf, fs::File};
-use atty::Stream;
+use is_terminal::IsTerminal as _;
+use std::{
+    fs::File,
+    io::{stdin, BufRead, BufReader},
+    path::PathBuf,
+};
 
 /// Count the number of lines in a file or stdin
 #[derive(Parser)]
@@ -394,7 +398,7 @@ fn main() {
     let mut file = args.file;
 
     if file == PathBuf::from(&quot;-&quot;) {
-        if atty::is(Stream::Stdin) {
+        if stdin().is_terminal() {
             Cli::command().print_help().unwrap();
             ::std::process::exit(2);
         }
