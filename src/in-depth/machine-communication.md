@@ -33,14 +33,14 @@ The first question to ask is:
 Is our output for a human in front of a colorful terminal,
 or for another program?
 To answer this,
-we can use a crate like [atty]:
+we can use a crate like [is-terminal]:
 
-[atty]: https://crates.io/crates/atty
+[is-terminal]: https://crates.io/crates/is-terminal
 
 ```rust,ignore
-use atty::Stream;
+use is_terminal::IsTerminal as _;
 
-if atty::is(Stream::Stdout) {
+if std::io::stdout().is_terminal() {
     println!("I'm a terminal");
 } else {
     println!("I'm not");
