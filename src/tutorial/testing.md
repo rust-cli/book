@@ -431,7 +431,7 @@ and create our `tests/cli.rs` file:
 
 You can run this test with
 `cargo test`,
-just the tests we wrote above.
+just like the tests we wrote above.
 It might take a little longer the first time,
 as `Command::cargo_bin("grrs")` needs to compile your main binary.
 
