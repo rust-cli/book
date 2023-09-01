@@ -10,10 +10,10 @@ name = "grrs"
 path = "src/main.rs"
 
 [dependencies]
-clap = { version = "4.3.0", features = ["derive"] }
-anyhow = "1.0.71"
+clap = { version = "4.4.2", features = ["derive"] }
+anyhow = "1.0.75"
 
 [dev-dependencies]
-assert_cmd = "2.0.11"
+assert_cmd = "2.0.12"
 predicates = "3.0.3"
 assert_fs = "1.0.13"
