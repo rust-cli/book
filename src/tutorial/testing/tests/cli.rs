@@ -25,7 +25,7 @@ fn find_content_in_file() -> Result<(), Box<dyn std::error::Error>> {
     cmd.arg("test").arg(file.path());
     cmd.assert()
         .success()
-        .stdout(predicate::str::contains("test\nAnother test"));
+        .stdout(predicate::str::contains("A test\nAnother test"));
 
     Ok(())
 }
