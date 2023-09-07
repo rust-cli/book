@@ -1345,7 +1345,7 @@ fn find_content_in_file() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&g
     cmd.arg(&quot;test&quot;).arg(file.path());
     cmd.assert()
         .success()
-        .stdout(predicate::str::contains(&quot;test\nAnother test&quot;));
+        .stdout(predicate::str::contains(&quot;A test\nAnother test&quot;));
 
     Ok(())
 }
