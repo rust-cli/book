@@ -29,6 +29,10 @@ name = "errors-exit"
 path = "src/tutorial/errors-exit.rs"
 
 [[bin]]
+name = "errors-impl"
+path = "src/tutorial/errors-impl.rs"
+
+[[bin]]
 name = "output-progressbar"
 path = "src/tutorial/output-progressbar.rs"
 

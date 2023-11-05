@@ -233,3 +233,12 @@ Error: could not read file `test.txt`
 Caused by:
     No such file or directory (os error 2)
 ```
+
+## Wrapping up
+
+The complete code for our `grrs` tool with improved error reporting
+will look like this:
+
+```rust,ignore
+{{#include errors-impl.rs}}
+```
