@@ -6,13 +6,13 @@ and we can start to write our actual tool.
 Our `main` function only contains this line right now:
 
 ```rust,ignore
-{{#include impl-draft.rs:15:15}}
+{{#include impl-draft.rs:13:13}}
 ```
 
 Let’s start by opening the file we got.
 
 ```rust,ignore
-{{#include impl-draft.rs:16:16}}
+{{#include impl-draft.rs:14:14}}
 ```
 
 <aside>
@@ -35,7 +35,7 @@ Now, let’s iterate over the lines
 and print each one that contains our pattern:
 
 ```rust,ignore
-{{#include impl-draft.rs:18:22}}
+{{#include impl-draft.rs:16:20}}
 ```
 
 ## Wrapping up
