@@ -236,8 +236,7 @@ Caused by:
 
 ## Wrapping up
 
-The complete code for our `grrs` tool with improved error reporting
-will look like this:
+Your code should now look like:
 
 ```rust,ignore
 {{#include errors-impl.rs}}
