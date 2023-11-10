@@ -35,10 +35,10 @@ the ones that follow are what the user wrote afterwards.
 [`std::env::args()`]: https://doc.rust-lang.org/1.39.0/std/env/fn.args.html
 [iterator]: https://doc.rust-lang.org/1.39.0/std/iter/index.html
 
-Getting the raw arguments this way is quite easy (in file `src/main.rs`, after `fn main() {`):
+Getting the raw arguments this way is quite easy (in file `src/main.rs`):
 
 ```rust,ignore
-{{#include cli-args-struct.rs:10:11}}
+{{#include cli-args-vars.rs:3:6}}
 ```
 
 ## CLI arguments as data type
@@ -65,7 +65,7 @@ way of looking at CLI arguments fits very well. Let's start with this (in file
 `src/main.rs`, before `fn main() {`):
 
 ```rust,ignore
-{{#include cli-args-struct.rs:3:7}}
+{{#include cli-args-struct.rs:3:6}}
 ```
 
 This defines a new structure (a [`struct`])
@@ -89,7 +89,7 @@ and build the structure ourselves.
 It would look something like this:
 
 ```rust,ignore
-{{#include cli-args-struct.rs:10:15}}
+{{#include cli-args-struct.rs:8:16}}
 ```
 
 This works, but it's not very convenient.

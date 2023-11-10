@@ -5,6 +5,10 @@ authors = ["Pascal Hertleif <killercup@gmail.com>"]
 edition = "2018"
 
 [[bin]]
+name = "cli-args-vars"
+path = "src/tutorial/cli-args-vars.rs"
+
+[[bin]]
 name = "cli-args-struct"
 path = "src/tutorial/cli-args-struct.rs"
 
