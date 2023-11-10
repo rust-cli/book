@@ -276,9 +276,11 @@ and in which format they are expected.</p>
 <a href="https://doc.rust-lang.org/1.39.0/std/env/fn.args.html"><code>std::env::args()</code></a> that gives you an <a href="https://doc.rust-lang.org/1.39.0/std/iter/index.html">iterator</a> of the given arguments.
 The first entry (at index <code>0</code>) will be the name your program was called as (e.g. <code>grrs</code>),
 the ones that follow are what the user wrote afterwards.</p>
-<p>Getting the raw arguments this way is quite easy (in file <code>src/main.rs</code>, after <code>fn main() {</code>):</p>
-<pre><code class="language-rust ignore">let pattern = std::env::args().nth(1).expect(&quot;no pattern given&quot;);
-let path = std::env::args().nth(2).expect(&quot;no path given&quot;);
+<p>Getting the raw arguments this way is quite easy (in file <code>src/main.rs</code>):</p>
+<pre><code class="language-rust ignore">fn main() {
+    let pattern = std::env::args().nth(1).expect(&quot;no pattern given&quot;);
+    let path = std::env::args().nth(2).expect(&quot;no path given&quot;);
+}
 </code></pre>
 <h2 id="cli-arguments-as-data-type"><a class="header" href="#cli-arguments-as-data-type">CLI arguments as data type</a></h2>
 <p>Instead of thinking about them as a bunch of text,
@@ -302,7 +304,6 @@ way of looking at CLI arguments fits very well. Let’s start with this (in file
     pattern: String,
     path: std::path::PathBuf,
 }
-
 </code></pre>
 <p>This defines a new structure (a <a href="https://doc.rust-lang.org/1.39.0/book/ch05-00-structs.html"><code>struct</code></a>)
 that has two fields to store data in: <code>pattern</code>, and <code>path</code>.</p>
@@ -314,12 +315,15 @@ that has two fields to store data in: <code>pattern</code>, and <code>path</code
 One option would be to manually parse the list of strings we get from the operating system
 and build the structure ourselves.
 It would look something like this:</p>
-<pre><code class="language-rust ignore">let pattern = std::env::args().nth(1).expect(&quot;no pattern given&quot;);
-let path = std::env::args().nth(2).expect(&quot;no path given&quot;);
-let args = Cli {
-    pattern: pattern,
-    path: std::path::PathBuf::from(path),
-};
+<pre><code class="language-rust ignore">fn main() {
+    let pattern = std::env::args().nth(1).expect(&quot;no pattern given&quot;);
+    let path = std::env::args().nth(2).expect(&quot;no path given&quot;);
+
+    let args = Cli {
+        pattern: pattern,
+        path: std::path::PathBuf::from(path),
+    };
+}
 </code></pre>
 <p>This works, but it’s not very convenient.
 How would you deal with the requirement to support
