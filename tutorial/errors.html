@@ -334,6 +334,35 @@ fn main() -&gt; Result&lt;()&gt; {
 Caused by:
     No such file or directory (os error 2)
 </code></pre>
+<h2 id="wrapping-up"><a class="header" href="#wrapping-up">Wrapping up</a></h2>
+<p>Your code should now look like:</p>
+<pre><code class="language-rust ignore">use anyhow::{Context, Result};
+use clap::Parser;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(Parser)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    path: std::path::PathBuf,
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+    let args = Cli::parse();
+
+    let content = std::fs::read_to_string(&amp;args.path)
+        .with_context(|| format!(&quot;could not read file `{}`&quot;, args.path.display()))?;
+
+    for line in content.lines() {
+        if line.contains(&amp;args.pattern) {
+            println!(&quot;{}&quot;, line);
+        }
+    }
+
+    Ok(())
+}
+</code></pre>
 
                     </main>
 
