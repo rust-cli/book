@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 struct Cli {
     pattern: String,
     path: std::path::PathBuf,
@@ -13,4 +11,6 @@ fn main() {
         pattern: pattern,
         path: std::path::PathBuf::from(path),
     };
+
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path);
 }
