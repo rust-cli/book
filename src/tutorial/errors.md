@@ -233,3 +233,11 @@ Error: could not read file `test.txt`
 Caused by:
     No such file or directory (os error 2)
 ```
+
+## Wrapping up
+
+Your code should now look like:
+
+```rust,ignore
+{{#include errors-impl.rs}}
+```
