@@ -38,7 +38,17 @@ the ones that follow are what the user wrote afterwards.
 Getting the raw arguments this way is quite easy (in file `src/main.rs`):
 
 ```rust,ignore
-{{#include cli-args-vars.rs:3:6}}
+{{#include cli-args-vars.rs}}
+```
+
+We can run it using `cargo run`,
+passing arguments by writing them after `--`:
+
+```console
+$ cargo run -- some-pattern some-file
+    Finished dev [unoptimized + debuginfo] target(s) in 0.11s
+     Running `target/debug/grrs some-pattern some-file`
+pattern: "some-pattern", path: "some-file"
 ```
 
 ## CLI arguments as data type
@@ -65,7 +75,7 @@ way of looking at CLI arguments fits very well. Let's start with this (in file
 `src/main.rs`, before `fn main() {`):
 
 ```rust,ignore
-{{#include cli-args-struct.rs:3:6}}
+{{#include cli-args-struct.rs:1:4}}
 ```
 
 This defines a new structure (a [`struct`])
@@ -89,7 +99,7 @@ and build the structure ourselves.
 It would look something like this:
 
 ```rust,ignore
-{{#include cli-args-struct.rs:8:16}}
+{{#include cli-args-struct.rs:6:16}}
 ```
 
 This works, but it's not very convenient.
@@ -119,7 +129,7 @@ Let's also write some documentation comments along the way.
 It’ll look like this (in file `src/main.rs`, before `fn main() {`):
 
 ```rust,ignore
-{{#include cli-args-clap.rs:3:12}}
+{{#include cli-args-clap.rs:1:10}}
 ```
 
 <aside class="node">
@@ -135,11 +145,10 @@ see the [clap documentation][`clap`].
 </aside>
 
 Right below the `Cli` struct our template contains its `main` function.
-When the program starts, it will call this function.
-The first line is:
+When the program starts, it will call this function:
 
 ```rust,ignore
-{{#include cli-args-clap.rs:14:16}}
+{{#include cli-args-clap.rs:12:16}}
 ```
 
 This will try to parse the arguments into our `Cli` struct.
@@ -187,22 +196,14 @@ USAGE:
 For more information try --help
 ```
 
-We can pass arguments when using `cargo run` directly by writing them after  `--`:
+Running it passing arguments:
 
 ```console
 $ cargo run -- some-pattern some-file
     Finished dev [unoptimized + debuginfo] target(s) in 0.11s
      Running `target/debug/grrs some-pattern some-file`
+pattern: "some-pattern", path: "some-file"
 ```
 
-As you can see,
-there is no output.
-Which is good:
-That just means there is no error and our program ended.
-
-<aside class="exercise">
-
-**Exercise for the reader:**
-Make this program output its arguments!
-
-</aside>
+The output demonstrates that our program successfully
+parsed the arguments into the `Cli` struct.
