@@ -444,6 +444,8 @@ and we can start to write our actual tool.
 Our <code>main</code> function only contains this line right now:</p>
 <pre><code class="language-rust ignore">    let args = Cli::parse();
 </code></pre>
+<p>(We drop the <code>println</code> statement that we merely put there temporarily
+to demonstrate that our program works as expected.)</p>
 <p>Let’s start by opening the file we got.</p>
 <pre><code class="language-rust ignore">    let content = std::fs::read_to_string(&amp;args.path).expect(&quot;could not read file&quot;);
 </code></pre>
