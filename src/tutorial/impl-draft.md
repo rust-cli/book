@@ -9,6 +9,9 @@ Our `main` function only contains this line right now:
 {{#include impl-draft.rs:13:13}}
 ```
 
+(We drop the `println` statement that we merely put there temporarily
+to demonstrate that our program works as expected.)
+
 Let’s start by opening the file we got.
 
 ```rust,ignore
