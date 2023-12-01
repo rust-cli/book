@@ -74,14 +74,14 @@ members = [
 ]
 
 [dependencies]
-clap = { version = "4.4.7", features = ["derive"] }
+clap = { version = "4.4.10", features = ["derive"] }
 anyhow = "1.0.75"
 indicatif = "0.17.7"
 log = "0.4.20"
 env_logger = "0.10"
 serde_json = "1.0.108"
-serde_derive = "1.0.190"
-serde = "1.0.190"
+serde_derive = "1.0.193"
+serde = "1.0.193"
 ctrlc = "3.4.1"
 crossbeam-channel = "0.5.8"
 signal-hook = "0.3.17"
