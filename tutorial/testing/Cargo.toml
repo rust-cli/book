@@ -10,7 +10,7 @@ name = "grrs"
 path = "src/main.rs"
 
 [dependencies]
-clap = { version = "4.4.7", features = ["derive"] }
+clap = { version = "4.4.10", features = ["derive"] }
 anyhow = "1.0.75"
 
 [dev-dependencies]
