@@ -22,7 +22,7 @@ Let’s start by opening the file we got.
 
 **Note:**
 See that [`.expect`] method here?
-This is a shortcut function to quit that will make the program exit immediately
+This is a shortcut function that will make the program exit immediately
 when the value (in this case the input file)
 could not be read.
 It's not very pretty,
