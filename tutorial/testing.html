@@ -490,8 +490,8 @@ but to a “dev dependencies” section in our <code>Cargo.toml</code>.
 They are only required when developing the crate,
 not when using it.</p>
 <pre><code class="language-toml">[dev-dependencies]
-assert_cmd = &quot;2.0.12&quot;
-predicates = &quot;3.0.4&quot;
+assert_cmd = &quot;2.0.13&quot;
+predicates = &quot;3.1.0&quot;
 </code></pre>
 <p>This sounds like a lot of setup.
 Nevertheless –
@@ -537,7 +537,7 @@ for example, when you are testing programs that change the files.</p>
 <p>To create these temporary files,
 we’ll be using the <a href="https://docs.rs/assert_fs"><code>assert_fs</code></a> crate.
 Let’s add it to the <code>dev-dependencies</code> in our <code>Cargo.toml</code>:</p>
-<pre><code class="language-toml">assert_fs = &quot;1.1.0&quot;
+<pre><code class="language-toml">assert_fs = &quot;1.1.1&quot;
 </code></pre>
 <p>Here is a new test case
 (that you can write below the other one)
