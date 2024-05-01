@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup
-        uses: peaceiris/actions-mdbook@v1
+        uses: peaceiris/actions-mdbook@v2
         with:
           mdbook-version: '0.4.14'
       - name: Build
