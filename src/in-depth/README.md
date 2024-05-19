@@ -1,4 +1,3 @@
-# In-depth topics
+# 深入探究主題
 
-A small collection of chapters covering some more details
-that you might care about when writing your command line application.
+該章節會涵蓋更多較為進階的小細節,但您在編寫命令列應用程式時可能會在乎這一點。

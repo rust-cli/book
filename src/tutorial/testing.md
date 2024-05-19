@@ -1,39 +1,29 @@
-# Testing
+# 測試
 
-Over decades of software development,
-people have discovered one truth:
-Untested software rarely works.
-(Many people would go as far as saying:
-"Most tested software doesn't work either."
-But we are all optimists here, right?)
-So, to ensure that your program does what you expect it to do,
-it is wise to test it.
+經過數十年的軟體開發，人們發現了一個真理：未經測試的軟體很少能運作。
+（很多人甚至會說：“大多數經過測試的軟體也無法運行。”但我們都是樂觀主義者，對吧？）
 
-One easy way to do that is
-to write a `README` file
-that describes what your program should do.
-And when you feel ready to make a new release,
-go through the `README` and ensure that
-the behavior is still as expected.
-You can make this a more rigorous exercise
-by also writing down how your program should react to erroneous inputs.
+因此，為了確保您的程式執行您期望的操作，測試它是明智的。
 
-Here's another fancy idea:
-Write that `README` before you write the code.
+一種簡單的方法是編寫 `README` 文件，它描述了你的程式應該做什麼。
+當您準備好發布新版本時，仔細閱讀 `README` 並確保行為仍然如預期。
+你可以讓它成為一個更嚴格的練習也寫下您的程式應如何對錯誤輸入做出反應。
+
+這是另一個獨特的想法：
+在編寫程式碼之前先寫下 `README`。
 
 <aside>
 
-**Note:**
-Have a look at
-[test-driven development] (TDD)
-if you haven't heard of it.
+**筆記:**
+如果您還沒聽過。
+請看一下[test-driven development] (TDD,測試驅動開發)
 
 [test-driven development]: https://en.wikipedia.org/wiki/Test-driven_development
 
 
 </aside>
 
-## Automated testing
+## 自動化測試
 
 Now, this is all fine and dandy,
 but doing all of this manually?

@@ -1,6 +1,6 @@
 [book]
 #  This book is called
-title = "Command Line Applications in Rust"
+title = "Rust 中的命令列應用程式"
 # ...but friends call it "Clair"
 authors = ["The Rust CLI Working Group"]
 multilingual = false

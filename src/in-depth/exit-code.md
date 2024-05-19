@@ -1,4 +1,4 @@
-# Exit codes
+# 退出狀態碼
 
 A program doesn't always succeed.
 And when an error occurs,
@@ -14,6 +14,14 @@ for your program's state.
 For example,
 in the ideal case when your program succeeds,
 it should exit with `0`.
+
+一個計劃並不總是成功。
+並且當出現錯誤時，您應該確保正確發出必要的資訊。
+另外[告訴使用者錯誤]( human-communication.html),
+在大多數系統上，當進程退出時，它還發出退出代碼（0 到 255 之間的整數與大多數平台相容）。
+您應該嘗試發出正確的程式碼
+對於你的程式的狀態。
+例如，在您的計劃成功的理想情況下，它應該以“0”退出。
 
 When an error occurs, it gets a bit more complicated, though.
 In the wild,

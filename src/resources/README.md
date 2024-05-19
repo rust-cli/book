@@ -1,9 +1,9 @@
-# Resources
+# 相關資源
 
-Collaboration / help
+協作/幫助
 - [cli-and-tui Discord Channel](https://discord.com/channels/273534239310479360/943315667430563862)
 
-## Crates referenced in this book
+## 本書中引用的參考crates
 
 - [anyhow](https://crates.io/crates/anyhow) - provides `anyhow::Error` for easy error handling
 - [assert_cmd](https://crates.io/crates/assert_cmd) - simplifies integration testing of CLIs
@@ -26,10 +26,11 @@ Collaboration / help
 - [tokio](https://crates.io/crates/tokio) - asynchronous runtime
 - [wasm-pack](https://crates.io/crates/wasm-pack) - tool for building WebAssembly
 
-## Other crates
+## 其它 crates
 
-Due to the constantly-changing landscape of Rust crates, a good place to find
-crates is the [lib.rs](https://lib.rs) crate index, including:
+由於 Rust crates 的landscape不斷變化，這是一個尋找的好地方。
+
+crates 是 [lib.rs](https://lib.rs) crate 索引，包括：
 - [Command-line interface](https://lib.rs/command-line-interface)
 - [Configuration](https://lib.rs/config)
 - [Database interfaces](https://lib.rs/database)
@@ -38,6 +39,6 @@ crates is the [lib.rs](https://lib.rs) crate index, including:
 - [HTTP Client](https://lib.rs/web-programming/http-client)
 - [Operating systems](https://lib.rs/os)
 
-Other resources:
+其他資源：
 - [Rust Cookbook](https://rust-lang-nursery.github.io/rust-cookbook/)
 - [rosetta-rs](https://github.com/rosetta-rs)

@@ -1,12 +1,13 @@
-# Rendering documentation for your CLI apps
+# 為你的 CLI 程式產生文檔
 
-Documentation for CLIs usually consists of
-a `--help` section in the command
-and a manual (`man`) page.
+CLI 的文檔通常包括指令中的 `--help` 部分和一個手冊（`man`）頁面。
 
 Both can be automatically generated
 when using [`clap`](https://crates.io/crates/clap), via
 [`clap_mangen`](https://crates.io/crates/clap_mangen) crate.
+
+兩者都可以自動生成
+使用 [`clap`](https://crates.io/crates/clap) 時，透過[`clap_mangen`](https://crates.io/crates/clap_mangen) 箱。
 
 ```rust,ignore
 #[derive(Parser)]
@@ -56,3 +57,4 @@ in your project directory.
 
 If you open that in `man`
 you'll be able to admire your free documentation.
+如果你在 `man` 中打開它，則你可閱讀

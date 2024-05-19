@@ -1,4 +1,4 @@
-# Nicer error reporting
+# 合適的反饋錯誤
 
 We all can do nothing but accept the fact that errors will occur.
 And in contrast to many other languages,
@@ -124,7 +124,7 @@ and it is customary to omit needless `return`s.
 
 </aside>
 
-## Question Mark
+## 問題標記
 
 Just like calling `.unwrap()` is a shortcut
 for the `match` with `panic!` in the error arm,

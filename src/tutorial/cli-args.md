@@ -1,48 +1,39 @@
-# Parsing command-line arguments
+# 解析命令列參數
 
-A typical invocation of our CLI tool will look like this:
+我們的 CLI 工具的呼叫方法應該如下：
 
 ```console
 $ grrs foobar test.txt
 ```
 
-We expect our program to look at `test.txt`
-and print out the lines that contain `foobar`.
-But how do we get these two values?
+我們希望此程式將尋找 `test.txt` 並列印出包含 `foobar` 的行。 
 
-The text after the name of the program is often called
-the "command-line arguments",
-or "command-line flags"
-(especially when they look like `--this`).
-Internally, the operating system usually represents them
-as a list of strings –
-roughly speaking, they get separated by spaces.
+但我們如何取得這兩個值呢？
 
-There are many ways to think about these arguments,
-and how to parse them
-into something more easy to work with.
-You will also need to tell the users of your program
-which arguments they need to give
-and in which format they are expected.
+在命令列中，程式名稱中後面的文字通常被稱為「命令列參數(command-line arguments)」或「命令列標籤(command-line flags)」（尤其是當他們看起來像 `--this`）。 
 
-## Getting the arguments
+作業系統通常會將它們識別為字串列表——簡單的說，以空格分隔。
 
-The standard library contains the function
-[`std::env::args()`] that gives you an [iterator] of the given arguments.
-The first entry (at index `0`) will be the name your program was called as (e.g. `grrs`),
-the ones that follow are what the user wrote afterwards.
+有很多方法可以識別這些參數並解析，使它們變得更易於使用。 
+
+同時也需要告訴用戶， 程式需要哪些參數及對應的格式是什麼。
+
+## 取得參數
+
+標準庫中提供的 [`std::env::args()`] 方法，提供了運行時給定參數的[疊代器(iterator)]。 
+
+首先，第一項（索引 `0` ）是程式名稱（如 : `grrs`），後面部分才是使用者給定的參數。
 
 [`std::env::args()`]: https://doc.rust-lang.org/1.39.0/std/env/fn.args.html
-[iterator]: https://doc.rust-lang.org/1.39.0/std/iter/index.html
+[疊代器(iterator)]: https://doc.rust-lang.org/1.39.0/std/iter/index.html
 
-Getting the raw arguments this way is quite easy (in file `src/main.rs`):
+以此方法取得原始參數就是這麼簡單（在 `src/main.rs` 的 `fn main()` 函數中）：
 
 ```rust,ignore
 {{#include cli-args-vars.rs}}
 ```
 
-We can run it using `cargo run`,
-passing arguments by writing them after `--`:
+我們可以使用 `cargo run` 來運行它，透過在 `--` 之後寫入參數來傳遞參數：
 
 ```console
 $ cargo run -- some-pattern some-file
@@ -51,28 +42,22 @@ $ cargo run -- some-pattern some-file
 pattern: "some-pattern", path: "some-file"
 ```
 
-## CLI arguments as data type
+## CLI 參數的資料類型
 
-Instead of thinking about them as a bunch of text,
-it often pays off to think of CLI arguments as a custom data type
-that represents the inputs to your program.
+與其將它們視為單純的一堆文本，不如將 CLI 參數看成程式輸入的自訂的資料類型。
 
-Look at `grrs foobar test.txt`:
-There are two arguments,
-first the `pattern` (the string to look for),
-and then the `path` (the file to look in).
+注意 `grrs foobar test.txt`:
+這裡有兩個參數，首先是 `pttern`（查看的字串）， 然後才是 `path`（尋找的檔案路徑）。
 
-What more can we say about them?
-Well, for a start, both are required.
-We haven't talked about any default values,
-so we expect our users to always provide two values.
-Furthermore, we can say a bit about their types:
-The pattern is expected to be a string,
-while the second argument is expected to be a path to a file.
+關於他們，我們還能說些什麼呢？
 
-In Rust, it is common to structure programs around the data they handle, so this
-way of looking at CLI arguments fits very well. Let's start with this (in file
-`src/main.rs`, before `fn main() {`):
+首先，這兩個參數都是程式所必須的，因為我們並未提供預設值， 所以使用者需要在使用此程式時提供這兩個參數。 
+
+此外，關於參數的類型：pattern 應該是字串；第二個參數則應是檔案的路徑。
+
+在Rust 中，根據所處理的資料去建立程式是很常見的， 因此這種看待參數的方法對我們接下來的工作很有幫助。
+
+讓我們以此開始（在 `src/main.rs`，`fn main( ) {` 之前 ）：
 
 ```rust,ignore
 {{#include cli-args-struct.rs:1:4}}

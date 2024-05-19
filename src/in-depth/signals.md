@@ -1,4 +1,4 @@
-# Signal handling
+# 訊號處理
 
 Processes
 like command line applications

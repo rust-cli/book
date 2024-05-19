@@ -1,32 +1,35 @@
-# Output
+# 輸出
 
-## Printing "Hello World"
+## 在終端機下輸出 "Hello World"
 
 ```rust
 println!("Hello World");
 ```
 
-Well, that was easy.
-Great, onto the next topic.
+嗯，這很容易。
+太好了，進入下一個主題。
 
-## Using `println!`
+## 使用 `println!`
 
-You can pretty much print all the things you like
-with the `println!` macro.
+您幾乎可以在終端機下使用 `println!` 巨集輸出所有您想輸出的東西。
+
+這個巨集有一些非常驚人的功能，而且還有特殊的語法。
+它希望您編寫一個字串文字作為第一個參數，包含將要填入的佔位符
+再透過後面作為進一步參數的參數值。
 This macro has some pretty amazing capabilities,
 but also a special syntax.
 It expects you to write a string literal as the first parameter,
 that contains placeholders that will be filled in
 by the values of the parameters that follow as further arguments.
 
-For example:
+範例:
 
 ```rust
 let x = 42;
 println!("My lucky number is {}.", x);
 ```
 
-will print
+將會輸出
 
 ```console
 My lucky number is 42.

@@ -1,30 +1,11 @@
-# Command line apps in Rust
+# Rust 中的命令列應用程式
 
-Rust is a statically compiled, fast language with great tooling and a rapidly growing ecosystem.
-That makes it a great fit for writing command line applications:
-They should be small, portable, and quick to run.
-Command line applications are also a great way to get started with learning Rust;
-or to introduce Rust to your team!
+Rust 是一種靜態編譯的、運行速度快的語言，它擁有強大的工具，其生態也在快速發展。 這使得它非常適合編寫命令列應用：小巧、便攜且運行速度快。 而命令列應用也是開始進行 Rust 學習，或向你的團隊介紹 Rust 的一種很好的方式。
 
-Writing a program with a simple command line interface (CLI)
-is a great exercise for a beginner
-who is new to the language and wants to get a feel for it.
-There are many aspects to this topic, though,
-that often only reveal themselves later on.
+編寫一個簡單的命令列介面程式（CLI）對於剛接觸 Rust 且希望對其有所了解的初學者來說，是一個很好的練習。不過，這裡面也包含了許多方面，後面我們會介紹到它們。
 
-This book is structured like this:
-We start with a quick tutorial,
-after which you'll end up with a working CLI tool.
-You'll be exposed to a few of the core concepts of Rust
-as well as the main aspects of CLI applications.
-What follows are chapters that go into more detail
-on some of these aspects.
+本書的大綱如下： 首先我們從一個快速教學開始，完成後你將會得到一個可用的 CLI 工具。 透過此教程， 你將接觸到 RUST 的一些核心概念及 CLI 應用的主要包括了哪些部分功能。 而下面的章節則是介紹這些面向的實作細節。
 
-One last thing before we dive right into CLI applications:
-If you find an error in this book
-or want to help us write more content for it,
-you can find its source [in the CLI book repository][book-src].
-We'd love to hear your feedback!
-Thank you!
+最後，也是非常重要的一件事：如果在本書發現了錯誤，或想貢獻、豐富本書的內容， 項目源碼在這裡 [in the CLI WG repository][book-src] ，期待你的反饋！
 
 [book-src]: https://github.com/rust-cli/book

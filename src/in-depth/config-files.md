@@ -1,12 +1,16 @@
-# Using config files
+# 使用配置檔
 
 Dealing with configurations can be annoying
 especially if you support multiple operating systems
 which all have their own places
 for short- and long-term files.
 
-There are multiple solutions to this,
-some being more low-level than others.
+處理配置可能很煩人
+特別是如果您支援多個作業系統
+都有自己的位置
+適用於短期和長期文件。
+
+對此有許多解決方案，有些比其他的層次更低。
 
 The easiest crate to use for this is [`confy`].
 It asks you for the name of your application
@@ -29,22 +33,22 @@ fn main() -> Result<(), io::Error> {
 }
 ```
 
-This is incredibly easy to use
-for which you of course surrender configurability.
-But if a simple config is all you want,
-this crate might be for you!
+這非常容易使用
+為此，您當然要放棄可設定性。
+但如果你想要一個簡單的配置，
+這個crate可能適合你！
 
 [`confy`]: https://docs.rs/confy/0.3.1/confy/
 
-## Configuration environments
+## 配置環境
 
 <aside class="todo">
 
 **TODO**
 
-1. Evaluate crates that exist
-2. Cli-args + multiple configs + env variables
-3. Can [`configure`] do all this? Is there a nice wrapper around it?
+1. 評估現有的 crate
+2. CLI-args + 多個配置 + 環境變數
+3. [`configure`] 可以完成這一切嗎？ 周圍有漂亮的包裝嗎？
 
 </aside>
 
