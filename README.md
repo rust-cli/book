@@ -39,4 +39,4 @@ Unofficial translation:
 [wg]: https://github.com/rust-cli/meta
 [rust-cli-zh_CN]: https://suibianxiedianer.github.io/rust-cli-book-zh_CN/
 [rust-cli-ko_KR]: https://parksb.github.io/rust-cli-book-ko-kr/
-[rust-cli-zh_TW]:
+[rust-cli-zh_TW]: https://neko0xff.github.io/rust-cli-zh_TW/
