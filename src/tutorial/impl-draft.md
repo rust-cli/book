@@ -1,18 +1,16 @@
-# First implementation of _grrs_
+# _grrs_ 的首次運行
 
-After the last chapter on command line arguments,
-we have our input data,
-and we can start to write our actual tool.
-Our `main` function only contains this line right now:
+在完成命令列參數章節後，我們學到了如何取得輸入參數，和我們可以開始準備實作寫出工具了。 
+
+目前我們的 `main` 函數中僅有一行：
 
 ```rust,ignore
 {{#include impl-draft.rs:13:13}}
 ```
 
-(We drop the `println` statement that we merely put there temporarily
-to demonstrate that our program works as expected.)
+（我們刪除暫時放在那裡的 `println` 語句，得以證明我們的程式如預期般運作。）
 
-Let’s start by opening the file we got.
+讓我們先開啟我們得到的文件。
 
 ```rust,ignore
 {{#include impl-draft.rs:14:14}}
@@ -20,14 +18,11 @@ Let’s start by opening the file we got.
 
 <aside>
 
-**Note:**
-See that [`.expect`] method here?
-This is a shortcut function that will make the program exit immediately
-when the value (in this case the input file)
-could not be read.
-It's not very pretty,
-and in the next chapter on [Nicer error reporting]
-we will look at how to improve this.
+**筆記:**
+看到 [`.expect`] 方法了吧？ 
+這是一個快捷功能，當無法讀取到參數值時 （這裡是指輸入的檔案）會立即退出程式。
+它還並不完美，在下一章節 [合適的反饋錯誤][Nicer error reporting] 中，
+我們將探究如何改進它。
 
 [`.expect`]: https://doc.rust-lang.org/1.39.0/std/result/enum.Result.html#method.expect
 [Nicer error reporting]:./errors.html
@@ -36,30 +31,29 @@ we will look at how to improve this.
 
 Now, let’s iterate over the lines
 and print each one that contains our pattern:
+現在，讓我們迭代一下這些行並輸出包含每一個我們的模式：
 
 ```rust,ignore
 {{#include impl-draft.rs:16:20}}
 ```
 
-## Wrapping up
+## 總結
 
-Your code should now look like:
+你的程式碼現在看起來應該是這樣的：
 
 ```rust,ignore
 {{#include impl-draft.rs}}
 ```
 
-Give it a try: `cargo run -- main src/main.rs` should work now!
+來試試: `cargo run -- main src/main.rs` 是否能運行！
 
 <aside class="exercise">
 
-**Exercise for the reader:**
-This is not the best implementation:
-It will read the whole file into memory
-– however large the file may be.
-Find a way to optimize it!
-(One idea might be to use a [`BufReader`]
-instead of `read_to_string()`.)
+**供讀者練習:**
+這並非最好的實作：
+它將整個檔案讀取到記憶體中了——無論檔案有多大。 
+去尋找最佳化的方法吧！ 
+（一種想法可能是使用 [`BufReader`]而不是 `read_to_string()` 。）
 
 [`BufReader`]: https://doc.rust-lang.org/1.39.0/std/io/struct.BufReader.html
 

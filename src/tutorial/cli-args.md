@@ -12,7 +12,7 @@ $ grrs foobar test.txt
 
 在命令列中，程式名稱中後面的文字通常被稱為「命令列參數(command-line arguments)」或「命令列標籤(command-line flags)」（尤其是當他們看起來像 `--this`）。 
 
-作業系統通常會將它們識別為字串列表——簡單的說，以空格分隔。
+作業系統通常會將它們識別為字串列表 --- 簡單的說，以空格分隔。
 
 有很多方法可以識別這些參數並解析，使它們變得更易於使用。 
 
@@ -44,7 +44,7 @@ pattern: "some-pattern", path: "some-file"
 
 ## CLI 參數的資料類型
 
-與其將它們視為單純的一堆文本，不如將 CLI 參數看成程式輸入的自訂的資料類型。
+與其將它們視為單純的一堆文字，不如將 CLI 參數看成程式輸入的自訂的資料類型。
 
 注意 `grrs foobar test.txt`:
 這裡有兩個參數，首先是 `pttern`（查看的字串）， 然後才是 `path`（尋找的檔案路徑）。
@@ -55,63 +55,60 @@ pattern: "some-pattern", path: "some-file"
 
 此外，關於參數的類型：pattern 應該是字串；第二個參數則應是檔案的路徑。
 
-在Rust 中，根據所處理的資料去建立程式是很常見的， 因此這種看待參數的方法對我們接下來的工作很有幫助。
+在Rust 中，根據所處理的資料而去建立程式是很常見的， 因此這種看待參數的方法對我們接下來的工作很有幫助。
 
-讓我們以此開始（在 `src/main.rs`，`fn main( ) {` 之前 ）：
+讓我們在這開始（在檔案 `src/main.rs`，`fn main( ) {` 之前 ）：
 
 ```rust,ignore
 {{#include cli-args-struct.rs:1:4}}
 ```
 
-This defines a new structure (a [`struct`])
-that has two fields to store data in: `pattern`, and `path`.
+這定義了一個新的結構體（a [`struct`]）
+它有兩個欄位來儲存資料： `patern` 和 `path` 。
 
 [`struct`]: https://doc.rust-lang.org/1.39.0/book/ch05-00-structs.html
 
 <aside>
 
-**Note:**
-[`PathBuf`] is like a [`String`] but for file system paths that work cross-platform.
+**筆記:**
+[`PathBuf`] 是可跨平台使用的系統路徑類型，特性類似 [字串][`String`]。
 
 [`PathBuf`]: https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html
 [`String`]: https://doc.rust-lang.org/1.39.0/std/string/struct.String.html
 
 </aside>
 
-Now, we still need to get the actual arguments our program got into this form.
-One option would be to manually parse the list of strings we get from the operating system
-and build the structure ourselves.
-It would look something like this:
+現在，我們仍然需要取得我們的程式進入這種形式的實際參數。
+
+有一種做法就是我們可以手動解析從作業系統上取得的參數列表並以此產生一個結構體。
+
+就有點像是這樣：
 
 ```rust,ignore
 {{#include cli-args-struct.rs:6:16}}
 ```
 
-This works, but it's not very convenient.
-How would you deal with the requirement to support
-`--pattern="foo"` or `--pattern "foo"`?
-How would you implement `--help`?
+這種方式能正常運作，但用起來卻不是很方便。 
+如何去支援像 `--pattern="foo"` 或 `--pattern "foo"` 這種參數輸入？ 
+又如何去實現 `--help`？
 
-## Parsing CLI arguments with Clap
+## 使用 Clap 解析 CLI 參數
 
-A much nicer way is to use one of the many available libraries.
-The most popular library for parsing command-line arguments
-is called [`clap`].
-It has all the functionality you'd expect,
-including support for sub-commands, [shell completions], and great help messages.
+使用現成的函式庫來實現參數的解析，這是更明智的選擇。 
+[`clap`] 是目前最受歡迎的解析命令列參數的函式庫。 
+它提供了所有你需要的功能， 如子指令、[自動補全][shell completions] 和完善的幫助資訊。
 
 [`clap`]: https://docs.rs/clap/
 [shell completions]: https://docs.rs/clap_complete/
 
-Let's first import `clap` by adding
-`clap = { version = "4.0", features = ["derive"] }` to the `[dependencies]` section
-of our `Cargo.toml` file.
+首先，我們需要在 `Cargo.toml` 檔案的 `[dependencies]` 欄位裡加入上 `clap = { version = "4.0", features = ["derive"] }` 來匯入 `clap`。
 
-Now, we can write `use clap::Parser;` in our code,
-and add `#[derive(Parser)]` right above our `struct Cli`.
-Let's also write some documentation comments along the way.
+現在，我們可以在程式碼中加入`use clap::Parser;`,
+和在先前建立的 `struct Cli` 的正上方加上 `#[derive(Parser)]`。
 
-It’ll look like this (in file `src/main.rs`, before `fn main() {`):
+我們也可以在過程中編寫一些文件註解。
+
+讓我們在這開始（在檔案 `src/main.rs`，`fn main( ) {` 之前 ）：
 
 ```rust,ignore
 {{#include cli-args-clap.rs:1:10}}
@@ -119,53 +116,46 @@ It’ll look like this (in file `src/main.rs`, before `fn main() {`):
 
 <aside class="node">
 
-**Note:**
-There are a lot of custom attributes you can add to fields.
-For example,
-to say you want to use this field for the argument after `-o` or `--output`,
-you'd add `#[arg(short = 'o', long = "output")]`.
-For more information,
-see the [clap documentation][`clap`].
+**筆記:**
+你可以將許多自訂屬性加入到欄位中。 
+例如，
+如果你想將 `-o` 或 `--output` 後的參數解析為某個字段，可在字段上方添加上 `#[structopt(short = "o", long = "output")]`。 
+如需更多屬性設置，請查看 [clap documentation][`clap`]。
 
 </aside>
 
-Right below the `Cli` struct our template contains its `main` function.
-When the program starts, it will call this function:
+在本範例中，我們的 `Cli` 結構體下方即是 main 函數。 
+當開始執行程式時，就會呼叫這個函數：
 
 ```rust,ignore
 {{#include cli-args-clap.rs:12:16}}
 ```
 
-This will try to parse the arguments into our `Cli` struct.
+這將嘗試解析參數並儲存到 `Cli` 結構體中。
 
-But what if that fails?
-That's the beauty of this approach:
-Clap knows which fields to expect,
-and what their expected format is.
-It can automatically generate a nice `--help` message,
-as well as give some great errors
-to suggest you pass `--output` when you wrote `--putput`.
+但如果解析失敗會怎樣？ 
+這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的類型。 
+它可以自動產生一個不錯的 `--help` 訊息， 並會依錯誤給予一些建議－輸入的參數應該是 `--output` 而你輸入的是 `--putput`。
 
 <aside class="note">
 
-**Note:**
-The `parse` method is meant to be used in your `main` function.
-When it fails,
-it will print out an error or help message
-and immediately exit the program.
-Don't use it in other places!
+**筆記:**
+`parse` 方法應該在 `main` 函數中使用。
+當它失敗時，
+它將輸出錯誤或幫助訊息並立即退出該程式。
+請勿在其他地方使用！
 
 </aside>
 
-## Wrapping up
+## 總結
 
-Your code should now look like:
+你的程式碼現在看起來應該是這樣的：
 
 ```rust,ignore
 {{#include cli-args-clap.rs}}
 ```
 
-Running it without any arguments:
+在無指定參數運作時：
 
 ```console
 $ cargo run
@@ -181,7 +171,7 @@ USAGE:
 For more information try --help
 ```
 
-Running it passing arguments:
+如果使用傳遞參數:
 
 ```console
 $ cargo run -- some-pattern some-file
@@ -190,5 +180,4 @@ $ cargo run -- some-pattern some-file
 pattern: "some-pattern", path: "some-file"
 ```
 
-The output demonstrates that our program successfully
-parsed the arguments into the `Cli` struct.
+該輸出表示我們的程式成功將參數解析為 `Cli` 結構。
