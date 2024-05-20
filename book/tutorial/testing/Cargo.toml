@@ -1,0 +1,19 @@
+[package]
+name = "CLAiR-testing"
+version = "0.1.0"
+authors = ["Pascal Hertleif <killercup@gmail.com>"]
+edition = "2018"
+
+# Make tests work with the name used in the tutorial
+[[bin]]
+name = "grrs"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4.5.4", features = ["derive"] }
+anyhow = "1.0.82"
+
+[dev-dependencies]
+assert_cmd = "2.0.14"
+predicates = "3.1.0"
+assert_fs = "1.1.1"

@@ -1,0 +1,386 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>訊號處理 - Rust 中的命令列應用程式</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../src/special-content.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">開始</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> 合適的反饋錯誤</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html" class="active"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文檔</a></li></ol></li><li class="chapter-item expanded "><a href="../resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 中的命令列應用程式</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-cli/book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="訊號處理"><a class="header" href="#訊號處理">訊號處理</a></h1>
+<p>Processes
+like command line applications
+need to react to signals sent by the operating system.
+The most common example is probably <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+the signal that typically tells a process to terminate.
+To handle signals in Rust programs
+you need to consider how you can receive these signals
+as well as how you can react to them.</p>
+<aside>
+<p><strong>Note:</strong>
+If your applications does not need to gracefully shutdown,
+the default handling is fine
+(i.e. exit immediately
+and let the OS cleanup resources like open file handles).
+In that case:
+No need to do what this chapter tells you!</p>
+<p>However,
+for applications that need to clean up after themselves,
+this chapter is very relevant!
+For example,
+if your application needs to
+properly close network connections
+(saying “good bye” to the processes at the other end),
+remove temporary files,
+or reset system settings,
+read on.</p>
+</aside>
+<h2 id="differences-between-operating-systems"><a class="header" href="#differences-between-operating-systems">Differences between operating systems</a></h2>
+<p>On Unix systems
+(like Linux, macOS, and FreeBSD)
+a process can receive <a href="https://manpages.ubuntu.com/manpages/bionic/en/man7/signal.7.html">signals</a>.
+It can either react to them
+in a default (OS-provided) way,
+catch the signal and handle them in a program-defined way,
+or ignore the signal entirely.</p>
+<p>Windows does not have signals.
+You can use <a href="https://docs.microsoft.com/en-us/windows/console/console-control-handlers">Console Handlers</a>
+to define callbacks that get executed when an event occurs.
+There is also <a href="https://docs.microsoft.com/en-us/windows/desktop/debug/structured-exception-handling">structured exception handling</a>
+which handles all the various types of system exceptions such as division by zero, invalid access exceptions, stack overflow, and so on</p>
+<h2 id="first-off-handling-ctrlc"><a class="header" href="#first-off-handling-ctrlc">First off: Handling Ctrl+C</a></h2>
+<p>The <a href="https://crates.io/crates/ctrlc">ctrlc</a> crate does just what the name suggests:
+It allows you to react to the user pressing <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+in a cross-platform way.
+The main way to use the crate is this:</p>
+<pre><code class="language-rust ignore">use std::{thread, time::Duration};
+
+fn main() {
+    ctrlc::set_handler(move || {
+        println!("received Ctrl+C!");
+    })
+    .expect("Error setting Ctrl-C handler");
+
+    // Following code does the actual work, and can be interrupted by pressing
+    // Ctrl-C. As an example: Let's wait a few seconds.
+    thread::sleep(Duration::from_secs(2));
+}</code></pre>
+<p>This is, of course, not that helpful:
+It only prints a message but otherwise doesn’t stop the program.</p>
+<p>In a real-world program,
+it’s a good idea to instead set a variable in the signal handler
+that you then check in various places in your program.
+For example,
+you can set an <code>Arc&lt;AtomicBool&gt;</code>
+(a boolean shareable between threads)
+in your signal handler,
+and in hot loops,
+or when waiting for a thread,
+you periodically check its value
+and break when it becomes true.</p>
+<h2 id="handling-other-types-of-signals"><a class="header" href="#handling-other-types-of-signals">Handling other types of signals</a></h2>
+<p>The <a href="https://crates.io/crates/ctrlc">ctrlc</a> crate only handles <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+or, what on Unix systems would be called <code>SIGINT</code> (the “interrupt” signal).
+To react to more Unix signals,
+you should have a look at <a href="https://crates.io/crates/signal-hook">signal-hook</a>.
+Its design is described in <a href="https://vorner.github.io/2018/06/28/signal-hook.html">this blog post</a>,
+and it is currently the library with the widest community support.</p>
+<p>Here’s a simple example:</p>
+<pre><code class="language-rust ignore">use signal_hook::{consts::SIGINT, iterator::Signals};
+use std::{error::Error, thread, time::Duration};
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    let mut signals = Signals::new(&amp;[SIGINT])?;
+
+    thread::spawn(move || {
+        for sig in signals.forever() {
+            println!("Received signal {:?}", sig);
+        }
+    });
+
+    // Following code does the actual work, and can be interrupted by pressing
+    // Ctrl-C. As an example: Let's wait a few seconds.
+    thread::sleep(Duration::from_secs(2));
+
+    Ok(())
+}</code></pre>
+<h2 id="using-channels"><a class="header" href="#using-channels">Using channels</a></h2>
+<p>Instead of setting a variable
+and having other parts of the program check it,
+you can use channels:
+You create a channel into which the signal handler emits a value
+whenever the signal is received.
+In your application code you use
+this and other channels
+as synchronization points between threads.
+Using <a href="https://crates.io/crates/crossbeam-channel">crossbeam-channel</a> it would look something like this:</p>
+<pre><code class="language-rust ignore">use std::time::Duration;
+use crossbeam_channel::{bounded, tick, Receiver, select};
+use anyhow::Result;
+
+fn ctrl_channel() -&gt; Result&lt;Receiver&lt;()&gt;, ctrlc::Error&gt; {
+    let (sender, receiver) = bounded(100);
+    ctrlc::set_handler(move || {
+        let _ = sender.send(());
+    })?;
+
+    Ok(receiver)
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+    let ctrl_c_events = ctrl_channel()?;
+    let ticks = tick(Duration::from_secs(1));
+
+    loop {
+        select! {
+            recv(ticks) -&gt; _ =&gt; {
+                println!("working!");
+            }
+            recv(ctrl_c_events) -&gt; _ =&gt; {
+                println!();
+                println!("Goodbye!");
+                break;
+            }
+        }
+    }
+
+    Ok(())
+}</code></pre>
+<h2 id="using-futures-and-streams"><a class="header" href="#using-futures-and-streams">Using futures and streams</a></h2>
+<p>If you are using <a href="https://tokio.rs/">tokio</a>,
+you are most likely already writing your application
+with asynchronous patterns and an event-driven design.
+Instead of using crossbeam’s channels directly,
+you can enable signal-hook’s <code>tokio-support</code> feature.
+This allows you to call <a href="https://docs.rs/signal-hook/0.1.6/signal_hook/iterator/struct.Signals.html#method.into_async"><code>.into_async()</code></a>
+on signal-hook’s <code>Signals</code> types
+to get a new type that implements <code>futures::Stream</code>.</p>
+<h2 id="what-to-do-when-you-receive-another-ctrlc-while-youre-handling-the-first-ctrlc"><a class="header" href="#what-to-do-when-you-receive-another-ctrlc-while-youre-handling-the-first-ctrlc">What to do when you receive another Ctrl+C while you’re handling the first Ctrl+C</a></h2>
+<p>Most users will press <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+and then give your program a few seconds to exit,
+or tell them what’s going on.
+If that doesn’t happen,
+they will press <kbd>Ctrl</kbd>+<kbd>C</kbd> again.
+The typical behavior is to have the application quit immediately.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../in-depth/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../in-depth/config-files.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../in-depth/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../in-depth/config-files.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

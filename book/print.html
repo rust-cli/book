@@ -1,0 +1,2371 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Rust 中的命令列應用程式</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/special-content.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">開始</a></li><li class="chapter-item expanded "><a href="tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> 合適的反饋錯誤</a></li><li class="chapter-item expanded "><a href="tutorial/output.html"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文檔</a></li></ol></li><li class="chapter-item expanded "><a href="resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 中的命令列應用程式</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-cli/book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="rust-中的命令列應用程式"><a class="header" href="#rust-中的命令列應用程式">Rust 中的命令列應用程式</a></h1>
+<p>Rust 是一種靜態編譯的、運行速度快的語言，它擁有強大的工具，其生態也在快速發展。 這使得它非常適合編寫命令列應用：小巧、便攜且運行速度快。 而命令列應用也是開始進行 Rust 學習，或向你的團隊介紹 Rust 的一種很好的方式。</p>
+<p>編寫一個簡單的命令列介面程式（CLI）對於剛接觸 Rust 且希望對其有所了解的初學者來說，是一個很好的練習。不過，這裡面也包含了許多方面，後面我們會介紹到它們。</p>
+<p>本書的大綱如下： 首先我們從一個快速教學開始，完成後你將會得到一個可用的 CLI 工具。 透過此教程， 你將接觸到 RUST 的一些核心概念及 CLI 應用的主要包括了哪些部分功能。 而下面的章節則是介紹這些面向的實作細節。</p>
+<p>最後，也是非常重要的一件事：如果在本書發現了錯誤，或想貢獻、豐富本書的內容， 項目源碼在這裡 <a href="https://github.com/rust-cli/book">in the CLI WG repository</a> ，期待你的反饋！</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="在15分鐘內建立一個命令列應用程式"><a class="header" href="#在15分鐘內建立一個命令列應用程式">在15分鐘內建立一個命令列應用程式</a></h1>
+<p>本教學將指導您建立CLI（命令列介面）應用程式</p>
+<p>在<a href="https://rust-lang.org/">Rust</a>中，只需大約需要十五分鐘，就能得到可以運行的程式（大約第 1.3 節以後）。</p>
+<p>之後，我們只需持續調整我們的程式，直到它可以被當作一個工具來打包發布。</p>
+<p>你將學到如何開始所需的所有基本知識，以及如何去尋找更多有用資訊。
+當然，你可隨意跳過目前不需要了解的章節，或之後再翻回查看。</p>
+<aside>
+<p><strong>先決條件:</strong>
+本教學並不能取代程式設計的一般性介紹，你最好了解、熟悉一些常見的概念。
+同樣，你應該能熟練的使用命令列或終端。如果你會使用其它的語言，那麼這對於你接觸和學習 Rust 會是極大幫助。</p>
+<p><strong>尋求協助:</strong>
+如果你在任何時候對所使用的功能感到不解或困惑，請查閱 Rust 提供的官方文檔，首先是這本《The Rust Programming Language》。
+一般安裝 Rust 時也會安裝它 （<code>rustup doc</code>），或者你也可以在線查看 <a href="https://doc.rust-lang.org">doc.rust-lang.org</a>。
+也非常歡迎你來社區提問——Rust 社區以友好和樂於助人著稱。 在 <a href="https://www.rust-lang.org/community">社群頁面</a> 上你可以看到人們關於 Rust 的討論的清單。 You are also very welcome to ask questions –</p>
+</aside>
+<p>你想要寫一個什麼樣的專案呢？</p>
+<p>不如我們先從一個簡單的開始：讓我們寫一個簡單的 <code>grep</code>。</p>
+<p>我們給這個工具一個字串和一個檔案路徑，它將列印出每個包含所查字串的行。 不如就叫它 <code>grrs</code> 吧（發音“grass”）。</p>
+<p>最後，我們想讓它像這樣運行：</p>
+<pre><code class="language-console">$ cat test.txt
+foo: 10
+bar: 20
+baz: 30
+$ grrs foo test.txt
+foo: 10
+$ grrs --help
+[some help text explaining the available options]
+</code></pre>
+<aside class="note">
+<p><strong>筆記:</strong></p>
+<p>本書是使用 <a href="https://doc.rust-lang.org/edition-guide/index.html">Rust 2018</a> 所寫的。
+同時，這些程式碼範例同樣適用於 Rust 2015， 只需做一點點調整，例如新增 <code>extern crate foo;</code>。</p>
+<p>確保你執行的是 Rust 1.31.0（或更高版本），同時在你的 <code>Cargo.toml</code> 檔案中， 在 <code>[package]</code> 段落加上 <code>edition = "2018"</code>。</p>
+</aside>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="專案初始化設置"><a class="header" href="#專案初始化設置">專案初始化設置</a></h1>
+<p>如果你還沒有在你的電腦上<a href="https://www.rust-lang.org/tools/install">安裝 Rust</a>（應該只需要幾分鐘就能完成）。</p>
+<p>然後，請打開終端機並切換到你的工作目錄，程式原始碼將會放置在這裡。</p>
+<p>請開始在你想建立專案的目錄下執行<code>cargo new grrs</code>。</p>
+<p>如果你查看新建立的 <code>grrs</code> 目錄，你會發現 Rust 專案的預設設定：</p>
+<ul>
+<li><code>Cargo.toml</code> 裡包含了我們專案所有的中繼資料，包括我們使用依賴/外部函式庫列表。</li>
+<li><code>src/main.rs</code>  是我們程式的二進制入口檔案（主程式）。</li>
+</ul>
+<p>如果可以在<code>grrs</code>目錄下執行<code>cargo run</code>並得到一個“Hello World”，那你就已經準備好了。</p>
+<h2 id="它可能會是什麼樣子"><a class="header" href="#它可能會是什麼樣子">它可能會是什麼樣子</a></h2>
+<pre><code class="language-console">$ cargo new grrs
+     Created binary (application) `grrs` package
+$ cd grrs/
+$ cargo run
+   Compiling grrs v0.1.0 (/Users/pascal/code/grrs)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.70s
+     Running `target/debug/grrs`
+Hello, world!
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="解析命令列參數"><a class="header" href="#解析命令列參數">解析命令列參數</a></h1>
+<p>我們的 CLI 工具的呼叫方法應該如下：</p>
+<pre><code class="language-console">$ grrs foobar test.txt
+</code></pre>
+<p>我們希望此程式將尋找 <code>test.txt</code> 並列印出包含 <code>foobar</code> 的行。</p>
+<p>但我們如何取得這兩個值呢？</p>
+<p>在命令列中，程式名稱中後面的文字通常被稱為「命令列參數(command-line arguments)」或「命令列標籤(command-line flags)」（尤其是當他們看起來像 <code>--this</code>）。</p>
+<p>作業系統通常會將它們識別為字串列表 — 簡單的說，以空格分隔。</p>
+<p>有很多方法可以識別這些參數並解析，使它們變得更易於使用。</p>
+<p>同時也需要告訴用戶， 程式需要哪些參數及對應的格式是什麼。</p>
+<h2 id="取得參數"><a class="header" href="#取得參數">取得參數</a></h2>
+<p>標準庫中提供的 <a href="https://doc.rust-lang.org/1.39.0/std/env/fn.args.html"><code>std::env::args()</code></a> 方法，提供了運行時給定參數的<a href="https://doc.rust-lang.org/1.39.0/std/iter/index.html">疊代器(iterator)</a>。</p>
+<p>首先，第一項（索引 <code>0</code> ）是程式名稱（如 : <code>grrs</code>），後面部分才是使用者給定的參數。</p>
+<p>以此方法取得原始參數就是這麼簡單（在 <code>src/main.rs</code> 的 <code>fn main()</code> 函數中）：</p>
+<pre><code class="language-rust ignore">fn main() {
+    let pattern = std::env::args().nth(1).expect("no pattern given");
+    let path = std::env::args().nth(2).expect("no path given");
+
+    println!("pattern: {:?}, path: {:?}", pattern, path)
+}</code></pre>
+<p>我們可以使用 <code>cargo run</code> 來運行它，透過在 <code>--</code> 之後寫入參數來傳遞參數：</p>
+<pre><code class="language-console">$ cargo run -- some-pattern some-file
+    Finished dev [unoptimized + debuginfo] target(s) in 0.11s
+     Running `target/debug/grrs some-pattern some-file`
+pattern: "some-pattern", path: "some-file"
+</code></pre>
+<h2 id="cli-參數的資料類型"><a class="header" href="#cli-參數的資料類型">CLI 參數的資料類型</a></h2>
+<p>與其將它們視為單純的一堆文字，不如將 CLI 參數看成程式輸入的自訂的資料類型。</p>
+<p>注意 <code>grrs foobar test.txt</code>:
+這裡有兩個參數，首先是 <code>pttern</code>（查看的字串）， 然後才是 <code>path</code>（尋找的檔案路徑）。</p>
+<p>關於他們，我們還能說些什麼呢？</p>
+<p>首先，這兩個參數都是程式所必須的，因為我們並未提供預設值， 所以使用者需要在使用此程式時提供這兩個參數。</p>
+<p>此外，關於參數的類型：pattern 應該是字串；第二個參數則應是檔案的路徑。</p>
+<p>在Rust 中，根據所處理的資料而去建立程式是很常見的， 因此這種看待參數的方法對我們接下來的工作很有幫助。</p>
+<p>讓我們在這開始（在檔案 <code>src/main.rs</code>，<code>fn main( ) {</code> 之前 ）：</p>
+<pre><code class="language-rust ignore">struct Cli {
+    pattern: String,
+    path: std::path::PathBuf,
+}</code></pre>
+<p>這定義了一個新的結構體（a <a href="https://doc.rust-lang.org/1.39.0/book/ch05-00-structs.html"><code>struct</code></a>）
+它有兩個欄位來儲存資料： <code>patern</code> 和 <code>path</code> 。</p>
+<aside>
+<p><strong>筆記:</strong>
+<a href="https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html"><code>PathBuf</code></a> 是可跨平台使用的系統路徑類型，特性類似 <a href="https://doc.rust-lang.org/1.39.0/std/string/struct.String.html">字串</a>。</p>
+</aside>
+<p>現在，我們仍然需要取得我們的程式進入這種形式的實際參數。</p>
+<p>有一種做法就是我們可以手動解析從作業系統上取得的參數列表並以此產生一個結構體。</p>
+<p>就有點像是這樣：</p>
+<pre><code class="language-rust ignore">fn main() {
+    let pattern = std::env::args().nth(1).expect("no pattern given");
+    let path = std::env::args().nth(2).expect("no path given");
+
+    let args = Cli {
+        pattern: pattern,
+        path: std::path::PathBuf::from(path),
+    };
+
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path);
+}</code></pre>
+<p>這種方式能正常運作，但用起來卻不是很方便。
+如何去支援像 <code>--pattern="foo"</code> 或 <code>--pattern "foo"</code> 這種參數輸入？
+又如何去實現 <code>--help</code>？</p>
+<h2 id="使用-clap-解析-cli-參數"><a class="header" href="#使用-clap-解析-cli-參數">使用 Clap 解析 CLI 參數</a></h2>
+<p>使用現成的函式庫來實現參數的解析，這是更明智的選擇。
+<a href="https://docs.rs/clap/"><code>clap</code></a> 是目前最受歡迎的解析命令列參數的函式庫。
+它提供了所有你需要的功能， 如子指令、<a href="https://docs.rs/clap_complete/">自動補全</a> 和完善的幫助資訊。</p>
+<p>首先，我們需要在 <code>Cargo.toml</code> 檔案的 <code>[dependencies]</code> 欄位裡加入上 <code>clap = { version = "4.0", features = ["derive"] }</code> 來匯入 <code>clap</code>。</p>
+<p>現在，我們可以在程式碼中加入<code>use clap::Parser;</code>,
+和在先前建立的 <code>struct Cli</code> 的正上方加上 <code>#[derive(Parser)]</code>。</p>
+<p>我們也可以在過程中編寫一些文件註解。</p>
+<p>讓我們在這開始（在檔案 <code>src/main.rs</code>，<code>fn main( ) {</code> 之前 ）：</p>
+<pre><code class="language-rust ignore">use clap::Parser;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(Parser)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    path: std::path::PathBuf,
+}</code></pre>
+<aside class="node">
+<p><strong>筆記:</strong>
+你可以將許多自訂屬性加入到欄位中。
+例如，
+如果你想將 <code>-o</code> 或 <code>--output</code> 後的參數解析為某個字段，可在字段上方添加上 <code>#[structopt(short = "o", long = "output")]</code>。
+如需更多屬性設置，請查看 <a href="https://docs.rs/clap/">clap documentation</a>。</p>
+</aside>
+<p>在本範例中，我們的 <code>Cli</code> 結構體下方即是 main 函數。
+當開始執行程式時，就會呼叫這個函數：</p>
+<pre><code class="language-rust ignore">fn main() {
+    let args = Cli::parse();
+
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path)
+}</code></pre>
+<p>這將嘗試解析參數並儲存到 <code>Cli</code> 結構體中。</p>
+<p>但如果解析失敗會怎樣？
+這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的類型。
+它可以自動產生一個不錯的 <code>--help</code> 訊息， 並會依錯誤給予一些建議－輸入的參數應該是 <code>--output</code> 而你輸入的是 <code>--putput</code>。</p>
+<aside class="note">
+<p><strong>筆記:</strong>
+<code>parse</code> 方法應該在 <code>main</code> 函數中使用。
+當它失敗時，
+它將輸出錯誤或幫助訊息並立即退出該程式。
+請勿在其他地方使用！</p>
+</aside>
+<h2 id="總結"><a class="header" href="#總結">總結</a></h2>
+<p>你的程式碼現在看起來應該是這樣的：</p>
+<pre><code class="language-rust ignore">use clap::Parser;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(Parser)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    path: std::path::PathBuf,
+}
+
+fn main() {
+    let args = Cli::parse();
+
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path)
+}</code></pre>
+<p>在無指定參數運作時：</p>
+<pre><code class="language-console">$ cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 10.16s
+     Running `target/debug/grrs`
+error: The following required arguments were not provided:
+    &lt;pattern&gt;
+    &lt;path&gt;
+
+USAGE:
+    grrs &lt;pattern&gt; &lt;path&gt;
+
+For more information try --help
+</code></pre>
+<p>如果使用傳遞參數:</p>
+<pre><code class="language-console">$ cargo run -- some-pattern some-file
+    Finished dev [unoptimized + debuginfo] target(s) in 0.11s
+     Running `target/debug/grrs some-pattern some-file`
+pattern: "some-pattern", path: "some-file"
+</code></pre>
+<p>該輸出表示我們的程式成功將參數解析為 <code>Cli</code> 結構。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="grrs-的首次運行"><a class="header" href="#grrs-的首次運行"><em>grrs</em> 的首次運行</a></h1>
+<p>在完成命令列參數章節後，我們學到了如何取得輸入參數，和我們可以開始準備實作寫出工具了。</p>
+<p>目前我們的 <code>main</code> 函數中僅有一行：</p>
+<pre><code class="language-rust ignore">    let args = Cli::parse();</code></pre>
+<p>（我們刪除暫時放在那裡的 <code>println</code> 語句，得以證明我們的程式如預期般運作。）</p>
+<p>讓我們先開啟我們得到的文件。</p>
+<pre><code class="language-rust ignore">    let content = std::fs::read_to_string(&amp;args.path).expect("could not read file");</code></pre>
+<aside>
+<p><strong>筆記:</strong>
+看到 <a href="https://doc.rust-lang.org/1.39.0/std/result/enum.Result.html#method.expect"><code>.expect</code></a> 方法了吧？
+這是一個快捷功能，當無法讀取到參數值時 （這裡是指輸入的檔案）會立即退出程式。
+它還並不完美，在下一章節 <a href="tutorial/./errors.html">合適的反饋錯誤</a> 中，
+我們將探究如何改進它。</p>
+</aside>
+<p>Now, let’s iterate over the lines
+and print each one that contains our pattern:
+現在，讓我們迭代一下這些行並輸出包含每一個我們的模式：</p>
+<pre><code class="language-rust ignore">    for line in content.lines() {
+        if line.contains(&amp;args.pattern) {
+            println!("{}", line);
+        }
+    }</code></pre>
+<h2 id="總結-1"><a class="header" href="#總結-1">總結</a></h2>
+<p>你的程式碼現在看起來應該是這樣的：</p>
+<pre><code class="language-rust ignore">use clap::Parser;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(Parser)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    path: std::path::PathBuf,
+}
+
+fn main() {
+    let args = Cli::parse();
+    let content = std::fs::read_to_string(&amp;args.path).expect("could not read file");
+
+    for line in content.lines() {
+        if line.contains(&amp;args.pattern) {
+            println!("{}", line);
+        }
+    }
+}</code></pre>
+<p>來試試: <code>cargo run -- main src/main.rs</code> 是否能運行！</p>
+<aside class="exercise">
+<p><strong>供讀者練習:</strong>
+這並非最好的實作：
+它將整個檔案讀取到記憶體中了——無論檔案有多大。
+去尋找最佳化的方法吧！
+（一種想法可能是使用 <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufReader.html"><code>BufReader</code></a>而不是 <code>read_to_string()</code> 。）</p>
+</aside>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="合適的反饋錯誤"><a class="header" href="#合適的反饋錯誤">合適的反饋錯誤</a></h1>
+<p>我們都無能為力，只能接受錯誤會發生的事實。</p>
+<p>與許多其他語言相比，很難不去注意和應對這個現實
+使用 Rust 時：
+既然沒有例外，所有可能的錯誤狀態通常都編碼在函數的傳回類型中。</p>
+<h2 id="結果"><a class="header" href="#結果">結果</a></h2>
+<p>像 <a href="https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html"><code>read_to_string</code></a> 這樣的函數不回傳字串。
+相反的，它會傳回一個 <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a>，裡面包含一個“字串”或某種其它類型的錯誤
+（在本例中為<a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>）。</p>
+<p>那麼如何得知是哪一種類型呢？</p>
+<p>因為 <code>Result</code> 也是 <code>enum</code> 類型，
+可以使用 <code>match</code> 去檢查裡面是哪一種變體：</p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let result = std::fs::read_to_string("test.txt");
+match result {
+    Ok(content) =&gt; { println!("File content: {}", content); }
+    Err(error) =&gt; { println!("Oh noes: {}", error); }
+}
+<span class="boring">}</span></code></pre></pre>
+<aside>
+<p><strong>筆記:</strong>
+不確定枚舉(<code>enums</code>)是什麼或它們在 Rust 中如何工作？
+<a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">查看 Rust 書的這一章</a>
+好以跟上進度。</p>
+</aside>
+<h2 id="展開"><a class="header" href="#展開">展開</a></h2>
+<p>現在，我們可以存取文件的內容，但在 <code>match</code> 程式碼區塊後無法對它做任何事情。</p>
+<p>因此，我們需要以某種方式處理錯誤的情況。
+因難點在於， <code>match</code> 程式碼區塊的所有分支都會回傳一個相同的型別。</p>
+<p>但有一個巧妙的技巧來解決這個問題：</p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let result = std::fs::read_to_string("test.txt");
+let content = match result {
+    Ok(content) =&gt; { content },
+    Err(error) =&gt; { panic!("Can't deal with {}, just exit here", error); }
+};
+println!("file content: {}", content);
+<span class="boring">}</span></code></pre></pre>
+<p>我們可以在 <code>match</code> 程式碼區塊後使用 <code>content</code>。
+如果 <code>result</code> 是個錯誤， 字串就不存在。
+但好家在，程式會在我們使用 <code>content</code> 之前就會自行退出了。</p>
+<p>這種做法看起來有些極端，卻是十分實用的。
+如果你的程式需要讀取一個文件， 並且在文件不存在時無法執行任何操作，那麼退出是十分合理、有效的選擇。
+在 <code>Result</code> 中還有一個快捷方法，叫做 <code>unwrap</code>：</p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let content = std::fs::read_to_string("test.txt").unwrap();
+<span class="boring">}</span></code></pre></pre>
+<h2 id="無須-panic"><a class="header" href="#無須-panic">無須 panic</a></h2>
+<p>當然，退出程式並非處理錯誤的唯一辦法。</p>
+<p>除 <code>panic!</code>之外，實作 <code>return</code> 也很簡單：</p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+</span>let result = std::fs::read_to_string("test.txt");
+let content = match result {
+    Ok(content) =&gt; { content },
+    Err(error) =&gt; { return Err(error.into()); }
+};
+<span class="boring">Ok(())
+</span><span class="boring">}</span></code></pre></pre>
+<p>然而，這改變了我們函數的回傳值類型。
+實際上，一直以來我們的範例都隱藏了一些東西： 函數的簽名（或說回傳值型別）。
+在最後的含有 <code>return</code> 的範例中，它變得很重要了。
+下面是 <em>完整</em> 的範例：</p>
+<pre><pre class="playground"><code class="language-rust no_run">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let result = std::fs::read_to_string("test.txt");
+    let content = match result {
+        Ok(content) =&gt; { content },
+        Err(error) =&gt; { return Err(error.into()); }
+    };
+    println!("file content: {}", content);
+    Ok(())
+}</code></pre></pre>
+<p>我們的回傳值類型是 <code>Result</code>！
+這也就是為什麼我們可以在 <code>match</code> 的第二個分支寫 <code>return Err(error);</code>。
+看到最下面的 Ok(()) 是什麼嗎？
+它是函數的預設回傳值， 意思為「結果沒問題，沒有內容」。</p>
+<aside>
+<p><strong>筆記:</strong>
+Why is this not written as <code>return Ok(());</code>?
+It easily could be – this is totally valid as well.
+The last expression of any block in Rust is its return value,
+and it is customary to omit needless <code>return</code>s.</p>
+</aside>
+<h2 id="問題標記"><a class="header" href="#問題標記">問題標記</a></h2>
+<p>Just like calling <code>.unwrap()</code> is a shortcut
+for the <code>match</code> with <code>panic!</code> in the error arm,
+we have another shortcut for the <code>match</code> that <code>return</code>s in the error arm:
+<code>?</code>.</p>
+<p>That’s right, a question mark.
+You can append this operator to a value of type <code>Result</code>,
+and Rust will internally expand this to something very similar to
+the <code>match</code> we just wrote.</p>
+<p>試一試：</p>
+<pre><pre class="playground"><code class="language-rust no_run">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let content = std::fs::read_to_string("test.txt")?;
+    println!("file content: {}", content);
+    Ok(())
+}</code></pre></pre>
+<p>非常簡潔！</p>
+<aside>
+<p><strong>Note:</strong>
+There are a few more things happening here
+that are not required to understand to work with this.
+For example,
+the error type in our <code>main</code> function is <code>Box&lt;dyn std::error::Error&gt;</code>.
+But we’ve seen above that <code>read_to_string</code> returns a <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>.
+This works because <code>?</code> expands to code that  <em>converts</em> error types.</p>
+<p><code>Box&lt;dyn std::error::Error&gt;</code> is also an interesting type.
+It’s a <code>Box</code> that can contain <em>any</em> type
+that implements the standard <a href="https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html"><code>Error</code></a> trait.
+This means that basically all errors can be put into this box,
+so we can use <code>?</code> on all of the usual functions that return <code>Result</code>s.</p>
+</aside>
+<h2 id="providing-context"><a class="header" href="#providing-context">Providing Context</a></h2>
+<p>The errors you get when using <code>?</code> in your <code>main</code> function are okay,
+but they are not great.
+For example:
+When you run <code>std::fs::read_to_string("test.txt")?</code>
+but the file <code>test.txt</code> doesn’t exist,
+you get this output:</p>
+<pre><code class="language-text">Error: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+</code></pre>
+<p>In cases where your code doesn’t literally contain the file name,
+it would be very hard to tell which file was <code>NotFound</code>.
+There are multiple ways to deal with this.</p>
+<p>For example, we can create our own error type,
+and then use that to build a custom error message:</p>
+<pre><code class="language-rust ignore">#[derive(Debug)]
+struct CustomError(String);
+
+fn main() -&gt; Result&lt;(), CustomError&gt; {
+    let path = "test.txt";
+    let content = std::fs::read_to_string(path)
+        .map_err(|err| CustomError(format!("Error reading `{}`: {}", path, err)))?;
+    println!("file content: {}", content);
+    Ok(())
+}</code></pre>
+<p>Now,
+running this we’ll get our custom error message:</p>
+<pre><code class="language-text">Error: CustomError("Error reading `test.txt`: No such file or directory (os error 2)")
+</code></pre>
+<p>Not very pretty,
+but we can easily adapt the debug output for our type later on.</p>
+<p>This pattern is in fact very common.
+It has one problem, though:
+We don’t store the original error,
+only its string representation.
+The often used <a href="https://docs.rs/anyhow"><code>anyhow</code></a> library has a neat solution for that:
+similar to our <code>CustomError</code> type,
+its <a href="https://docs.rs/anyhow/1.0/anyhow/trait.Context.html"><code>Context</code></a> trait can be used to add a description.
+Additionally, it also keeps the original error,
+so we get a “chain” of error messages pointing out the root cause.</p>
+<p>Let’s first import the <code>anyhow</code> crate by adding
+<code>anyhow = "1.0"</code> to the <code>[dependencies]</code> section
+of our <code>Cargo.toml</code> file.</p>
+<p>完整的範例將如下所示：</p>
+<pre><code class="language-rust ignore">use anyhow::{Context, Result};
+
+fn main() -&gt; Result&lt;()&gt; {
+    let path = "test.txt";
+    let content = std::fs::read_to_string(path)
+        .with_context(|| format!("could not read file `{}`", path))?;
+    println!("file content: {}", content);
+    Ok(())
+}</code></pre>
+<p>這將會輸出一個錯誤：</p>
+<pre><code class="language-text">Error: could not read file `test.txt`
+
+Caused by:
+    No such file or directory (os error 2)
+</code></pre>
+<h2 id="總結-2"><a class="header" href="#總結-2">總結</a></h2>
+<p>你的程式碼現在看起來應該是這樣的：</p>
+<pre><code class="language-rust ignore">use anyhow::{Context, Result};
+use clap::Parser;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(Parser)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    path: std::path::PathBuf,
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+    let args = Cli::parse();
+
+    let content = std::fs::read_to_string(&amp;args.path)
+        .with_context(|| format!("could not read file `{}`", args.path.display()))?;
+
+    for line in content.lines() {
+        if line.contains(&amp;args.pattern) {
+            println!("{}", line);
+        }
+    }
+
+    Ok(())
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="輸出"><a class="header" href="#輸出">輸出</a></h1>
+<h2 id="在終端機下輸出-hello-world"><a class="header" href="#在終端機下輸出-hello-world">在終端機下輸出 “Hello World”</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>println!("Hello World");
+<span class="boring">}</span></code></pre></pre>
+<p>嗯，這很容易。
+太好了，進入下一個主題。</p>
+<h2 id="使用-println"><a class="header" href="#使用-println">使用 <code>println!</code></a></h2>
+<p>您幾乎可以在終端機下使用 <code>println!</code> 巨集輸出所有您想輸出的東西。</p>
+<p>這個巨集有一些非常驚人的功能，而且還有特殊的語法。
+它希望您編寫一個字串文字作為第一個參數，包含將要填入的佔位符
+再透過後面作為進一步參數的參數值。
+This macro has some pretty amazing capabilities,
+but also a special syntax.
+It expects you to write a string literal as the first parameter,
+that contains placeholders that will be filled in
+by the values of the parameters that follow as further arguments.</p>
+<p>範例:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x = 42;
+println!("My lucky number is {}.", x);
+<span class="boring">}</span></code></pre></pre>
+<p>將會輸出</p>
+<pre><code class="language-console">My lucky number is 42.
+</code></pre>
+<p>The curly braces (<code>{}</code>) in the string above is one of these placeholders.
+This is the default placeholder type
+that tries to print the given value in a human readable way.
+For numbers and strings this works very well,
+but not all types can do that.
+This is why there is also a “debug representation”,
+that you can get by filling the braces of the placeholder like this: <code>{:?}</code>.</p>
+<p>For example,</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let xs = vec![1, 2, 3];
+println!("The list is: {:?}", xs);
+<span class="boring">}</span></code></pre></pre>
+<p>will print</p>
+<pre><code class="language-console">The list is: [1, 2, 3]
+</code></pre>
+<p>If you want your own data types to be printable for debugging and logging,
+you can in most cases add a <code>#[derive(Debug)]</code> above their definition.</p>
+<aside>
+<p><strong>Note:</strong>
+“User-friendly” printing is done using the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html"><code>Display</code></a> trait,
+debug output (human-readable but targeted at developers) uses the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Debug.html"><code>Debug</code></a> trait.
+You can find more information about the syntax you can use in <code>println!</code>
+in the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/index.html">documentation for the <code>std::fmt</code> module</a>.</p>
+</aside>
+<h2 id="printing-errors"><a class="header" href="#printing-errors">Printing errors</a></h2>
+<p>Printing errors should be done via <code>stderr</code>
+to make it easier for users
+and other tools
+to pipe their outputs to files
+or more tools.</p>
+<aside>
+<p><strong>Note:</strong>
+On most operating systems,
+a program can write to two output streams, <code>stdout</code> and <code>stderr</code>.
+<code>stdout</code> is for the program’s actual output,
+while <code>stderr</code> allows errors and other messages to be kept separate from <code>stdout</code>.
+That way,
+output can be stored to a file or piped to another program
+while errors are shown to the user.</p>
+</aside>
+<p>In Rust this is achieved
+with <code>println!</code> and <code>eprintln!</code>,
+the former printing to <code>stdout</code>
+and the latter to <code>stderr</code>.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>println!("This is information");
+eprintln!("This is an error! :(");
+<span class="boring">}</span></code></pre></pre>
+<aside>
+<p><strong>Beware</strong>: Printing <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">escape codes</a> can be dangerous,
+putting the user’s terminal into a weird state.
+Always be careful when manually printing them!</p>
+<p>Ideally you should be using a crate like <code>ansi_term</code>
+when dealing with raw escape codes
+to make your (and your user’s) life easier.</p>
+</aside>
+<h2 id="a-note-on-printing-performance"><a class="header" href="#a-note-on-printing-performance">A note on printing performance</a></h2>
+<p>Printing to the terminal is surprisingly slow!
+If you call things like <code>println!</code> in a loop,
+it can easily become a bottleneck in an otherwise fast program.
+To speed this up,
+there are two things you can do.</p>
+<p>First,
+you might want to reduce the number of writes
+that actually “flush” to the terminal.
+<code>println!</code> tells the system to flush to the terminal <em>every</em> time,
+because it is common to print each new line.
+If you don’t need that,
+you can wrap your <code>stdout</code> handle in a <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufWriter.html"><code>BufWriter</code></a>
+which by default buffers up to 8 kB.
+(You can still call <code>.flush()</code> on this <code>BufWriter</code>
+when you want to print immediately.)</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::io::{self, Write};
+
+let stdout = io::stdout(); // get the global stdout entity
+let mut handle = io::BufWriter::new(stdout); // optional: wrap that handle in a buffer
+writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
+<span class="boring">}</span></code></pre></pre>
+<p>Second,
+it helps to acquire a lock on <code>stdout</code> (or <code>stderr</code>)
+and use <code>writeln!</code> to print to it directly.
+This prevents the system from locking and unlocking <code>stdout</code> over and over again.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::io::{self, Write};
+
+let stdout = io::stdout(); // get the global stdout entity
+let mut handle = stdout.lock(); // acquire a lock on it
+writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
+<span class="boring">}</span></code></pre></pre>
+<p>You can also combine the two approaches.</p>
+<h2 id="showing-a-progress-bar"><a class="header" href="#showing-a-progress-bar">Showing a progress bar</a></h2>
+<p>Some CLI applications run less than a second,
+others take minutes or hours.
+If you are writing one of the latter types of programs,
+you might want to show the user that something is happening.
+For this, you should try to print useful status updates,
+ideally in a form that can be easily consumed.</p>
+<p>Using the <a href="https://crates.io/crates/indicatif">indicatif</a> crate,
+you can add progress bars
+and little spinners to your program.
+Here’s a quick example:</p>
+<pre><code class="language-rust ignore">fn main() {
+    let pb = indicatif::ProgressBar::new(100);
+    for i in 0..100 {
+        do_hard_work();
+        pb.println(format!("[+] finished #{}", i));
+        pb.inc(1);
+    }
+    pb.finish_with_message("done");
+}</code></pre>
+<p>See the <a href="https://docs.rs/indicatif">documentation</a>
+and <a href="https://github.com/console-rs/indicatif/tree/main/examples">examples</a>
+for more information.</p>
+<h2 id="logging"><a class="header" href="#logging">Logging</a></h2>
+<p>To make it easier to understand what is happening in our program,
+we might want to add some log statements.
+This is usually easy while writing your application.
+But it will become super helpful when running this program again in half a year.
+In some regard,
+logging is the same as using <code>println!</code>,
+except that you can specify the importance of a message.
+The levels you can usually use are <em>error</em>, <em>warn</em>, <em>info</em>, <em>debug</em>, and <em>trace</em>
+(<em>error</em> has the highest priority, <em>trace</em> the lowest).</p>
+<p>To add simple logging to your application,
+you’ll need two things:
+The <a href="https://crates.io/crates/log">log</a> crate (this contains macros named after the log level)
+and an <em>adapter</em> that actually writes the log output somewhere useful.
+Having the ability to use log adapters is very flexible:
+You can, for example, use them to write logs not only to the terminal
+but also to <a href="https://en.wikipedia.org/wiki/Syslog">syslog</a>, or to a central log server.</p>
+<p>Since we are right now only concerned with writing a CLI application,
+an easy adapter to use is <a href="https://crates.io/crates/env_logger">env_logger</a>.
+It’s called “env” logger because you can
+use an environment variable to specify which parts of your application
+you want to log
+(and at which level you want to log them).
+It will prefix your log messages with a timestamp
+and the module where the log messages come from.
+Since libraries can also use <code>log</code>,
+you easily configure their log output, too.</p>
+<p>Here’s a quick example:</p>
+<pre><code class="language-rust ignore">use log::{info, warn};
+
+fn main() {
+    env_logger::init();
+    info!("starting up");
+    warn!("oops, nothing implemented!");
+}</code></pre>
+<p>Assuming you have this file as <code>src/bin/output-log.rs</code>,
+on Linux and macOS, you can run it like this:</p>
+<pre><code class="language-console">$ env RUST_LOG=info cargo run --bin output-log
+    Finished dev [unoptimized + debuginfo] target(s) in 0.17s
+     Running `target/debug/output-log`
+[2018-11-30T20:25:52Z INFO  output_log] starting up
+[2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
+</code></pre>
+<p>In Windows PowerShell, you can run it like this:</p>
+<pre><code class="language-console">$ $env:RUST_LOG="info"
+$ cargo run --bin output-log
+    Finished dev [unoptimized + debuginfo] target(s) in 0.17s
+     Running `target/debug/output-log.exe`
+[2018-11-30T20:25:52Z INFO  output_log] starting up
+[2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
+</code></pre>
+<p>In Windows CMD, you can run it like this:</p>
+<pre><code class="language-console">$ set RUST_LOG=info
+$ cargo run --bin output-log
+    Finished dev [unoptimized + debuginfo] target(s) in 0.17s
+     Running `target/debug/output-log.exe`
+[2018-11-30T20:25:52Z INFO  output_log] starting up
+[2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
+</code></pre>
+<p><code>RUST_LOG</code> is the name of the environment variable
+you can use to set your log settings.
+<code>env_logger</code> also contains a builder
+so you can programmatically adjust these settings,
+and, for example, also show <em>info</em> level messages by default.</p>
+<p>There are a lot of alternative logging adapters out there,
+and also alternatives or extensions to <code>log</code>.
+If you know your application will have a lot to log,
+make sure to review them,
+and make your users’ life easier.</p>
+<aside>
+<p><strong>Tip:</strong>
+Experience has shown that even mildly useful CLI programs can end up being used for years to come.
+(Especially if they were meant as a temporary solution.)
+If your application doesn’t work
+and someone (e.g., you, in the future) needs to figure out why,
+being able to pass <code>--verbose</code> to get additional log output
+can make the difference between minutes and hours of debugging.
+The <a href="https://crates.io/crates/clap-verbosity-flag">clap-verbosity-flag</a> crate contains a quick way
+to add a <code>--verbose</code> to a project using <code>clap</code>.</p>
+</aside>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="測試"><a class="header" href="#測試">測試</a></h1>
+<p>經過數十年的軟體開發，人們發現了一個真理：未經測試的軟體很少能運作。
+（很多人甚至會說：“大多數經過測試的軟體也無法運行。”但我們都是樂觀主義者，對吧？）</p>
+<p>因此，為了確保您的程式執行您期望的操作，測試它是明智的。</p>
+<p>一種簡單的方法是編寫 <code>README</code> 文件，它描述了你的程式應該做什麼。
+當您準備好發布新版本時，仔細閱讀 <code>README</code> 並確保行為仍然如預期。
+你可以讓它成為一個更嚴格的練習也寫下您的程式應如何對錯誤輸入做出反應。</p>
+<p>這是另一個獨特的想法：
+在編寫程式碼之前先寫下 <code>README</code>。</p>
+<aside>
+<p><strong>筆記:</strong>
+如果您還沒聽過。
+請看一下<a href="https://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a> (TDD,測試驅動開發)</p>
+</aside>
+<h2 id="自動化測試"><a class="header" href="#自動化測試">自動化測試</a></h2>
+<p>Now, this is all fine and dandy,
+but doing all of this manually?
+That can take a lot of time.
+At the same time,
+many people have come to enjoy telling computers to do things for them.
+Let’s talk about how to automate these tests.</p>
+<p>Rust has a built-in test framework,
+so let’s start by writing a first test:</p>
+<pre><code class="language-rust ignore"><span class="boring">fn answer() -&gt; i32 {
+</span><span class="boring">  42
+</span><span class="boring">}
+</span><span class="boring">
+</span>#[test]
+fn check_answer_validity() {
+    assert_eq!(answer(), 42);
+}</code></pre>
+<p>You can put this snippet of code in pretty much any file
+and <code>cargo test</code> will find
+and run it.
+The key here is the <code>#[test]</code> attribute.
+It allows the build system to discover such functions
+and run them as tests,
+verifying that they don’t panic.</p>
+<aside class="exercise">
+<p><strong>Exercise for the reader:</strong>
+Make this test work.</p>
+<p>You should end up with output like the following:</p>
+<pre><code class="language-text">running 1 test
+test check_answer_validity ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+</aside>
+<p>Now that we’ve seen <em>how</em> we can write tests,
+we still need to figure out <em>what</em> to test.
+As you’ve seen it’s fairly easy to write assertions
+for functions.
+But a CLI application is often more than one function!
+Worse, it often deals with user input,
+reads files,
+and writes output.</p>
+<h2 id="making-your-code-testable"><a class="header" href="#making-your-code-testable">Making your code testable</a></h2>
+<p>There are two complementary approaches to testing functionality:
+Testing the small units that you build your complete application from,
+these are called “unit tests”.
+There is also testing the final application “from the outside”
+called “black box tests” or “integration tests”.
+Let’s begin with the first one.</p>
+<p>To figure out what we should test,
+let’s see what our program features are.
+Mainly, <code>grrs</code> is supposed to print out the lines that match a given pattern.
+So, let’s write unit tests for <em>exactly this</em>:
+We want to ensure that our most important piece of logic works,
+and we want to do it in a way that is not dependent
+on any of the setup code we have around it
+(that deals with CLI arguments, for example).</p>
+<p>Going back to our <a href="tutorial/impl-draft.html">first implementation</a> of <code>grrs</code>,
+we added this block of code to the <code>main</code> function:</p>
+<pre><code class="language-rust ignore">// ...
+for line in content.lines() {
+    if line.contains(&amp;args.pattern) {
+        println!("{}", line);
+    }
+}</code></pre>
+<p>Sadly, this is not very easy to test.
+First of all, it’s in the main function, so we can’t easily call it.
+This is easily fixed by moving this piece of code into a function:</p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn find_matches(content: &amp;str, pattern: &amp;str) {
+    for line in content.lines() {
+        if line.contains(pattern) {
+            println!("{}", line);
+        }
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Now we can call this function in our test,
+and see what its output is:</p>
+<pre><code class="language-rust ignore">#[test]
+fn find_a_match() {
+    find_matches("lorem ipsum\ndolor sit amet", "lorem");
+    assert_eq!( // uhhhh</code></pre>
+<p>Or… can we?
+Right now, <code>find_matches</code> prints directly to <code>stdout</code>, i.e., the terminal.
+We can’t easily capture this in a test!
+This is a problem that often comes up
+when writing tests after the implementation:
+We have written a function that is firmly integrated
+in the context it is used in.</p>
+<aside class="note">
+<p><strong>Note:</strong>
+This is totally fine when writing small CLI applications.
+There’s no need to make everything testable!
+It is important to think about
+which parts of your code you might want to write unit tests for, however.
+While we’ll see that it’s easy to change this function to be testable,
+this is not always the case.</p>
+</aside>
+<p>Alright, how can we make this testable?
+We’ll need to capture the output somehow.
+Rust’s standard library has some neat abstractions
+for dealing with I/O (input/output)
+and we’ll make use of one called <a href="https://doc.rust-lang.org/1.39.0/std/io/trait.Write.html"><code>std::io::Write</code></a>.
+This is a <a href="https://doc.rust-lang.org/book/ch10-02-traits.html">trait</a> that abstracts over things we can write to,
+which includes strings but also <code>stdout</code>.</p>
+<p>If this is the first time you’ve heard “trait”
+in the context of Rust,
+you are in for a treat.
+Traits are one of the most powerful features of Rust.
+You can think of them like interfaces in Java,
+or type classes in Haskell
+(whatever you are more familiar with).
+They allow you to abstract over behavior
+that can be shared by different types.
+Code that uses traits can
+express ideas in very generic and flexible ways.
+This means it can also get difficult to read, though.
+Don’t let that intimidate you:
+Even people who have used Rust for years
+don’t always get what generic code does immediately.
+In that case,
+it helps to think of concrete uses.
+For example,
+in our case,
+the behavior that we abstract over is “write to it”.
+Examples for the types that implement (“impl”) it
+include:
+The terminal’s standard output,
+files,
+a buffer in memory,
+or TCP network connections.
+(Scroll down in the <a href="https://doc.rust-lang.org/1.39.0/std/io/trait.Write.html">documentation for <code>std::io::Write</code></a>
+to see a list of “Implementors”.)</p>
+<p>With that knowledge,
+let’s change our function to accept a third parameter.
+It should be of any type that implements <code>Write</code>.
+This way,
+we can then supply a simple string
+in our tests
+and make assertions on it.
+Here is how we can write this version of <code>find_matches</code>:</p>
+<pre><code class="language-rust ignore">fn find_matches(content: &amp;str, pattern: &amp;str, mut writer: impl std::io::Write) {
+    for line in content.lines() {
+        if line.contains(pattern) {
+            writeln!(writer, "{}", line);
+        }
+    }
+}</code></pre>
+<p>The new parameter is <code>mut writer</code>,
+i.e., a mutable thing we call “writer”.
+Its type is <code>impl std::io::Write</code>,
+which you can read as
+“a placeholder for any type that implements the <code>Write</code> trait”.
+Also note how we
+replaced the <code>println!(…)</code>
+we used earlier
+with <code>writeln!(writer, …)</code>.
+<code>println!</code> works the same as <code>writeln!</code>
+but always uses standard output.</p>
+<p>Now we can test for the output:</p>
+<pre><code class="language-rust ignore">#[test]
+fn find_a_match() {
+    let mut result = Vec::new();
+    find_matches("lorem ipsum\ndolor sit amet", "lorem", &amp;mut result);
+    assert_eq!(result, b"lorem ipsum\n");
+}</code></pre>
+<p>To now use this in our application code,
+we have to change the call to <code>find_matches</code> in <code>main</code>
+by adding <a href="https://doc.rust-lang.org/1.39.0/std/io/fn.stdout.html"><code>&amp;mut std::io::stdout()</code></a> as the third parameter.
+Here’s an example of a main function
+that builds on what we’ve seen in the previous chapters
+and uses our extracted <code>find_matches</code> function:</p>
+<pre><code class="language-rust ignore">fn main() -&gt; Result&lt;()&gt; {
+    let args = Cli::parse();
+    let content = std::fs::read_to_string(&amp;args.path)
+        .with_context(|| format!("could not read file `{}`", args.path.display()))?;
+
+    find_matches(&amp;content, &amp;args.pattern, &amp;mut std::io::stdout());
+
+    Ok(())
+}</code></pre>
+<aside class="note">
+<p><strong>Note:</strong>
+Since <code>stdout</code> expects bytes (not strings),
+we use <code>std::io::Write</code> instead of <code>std::fmt::Write</code>.
+As a result,
+we give an empty vector as “writer” in our tests
+(its type will be inferred to <code>Vec&lt;u8&gt;</code>),
+in the <code>assert_eq!</code> we use a <code>b"foo"</code>.
+(The <code>b</code> prefix makes this a <em>byte string literal</em>
+so its type is going to be <code>&amp;[u8]</code> instead of <code>&amp;str</code>).</p>
+</aside>
+<aside class="note">
+<p><strong>Note:</strong>
+We could also make this function return a <code>String</code>,
+but that would change its behavior.
+Instead of writing to the terminal directly,
+it would then collect everything into a string,
+and dump all the results in one go at the end.</p>
+</aside>
+<aside class="exercise">
+<p><strong>Exercise for the reader:</strong>
+<a href="https://doc.rust-lang.org/1.39.0/std/macro.writeln.html"><code>writeln!</code></a> returns an <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>io::Result</code></a>
+because writing can fail,
+for example when the buffer is full and cannot be expanded.
+Add error handling to <code>find_matches</code>.</p>
+</aside>
+<p>We’ve just seen how to make this piece of code easily testable.
+We have</p>
+<ol>
+<li>identified one of the core pieces of our application,</li>
+<li>put it into its own function,</li>
+<li>and made it more flexible.</li>
+</ol>
+<p>Even though the goal was to make it testable,
+the result we ended up with
+is actually a very idiomatic and reusable piece of Rust code.
+That’s awesome!</p>
+<h2 id="splitting-your-code-into-library-and-binary-targets"><a class="header" href="#splitting-your-code-into-library-and-binary-targets">Splitting your code into library and binary targets</a></h2>
+<p>We can do one more thing here.
+So far we’ve put everything we wrote into the <code>src/main.rs</code> file.
+This means our current project produces a single binary.
+But we can also make our code available as a library, like this:</p>
+<ol>
+<li>Put the <code>find_matches</code> function into a new <code>src/lib.rs</code>.</li>
+<li>Add a <code>pub</code> in front of the <code>fn</code> (so it’s <code>pub fn find_matches</code>)
+to make it something that users of our library can access.</li>
+<li>Remove <code>find_matches</code> from <code>src/main.rs</code>.</li>
+<li>In the <code>fn main</code>, prepend the call to <code>find_matches</code> with <code>grrs::</code>,
+so it’s now <code>grrs::find_matches(…)</code>.
+This means it uses the function from the library we just wrote!</li>
+</ol>
+<p>The way Rust deals with projects is quite flexible
+and it’s a good idea to think about
+what to put into the library part of your crate early on.
+You can for example think about writing a library
+for your application-specific logic first
+and then use it in your CLI just like any other library.
+Or, if your project has multiple binaries,
+you can put the common functionality into the library part of that crate.</p>
+<aside class="note">
+<p><strong>Note:</strong>
+Speaking of putting everything into a <code>src/main.rs</code>:
+If we continue to do that,
+it’ll become difficult to read.
+The <a href="https://doc.rust-lang.org/1.39.0/book/ch07-00-managing-growing-projects-with-packages-crates-and-modules.html">module system</a> can help you structure and organize your code.</p>
+</aside>
+<h2 id="testing-cli-applications-by-running-them"><a class="header" href="#testing-cli-applications-by-running-them">Testing CLI applications by running them</a></h2>
+<p>Thus far, we’ve gone out of our way
+to test the <em>business logic</em> of our application,
+which turned out to be the <code>find_matches</code> function.
+This is very valuable
+and is a great first step
+towards a well-tested code base.
+(Usually, these kinds of tests are called “unit tests”.)</p>
+<p>There is a lot of code we aren’t testing, though:
+Everything that we wrote to deal with the outside world!
+Imagine you wrote the main function,
+but accidentally left in a hard-coded string
+instead of using the argument of the user-supplied path.
+We should write tests for that, too!
+(This level of testing is often called
+“integration testing”, or “system testing”.)</p>
+<p>At its core,
+we are still writing functions
+and annotating them with <code>#[test]</code>.
+It’s just a matter of what we do inside these functions.
+For example, we’ll want to use the main binary of our project,
+and run it like a regular program.
+We will also put these tests into a new file in a new directory:
+<code>tests/cli.rs</code>.</p>
+<aside>
+<p><strong>Note:</strong>
+By convention,
+<code>cargo</code> will look for integration tests in the <code>tests/</code> directory.
+Similarly,
+it will look for benchmarks in <code>benches/</code>,
+and examples in <code>examples/</code>.
+These conventions also extend to your main source code:
+libraries have a <code>src/lib.rs</code> file,
+the main binary is <code>src/main.rs</code>,
+or, if there are multiple binaries,
+cargo expects them to be in <code>src/bin/&lt;name&gt;.rs</code>.
+Following these conventions will make your code base more discoverable
+by people used to reading Rust code.</p>
+</aside>
+<p>To recall,
+<code>grrs</code> is a small tool that searches for a string in a file.
+We have previously tested that we can find a match.
+Let’s think about what other functionality we can test.</p>
+<p>Here is what I came up with.</p>
+<ul>
+<li>What happens when the file doesn’t exist?</li>
+<li>What is the output when there is no match?</li>
+<li>Does our program exit with an error when we forget one (or both) arguments?</li>
+</ul>
+<p>These are all valid test cases.
+Additionally,
+we should also include one test case
+for the “happy path”,
+i.e., we found at least one match
+and we print it.</p>
+<p>To make these kinds of tests easier,
+we’re going to use the <a href="https://docs.rs/assert_cmd"><code>assert_cmd</code></a> crate.
+It has a bunch of neat helpers
+that allow us to run our main binary
+and see how it behaves.
+Further,
+we’ll also add the <a href="https://docs.rs/predicates"><code>predicates</code></a> crate
+which helps us write assertions
+that <code>assert_cmd</code> can test against
+(and that have great error messages).
+We’ll add those dependencies not to the main list,
+but to a “dev dependencies” section in our <code>Cargo.toml</code>.
+They are only required when developing the crate,
+not when using it.</p>
+<pre><code class="language-toml">[dev-dependencies]
+assert_cmd = "2.0.14"
+predicates = "3.1.0"
+</code></pre>
+<p>This sounds like a lot of setup.
+Nevertheless –
+let’s dive right in
+and create our <code>tests/cli.rs</code> file:</p>
+<pre><code class="language-rust ignore">use assert_cmd::prelude::*; // Add methods on commands
+use predicates::prelude::*; // Used for writing assertions
+use std::process::Command; // Run programs
+
+#[test]
+fn file_doesnt_exist() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let mut cmd = Command::cargo_bin("grrs")?;
+
+    cmd.arg("foobar").arg("test/file/doesnt/exist");
+    cmd.assert()
+        .failure()
+        .stderr(predicate::str::contains("could not read file"));
+
+    Ok(())
+}</code></pre>
+<p>You can run this test with
+<code>cargo test</code>,
+just like the tests we wrote above.
+It might take a little longer the first time,
+as <code>Command::cargo_bin("grrs")</code> needs to compile your main binary.</p>
+<h2 id="generating-test-files"><a class="header" href="#generating-test-files">Generating test files</a></h2>
+<p>The test we’ve just seen only checks that our program writes an error message
+when the input file doesn’t exist.
+That’s an important test to have,
+but maybe not the most important one:
+Let’s now test that we will actually print the matches we found in a file!</p>
+<p>We’ll need to have a file whose content we know,
+so that we can know what our program <em>should</em> return
+and check this expectation in our code.
+One idea might be to add a file to the project with custom content
+and use that in our tests.
+Another would be to create temporary files in our tests.
+For this tutorial,
+we’ll have a look at the latter approach.
+Mainly, because it is more flexible and will also work in other cases;
+for example, when you are testing programs that change the files.</p>
+<p>To create these temporary files,
+we’ll be using the <a href="https://docs.rs/assert_fs"><code>assert_fs</code></a> crate.
+Let’s add it to the <code>dev-dependencies</code> in our <code>Cargo.toml</code>:</p>
+<pre><code class="language-toml">assert_fs = "1.1.1"
+</code></pre>
+<p>Here is a new test case
+(that you can write below the other one)
+that first creates a temp file
+(a “named” one so we can get its path),
+fills it with some text,
+and then runs our program
+to see if we get the correct output.
+When the <code>file</code> goes out of scope
+(at the end of the function),
+the actual temporary file will automatically get deleted.</p>
+<pre><code class="language-rust ignore">use assert_fs::prelude::*;
+
+#[test]
+fn find_content_in_file() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let file = assert_fs::NamedTempFile::new("sample.txt")?;
+    file.write_str("A test\nActual content\nMore content\nAnother test")?;
+
+    let mut cmd = Command::cargo_bin("grrs")?;
+    cmd.arg("test").arg(file.path());
+    cmd.assert()
+        .success()
+        .stdout(predicate::str::contains("A test\nAnother test"));
+
+    Ok(())
+}</code></pre>
+<aside class="exercise">
+<p><strong>Exercise for the reader:</strong>
+Add integration tests for passing an empty string as pattern.
+Adjust the program as needed.</p>
+</aside>
+<h2 id="what-to-test"><a class="header" href="#what-to-test">What to test?</a></h2>
+<p>While it can certainly be fun to write integration tests,
+it will also take some time to write them,
+as well as to update them when your application’s behavior changes.
+To make sure you use your time wisely,
+you should ask yourself what you should test.</p>
+<p>In general it’s a good idea to write integration tests
+for all types of behavior that a user can observe.
+That means that you don’t need to cover all edge cases:
+It usually suffices to have examples for the different types
+and rely on unit tests to cover the edge cases.</p>
+<p>It is also a good idea not to focus your tests on things you can’t actively control.
+It would be a bad idea to test the exact layout of <code>--help</code>
+as it is generated for you.
+Instead, you might just want to check that certain elements are present.</p>
+<p>Depending on the nature of your program,
+you can also try to add more testing techniques.
+For example,
+if you have extracted parts of your program
+and find yourself writing a lot of example cases as unit tests
+while trying to come up with all the edge cases,
+you should look into <a href="https://docs.rs/proptest"><code>proptest</code></a>.
+If you have a program which consumes arbitrary files and parses them,
+try to write a <a href="https://rust-fuzz.github.io/book/introduction.html">fuzzer</a> to find bugs in edge cases.</p>
+<aside>
+<p><strong>Note:</strong>
+You can find the full, runnable source code used in this chapter
+<a href="https://github.com/rust-cli/book/tree/master/src/tutorial/testing">in this book’s repository</a>.</p>
+</aside>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="packaging-and-distributing-a-rust-tool"><a class="header" href="#packaging-and-distributing-a-rust-tool">Packaging and distributing a Rust tool</a></h1>
+<p>If you feel confident that your program is ready for other people to use,
+it is time to package and release it!</p>
+<p>There are a few approaches,
+and we’ll look at three of them
+from “quickest to set up” to “most convenient for users”.</p>
+<h2 id="quickest-cargo-publish"><a class="header" href="#quickest-cargo-publish">Quickest: <code>cargo publish</code></a></h2>
+<p>The easiest way to publish your app is with cargo.
+Do you remember how we added external dependencies to our project?
+Cargo downloaded them from its default “crate registry”, <a href="https://crates.io/">crates.io</a>.
+With <code>cargo publish</code>,
+you too can publish crates to <a href="https://crates.io/">crates.io</a>.
+And this works for all crates,
+including those with binary targets.</p>
+<p>Publishing a crate to <a href="https://crates.io/">crates.io</a> is pretty straightforward:
+If you haven’t already, create an account on <a href="https://crates.io/">crates.io</a>.
+Currently, this is done via authorizing you on GitHub,
+so you’ll need to have a GitHub account
+(and be logged in there).
+Next, you log in using cargo on your local machine.
+For that, go to your
+<a href="https://crates.io/me">crates.io account page</a>,
+create a new token,
+and then run <code>cargo login &lt;your-new-token&gt;</code>.
+You only need to do this once per computer.
+You can learn more about this
+in cargo’s <a href="https://doc.rust-lang.org/1.39.0/cargo/reference/publishing.html">publishing guide</a>.</p>
+<p>Now that cargo as well as crates.io know you,
+you are ready to publish crates.
+Before you hastily go ahead and publish a new crate (version),
+it’s a good idea to open your <code>Cargo.toml</code> once more
+and make sure you added the necessary metadata.
+You can find all the possible fields you can set
+in the documentation for <a href="https://doc.rust-lang.org/1.39.0/cargo/reference/manifest.html">cargo’s manifest format</a>.
+Here’s a quick overview of some common entries:</p>
+<pre><code class="language-toml">[package]
+name = "grrs"
+version = "0.1.0"
+authors = ["Your Name &lt;your@email.com&gt;"]
+license = "MIT OR Apache-2.0"
+description = "A tool to search files"
+readme = "README.md"
+homepage = "https://github.com/you/grrs"
+repository = "https://github.com/you/grrs"
+keywords = ["cli", "search", "demo"]
+categories = ["command-line-utilities"]
+</code></pre>
+<aside class="note">
+<p><strong>Note:</strong>
+This example includes the mandatory license field
+with a common choice for Rust projects:
+The same license that is also used for the compiler itself.
+It also refers to a <code>README.md</code> file.
+It should include a quick description of what your project is about,
+and will be included not only on the crates.io page of your crate,
+but also what GitHub shows by default on repository pages.</p>
+</aside>
+<h3 id="how-to-install-a-binary-from-cratesio"><a class="header" href="#how-to-install-a-binary-from-cratesio">How to install a binary from crates.io</a></h3>
+<p>We’ve seen how to publish a crate to crates.io,
+and you might be wondering how to install it.
+In contrast to libraries,
+which cargo will download and compile for you
+when you run <code>cargo build</code> (or a similar command),
+you’ll need to tell it to explicitly install binaries.</p>
+<p>This is done using
+<code>cargo install &lt;crate-name&gt;</code>.
+It will by default download the crate,
+compile all the binary targets it contains
+(in “release” mode, so it might take a while)
+and copy them into the <code>~/.cargo/bin/</code> directory.
+(Make sure that your shell knows to look there for binaries!)</p>
+<p>It’s also possible to
+install crates from git repositories,
+only install specific binaries of a crate,
+and specify an alternative directory to install them to.
+Have a look at <code>cargo install --help</code> for details.</p>
+<h3 id="when-to-use-it"><a class="header" href="#when-to-use-it">When to use it</a></h3>
+<p><code>cargo install</code> is a simple way to install a binary crate.
+It’s very convenient for Rust developers to use,
+but has some significant downsides:
+Since it will always compile your source from scratch,
+users of your tool will need to have
+Rust, cargo, and all other system dependencies your project requires
+to be installed on their machine.
+Compiling large Rust codebases can also take some time.</p>
+<p>It’s best to use this for distributing tools
+that are targeted at other Rust developers.
+For example:
+A lot of cargo subcommands
+like <code>cargo-tree</code> or <code>cargo-outdated</code>
+can be installed with it.</p>
+<h2 id="distributing-binaries"><a class="header" href="#distributing-binaries">Distributing binaries</a></h2>
+<p>Rust is a language that compiles to native code
+and by default statically links all dependencies.
+When you run <code>cargo build</code>
+on your project that contains a binary called <code>grrs</code>,
+you’ll end up with a binary file called <code>grrs</code>.
+Try it out:
+Using <code>cargo build</code>, it’ll be <code>target/debug/grrs</code>,
+and when you run <code>cargo build --release</code>, it’ll be <code>target/release/grrs</code>.
+Unless you use crates
+that explicitly need external libraries to be installed on the target system
+(like using the system’s version of OpenSSL),
+this binary will only depend on common system libraries.
+That means,
+you take that one file,
+send it to people running the same operating system as you,
+and they’ll be able to run it.</p>
+<p>This is already very powerful!
+It works around two of the downsides we just saw for <code>cargo install</code>:
+There is no need to have Rust installed on the user’s machine,
+and instead of it taking a minute to compile,
+they can instantly run the binary.</p>
+<p>So, as we’ve seen,
+<code>cargo build</code> <em>already</em> builds binaries for us.
+The only issue is,
+those are not guaranteed to work on all platforms.
+If you run <code>cargo build</code> on your Windows machine,
+you won’t get a binary that works on a Mac by default.
+Is there a way to generate these binaries
+for all the interesting platforms
+automatically?</p>
+<h3 id="building-binary-releases-on-ci"><a class="header" href="#building-binary-releases-on-ci">Building binary releases on CI</a></h3>
+<p>If your tool is open sourced
+and hosted on GitHub,
+it’s quite easy to set up a free CI (continuous integration) service
+like <a href="https://travis-ci.com/">Travis CI</a>.
+(There are other services that also work on other platforms, but Travis is very popular.)
+This basically runs setup commands
+in a virtual machine
+each time you push changes to your repository.
+What those commands are,
+and the types of machines they run on,
+is configurable.
+For example:
+A good idea is to run <code>cargo test</code>
+on a machine with Rust and some common build tools installed.
+If this fails,
+you know there are issues in the most recent changes.</p>
+<p>We can also use this
+to build binaries and upload them to GitHub!
+Indeed, if we run
+<code>cargo build --release</code>
+and upload the binary somewhere,
+we should be all set, right?
+Not quite.
+We still need to make sure the binaries we build
+are compatible with as many systems as possible.
+For example,
+on Linux we can compile not for the current system,
+but instead for the <code>x86_64-unknown-linux-musl</code> target,
+to not depend on default system libraries.
+On macOS, we can set <code>MACOSX_DEPLOYMENT_TARGET</code> to <code>10.7</code>
+to only depend on system features present in versions 10.7 and older.</p>
+<p>You can see one example of building binaries using this approach
+<a href="https://github.com/rustwasm/wasm-pack/blob/51e6351c28fbd40745719e6d4a7bf26dadd30c85/.travis.yml#L74-L91">here</a> for Linux and macOS
+and <a href="https://github.com/rustwasm/wasm-pack/blob/51e6351c28fbd40745719e6d4a7bf26dadd30c85/.appveyor.yml">here</a> for Windows (using AppVeyor).</p>
+<p>Another way is to use pre-built (Docker) images
+that contain all the tools we need
+to build binaries.
+This allows us to easily target more exotic platforms, too.
+The <a href="https://github.com/japaric/trust">trust</a> project contains
+scripts that you can include in your project
+as well as instructions on how to set this up.
+It also includes support for Windows using AppVeyor.</p>
+<p>If you’d rather set this up locally
+and generate the release files on your own machine,
+still have a look at trust.
+It uses <a href="https://github.com/rust-embedded/cross">cross</a> internally,
+which works similar to cargo
+but forwards commands to a cargo process inside a Docker container.
+The definitions of the images are also available in
+<a href="https://github.com/rust-embedded/cross">cross’ repository</a>.</p>
+<h3 id="how-to-install-these-binaries"><a class="header" href="#how-to-install-these-binaries">How to install these binaries</a></h3>
+<p>You point your users to your release page
+that might look something <a href="https://github.com/rustwasm/wasm-pack/releases/tag/v0.5.1">like this one</a>,
+and they can download the artifacts we’ve just created.
+The release artifacts we’ve just generated are nothing special:
+At the end, they are just archive files that contain our binaries!
+This means that users of your tool
+can download them with their browser,
+extract them (often happens automatically),
+and copy the binaries to a place they like.</p>
+<p>This does require some experience with manually “installing” programs,
+so you want to add a section to your README file
+on how to install this program.</p>
+<aside class="note">
+<p><strong>Note:</strong>
+If you used <a href="https://github.com/japaric/trust">trust</a> to build your binaries and added them to GitHub releases,
+you can also tell people to run
+<code>curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git your-name/repo-name</code>
+if you think that makes it easier.</p>
+</aside>
+<h3 id="when-to-use-it-1"><a class="header" href="#when-to-use-it-1">When to use it</a></h3>
+<p>Having binary releases is a good idea in general,
+there’s hardly any downside to it.
+It does not solve the problem of users having to manually
+install and update
+your tools,
+but they can quickly get the latest releases version
+without the need to install Rust.</p>
+<h3 id="what-to-package-in-addition-to-your-binaries"><a class="header" href="#what-to-package-in-addition-to-your-binaries">What to package in addition to your binaries</a></h3>
+<p>Right now,
+when a user downloads our release builds,
+they will get a <code>.tar.gz</code> file
+that only contains binary files.
+So, in our example project,
+they will just get a single <code>grrs</code> file they can run.
+But there are some more files we already have in our repository
+that they might want to have.
+The README file that tells them how to use this tool,
+and the license file(s),
+for example.
+Since we already have them,
+they are easy to add.</p>
+<p>There are some more interesting files
+that make sense especially for command-line tools,
+though:
+How about we also ship a man page in addition to that README file,
+and config files that add completions of the possible flags to your shell?
+You can write these by hand,
+but <em>clap</em>, the argument parsing library we use
+(which clap builds upon)
+has a way to generate all these files for us.
+See <a href="tutorial/../in-depth/docs.html">this in-depth chapter</a>
+for more details.</p>
+<h2 id="getting-your-app-into-package-repositories"><a class="header" href="#getting-your-app-into-package-repositories">Getting your app into package repositories</a></h2>
+<p>Both approaches we’ve seen so far
+are not how you typically install software on your machine.
+Especially command-line tools
+you install using global package managers
+on most operating systems.
+The advantages for users are quite obvious:
+There is no need to think about how to install your program,
+if it can be installed the same way as they install the other tools.
+These package managers also allow users to update their programs
+when a new version is available.</p>
+<p>Sadly, supporting different systems means
+you’ll have to look at how these different systems work.
+For some,
+it might be as easy as adding a file to your repository
+(e.g. adding a Formula file like <a href="https://github.com/BurntSushi/ripgrep/blob/31adff6f3c4bfefc9e77df40871f2989443e6827/pkg/brew/ripgrep-bin.rb">this</a> for macOS’s <code>brew</code>),
+but for others you’ll often need to send in patches yourself
+and add your tool to their repositories.
+There are helpful tools like
+<a href="https://crates.io/crates/cargo-bundle">cargo-bundle</a>,
+<a href="https://crates.io/crates/cargo-deb">cargo-deb</a>, and
+<a href="https://crates.io/crates/cargo-aur">cargo-aur</a>,
+but describing how they work
+and how to correctly package your tool
+for those different systems is beyond the scope of this chapter.</p>
+<p>Instead,
+let’s have a look at a tool that is written in Rust
+and that is available in many different package managers.</p>
+<h3 id="an-example-ripgrep"><a class="header" href="#an-example-ripgrep">An example: ripgrep</a></h3>
+<p><a href="https://github.com/BurntSushi/ripgrep">ripgrep</a> is an alternative to <code>grep</code>/<code>ack</code>/<code>ag</code> and is written in Rust.
+It’s quite successful and is packaged for many operating systems:
+Just look at <a href="https://github.com/BurntSushi/ripgrep/tree/31adff6f3c4bfefc9e77df40871f2989443e6827#installation">the “Installation” section</a> of its README!</p>
+<p>Note that it lists a few different options how you can install it:
+It starts with a link to the GitHub releases
+which contain the binaries so you can download them directly;
+then it lists how to install it using a bunch of different package managers;
+finally, you can also install it using <code>cargo install</code>.</p>
+<p>This seems like a very good idea:
+Don’t pick and choose one of the approaches presented here,
+but start with <code>cargo install</code>,
+add binary releases,
+and finally start distributing your tool using system package managers.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="深入探究主題"><a class="header" href="#深入探究主題">深入探究主題</a></h1>
+<p>該章節會涵蓋更多較為進階的小細節,但您在編寫命令列應用程式時可能會在乎這一點。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="訊號處理"><a class="header" href="#訊號處理">訊號處理</a></h1>
+<p>Processes
+like command line applications
+need to react to signals sent by the operating system.
+The most common example is probably <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+the signal that typically tells a process to terminate.
+To handle signals in Rust programs
+you need to consider how you can receive these signals
+as well as how you can react to them.</p>
+<aside>
+<p><strong>Note:</strong>
+If your applications does not need to gracefully shutdown,
+the default handling is fine
+(i.e. exit immediately
+and let the OS cleanup resources like open file handles).
+In that case:
+No need to do what this chapter tells you!</p>
+<p>However,
+for applications that need to clean up after themselves,
+this chapter is very relevant!
+For example,
+if your application needs to
+properly close network connections
+(saying “good bye” to the processes at the other end),
+remove temporary files,
+or reset system settings,
+read on.</p>
+</aside>
+<h2 id="differences-between-operating-systems"><a class="header" href="#differences-between-operating-systems">Differences between operating systems</a></h2>
+<p>On Unix systems
+(like Linux, macOS, and FreeBSD)
+a process can receive <a href="https://manpages.ubuntu.com/manpages/bionic/en/man7/signal.7.html">signals</a>.
+It can either react to them
+in a default (OS-provided) way,
+catch the signal and handle them in a program-defined way,
+or ignore the signal entirely.</p>
+<p>Windows does not have signals.
+You can use <a href="https://docs.microsoft.com/en-us/windows/console/console-control-handlers">Console Handlers</a>
+to define callbacks that get executed when an event occurs.
+There is also <a href="https://docs.microsoft.com/en-us/windows/desktop/debug/structured-exception-handling">structured exception handling</a>
+which handles all the various types of system exceptions such as division by zero, invalid access exceptions, stack overflow, and so on</p>
+<h2 id="first-off-handling-ctrlc"><a class="header" href="#first-off-handling-ctrlc">First off: Handling Ctrl+C</a></h2>
+<p>The <a href="https://crates.io/crates/ctrlc">ctrlc</a> crate does just what the name suggests:
+It allows you to react to the user pressing <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+in a cross-platform way.
+The main way to use the crate is this:</p>
+<pre><code class="language-rust ignore">use std::{thread, time::Duration};
+
+fn main() {
+    ctrlc::set_handler(move || {
+        println!("received Ctrl+C!");
+    })
+    .expect("Error setting Ctrl-C handler");
+
+    // Following code does the actual work, and can be interrupted by pressing
+    // Ctrl-C. As an example: Let's wait a few seconds.
+    thread::sleep(Duration::from_secs(2));
+}</code></pre>
+<p>This is, of course, not that helpful:
+It only prints a message but otherwise doesn’t stop the program.</p>
+<p>In a real-world program,
+it’s a good idea to instead set a variable in the signal handler
+that you then check in various places in your program.
+For example,
+you can set an <code>Arc&lt;AtomicBool&gt;</code>
+(a boolean shareable between threads)
+in your signal handler,
+and in hot loops,
+or when waiting for a thread,
+you periodically check its value
+and break when it becomes true.</p>
+<h2 id="handling-other-types-of-signals"><a class="header" href="#handling-other-types-of-signals">Handling other types of signals</a></h2>
+<p>The <a href="https://crates.io/crates/ctrlc">ctrlc</a> crate only handles <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+or, what on Unix systems would be called <code>SIGINT</code> (the “interrupt” signal).
+To react to more Unix signals,
+you should have a look at <a href="https://crates.io/crates/signal-hook">signal-hook</a>.
+Its design is described in <a href="https://vorner.github.io/2018/06/28/signal-hook.html">this blog post</a>,
+and it is currently the library with the widest community support.</p>
+<p>Here’s a simple example:</p>
+<pre><code class="language-rust ignore">use signal_hook::{consts::SIGINT, iterator::Signals};
+use std::{error::Error, thread, time::Duration};
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    let mut signals = Signals::new(&amp;[SIGINT])?;
+
+    thread::spawn(move || {
+        for sig in signals.forever() {
+            println!("Received signal {:?}", sig);
+        }
+    });
+
+    // Following code does the actual work, and can be interrupted by pressing
+    // Ctrl-C. As an example: Let's wait a few seconds.
+    thread::sleep(Duration::from_secs(2));
+
+    Ok(())
+}</code></pre>
+<h2 id="using-channels"><a class="header" href="#using-channels">Using channels</a></h2>
+<p>Instead of setting a variable
+and having other parts of the program check it,
+you can use channels:
+You create a channel into which the signal handler emits a value
+whenever the signal is received.
+In your application code you use
+this and other channels
+as synchronization points between threads.
+Using <a href="https://crates.io/crates/crossbeam-channel">crossbeam-channel</a> it would look something like this:</p>
+<pre><code class="language-rust ignore">use std::time::Duration;
+use crossbeam_channel::{bounded, tick, Receiver, select};
+use anyhow::Result;
+
+fn ctrl_channel() -&gt; Result&lt;Receiver&lt;()&gt;, ctrlc::Error&gt; {
+    let (sender, receiver) = bounded(100);
+    ctrlc::set_handler(move || {
+        let _ = sender.send(());
+    })?;
+
+    Ok(receiver)
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+    let ctrl_c_events = ctrl_channel()?;
+    let ticks = tick(Duration::from_secs(1));
+
+    loop {
+        select! {
+            recv(ticks) -&gt; _ =&gt; {
+                println!("working!");
+            }
+            recv(ctrl_c_events) -&gt; _ =&gt; {
+                println!();
+                println!("Goodbye!");
+                break;
+            }
+        }
+    }
+
+    Ok(())
+}</code></pre>
+<h2 id="using-futures-and-streams"><a class="header" href="#using-futures-and-streams">Using futures and streams</a></h2>
+<p>If you are using <a href="https://tokio.rs/">tokio</a>,
+you are most likely already writing your application
+with asynchronous patterns and an event-driven design.
+Instead of using crossbeam’s channels directly,
+you can enable signal-hook’s <code>tokio-support</code> feature.
+This allows you to call <a href="https://docs.rs/signal-hook/0.1.6/signal_hook/iterator/struct.Signals.html#method.into_async"><code>.into_async()</code></a>
+on signal-hook’s <code>Signals</code> types
+to get a new type that implements <code>futures::Stream</code>.</p>
+<h2 id="what-to-do-when-you-receive-another-ctrlc-while-youre-handling-the-first-ctrlc"><a class="header" href="#what-to-do-when-you-receive-another-ctrlc-while-youre-handling-the-first-ctrlc">What to do when you receive another Ctrl+C while you’re handling the first Ctrl+C</a></h2>
+<p>Most users will press <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+and then give your program a few seconds to exit,
+or tell them what’s going on.
+If that doesn’t happen,
+they will press <kbd>Ctrl</kbd>+<kbd>C</kbd> again.
+The typical behavior is to have the application quit immediately.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="使用配置檔"><a class="header" href="#使用配置檔">使用配置檔</a></h1>
+<p>Dealing with configurations can be annoying
+especially if you support multiple operating systems
+which all have their own places
+for short- and long-term files.</p>
+<p>處理配置可能很煩人
+特別是如果您支援多個作業系統
+都有自己的位置
+適用於短期和長期文件。</p>
+<p>對此有許多解決方案，有些比其他的層次更低。</p>
+<p>The easiest crate to use for this is <a href="https://docs.rs/confy/0.3.1/confy/"><code>confy</code></a>.
+It asks you for the name of your application
+and requires you to specify the config layout
+via a <code>struct</code> (that is <code>Serialize</code>, <code>Deserialize</code>)
+and it will figure out the rest!</p>
+<pre><code class="language-rust ignore">#[derive(Debug, Serialize, Deserialize)]
+struct MyConfig {
+    name: String,
+    comfy: bool,
+    foo: i64,
+}
+
+fn main() -&gt; Result&lt;(), io::Error&gt; {
+    let cfg: MyConfig = confy::load("my_app")?;
+    println!("{:#?}", cfg);
+    Ok(())
+}</code></pre>
+<p>這非常容易使用
+為此，您當然要放棄可設定性。
+但如果你想要一個簡單的配置，
+這個crate可能適合你！</p>
+<h2 id="配置環境"><a class="header" href="#配置環境">配置環境</a></h2>
+<aside class="todo">
+<p><strong>TODO</strong></p>
+<ol>
+<li>評估現有的 crate</li>
+<li>CLI-args + 多個配置 + 環境變數</li>
+<li><a href="https://docs.rs/configure/0.1.1/configure/"><code>configure</code></a> 可以完成這一切嗎？ 周圍有漂亮的包裝嗎？</li>
+</ol>
+</aside>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="退出狀態碼"><a class="header" href="#退出狀態碼">退出狀態碼</a></h1>
+<p>A program doesn’t always succeed.
+And when an error occurs,
+you should make sure to emit the necessary information correctly.
+In addition to
+<a href="in-depth/human-communication.html">telling the user about errors</a>,
+on most systems,
+when a process exits,
+it also emits an exit code
+(an integer between 0 and 255 is compatible with most platforms).
+You should try to emit the correct code
+for your program’s state.
+For example,
+in the ideal case when your program succeeds,
+it should exit with <code>0</code>.</p>
+<p>一個計劃並不總是成功。
+並且當出現錯誤時，您應該確保正確發出必要的資訊。
+另外<a href="in-depth/human-communication.html">告訴使用者錯誤</a>,
+在大多數系統上，當進程退出時，它還發出退出代碼（0 到 255 之間的整數與大多數平台相容）。
+您應該嘗試發出正確的程式碼
+對於你的程式的狀態。
+例如，在您的計劃成功的理想情況下，它應該以“0”退出。</p>
+<p>When an error occurs, it gets a bit more complicated, though.
+In the wild,
+many tools exit with <code>1</code> when a common failure occurs.
+Currently, Rust sets an exit code of <code>101</code> when the process panicked.
+Beyond that, people have done many things in their programs.</p>
+<p>So, what to do?
+The BSD ecosystem has collected a common definition for their exit codes
+(you can find them <a href="https://www.freebsd.org/cgi/man.cgi?query=sysexits&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+11.2-stable&amp;arch=default&amp;format=html">here</a>).
+The Rust library <a href="https://crates.io/crates/exitcode"><code>exitcode</code></a> provides these same codes,
+ready to be used in your application.
+Please see its API documentation for the possible values to use.</p>
+<p>After you add the <code>exitcode</code> dependency to your <code>Cargo.toml</code>,
+you can use it like this:</p>
+<pre><code class="language-rust ignore">fn main() {
+    // ...actual work...
+    match result {
+        Ok(_) =&gt; {
+            println!("Done!");
+            std::process::exit(exitcode::OK);
+        }
+        Err(CustomError::CantReadConfig(e)) =&gt; {
+            eprintln!("Error: {}", e);
+            std::process::exit(exitcode::CONFIG);
+        }
+        Err(e) =&gt; {
+            eprintln!("Error: {}", e);
+            std::process::exit(exitcode::DATAERR);
+        }
+    }
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="communicating-with-humans"><a class="header" href="#communicating-with-humans">Communicating with humans</a></h1>
+<p>Make sure to read <a href="in-depth/../tutorial/output.html">the chapter on CLI output</a>
+in the tutorial first.
+It covers how to write output to the terminal,
+while this chapter will talk about <em>what</em> to output.</p>
+<h2 id="when-everything-is-fine"><a class="header" href="#when-everything-is-fine">When everything is fine</a></h2>
+<p>It is useful to report on the application’s progress
+even when everything is fine.
+Try to be informative and concise in these messages.
+Don’t use overly technical terms in the logs.
+Remember:
+the application is not crashing
+so there’s no reason for users to look up errors.</p>
+<p>Most importantly,
+be consistent in the style of communication.
+Use the same prefixes and sentence structure
+to make the logs easily skimmable.</p>
+<p>Try to let your application output tell a story
+about what it’s doing
+and how it impacts the user.
+This can involve showing a timeline of steps involved
+or even a progress bar and indicator for long-running actions.
+The user should at no point
+get the feeling that the application is doing something mysterious
+that they cannot follow.</p>
+<h2 id="when-its-hard-to-tell-whats-going-on"><a class="header" href="#when-its-hard-to-tell-whats-going-on">When it’s hard to tell what’s going on</a></h2>
+<p>When communicating non-nominal state it’s important to be consistent.
+A heavily logging application that doesn’t follow strict logging levels
+provides the same amount, or even less information
+than a non-logging application.</p>
+<p>Because of this,
+it’s important to define the severity of events
+and messages that are related to it;
+then use consistent log levels for them.
+This way users can select the amount of logging themselves
+via <code>--verbose</code> flags
+or environment variables (like <code>RUST_LOG</code>).</p>
+<p>The commonly used <code>log</code> crate
+<a href="https://docs.rs/log/0.4.4/log/enum.Level.html">defines</a> the following levels
+(ordered by increasing severity):</p>
+<ul>
+<li>trace</li>
+<li>debug</li>
+<li>info</li>
+<li>warning</li>
+<li>error</li>
+</ul>
+<p>It’s a good idea to think of <em>info</em> as the default log level.
+Use it for, well, informative output.
+(Some applications that lean towards a more quiet output style
+might only show warnings and errors by default.)</p>
+<p>Additionally,
+it’s always a good idea to use similar prefixes
+and sentence structure across log messages,
+making it easy to use a tool like <code>grep</code> to filter for them.
+A message should provide enough context by itself
+to be useful in a filtered log
+while not being <em>too</em> verbose at the same time.</p>
+<h3 id="example-log-statements"><a class="header" href="#example-log-statements">Example log statements</a></h3>
+<pre><code class="language-console">error: could not find `Cargo.toml` in `/home/you/project/`
+</code></pre>
+<pre><code class="language-console">=&gt; Downloading repository index
+=&gt; Downloading packages...
+</code></pre>
+<p>The following log output is taken from <a href="https://crates.io/crates/wasm-pack">wasm-pack</a>:</p>
+<pre><code class="language-console"> [1/7] Adding WASM target...
+ [2/7] Compiling to WASM...
+ [3/7] Creating a pkg directory...
+ [4/7] Writing a package.json...
+ &gt; [WARN]: Field `description` is missing from Cargo.toml. It is not necessary, but recommended
+ &gt; [WARN]: Field `repository` is missing from Cargo.toml. It is not necessary, but recommended
+ &gt; [WARN]: Field `license` is missing from Cargo.toml. It is not necessary, but recommended
+ [5/7] Copying over your README...
+ &gt; [WARN]: origin crate has no README
+ [6/7] Installing WASM-bindgen...
+ &gt; [INFO]: wasm-bindgen already installed
+ [7/7] Running WASM-bindgen...
+ Done in 1 second
+</code></pre>
+<h2 id="when-panicking"><a class="header" href="#when-panicking">When panicking</a></h2>
+<p>One aspect often forgotten is that
+your program also outputs something when it crashes.
+In Rust, “crashes” are most often “panics”
+(i.e., “controlled crashing”
+in contrast to “the operating system killed the process”).
+By default,
+when a panic occurs,
+a “panic handler” will print some information to the console.</p>
+<p>For example,
+if you create a new binary project
+with <code>cargo new --bin foo</code>
+and replace the content of <code>fn main</code> with <code>panic!("Hello World")</code>,
+you get this when you run your program:</p>
+<pre><code class="language-console">thread 'main' panicked at 'Hello, world!', src/main.rs:2:5
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+</code></pre>
+<p>This is useful information to you, the developer.
+(Surprise: the program crashed because of line 2 in your <code>main.rs</code> file).
+But for a user who doesn’t even have access to the source code,
+this is not very valuable.
+In fact, it most likely is just confusing.
+That’s why it’s a good idea to add a custom panic handler,
+that provides a bit more end-user focused output.</p>
+<p>One library that does just that is called <a href="https://crates.io/crates/human-panic">human-panic</a>.
+To add it to your CLI project,
+you import it
+and call the <code>setup_panic!()</code> macro
+at the beginning of your <code>main</code> function:</p>
+<pre><code class="language-rust ignore">use human_panic::setup_panic;
+
+fn main() {
+   setup_panic!();
+
+   panic!("Hello world")
+}</code></pre>
+<p>This will now show a very friendly message,
+and tells the user what they can do:</p>
+<pre><code class="language-console">Well, this is embarrassing.
+
+foo had a problem and crashed. To help us diagnose the problem you can send us a crash report.
+
+We have generated a report file at "/var/folders/n3/dkk459k908lcmkzwcmq0tcv00000gn/T/report-738e1bec-5585-47a4-8158-f1f7227f0168.toml". Submit an issue or email with the subject of "foo Crash Report" and include the report as an attachment.
+
+- Authors: Your Name &lt;your.name@example.com&gt;
+
+We take privacy seriously, and do not perform any automated error collection. In order to improve the software, we rely on people to submit reports.
+
+Thank you kindly!
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="communicating-with-machines"><a class="header" href="#communicating-with-machines">Communicating with machines</a></h1>
+<p>The power of command-line tools really comes to shine
+when you are able to combine them.
+This is not a new idea:
+In fact, this is a sentence from the <a href="https://en.wikipedia.org/wiki/Unix_philosophy">Unix philosophy</a>:</p>
+<blockquote>
+<p>Expect the output of every program to become the input to another, as yet unknown, program.</p>
+</blockquote>
+<p>If our programs fulfill this expectation,
+our users will be happy.
+To make sure this works well,
+we should provide not just pretty output for humans,
+but also a version tailored to what other programs need.
+Let’s see how we can do this.</p>
+<aside>
+<p><strong>Note:</strong>
+Make sure to read <a href="in-depth/../tutorial/output.html">the chapter on CLI output</a>
+in the tutorial first.
+It covers how to write output to the terminal.</p>
+</aside>
+<h2 id="whos-reading-this"><a class="header" href="#whos-reading-this">Who’s reading this?</a></h2>
+<p>The first question to ask is:
+Is our output for a human in front of a colorful terminal,
+or for another program?
+To answer this,
+we can use a crate like <a href="https://crates.io/crates/is-terminal">is-terminal</a>:</p>
+<pre><code class="language-rust ignore">use is_terminal::IsTerminal as _;
+
+if std::io::stdout().is_terminal() {
+    println!("I'm a terminal");
+} else {
+    println!("I'm not");
+}</code></pre>
+<p>Depending on who will read our output,
+we can then add extra information.
+Humans tend to like colors,
+for example,
+if you run <code>ls</code> in a random Rust project,
+you might see something like this:</p>
+<pre><code class="language-console">$ ls
+CODE_OF_CONDUCT.md   LICENSE-APACHE       examples
+CONTRIBUTING.md      LICENSE-MIT          proptest-regressions
+Cargo.lock           README.md            src
+Cargo.toml           convey_derive        target
+</code></pre>
+<p>Because this style is made for humans,
+in most configurations
+it’ll even print some of the names (like <code>src</code>) in color
+to show that they are directories.
+If you instead pipe this to a file,
+or a program like <code>cat</code>,
+<code>ls</code> will adapt its output.
+Instead of using columns that fit my terminal window
+it will print every entry on its own line.
+It will also not emit any colors.</p>
+<pre><code class="language-console">$ ls | cat
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+Cargo.lock
+Cargo.toml
+LICENSE-APACHE
+LICENSE-MIT
+README.md
+convey_derive
+examples
+proptest-regressions
+src
+target
+</code></pre>
+<h2 id="easy-output-formats-for-machines"><a class="header" href="#easy-output-formats-for-machines">Easy output formats for machines</a></h2>
+<p>Historically,
+the only type of output command-line tools produced were strings.
+This is usually fine for people in front of terminals,
+who are able to read text
+and reason about its meaning.
+Other programs usually don’t have that ability, though:
+The only way for them to understand the output of a tool
+like <code>ls</code>
+is if the author of the program included a parser
+that happens to work for whatever <code>ls</code> outputs.</p>
+<p>This often means
+that output was limited to what is easy to parse.
+Formats like TSV (tab-separated values),
+where each record is on its own line,
+and each line contains tab-separated content,
+are very popular.
+These simple formats based on lines of text
+allow tools like <code>grep</code>
+to be used on the output of tools like <code>ls</code>.
+<code>| grep Cargo</code> doesn’t care if your lines are from <code>ls</code> or file,
+it will just filter line by line.</p>
+<p>The downside of this is that you can’t use
+an easy <code>grep</code> invocation to filter all the directories that <code>ls</code> gave you.
+For that, each directory item would need to carry additional data.</p>
+<h2 id="json-output-for-machines"><a class="header" href="#json-output-for-machines">JSON output for machines</a></h2>
+<p>Tab-separated values is a simple way
+to output structured data
+but it requires the other program to know which fields to expect
+(and in which order)
+and it’s difficult to output messages of different types.
+For example,
+let’s say our program wanted to message the consumer
+that it is currently waiting for a download,
+and afterwards output a message describing the data it got.
+Those are very different kinds of messages
+and trying to unify them in a TSV output
+would require us to invent a way to differentiate them.
+Same when we wanted to print a message that contains two lists
+of items of varying lengths.</p>
+<p>Still,
+it’s a good idea to choose a format that is easily parsable
+in most programming languages/environments.
+Thus,
+over the last years a lot of applications gained the ability
+to output their data in <a href="https://www.json.org/">JSON</a>.
+It’s simple enough that parsers exist in practically every language
+yet powerful enough to be useful in a lot of cases.
+While its a text format that can be read by humans,
+a lot of people have also worked on implementations that are very fast at
+parsing JSON data and serializing data to JSON.</p>
+<p>In the description above,
+we’ve talked about “messages” being written by our program.
+This is a good way of thinking about the output:
+Your program doesn’t necessarily only output one blob of data
+but may in fact emit a lot of different information
+while it is running.
+One easy way to support this approach when outputting JSON
+is to write one JSON document per message
+and to put each JSON document on new line
+(sometimes called <a href="https://en.wikipedia.org/wiki/JSON_streaming#Line-delimited_JSON">Line-delimited JSON</a>).
+This can make implementations as simple as using a regular <code>println!</code>.</p>
+<p>Here’s a simple example,
+using the <code>json!</code> macro from <a href="https://crates.io/crates/serde_json">serde_json</a>
+to quickly write valid JSON in your Rust source code:</p>
+<pre><code class="language-rust ignore">use clap::Parser;
+use serde_json::json;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(Parser)]
+struct Cli {
+    /// Output JSON instead of human readable messages
+    #[arg(long = "json")]
+    json: bool,
+}
+
+fn main() {
+    let args = Cli::parse();
+    if args.json {
+        println!(
+            "{}",
+            json!({
+                "type": "message",
+                "content": "Hello world",
+            })
+        );
+    } else {
+        println!("Hello world");
+    }
+}</code></pre>
+<p>And here is the output:</p>
+<pre><code class="language-console">$ cargo run -q
+Hello world
+$ cargo run -q -- --json
+{"content":"Hello world","type":"message"}
+</code></pre>
+<p>(Running <code>cargo</code> with <code>-q</code> suppresses its usual output.
+The arguments after <code>--</code> are passed to our program.)</p>
+<h3 id="practical-example-ripgrep"><a class="header" href="#practical-example-ripgrep">Practical example: ripgrep</a></h3>
+<p><em><a href="https://github.com/BurntSushi/ripgrep">ripgrep</a></em> is a replacement for <em>grep</em> or <em>ag</em>, written in Rust.
+By default it will produce output like this:</p>
+<pre><code class="language-console">$ rg default
+src/lib.rs
+37:    Output::default()
+
+src/components/span.rs
+6:    Span::default()
+</code></pre>
+<p>But given <code>--json</code> it will print:</p>
+<pre><code class="language-console">$ rg default --json
+{"type":"begin","data":{"path":{"text":"src/lib.rs"}}}
+{"type":"match","data":{"path":{"text":"src/lib.rs"},"lines":{"text":"    Output::default()\n"},"line_number":37,"absolute_offset":761,"submatches":[{"match":{"text":"default"},"start":12,"end":19}]}}
+{"type":"end","data":{"path":{"text":"src/lib.rs"},"binary_offset":null,"stats":{"elapsed":{"secs":0,"nanos":137622,"human":"0.000138s"},"searches":1,"searches_with_match":1,"bytes_searched":6064,"bytes_printed":256,"matched_lines":1,"matches":1}}}
+{"type":"begin","data":{"path":{"text":"src/components/span.rs"}}}
+{"type":"match","data":{"path":{"text":"src/components/span.rs"},"lines":{"text":"    Span::default()\n"},"line_number":6,"absolute_offset":117,"submatches":[{"match":{"text":"default"},"start":10,"end":17}]}}
+{"type":"end","data":{"path":{"text":"src/components/span.rs"},"binary_offset":null,"stats":{"elapsed":{"secs":0,"nanos":22025,"human":"0.000022s"},"searches":1,"searches_with_match":1,"bytes_searched":5221,"bytes_printed":277,"matched_lines":1,"matches":1}}}
+{"data":{"elapsed_total":{"human":"0.006995s","nanos":6994920,"secs":0},"stats":{"bytes_printed":533,"bytes_searched":11285,"elapsed":{"human":"0.000160s","nanos":159647,"secs":0},"matched_lines":2,"matches":2,"searches":2,"searches_with_match":2}},"type":"summary"}
+</code></pre>
+<p>As you can see,
+each JSON document is an object (map) containing a <code>type</code> field.
+This would allow us to write a simple frontend for <code>rg</code>
+that reads these documents as they come in and show the matches
+(as well the files they are in)
+even while <em>ripgrep</em> is still searching.</p>
+<aside>
+<p><strong>Note:</strong>
+This is how Visual Studio Code uses <em>ripgrep</em> for its code search.</p>
+</aside>
+<h2 id="how-to-deal-with-input-piped-into-us"><a class="header" href="#how-to-deal-with-input-piped-into-us">How to deal with input piped into us</a></h2>
+<p>Let’s say we have a program that reads the number of words in a file:</p>
+<pre><code class="language-rust ignore">use clap::Parser;
+use std::path::PathBuf;
+
+/// Count the number of lines in a file
+#[derive(Parser)]
+#[command(arg_required_else_help = true)]
+struct Cli {
+    /// The path to the file to read
+    file: PathBuf,
+}
+
+fn main() {
+    let args = Cli::parse();
+    let mut word_count = 0;
+    let file = args.file;
+
+    for line in std::fs::read_to_string(&amp;file).unwrap().lines() {
+        word_count += line.split(' ').count();
+    }
+
+    println!("Words in {}: {}", file.to_str().unwrap(), word_count)
+}</code></pre>
+<p>It takes the path to a file, reads it line by line, and counts the number of
+words separated by a space.</p>
+<p>When you run it, it outputs the total words in the file:</p>
+<pre><code class="language-console">$ cargo run README.md
+Words in README.md: 47
+</code></pre>
+<p>But what if we wanted to count the number of words piped into the program?
+Rust programs can read data passed in via stdin with the <a href="https://doc.rust-lang.org/std/io/struct.Stdin.html">Stdin
+struct</a> which you can
+obtain via <a href="https://doc.rust-lang.org/std/io/fn.stdin.html">the stdin function</a>
+from the standard library. Similar to reading the lines of a file, it can read
+the lines from stdin.</p>
+<p>Here’s a program that counts the words of what’s piped in via stdin</p>
+<pre><code class="language-rust ignore">use clap::{CommandFactory, Parser};
+use is_terminal::IsTerminal as _;
+use std::{
+    fs::File,
+    io::{stdin, BufRead, BufReader},
+    path::PathBuf,
+};
+
+/// Count the number of lines in a file or stdin
+#[derive(Parser)]
+#[command(arg_required_else_help = true)]
+struct Cli {
+    /// The path to the file to read, use - to read from stdin (must not be a tty)
+    file: PathBuf,
+}
+
+fn main() {
+    let args = Cli::parse();
+
+    let word_count;
+    let mut file = args.file;
+
+    if file == PathBuf::from("-") {
+        if stdin().is_terminal() {
+            Cli::command().print_help().unwrap();
+            ::std::process::exit(2);
+        }
+
+        file = PathBuf::from("&lt;stdin&gt;");
+        word_count = words_in_buf_reader(BufReader::new(stdin().lock()));
+    } else {
+        word_count = words_in_buf_reader(BufReader::new(File::open(&amp;file).unwrap()));
+    }
+
+    println!("Words from {}: {}", file.to_string_lossy(), word_count)
+}
+
+fn words_in_buf_reader&lt;R: BufRead&gt;(buf_reader: R) -&gt; usize {
+    let mut count = 0;
+    for line in buf_reader.lines() {
+        count += line.unwrap().split(' ').count()
+    }
+    count
+}</code></pre>
+<p>If you run that program with text piped in, with <code>-</code> representing the intent to
+read from <code>stdin</code>, it’ll output the word count:</p>
+<pre><code class="language-console">$ echo "hi there friend" | cargo run -- -
+Words from stdin: 3
+</code></pre>
+<p>It requires that stdin is not interactive because we’re expecting input that’s
+piped through to the program, not text that’s typed in at runtime. If stdin is
+a tty, it outputs the help docs so that it’s clear why it doesn’t work.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="為你的-cli-程式產生文檔"><a class="header" href="#為你的-cli-程式產生文檔">為你的 CLI 程式產生文檔</a></h1>
+<p>CLI 的文檔通常包括指令中的 <code>--help</code> 部分和一個手冊（<code>man</code>）頁面。</p>
+<p>Both can be automatically generated
+when using <a href="https://crates.io/crates/clap"><code>clap</code></a>, via
+<a href="https://crates.io/crates/clap_mangen"><code>clap_mangen</code></a> crate.</p>
+<p>兩者都可以自動生成
+使用 <a href="https://crates.io/crates/clap"><code>clap</code></a> 時，透過<a href="https://crates.io/crates/clap_mangen"><code>clap_mangen</code></a> 箱。</p>
+<pre><code class="language-rust ignore">#[derive(Parser)]
+pub struct Head {
+    /// file to load
+    pub file: PathBuf,
+    /// how many lines to print
+    #[arg(short = "n", default_value = "5")]
+    pub count: usize,
+}</code></pre>
+<p>Secondly, you need to use a <code>build.rs</code>
+to generate the manual file at compile time
+from the definition of your app
+in code.</p>
+<p>There are a few things to keep in mind
+(such as how you want to package your binary)
+but for now
+we simply put the <code>man</code> file
+next to our <code>src</code> folder.</p>
+<pre><code class="language-rust ignore">use clap::CommandFactory;
+
+#[path="src/cli.rs"]
+mod cli;
+
+fn main() -&gt; std::io::Result&lt;()&gt; {
+    let out_dir = std::path::PathBuf::from(std::env::var_os("OUT_DIR").ok_or_else(|| std::io::ErrorKind::NotFound)?);
+    let cmd = cli::Head::command();
+
+    let man = clap_mangen::Man::new(cmd);
+    let mut buffer: Vec&lt;u8&gt; = Default::default();
+    man.render(&amp;mut buffer)?;
+
+    std::fs::write(out_dir.join("head.1"), buffer)?;
+
+    Ok(())
+}</code></pre>
+<p>When you now compile your application
+there will be a <code>head.1</code> file
+in your project directory.</p>
+<p>If you open that in <code>man</code>
+you’ll be able to admire your free documentation.
+如果你在 <code>man</code> 中打開它，則你可閱讀</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="相關資源"><a class="header" href="#相關資源">相關資源</a></h1>
+<p>協作/幫助</p>
+<ul>
+<li><a href="https://discord.com/channels/273534239310479360/943315667430563862">cli-and-tui Discord Channel</a></li>
+</ul>
+<h2 id="本書中引用的參考crates"><a class="header" href="#本書中引用的參考crates">本書中引用的參考crates</a></h2>
+<ul>
+<li><a href="https://crates.io/crates/anyhow">anyhow</a> - provides <code>anyhow::Error</code> for easy error handling</li>
+<li><a href="https://crates.io/crates/assert_cmd">assert_cmd</a> - simplifies integration testing of CLIs</li>
+<li><a href="https://crates.io/crates/assert_fs">assert_fs</a> - Setup input files and test output files</li>
+<li><a href="https://crates.io/crates/clap-verbosity-flag">clap-verbosity-flag</a> - adds a <code>--verbose</code> flag to clap CLIs</li>
+<li><a href="https://crates.io/crates/clap">clap</a> - command line argument parser</li>
+<li><a href="https://crates.io/crates/confy">confy</a> - boilerplate-free configuration management</li>
+<li><a href="https://crates.io/crates/crossbeam-channel">crossbeam-channel</a> - provides multi-producer multi-consumer channels for message passing</li>
+<li><a href="https://crates.io/crates/ctrlc">ctrlc</a> - easy ctrl-c handler</li>
+<li><a href="https://crates.io/crates/env_logger">env_logger</a> - implements a logger configurable via environment variables</li>
+<li><a href="https://crates.io/crates/exitcode">exitcode</a> - system exit code constants</li>
+<li><a href="https://crates.io/crates/human-panic">human-panic</a> - panic message handler</li>
+<li><a href="https://crates.io/crates/indicatif">indicatif</a> - progress bars and spinners</li>
+<li><a href="https://crates.io/crates/is-terminal">is-terminal</a> - detected whether application is running in a tty</li>
+<li><a href="https://crates.io/crates/log">log</a> - provides logging abstracted over implementation</li>
+<li><a href="https://crates.io/crates/predicates">predicates</a> - implements boolean-valued predicate functions</li>
+<li><a href="https://crates.io/crates/proptest">proptest</a> - property testing framework</li>
+<li><a href="https://crates.io/crates/serde_json">serde_json</a> - serialize/deserialize to JSON</li>
+<li><a href="https://crates.io/crates/signal-hook">signal-hook</a> - handles UNIX signals</li>
+<li><a href="https://crates.io/crates/tokio">tokio</a> - asynchronous runtime</li>
+<li><a href="https://crates.io/crates/wasm-pack">wasm-pack</a> - tool for building WebAssembly</li>
+</ul>
+<h2 id="其它-crates"><a class="header" href="#其它-crates">其它 crates</a></h2>
+<p>由於 Rust crates 的landscape不斷變化，這是一個尋找的好地方。</p>
+<p>crates 是 <a href="https://lib.rs">lib.rs</a> crate 索引，包括：</p>
+<ul>
+<li><a href="https://lib.rs/command-line-interface">Command-line interface</a></li>
+<li><a href="https://lib.rs/config">Configuration</a></li>
+<li><a href="https://lib.rs/database">Database interfaces</a></li>
+<li><a href="https://lib.rs/encoding">Encoding</a></li>
+<li><a href="https://lib.rs/filesystem">Filesystem</a></li>
+<li><a href="https://lib.rs/web-programming/http-client">HTTP Client</a></li>
+<li><a href="https://lib.rs/os">Operating systems</a></li>
+</ul>
+<p>其他資源：</p>
+<ul>
+<li><a href="https://rust-lang-nursery.github.io/rust-cookbook/">Rust Cookbook</a></li>
+<li><a href="https://github.com/rosetta-rs">rosetta-rs</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

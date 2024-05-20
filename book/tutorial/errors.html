@@ -1,0 +1,432 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>合適的反饋錯誤 - Rust 中的命令列應用程式</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../src/special-content.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">開始</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html" class="active"><strong aria-hidden="true">1.4.</strong> 合適的反饋錯誤</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文檔</a></li></ol></li><li class="chapter-item expanded "><a href="../resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 中的命令列應用程式</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-cli/book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="合適的反饋錯誤"><a class="header" href="#合適的反饋錯誤">合適的反饋錯誤</a></h1>
+<p>我們都無能為力，只能接受錯誤會發生的事實。</p>
+<p>與許多其他語言相比，很難不去注意和應對這個現實
+使用 Rust 時：
+既然沒有例外，所有可能的錯誤狀態通常都編碼在函數的傳回類型中。</p>
+<h2 id="結果"><a class="header" href="#結果">結果</a></h2>
+<p>像 <a href="https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html"><code>read_to_string</code></a> 這樣的函數不回傳字串。
+相反的，它會傳回一個 <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a>，裡面包含一個“字串”或某種其它類型的錯誤
+（在本例中為<a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>）。</p>
+<p>那麼如何得知是哪一種類型呢？</p>
+<p>因為 <code>Result</code> 也是 <code>enum</code> 類型，
+可以使用 <code>match</code> 去檢查裡面是哪一種變體：</p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let result = std::fs::read_to_string("test.txt");
+match result {
+    Ok(content) =&gt; { println!("File content: {}", content); }
+    Err(error) =&gt; { println!("Oh noes: {}", error); }
+}
+<span class="boring">}</span></code></pre></pre>
+<aside>
+<p><strong>筆記:</strong>
+不確定枚舉(<code>enums</code>)是什麼或它們在 Rust 中如何工作？
+<a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">查看 Rust 書的這一章</a>
+好以跟上進度。</p>
+</aside>
+<h2 id="展開"><a class="header" href="#展開">展開</a></h2>
+<p>現在，我們可以存取文件的內容，但在 <code>match</code> 程式碼區塊後無法對它做任何事情。</p>
+<p>因此，我們需要以某種方式處理錯誤的情況。
+因難點在於， <code>match</code> 程式碼區塊的所有分支都會回傳一個相同的型別。</p>
+<p>但有一個巧妙的技巧來解決這個問題：</p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let result = std::fs::read_to_string("test.txt");
+let content = match result {
+    Ok(content) =&gt; { content },
+    Err(error) =&gt; { panic!("Can't deal with {}, just exit here", error); }
+};
+println!("file content: {}", content);
+<span class="boring">}</span></code></pre></pre>
+<p>我們可以在 <code>match</code> 程式碼區塊後使用 <code>content</code>。
+如果 <code>result</code> 是個錯誤， 字串就不存在。
+但好家在，程式會在我們使用 <code>content</code> 之前就會自行退出了。</p>
+<p>這種做法看起來有些極端，卻是十分實用的。
+如果你的程式需要讀取一個文件， 並且在文件不存在時無法執行任何操作，那麼退出是十分合理、有效的選擇。
+在 <code>Result</code> 中還有一個快捷方法，叫做 <code>unwrap</code>：</p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let content = std::fs::read_to_string("test.txt").unwrap();
+<span class="boring">}</span></code></pre></pre>
+<h2 id="無須-panic"><a class="header" href="#無須-panic">無須 panic</a></h2>
+<p>當然，退出程式並非處理錯誤的唯一辦法。</p>
+<p>除 <code>panic!</code>之外，實作 <code>return</code> 也很簡單：</p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+</span>let result = std::fs::read_to_string("test.txt");
+let content = match result {
+    Ok(content) =&gt; { content },
+    Err(error) =&gt; { return Err(error.into()); }
+};
+<span class="boring">Ok(())
+</span><span class="boring">}</span></code></pre></pre>
+<p>然而，這改變了我們函數的回傳值類型。
+實際上，一直以來我們的範例都隱藏了一些東西： 函數的簽名（或說回傳值型別）。
+在最後的含有 <code>return</code> 的範例中，它變得很重要了。
+下面是 <em>完整</em> 的範例：</p>
+<pre><pre class="playground"><code class="language-rust no_run">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let result = std::fs::read_to_string("test.txt");
+    let content = match result {
+        Ok(content) =&gt; { content },
+        Err(error) =&gt; { return Err(error.into()); }
+    };
+    println!("file content: {}", content);
+    Ok(())
+}</code></pre></pre>
+<p>我們的回傳值類型是 <code>Result</code>！
+這也就是為什麼我們可以在 <code>match</code> 的第二個分支寫 <code>return Err(error);</code>。
+看到最下面的 Ok(()) 是什麼嗎？
+它是函數的預設回傳值， 意思為「結果沒問題，沒有內容」。</p>
+<aside>
+<p><strong>筆記:</strong>
+Why is this not written as <code>return Ok(());</code>?
+It easily could be – this is totally valid as well.
+The last expression of any block in Rust is its return value,
+and it is customary to omit needless <code>return</code>s.</p>
+</aside>
+<h2 id="問題標記"><a class="header" href="#問題標記">問題標記</a></h2>
+<p>Just like calling <code>.unwrap()</code> is a shortcut
+for the <code>match</code> with <code>panic!</code> in the error arm,
+we have another shortcut for the <code>match</code> that <code>return</code>s in the error arm:
+<code>?</code>.</p>
+<p>That’s right, a question mark.
+You can append this operator to a value of type <code>Result</code>,
+and Rust will internally expand this to something very similar to
+the <code>match</code> we just wrote.</p>
+<p>試一試：</p>
+<pre><pre class="playground"><code class="language-rust no_run">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let content = std::fs::read_to_string("test.txt")?;
+    println!("file content: {}", content);
+    Ok(())
+}</code></pre></pre>
+<p>非常簡潔！</p>
+<aside>
+<p><strong>Note:</strong>
+There are a few more things happening here
+that are not required to understand to work with this.
+For example,
+the error type in our <code>main</code> function is <code>Box&lt;dyn std::error::Error&gt;</code>.
+But we’ve seen above that <code>read_to_string</code> returns a <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>.
+This works because <code>?</code> expands to code that  <em>converts</em> error types.</p>
+<p><code>Box&lt;dyn std::error::Error&gt;</code> is also an interesting type.
+It’s a <code>Box</code> that can contain <em>any</em> type
+that implements the standard <a href="https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html"><code>Error</code></a> trait.
+This means that basically all errors can be put into this box,
+so we can use <code>?</code> on all of the usual functions that return <code>Result</code>s.</p>
+</aside>
+<h2 id="providing-context"><a class="header" href="#providing-context">Providing Context</a></h2>
+<p>The errors you get when using <code>?</code> in your <code>main</code> function are okay,
+but they are not great.
+For example:
+When you run <code>std::fs::read_to_string("test.txt")?</code>
+but the file <code>test.txt</code> doesn’t exist,
+you get this output:</p>
+<pre><code class="language-text">Error: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+</code></pre>
+<p>In cases where your code doesn’t literally contain the file name,
+it would be very hard to tell which file was <code>NotFound</code>.
+There are multiple ways to deal with this.</p>
+<p>For example, we can create our own error type,
+and then use that to build a custom error message:</p>
+<pre><code class="language-rust ignore">#[derive(Debug)]
+struct CustomError(String);
+
+fn main() -&gt; Result&lt;(), CustomError&gt; {
+    let path = "test.txt";
+    let content = std::fs::read_to_string(path)
+        .map_err(|err| CustomError(format!("Error reading `{}`: {}", path, err)))?;
+    println!("file content: {}", content);
+    Ok(())
+}</code></pre>
+<p>Now,
+running this we’ll get our custom error message:</p>
+<pre><code class="language-text">Error: CustomError("Error reading `test.txt`: No such file or directory (os error 2)")
+</code></pre>
+<p>Not very pretty,
+but we can easily adapt the debug output for our type later on.</p>
+<p>This pattern is in fact very common.
+It has one problem, though:
+We don’t store the original error,
+only its string representation.
+The often used <a href="https://docs.rs/anyhow"><code>anyhow</code></a> library has a neat solution for that:
+similar to our <code>CustomError</code> type,
+its <a href="https://docs.rs/anyhow/1.0/anyhow/trait.Context.html"><code>Context</code></a> trait can be used to add a description.
+Additionally, it also keeps the original error,
+so we get a “chain” of error messages pointing out the root cause.</p>
+<p>Let’s first import the <code>anyhow</code> crate by adding
+<code>anyhow = "1.0"</code> to the <code>[dependencies]</code> section
+of our <code>Cargo.toml</code> file.</p>
+<p>完整的範例將如下所示：</p>
+<pre><code class="language-rust ignore">use anyhow::{Context, Result};
+
+fn main() -&gt; Result&lt;()&gt; {
+    let path = "test.txt";
+    let content = std::fs::read_to_string(path)
+        .with_context(|| format!("could not read file `{}`", path))?;
+    println!("file content: {}", content);
+    Ok(())
+}</code></pre>
+<p>這將會輸出一個錯誤：</p>
+<pre><code class="language-text">Error: could not read file `test.txt`
+
+Caused by:
+    No such file or directory (os error 2)
+</code></pre>
+<h2 id="總結"><a class="header" href="#總結">總結</a></h2>
+<p>你的程式碼現在看起來應該是這樣的：</p>
+<pre><code class="language-rust ignore">use anyhow::{Context, Result};
+use clap::Parser;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(Parser)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    path: std::path::PathBuf,
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+    let args = Cli::parse();
+
+    let content = std::fs::read_to_string(&amp;args.path)
+        .with_context(|| format!("could not read file `{}`", args.path.display()))?;
+
+    for line in content.lines() {
+        if line.contains(&amp;args.pattern) {
+            println!("{}", line);
+        }
+    }
+
+    Ok(())
+}</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../tutorial/impl-draft.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../tutorial/output.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../tutorial/impl-draft.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../tutorial/output.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

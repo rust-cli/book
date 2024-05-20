@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>解析命令列參數 - Rust 中的命令列應用程式</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../src/special-content.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">開始</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html" class="active"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> 合適的反饋錯誤</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文檔</a></li></ol></li><li class="chapter-item expanded "><a href="../resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 中的命令列應用程式</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-cli/book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="解析命令列參數"><a class="header" href="#解析命令列參數">解析命令列參數</a></h1>
+<p>我們的 CLI 工具的呼叫方法應該如下：</p>
+<pre><code class="language-console">$ grrs foobar test.txt
+</code></pre>
+<p>我們希望此程式將尋找 <code>test.txt</code> 並列印出包含 <code>foobar</code> 的行。</p>
+<p>但我們如何取得這兩個值呢？</p>
+<p>在命令列中，程式名稱中後面的文字通常被稱為「命令列參數(command-line arguments)」或「命令列標籤(command-line flags)」（尤其是當他們看起來像 <code>--this</code>）。</p>
+<p>作業系統通常會將它們識別為字串列表 — 簡單的說，以空格分隔。</p>
+<p>有很多方法可以識別這些參數並解析，使它們變得更易於使用。</p>
+<p>同時也需要告訴用戶， 程式需要哪些參數及對應的格式是什麼。</p>
+<h2 id="取得參數"><a class="header" href="#取得參數">取得參數</a></h2>
+<p>標準庫中提供的 <a href="https://doc.rust-lang.org/1.39.0/std/env/fn.args.html"><code>std::env::args()</code></a> 方法，提供了運行時給定參數的<a href="https://doc.rust-lang.org/1.39.0/std/iter/index.html">疊代器(iterator)</a>。</p>
+<p>首先，第一項（索引 <code>0</code> ）是程式名稱（如 : <code>grrs</code>），後面部分才是使用者給定的參數。</p>
+<p>以此方法取得原始參數就是這麼簡單（在 <code>src/main.rs</code> 的 <code>fn main()</code> 函數中）：</p>
+<pre><code class="language-rust ignore">fn main() {
+    let pattern = std::env::args().nth(1).expect("no pattern given");
+    let path = std::env::args().nth(2).expect("no path given");
+
+    println!("pattern: {:?}, path: {:?}", pattern, path)
+}</code></pre>
+<p>我們可以使用 <code>cargo run</code> 來運行它，透過在 <code>--</code> 之後寫入參數來傳遞參數：</p>
+<pre><code class="language-console">$ cargo run -- some-pattern some-file
+    Finished dev [unoptimized + debuginfo] target(s) in 0.11s
+     Running `target/debug/grrs some-pattern some-file`
+pattern: "some-pattern", path: "some-file"
+</code></pre>
+<h2 id="cli-參數的資料類型"><a class="header" href="#cli-參數的資料類型">CLI 參數的資料類型</a></h2>
+<p>與其將它們視為單純的一堆文字，不如將 CLI 參數看成程式輸入的自訂的資料類型。</p>
+<p>注意 <code>grrs foobar test.txt</code>:
+這裡有兩個參數，首先是 <code>pttern</code>（查看的字串）， 然後才是 <code>path</code>（尋找的檔案路徑）。</p>
+<p>關於他們，我們還能說些什麼呢？</p>
+<p>首先，這兩個參數都是程式所必須的，因為我們並未提供預設值， 所以使用者需要在使用此程式時提供這兩個參數。</p>
+<p>此外，關於參數的類型：pattern 應該是字串；第二個參數則應是檔案的路徑。</p>
+<p>在Rust 中，根據所處理的資料而去建立程式是很常見的， 因此這種看待參數的方法對我們接下來的工作很有幫助。</p>
+<p>讓我們在這開始（在檔案 <code>src/main.rs</code>，<code>fn main( ) {</code> 之前 ）：</p>
+<pre><code class="language-rust ignore">struct Cli {
+    pattern: String,
+    path: std::path::PathBuf,
+}</code></pre>
+<p>這定義了一個新的結構體（a <a href="https://doc.rust-lang.org/1.39.0/book/ch05-00-structs.html"><code>struct</code></a>）
+它有兩個欄位來儲存資料： <code>patern</code> 和 <code>path</code> 。</p>
+<aside>
+<p><strong>筆記:</strong>
+<a href="https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html"><code>PathBuf</code></a> 是可跨平台使用的系統路徑類型，特性類似 <a href="https://doc.rust-lang.org/1.39.0/std/string/struct.String.html">字串</a>。</p>
+</aside>
+<p>現在，我們仍然需要取得我們的程式進入這種形式的實際參數。</p>
+<p>有一種做法就是我們可以手動解析從作業系統上取得的參數列表並以此產生一個結構體。</p>
+<p>就有點像是這樣：</p>
+<pre><code class="language-rust ignore">fn main() {
+    let pattern = std::env::args().nth(1).expect("no pattern given");
+    let path = std::env::args().nth(2).expect("no path given");
+
+    let args = Cli {
+        pattern: pattern,
+        path: std::path::PathBuf::from(path),
+    };
+
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path);
+}</code></pre>
+<p>這種方式能正常運作，但用起來卻不是很方便。
+如何去支援像 <code>--pattern="foo"</code> 或 <code>--pattern "foo"</code> 這種參數輸入？
+又如何去實現 <code>--help</code>？</p>
+<h2 id="使用-clap-解析-cli-參數"><a class="header" href="#使用-clap-解析-cli-參數">使用 Clap 解析 CLI 參數</a></h2>
+<p>使用現成的函式庫來實現參數的解析，這是更明智的選擇。
+<a href="https://docs.rs/clap/"><code>clap</code></a> 是目前最受歡迎的解析命令列參數的函式庫。
+它提供了所有你需要的功能， 如子指令、<a href="https://docs.rs/clap_complete/">自動補全</a> 和完善的幫助資訊。</p>
+<p>首先，我們需要在 <code>Cargo.toml</code> 檔案的 <code>[dependencies]</code> 欄位裡加入上 <code>clap = { version = "4.0", features = ["derive"] }</code> 來匯入 <code>clap</code>。</p>
+<p>現在，我們可以在程式碼中加入<code>use clap::Parser;</code>,
+和在先前建立的 <code>struct Cli</code> 的正上方加上 <code>#[derive(Parser)]</code>。</p>
+<p>我們也可以在過程中編寫一些文件註解。</p>
+<p>讓我們在這開始（在檔案 <code>src/main.rs</code>，<code>fn main( ) {</code> 之前 ）：</p>
+<pre><code class="language-rust ignore">use clap::Parser;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(Parser)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    path: std::path::PathBuf,
+}</code></pre>
+<aside class="node">
+<p><strong>筆記:</strong>
+你可以將許多自訂屬性加入到欄位中。
+例如，
+如果你想將 <code>-o</code> 或 <code>--output</code> 後的參數解析為某個字段，可在字段上方添加上 <code>#[structopt(short = "o", long = "output")]</code>。
+如需更多屬性設置，請查看 <a href="https://docs.rs/clap/">clap documentation</a>。</p>
+</aside>
+<p>在本範例中，我們的 <code>Cli</code> 結構體下方即是 main 函數。
+當開始執行程式時，就會呼叫這個函數：</p>
+<pre><code class="language-rust ignore">fn main() {
+    let args = Cli::parse();
+
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path)
+}</code></pre>
+<p>這將嘗試解析參數並儲存到 <code>Cli</code> 結構體中。</p>
+<p>但如果解析失敗會怎樣？
+這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的類型。
+它可以自動產生一個不錯的 <code>--help</code> 訊息， 並會依錯誤給予一些建議－輸入的參數應該是 <code>--output</code> 而你輸入的是 <code>--putput</code>。</p>
+<aside class="note">
+<p><strong>筆記:</strong>
+<code>parse</code> 方法應該在 <code>main</code> 函數中使用。
+當它失敗時，
+它將輸出錯誤或幫助訊息並立即退出該程式。
+請勿在其他地方使用！</p>
+</aside>
+<h2 id="總結"><a class="header" href="#總結">總結</a></h2>
+<p>你的程式碼現在看起來應該是這樣的：</p>
+<pre><code class="language-rust ignore">use clap::Parser;
+
+/// Search for a pattern in a file and display the lines that contain it.
+#[derive(Parser)]
+struct Cli {
+    /// The pattern to look for
+    pattern: String,
+    /// The path to the file to read
+    path: std::path::PathBuf,
+}
+
+fn main() {
+    let args = Cli::parse();
+
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path)
+}</code></pre>
+<p>在無指定參數運作時：</p>
+<pre><code class="language-console">$ cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 10.16s
+     Running `target/debug/grrs`
+error: The following required arguments were not provided:
+    &lt;pattern&gt;
+    &lt;path&gt;
+
+USAGE:
+    grrs &lt;pattern&gt; &lt;path&gt;
+
+For more information try --help
+</code></pre>
+<p>如果使用傳遞參數:</p>
+<pre><code class="language-console">$ cargo run -- some-pattern some-file
+    Finished dev [unoptimized + debuginfo] target(s) in 0.11s
+     Running `target/debug/grrs some-pattern some-file`
+pattern: "some-pattern", path: "some-file"
+</code></pre>
+<p>該輸出表示我們的程式成功將參數解析為 <code>Cli</code> 結構。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../tutorial/setup.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../tutorial/impl-draft.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../tutorial/setup.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../tutorial/impl-draft.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
