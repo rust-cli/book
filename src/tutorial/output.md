@@ -14,13 +14,8 @@ println!("Hello World");
 您幾乎可以在終端機下使用 `println!` 巨集輸出所有您想輸出的東西。
 
 這個巨集有一些非常驚人的功能，而且還有特殊的語法。
-它希望您編寫一個字串文字作為第一個參數，包含將要填入的佔位符
+它希望您編寫一個字串文字作為第一個參數，包含將要填入的佔位符號
 再透過後面作為進一步參數的參數值。
-This macro has some pretty amazing capabilities,
-but also a special syntax.
-It expects you to write a string literal as the first parameter,
-that contains placeholders that will be filled in
-by the values of the parameters that follow as further arguments.
 
 範例:
 
@@ -35,37 +30,37 @@ println!("My lucky number is {}.", x);
 My lucky number is 42.
 ```
 
-The curly braces (`{}`) in the string above is one of these placeholders.
-This is the default placeholder type
-that tries to print the given value in a human readable way.
-For numbers and strings this works very well,
-but not all types can do that.
-This is why there is also a "debug representation",
-that you can get by filling the braces of the placeholder like this: `{:?}`.
+上面字串中的大括弧（ `{}` ）就是佔位符號中的一種。 
+這是預設的佔位符號類型， 它嘗試以人類可讀的方式來輸出給定的參數的值。 
+對於數字和字串，這會很好用， 
+但並不是所有的型別都可以。 
+這就是為什麼還有一個 "除錯表示(debug representation)"， 
+你可以使用這個佔位符號來呼叫它 `{:?}`。
 
-For example,
+範例
 
 ```rust
 let xs = vec![1, 2, 3];
 println!("The list is: {:?}", xs);
 ```
 
-will print
+將會輸出
 
 ```console
 The list is: [1, 2, 3]
 ```
 
-If you want your own data types to be printable for debugging and logging,
-you can in most cases add a `#[derive(Debug)]` above their definition.
+如果你想在偵錯和日誌中輸出自己建置的類型，
+大部分情況下你可以在類型定義上新增 `#[derive(Debug)]` 屬性。
 
 <aside>
 
-**Note:**
-"User-friendly" printing is done using the [`Display`] trait,
-debug output (human-readable but targeted at developers) uses the [`Debug`] trait.
-You can find more information about the syntax you can use in `println!`
-in the [documentation for the `std::fmt` module][std::fmt].
+**筆記:**
+
+"使用者友善(User-friendly)" 的輸出是使用 [`Display`] 特性完成的，
+除錯輸出（適用於開發者）使用 [`Debug`] 特徵。
+您可以在 `println!` 中找到更多關於可以使用的語法的資訊。
+在[`std::fmt`模組的文檔][std::fmt]中。
 
 [`Display`]: https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html
 [`Debug`]: https://doc.rust-lang.org/1.39.0/std/fmt/trait.Debug.html
@@ -73,13 +68,10 @@ in the [documentation for the `std::fmt` module][std::fmt].
 
 </aside>
 
-## Printing errors
+## 輸出錯誤
 
-Printing errors should be done via `stderr`
-to make it easier for users
-and other tools
-to pipe their outputs to files
-or more tools.
+輸出錯誤的部分應透過 stderr 完成， 
+以便使用者和其它工具更方便的地將輸出通過管道傳輸到文件或更多的工具中。
 
 <aside>
 
@@ -274,7 +266,7 @@ and make your users' life easier.
 
 <aside>
 
-**Tip:**
+**貼士:**
 Experience has shown that even mildly useful CLI programs can end up being used for years to come.
 (Especially if they were meant as a temporary solution.)
 If your application doesn't work

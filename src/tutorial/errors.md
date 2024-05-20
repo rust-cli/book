@@ -4,6 +4,7 @@
 
 與許多其他語言相比，很難不去注意和應對這個現實
 使用 Rust 時：
+
 既然沒有例外，所有可能的錯誤狀態通常都編碼在函數的傳回類型中。
 
 ## 結果
@@ -110,26 +111,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 <aside>
 
 **筆記:**
-Why is this not written as `return Ok(());`?
-It easily could be – this is totally valid as well.
-The last expression of any block in Rust is its return value,
-and it is customary to omit needless `return`s.
+為什麼不寫成 `return Ok(())`？ 
+當然這樣寫也完全沒問題。 
+在 Rust 中，任何程式碼區塊中的最後的表達式即為其回傳值，因此習慣上省略了 `return`。
 
 </aside>
 
-## 問題標記
+## 問題(!)標記
 
-Just like calling `.unwrap()` is a shortcut
-for the `match` with `panic!` in the error arm,
-we have another shortcut for the `match` that `return`s in the error arm:
-`?`.
+如同呼叫 `.unwrap()` 相當於 `match` 中快捷設定錯誤分支中 `panic!`，
+我們還有另一個快速的呼叫使得在 `match` 的錯誤分支中直接回傳: `?` 。 
 
-That's right, a question mark.
-You can append this operator to a value of type `Result`,
-and Rust will internally expand this to something very similar to
-the `match` we just wrote.
+是的，就是這個問號。 
+你可以在 `Result` 類型後面加上這個運算符， 
+Rust 在內部將會展開產生類似我們剛寫的 match 程式碼區塊。
 
-試一試：
+試試看：
 
 ```rust,no_run
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -143,74 +140,65 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 <aside>
 
-**Note:**
-There are a few more things happening here
-that are not required to understand to work with this.
-For example,
-the error type in our `main` function is `Box<dyn std::error::Error>`.
-But we've seen above that `read_to_string` returns a [`std::io::Error`].
-This works because `?` expands to code that  _converts_ error types.
+**筆記:**
+這裡還發生了一些事情，但我們不需要去理解就能使用它。 
+例如，在我們的 `main` 函數中，錯誤型別是 `Box<dyn std::error::Error>`。 
+但我們在 `read_to_string` 中回傳的卻是 [`std::io::Error`]。 
+它能正常工作是因為 `?` 將程式碼擴充為 `converts` 錯誤類型。
 
-`Box<dyn std::error::Error>` is also an interesting type.
-It's a `Box` that can contain _any_ type
-that implements the standard [`Error`][`std::error::Error`] trait.
-This means that basically all errors can be put into this box,
-so we can use `?` on all of the usual functions that return `Result`s.
+`Box<dyn std::error::Error>` 同樣是個很有意思的型別。 
+它是一個包含 _任何_ 實作了標準 [`Error`][`std::error::Error`] 特徵類型的 `Box`， 
+所以我們可以在所有傳回 `Result` 的一般函式中使用 `?`。
 
 [`std::error::Error`]: https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html
 
 </aside>
 
-## Providing Context
+## 提供內容
 
-The errors you get when using `?` in your `main` function are okay,
-but they are not great.
-For example:
-When you run `std::fs::read_to_string("test.txt")?`
-but the file `test.txt` doesn't exist,
-you get this output:
+在 `main` 函數中使用 `?` 來取得錯誤，可以正常工作，但它有一些不足之處。 
+例如：
+若使用 `std::fs::read_to_string("test.txt")?` 時，`test.txt` 檔案不存在，
+你會得到以下錯誤訊息：
 
 ```text
 Error: Os { code: 2, kind: NotFound, message: "No such file or directory" }
 ```
 
-In cases where your code doesn't literally contain the file name,
-it would be very hard to tell which file was `NotFound`.
-There are multiple ways to deal with this.
+在這裡你的程式碼裡沒有包含檔名，
+這會讓確認是哪個檔案 `NotFound` 變得很麻煩。
+但我們有許多種辦法可以改進它。
 
-For example, we can create our own error type,
-and then use that to build a custom error message:
+例如，我們可以建立一個自己的錯誤類型，
+然後使用它去產生自訂的錯誤訊息：
 
 ```rust,ignore
 {{#include errors-custom.rs}}
 ```
 
-Now,
-running this we'll get our custom error message:
+現在，
+運行它將會得到我們剛才自訂的錯誤訊息：
 
 ```text
 Error: CustomError("Error reading `test.txt`: No such file or directory (os error 2)")
 ```
 
-Not very pretty,
-but we can easily adapt the debug output for our type later on.
+儘管不是很完美，
+但我們稍後可以輕鬆地為我們的類型除錯輸出。
 
-This pattern is in fact very common.
-It has one problem, though:
-We don't store the original error,
-only its string representation.
-The often used [`anyhow`] library has a neat solution for that:
-similar to our `CustomError` type,
-its [`Context`] trait can be used to add a description.
-Additionally, it also keeps the original error,
-so we get a "chain" of error messages pointing out the root cause.
+這種模式實際上很常見。
+但它有一個問題：
+我們無法儲存原始錯誤，僅只能其輸出的字串來表示形式。
+常用的 [`anyhow`] 函式庫對此有一個巧妙的解決方案：
+類似於我們的 `CustomError` 類型，
+它的 [`Context`] 特徵可用於新增描述。
+此外，它還保留了原始錯誤，
+因此我們會得到一串( `chain` )錯誤訊息，同時指出根本原因。
 
 [`anyhow`]: https://docs.rs/anyhow
 [`Context`]: https://docs.rs/anyhow/1.0/anyhow/trait.Context.html
 
-Let's first import the `anyhow` crate by adding
-`anyhow = "1.0"` to the `[dependencies]` section
-of our `Cargo.toml` file.
+讓我們先在 `Cargo.toml` 檔案中的 `[dependencies]` 欄位中新增上 `anyhow = "1.0"`。
 
 完整的範例將如下所示：
 

@@ -179,10 +179,14 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="rust-中的命令列應用程式"><a class="header" href="#rust-中的命令列應用程式">Rust 中的命令列應用程式</a></h1>
-<p>Rust 是一種靜態編譯的、運行速度快的語言，它擁有強大的工具，其生態也在快速發展。 這使得它非常適合編寫命令列應用：小巧、便攜且運行速度快。 而命令列應用也是開始進行 Rust 學習，或向你的團隊介紹 Rust 的一種很好的方式。</p>
-<p>編寫一個簡單的命令列介面程式（CLI）對於剛接觸 Rust 且希望對其有所了解的初學者來說，是一個很好的練習。不過，這裡面也包含了許多方面，後面我們會介紹到它們。</p>
-<p>本書的大綱如下： 首先我們從一個快速教學開始，完成後你將會得到一個可用的 CLI 工具。 透過此教程， 你將接觸到 RUST 的一些核心概念及 CLI 應用的主要包括了哪些部分功能。 而下面的章節則是介紹這些面向的實作細節。</p>
-<p>最後，也是非常重要的一件事：如果在本書發現了錯誤，或想貢獻、豐富本書的內容， 項目源碼在這裡 <a href="https://github.com/rust-cli/book">in the CLI WG repository</a> ，期待你的反饋！</p>
+<p>Rust 是一種靜態編譯的、運行速度快的語言，它擁有強大的工具，其生態也在快速發展。</p>
+<p>這使得它非常適合編寫命令列應用：小巧、便攜且運行速度快。 而命令列應用也是開始進行 Rust 學習，或向你的團隊介紹 Rust 的一種很好的方式。</p>
+<p>編寫一個簡單的命令列介面程式（CLI）對於剛接觸 Rust 且希望對其有所了解的初學者來說，是一個很好的練習。
+不過，這裡面也包含了許多方面，後面我們會介紹到它們。</p>
+<p>本書的大綱如下： 首先我們從一個快速教學開始，完成後你將會得到一個可用的 CLI 工具。</p>
+<p>透過此教學， 你將接觸到 Rust 的一些核心概念及 CLI 主要應用包括了哪些部分功能。
+而下面的章節則是介紹這些面向的實作細節。</p>
+<p>最後，也是非常重要的一件事：如果在本書發現了錯誤，或想貢獻、豐富本書的內容， 專案原始碼在這裡 <a href="https://github.com/rust-cli/book">in the CLI WG repository</a> ，期待你的反饋！</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="在15分鐘內建立一個命令列應用程式"><a class="header" href="#在15分鐘內建立一個命令列應用程式">在15分鐘內建立一個命令列應用程式</a></h1>
 <p>本教學將指導您建立CLI（命令列介面）應用程式</p>
 <p>在<a href="https://rust-lang.org/">Rust</a>中，只需大約需要十五分鐘，就能得到可以運行的程式（大約第 1.3 節以後）。</p>
@@ -437,8 +441,8 @@ fn main() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="合適的反饋錯誤"><a class="header" href="#合適的反饋錯誤">合適的反饋錯誤</a></h1>
 <p>我們都無能為力，只能接受錯誤會發生的事實。</p>
 <p>與許多其他語言相比，很難不去注意和應對這個現實
-使用 Rust 時：
-既然沒有例外，所有可能的錯誤狀態通常都編碼在函數的傳回類型中。</p>
+使用 Rust 時：</p>
+<p>既然沒有例外，所有可能的錯誤狀態通常都編碼在函數的傳回類型中。</p>
 <h2 id="結果"><a class="header" href="#結果">結果</a></h2>
 <p>像 <a href="https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html"><code>read_to_string</code></a> 這樣的函數不回傳字串。
 相反的，它會傳回一個 <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a>，裡面包含一個“字串”或某種其它類型的錯誤
@@ -514,21 +518,17 @@ let content = match result {
 它是函數的預設回傳值， 意思為「結果沒問題，沒有內容」。</p>
 <aside>
 <p><strong>筆記:</strong>
-Why is this not written as <code>return Ok(());</code>?
-It easily could be – this is totally valid as well.
-The last expression of any block in Rust is its return value,
-and it is customary to omit needless <code>return</code>s.</p>
+為什麼不寫成 <code>return Ok(())</code>？
+當然這樣寫也完全沒問題。
+在 Rust 中，任何程式碼區塊中的最後的表達式即為其回傳值，因此習慣上省略了 <code>return</code>。</p>
 </aside>
-<h2 id="問題標記"><a class="header" href="#問題標記">問題標記</a></h2>
-<p>Just like calling <code>.unwrap()</code> is a shortcut
-for the <code>match</code> with <code>panic!</code> in the error arm,
-we have another shortcut for the <code>match</code> that <code>return</code>s in the error arm:
-<code>?</code>.</p>
-<p>That’s right, a question mark.
-You can append this operator to a value of type <code>Result</code>,
-and Rust will internally expand this to something very similar to
-the <code>match</code> we just wrote.</p>
-<p>試一試：</p>
+<h2 id="問題標記"><a class="header" href="#問題標記">問題(!)標記</a></h2>
+<p>如同呼叫 <code>.unwrap()</code> 相當於 <code>match</code> 中快捷設定錯誤分支中 <code>panic!</code>，
+我們還有另一個快速的呼叫使得在 <code>match</code> 的錯誤分支中直接回傳: <code>?</code> 。</p>
+<p>是的，就是這個問號。
+你可以在 <code>Result</code> 類型後面加上這個運算符，
+Rust 在內部將會展開產生類似我們剛寫的 match 程式碼區塊。</p>
+<p>試試看：</p>
 <pre><pre class="playground"><code class="language-rust no_run">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let content = std::fs::read_to_string("test.txt")?;
     println!("file content: {}", content);
@@ -536,33 +536,27 @@ the <code>match</code> we just wrote.</p>
 }</code></pre></pre>
 <p>非常簡潔！</p>
 <aside>
-<p><strong>Note:</strong>
-There are a few more things happening here
-that are not required to understand to work with this.
-For example,
-the error type in our <code>main</code> function is <code>Box&lt;dyn std::error::Error&gt;</code>.
-But we’ve seen above that <code>read_to_string</code> returns a <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>.
-This works because <code>?</code> expands to code that  <em>converts</em> error types.</p>
-<p><code>Box&lt;dyn std::error::Error&gt;</code> is also an interesting type.
-It’s a <code>Box</code> that can contain <em>any</em> type
-that implements the standard <a href="https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html"><code>Error</code></a> trait.
-This means that basically all errors can be put into this box,
-so we can use <code>?</code> on all of the usual functions that return <code>Result</code>s.</p>
+<p><strong>筆記:</strong>
+這裡還發生了一些事情，但我們不需要去理解就能使用它。
+例如，在我們的 <code>main</code> 函數中，錯誤型別是 <code>Box&lt;dyn std::error::Error&gt;</code>。
+但我們在 <code>read_to_string</code> 中回傳的卻是 <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>。
+它能正常工作是因為 <code>?</code> 將程式碼擴充為 <code>converts</code> 錯誤類型。</p>
+<p><code>Box&lt;dyn std::error::Error&gt;</code> 同樣是個很有意思的型別。
+它是一個包含 <em>任何</em> 實作了標準 <a href="https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html"><code>Error</code></a> 特徵類型的 <code>Box</code>，
+所以我們可以在所有傳回 <code>Result</code> 的一般函式中使用 <code>?</code>。</p>
 </aside>
-<h2 id="providing-context"><a class="header" href="#providing-context">Providing Context</a></h2>
-<p>The errors you get when using <code>?</code> in your <code>main</code> function are okay,
-but they are not great.
-For example:
-When you run <code>std::fs::read_to_string("test.txt")?</code>
-but the file <code>test.txt</code> doesn’t exist,
-you get this output:</p>
+<h2 id="提供內容"><a class="header" href="#提供內容">提供內容</a></h2>
+<p>在 <code>main</code> 函數中使用 <code>?</code> 來取得錯誤，可以正常工作，但它有一些不足之處。
+例如：
+若使用 <code>std::fs::read_to_string("test.txt")?</code> 時，<code>test.txt</code> 檔案不存在，
+你會得到以下錯誤訊息：</p>
 <pre><code class="language-text">Error: Os { code: 2, kind: NotFound, message: "No such file or directory" }
 </code></pre>
-<p>In cases where your code doesn’t literally contain the file name,
-it would be very hard to tell which file was <code>NotFound</code>.
-There are multiple ways to deal with this.</p>
-<p>For example, we can create our own error type,
-and then use that to build a custom error message:</p>
+<p>在這裡你的程式碼裡沒有包含檔名，
+這會讓確認是哪個檔案 <code>NotFound</code> 變得很麻煩。
+但我們有許多種辦法可以改進它。</p>
+<p>例如，我們可以建立一個自己的錯誤類型，
+然後使用它去產生自訂的錯誤訊息：</p>
 <pre><code class="language-rust ignore">#[derive(Debug)]
 struct CustomError(String);
 
@@ -573,24 +567,21 @@ fn main() -&gt; Result&lt;(), CustomError&gt; {
     println!("file content: {}", content);
     Ok(())
 }</code></pre>
-<p>Now,
-running this we’ll get our custom error message:</p>
+<p>現在，
+運行它將會得到我們剛才自訂的錯誤訊息：</p>
 <pre><code class="language-text">Error: CustomError("Error reading `test.txt`: No such file or directory (os error 2)")
 </code></pre>
-<p>Not very pretty,
-but we can easily adapt the debug output for our type later on.</p>
-<p>This pattern is in fact very common.
-It has one problem, though:
-We don’t store the original error,
-only its string representation.
-The often used <a href="https://docs.rs/anyhow"><code>anyhow</code></a> library has a neat solution for that:
-similar to our <code>CustomError</code> type,
-its <a href="https://docs.rs/anyhow/1.0/anyhow/trait.Context.html"><code>Context</code></a> trait can be used to add a description.
-Additionally, it also keeps the original error,
-so we get a “chain” of error messages pointing out the root cause.</p>
-<p>Let’s first import the <code>anyhow</code> crate by adding
-<code>anyhow = "1.0"</code> to the <code>[dependencies]</code> section
-of our <code>Cargo.toml</code> file.</p>
+<p>儘管不是很完美，
+但我們稍後可以輕鬆地為我們的類型除錯輸出。</p>
+<p>這種模式實際上很常見。
+但它有一個問題：
+我們無法儲存原始錯誤，僅只能其輸出的字串來表示形式。
+常用的 <a href="https://docs.rs/anyhow"><code>anyhow</code></a> 函式庫對此有一個巧妙的解決方案：
+類似於我們的 <code>CustomError</code> 類型，
+它的 <a href="https://docs.rs/anyhow/1.0/anyhow/trait.Context.html"><code>Context</code></a> 特徵可用於新增描述。
+此外，它還保留了原始錯誤，
+因此我們會得到一串( <code>chain</code> )錯誤訊息，同時指出根本原因。</p>
+<p>讓我們先在 <code>Cargo.toml</code> 檔案中的 <code>[dependencies]</code> 欄位中新增上 <code>anyhow = "1.0"</code>。</p>
 <p>完整的範例將如下所示：</p>
 <pre><code class="language-rust ignore">use anyhow::{Context, Result};
 
@@ -646,13 +637,8 @@ fn main() -&gt; Result&lt;()&gt; {
 <h2 id="使用-println"><a class="header" href="#使用-println">使用 <code>println!</code></a></h2>
 <p>您幾乎可以在終端機下使用 <code>println!</code> 巨集輸出所有您想輸出的東西。</p>
 <p>這個巨集有一些非常驚人的功能，而且還有特殊的語法。
-它希望您編寫一個字串文字作為第一個參數，包含將要填入的佔位符
-再透過後面作為進一步參數的參數值。
-This macro has some pretty amazing capabilities,
-but also a special syntax.
-It expects you to write a string literal as the first parameter,
-that contains placeholders that will be filled in
-by the values of the parameters that follow as further arguments.</p>
+它希望您編寫一個字串文字作為第一個參數，包含將要填入的佔位符號
+再透過後面作為進一步參數的參數值。</p>
 <p>範例:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -662,37 +648,33 @@ println!("My lucky number is {}.", x);
 <p>將會輸出</p>
 <pre><code class="language-console">My lucky number is 42.
 </code></pre>
-<p>The curly braces (<code>{}</code>) in the string above is one of these placeholders.
-This is the default placeholder type
-that tries to print the given value in a human readable way.
-For numbers and strings this works very well,
-but not all types can do that.
-This is why there is also a “debug representation”,
-that you can get by filling the braces of the placeholder like this: <code>{:?}</code>.</p>
-<p>For example,</p>
+<p>上面字串中的大括弧（ <code>{}</code> ）就是佔位符號中的一種。
+這是預設的佔位符號類型， 它嘗試以人類可讀的方式來輸出給定的參數的值。
+對於數字和字串，這會很好用，
+但並不是所有的型別都可以。
+這就是為什麼還有一個 “除錯表示(debug representation)”，
+你可以使用這個佔位符號來呼叫它 <code>{:?}</code>。</p>
+<p>範例</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let xs = vec![1, 2, 3];
 println!("The list is: {:?}", xs);
 <span class="boring">}</span></code></pre></pre>
-<p>will print</p>
+<p>將會輸出</p>
 <pre><code class="language-console">The list is: [1, 2, 3]
 </code></pre>
-<p>If you want your own data types to be printable for debugging and logging,
-you can in most cases add a <code>#[derive(Debug)]</code> above their definition.</p>
+<p>如果你想在偵錯和日誌中輸出自己建置的類型，
+大部分情況下你可以在類型定義上新增 <code>#[derive(Debug)]</code> 屬性。</p>
 <aside>
-<p><strong>Note:</strong>
-“User-friendly” printing is done using the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html"><code>Display</code></a> trait,
-debug output (human-readable but targeted at developers) uses the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Debug.html"><code>Debug</code></a> trait.
-You can find more information about the syntax you can use in <code>println!</code>
-in the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/index.html">documentation for the <code>std::fmt</code> module</a>.</p>
+<p><strong>筆記:</strong></p>
+<p>“使用者友善(User-friendly)” 的輸出是使用 <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html"><code>Display</code></a> 特性完成的，
+除錯輸出（適用於開發者）使用 <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Debug.html"><code>Debug</code></a> 特徵。
+您可以在 <code>println!</code> 中找到更多關於可以使用的語法的資訊。
+在<a href="https://doc.rust-lang.org/1.39.0/std/fmt/index.html"><code>std::fmt</code>模組的文檔</a>中。</p>
 </aside>
-<h2 id="printing-errors"><a class="header" href="#printing-errors">Printing errors</a></h2>
-<p>Printing errors should be done via <code>stderr</code>
-to make it easier for users
-and other tools
-to pipe their outputs to files
-or more tools.</p>
+<h2 id="輸出錯誤"><a class="header" href="#輸出錯誤">輸出錯誤</a></h2>
+<p>輸出錯誤的部分應透過 stderr 完成，
+以便使用者和其它工具更方便的地將輸出通過管道傳輸到文件或更多的工具中。</p>
 <aside>
 <p><strong>Note:</strong>
 On most operating systems,
@@ -850,7 +832,7 @@ If you know your application will have a lot to log,
 make sure to review them,
 and make your users’ life easier.</p>
 <aside>
-<p><strong>Tip:</strong>
+<p><strong>貼士:</strong>
 Experience has shown that even mildly useful CLI programs can end up being used for years to come.
 (Especially if they were meant as a temporary solution.)
 If your application doesn’t work
