@@ -1,6 +1,6 @@
-# 為你的 CLI 程式產生文檔
+# 為你的 CLI 程式產生文件 
 
-CLI 的文檔通常包括指令中的 `--help` 部分和一個手冊（`man`）頁面。
+CLI 的文件 通常包括指令中的 `--help` 部分和一個手冊（`man`）頁面。
 
 Both can be automatically generated
 when using [`clap`](https://crates.io/crates/clap), via

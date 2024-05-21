@@ -90,7 +90,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">開始</a></li><li class="chapter-item expanded "><a href="tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> 合適的反饋錯誤</a></li><li class="chapter-item expanded "><a href="tutorial/output.html"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文檔</a></li></ol></li><li class="chapter-item expanded "><a href="resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">開始</a></li><li class="chapter-item expanded "><a href="tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> 合適的回饋錯誤</a></li><li class="chapter-item expanded "><a href="tutorial/output.html"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文件 </a></li></ol></li><li class="chapter-item expanded "><a href="resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -180,13 +180,15 @@
                     <main>
                         <h1 id="rust-中的命令列應用程式"><a class="header" href="#rust-中的命令列應用程式">Rust 中的命令列應用程式</a></h1>
 <p>Rust 是一種靜態編譯的、運行速度快的語言，它擁有強大的工具，其生態也在快速發展。</p>
-<p>這使得它非常適合編寫命令列應用：小巧、便攜且運行速度快。 而命令列應用也是開始進行 Rust 學習，或向你的團隊介紹 Rust 的一種很好的方式。</p>
+<p>這使得它非常適合編寫命令列應用程式：小巧、便攜且運行速度快。 而命令列應用程式也是開始進行學習 Rust ，或向你的團隊介紹 Rust 的一種很好的方式。</p>
 <p>編寫一個簡單的命令列介面程式（CLI）對於剛接觸 Rust 且希望對其有所了解的初學者來說，是一個很好的練習。
-不過，這裡面也包含了許多方面，後面我們會介紹到它們。</p>
+不過，這裡面也包含了許多方面，後面章節我們會介紹到它們。</p>
 <p>本書的大綱如下： 首先我們從一個快速教學開始，完成後你將會得到一個可用的 CLI 工具。</p>
 <p>透過此教學， 你將接觸到 Rust 的一些核心概念及 CLI 主要應用包括了哪些部分功能。
 而下面的章節則是介紹這些面向的實作細節。</p>
-<p>最後，也是非常重要的一件事：如果在本書發現了錯誤，或想貢獻、豐富本書的內容， 專案原始碼在這裡 <a href="https://github.com/rust-cli/book">in the CLI WG repository</a> ，期待你的反饋！</p>
+<p>最後，也是非常重要的一件事：如果在本書發現了錯誤，或想貢獻、豐富本書的內容， 該專案原始碼在這裡 <a href="https://github.com/rust-cli/book">in the CLI WG repository</a> ，期待你的回饋！</p>
+<p><strong>說明:</strong>
+繁體中文的翻譯部分，請到<a href="https://github.com/neko0xff/rust-cli-zh_TW">這裡</a>進行回饋！</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="在15分鐘內建立一個命令列應用程式"><a class="header" href="#在15分鐘內建立一個命令列應用程式">在15分鐘內建立一個命令列應用程式</a></h1>
 <p>本教學將指導您建立CLI（命令列介面）應用程式</p>
 <p>在<a href="https://rust-lang.org/">Rust</a>中，只需大約需要十五分鐘，就能得到可以運行的程式（大約第 1.3 節以後）。</p>
@@ -198,7 +200,7 @@
 本教學並不能取代程式設計的一般性介紹，你最好了解、熟悉一些常見的概念。
 同樣，你應該能熟練的使用命令列或終端。如果你會使用其它的語言，那麼這對於你接觸和學習 Rust 會是極大幫助。</p>
 <p><strong>尋求協助:</strong>
-如果你在任何時候對所使用的功能感到不解或困惑，請查閱 Rust 提供的官方文檔，首先是這本《The Rust Programming Language》。
+如果你在任何時候對所使用的功能感到不解或困惑，請查閱 Rust 提供的官方文件 ，首先是這本《The Rust Programming Language》。
 一般安裝 Rust 時也會安裝它 （<code>rustup doc</code>），或者你也可以在線查看 <a href="https://doc.rust-lang.org">doc.rust-lang.org</a>。
 也非常歡迎你來社區提問——Rust 社區以友好和樂於助人著稱。 在 <a href="https://www.rust-lang.org/community">社群頁面</a> 上你可以看到人們關於 Rust 的討論的清單。 You are also very welcome to ask questions –</p>
 </aside>
@@ -216,7 +218,7 @@ $ grrs --help
 [some help text explaining the available options]
 </code></pre>
 <aside class="note">
-<p><strong>筆記:</strong></p>
+<p><strong>說明:</strong></p>
 <p>本書是使用 <a href="https://doc.rust-lang.org/edition-guide/index.html">Rust 2018</a> 所寫的。
 同時，這些程式碼範例同樣適用於 Rust 2015， 只需做一點點調整，例如新增 <code>extern crate foo;</code>。</p>
 <p>確保你執行的是 Rust 1.31.0（或更高版本），同時在你的 <code>Cargo.toml</code> 檔案中， 在 <code>[package]</code> 段落加上 <code>edition = "2018"</code>。</p>
@@ -267,13 +269,13 @@ Hello, world!
      Running `target/debug/grrs some-pattern some-file`
 pattern: "some-pattern", path: "some-file"
 </code></pre>
-<h2 id="cli-參數的資料類型"><a class="header" href="#cli-參數的資料類型">CLI 參數的資料類型</a></h2>
-<p>與其將它們視為單純的一堆文字，不如將 CLI 參數看成程式輸入的自訂的資料類型。</p>
+<h2 id="cli-參數的資料型別"><a class="header" href="#cli-參數的資料型別">CLI 參數的資料型別</a></h2>
+<p>與其將它們視為單純的一堆文字，不如將 CLI 參數看成程式輸入的自訂的資料型別。</p>
 <p>注意 <code>grrs foobar test.txt</code>:
 這裡有兩個參數，首先是 <code>pttern</code>（查看的字串）， 然後才是 <code>path</code>（尋找的檔案路徑）。</p>
 <p>關於他們，我們還能說些什麼呢？</p>
 <p>首先，這兩個參數都是程式所必須的，因為我們並未提供預設值， 所以使用者需要在使用此程式時提供這兩個參數。</p>
-<p>此外，關於參數的類型：pattern 應該是字串；第二個參數則應是檔案的路徑。</p>
+<p>此外，關於參數的型別：pattern 應該是字串；第二個參數則應是檔案的路徑。</p>
 <p>在Rust 中，根據所處理的資料而去建立程式是很常見的， 因此這種看待參數的方法對我們接下來的工作很有幫助。</p>
 <p>讓我們在這開始（在檔案 <code>src/main.rs</code>，<code>fn main( ) {</code> 之前 ）：</p>
 <pre><code class="language-rust ignore">struct Cli {
@@ -283,8 +285,8 @@ pattern: "some-pattern", path: "some-file"
 <p>這定義了一個新的結構體（a <a href="https://doc.rust-lang.org/1.39.0/book/ch05-00-structs.html"><code>struct</code></a>）
 它有兩個欄位來儲存資料： <code>patern</code> 和 <code>path</code> 。</p>
 <aside>
-<p><strong>筆記:</strong>
-<a href="https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html"><code>PathBuf</code></a> 是可跨平台使用的系統路徑類型，特性類似 <a href="https://doc.rust-lang.org/1.39.0/std/string/struct.String.html">字串</a>。</p>
+<p><strong>說明:</strong>
+<a href="https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html"><code>PathBuf</code></a> 是可跨平台使用的系統路徑型別，特性類似 <a href="https://doc.rust-lang.org/1.39.0/std/string/struct.String.html">字串</a>。</p>
 </aside>
 <p>現在，我們仍然需要取得我們的程式進入這種形式的實際參數。</p>
 <p>有一種做法就是我們可以手動解析從作業系統上取得的參數列表並以此產生一個結構體。</p>
@@ -323,7 +325,7 @@ struct Cli {
     path: std::path::PathBuf,
 }</code></pre>
 <aside class="node">
-<p><strong>筆記:</strong>
+<p><strong>說明:</strong>
 你可以將許多自訂屬性加入到欄位中。
 例如，
 如果你想將 <code>-o</code> 或 <code>--output</code> 後的參數解析為某個字段，可在字段上方添加上 <code>#[structopt(short = "o", long = "output")]</code>。
@@ -334,14 +336,14 @@ struct Cli {
 <pre><code class="language-rust ignore">fn main() {
     let args = Cli::parse();
 
-    println!("pattern: {:?}, path: {:?}", args.pattern, args.path)
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path);
 }</code></pre>
 <p>這將嘗試解析參數並儲存到 <code>Cli</code> 結構體中。</p>
 <p>但如果解析失敗會怎樣？
-這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的類型。
+這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的型別。
 它可以自動產生一個不錯的 <code>--help</code> 訊息， 並會依錯誤給予一些建議－輸入的參數應該是 <code>--output</code> 而你輸入的是 <code>--putput</code>。</p>
 <aside class="note">
-<p><strong>筆記:</strong>
+<p><strong>說明:</strong>
 <code>parse</code> 方法應該在 <code>main</code> 函數中使用。
 當它失敗時，
 它將輸出錯誤或幫助訊息並立即退出該程式。
@@ -363,7 +365,7 @@ struct Cli {
 fn main() {
     let args = Cli::parse();
 
-    println!("pattern: {:?}, path: {:?}", args.pattern, args.path)
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path);
 }</code></pre>
 <p>在無指定參數運作時：</p>
 <pre><code class="language-console">$ cargo run
@@ -393,15 +395,13 @@ pattern: "some-pattern", path: "some-file"
 <p>讓我們先開啟我們得到的文件。</p>
 <pre><code class="language-rust ignore">    let content = std::fs::read_to_string(&amp;args.path).expect("could not read file");</code></pre>
 <aside>
-<p><strong>筆記:</strong>
+<p><strong>說明:</strong>
 看到 <a href="https://doc.rust-lang.org/1.39.0/std/result/enum.Result.html#method.expect"><code>.expect</code></a> 方法了吧？
 這是一個快捷功能，當無法讀取到參數值時 （這裡是指輸入的檔案）會立即退出程式。
-它還並不完美，在下一章節 <a href="tutorial/./errors.html">合適的反饋錯誤</a> 中，
+它還並不完美，在下一章節 <a href="tutorial/./errors.html">合適的回饋錯誤</a> 中，
 我們將探究如何改進它。</p>
 </aside>
-<p>Now, let’s iterate over the lines
-and print each one that contains our pattern:
-現在，讓我們迭代一下這些行並輸出包含每一個我們的模式：</p>
+<p>現在，讓我們疊代一下這些行並輸出包含每一個我們的模式：</p>
 <pre><code class="language-rust ignore">    for line in content.lines() {
         if line.contains(&amp;args.pattern) {
             println!("{}", line);
@@ -434,21 +434,20 @@ fn main() {
 <aside class="exercise">
 <p><strong>供讀者練習:</strong>
 這並非最好的實作：
-它將整個檔案讀取到記憶體中了——無論檔案有多大。
+無論檔案有多大，它將整個檔案讀取到記憶體中了。
 去尋找最佳化的方法吧！
-（一種想法可能是使用 <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufReader.html"><code>BufReader</code></a>而不是 <code>read_to_string()</code> 。）</p>
+（有一種想法就是可能用 <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufReader.html"><code>BufReader</code></a> 而不是 <code>read_to_string()</code> 。）</p>
 </aside>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="合適的反饋錯誤"><a class="header" href="#合適的反饋錯誤">合適的反饋錯誤</a></h1>
-<p>我們都無能為力，只能接受錯誤會發生的事實。</p>
-<p>與許多其他語言相比，很難不去注意和應對這個現實
-使用 Rust 時：</p>
-<p>既然沒有例外，所有可能的錯誤狀態通常都編碼在函數的傳回類型中。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="合適的回饋錯誤"><a class="header" href="#合適的回饋錯誤">合適的回饋錯誤</a></h1>
+<p>我們都無能為力，只能接受會發生錯誤的事實。</p>
+<p>與許多其他語言相比，很難不去注意和應對這個現實。</p>
+<p>在使用 Rust 時：既然沒有例外，所有可能的錯誤狀態通常都編碼在函數的傳回型別中。</p>
 <h2 id="結果"><a class="header" href="#結果">結果</a></h2>
-<p>像 <a href="https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html"><code>read_to_string</code></a> 這樣的函數不回傳字串。
-相反的，它會傳回一個 <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a>，裡面包含一個“字串”或某種其它類型的錯誤
-（在本例中為<a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>）。</p>
-<p>那麼如何得知是哪一種類型呢？</p>
-<p>因為 <code>Result</code> 也是 <code>enum</code> 類型，
+<p>像 <a href="https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html"><code>read_to_string</code></a> 這樣的函數不會回傳字串。
+相反的，它會傳回一個 <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a>，裡面包含一個“字串”或某種其它型別的錯誤
+（在本例子為<a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>）。</p>
+<p>那麼如何得知是哪一種型別呢？</p>
+<p>因為 <code>Result</code> 也是 <code>enum</code> 型別，
 可以使用 <code>match</code> 去檢查裡面是哪一種變體：</p>
 <pre><pre class="playground"><code class="language-rust no_run"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -459,9 +458,9 @@ match result {
 }
 <span class="boring">}</span></code></pre></pre>
 <aside>
-<p><strong>筆記:</strong>
-不確定枚舉(<code>enums</code>)是什麼或它們在 Rust 中如何工作？
-<a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">查看 Rust 書的這一章</a>
+<p><strong>說明:</strong>
+不確定列舉 (<code>enums</code>)是什麼或它們在 Rust 中如何工作？
+<a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">查看 Rust 官方手冊的這一章節</a>
 好以跟上進度。</p>
 </aside>
 <h2 id="展開"><a class="header" href="#展開">展開</a></h2>
@@ -499,7 +498,7 @@ let content = match result {
 };
 <span class="boring">Ok(())
 </span><span class="boring">}</span></code></pre></pre>
-<p>然而，這改變了我們函數的回傳值類型。
+<p>然而，這改變了我們函數的回傳值型別。
 實際上，一直以來我們的範例都隱藏了一些東西： 函數的簽名（或說回傳值型別）。
 在最後的含有 <code>return</code> 的範例中，它變得很重要了。
 下面是 <em>完整</em> 的範例：</p>
@@ -512,12 +511,12 @@ let content = match result {
     println!("file content: {}", content);
     Ok(())
 }</code></pre></pre>
-<p>我們的回傳值類型是 <code>Result</code>！
+<p>我們的回傳值型別是 <code>Result</code>！
 這也就是為什麼我們可以在 <code>match</code> 的第二個分支寫 <code>return Err(error);</code>。
 看到最下面的 Ok(()) 是什麼嗎？
 它是函數的預設回傳值， 意思為「結果沒問題，沒有內容」。</p>
 <aside>
-<p><strong>筆記:</strong>
+<p><strong>說明:</strong>
 為什麼不寫成 <code>return Ok(())</code>？
 當然這樣寫也完全沒問題。
 在 Rust 中，任何程式碼區塊中的最後的表達式即為其回傳值，因此習慣上省略了 <code>return</code>。</p>
@@ -525,8 +524,8 @@ let content = match result {
 <h2 id="問題標記"><a class="header" href="#問題標記">問題(!)標記</a></h2>
 <p>如同呼叫 <code>.unwrap()</code> 相當於 <code>match</code> 中快捷設定錯誤分支中 <code>panic!</code>，
 我們還有另一個快速的呼叫使得在 <code>match</code> 的錯誤分支中直接回傳: <code>?</code> 。</p>
-<p>是的，就是這個問號。
-你可以在 <code>Result</code> 類型後面加上這個運算符，
+<p>是的，就是這個問號(<code>?</code>)。
+你可以在 <code>Result</code> 型別後面加上這個運算符號，
 Rust 在內部將會展開產生類似我們剛寫的 match 程式碼區塊。</p>
 <p>試試看：</p>
 <pre><pre class="playground"><code class="language-rust no_run">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
@@ -536,13 +535,13 @@ Rust 在內部將會展開產生類似我們剛寫的 match 程式碼區塊。</
 }</code></pre></pre>
 <p>非常簡潔！</p>
 <aside>
-<p><strong>筆記:</strong>
+<p><strong>說明:</strong>
 這裡還發生了一些事情，但我們不需要去理解就能使用它。
 例如，在我們的 <code>main</code> 函數中，錯誤型別是 <code>Box&lt;dyn std::error::Error&gt;</code>。
 但我們在 <code>read_to_string</code> 中回傳的卻是 <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>。
-它能正常工作是因為 <code>?</code> 將程式碼擴充為 <code>converts</code> 錯誤類型。</p>
+它能正常工作是因為 <code>?</code> 將程式碼擴充為 <code>converts</code> 錯誤型別。</p>
 <p><code>Box&lt;dyn std::error::Error&gt;</code> 同樣是個很有意思的型別。
-它是一個包含 <em>任何</em> 實作了標準 <a href="https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html"><code>Error</code></a> 特徵類型的 <code>Box</code>，
+它是一個包含 <em>任何</em> 實作了標準 <a href="https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html"><code>Error</code></a> 特徵型別的 <code>Box</code>，
 所以我們可以在所有傳回 <code>Result</code> 的一般函式中使用 <code>?</code>。</p>
 </aside>
 <h2 id="提供內容"><a class="header" href="#提供內容">提供內容</a></h2>
@@ -555,7 +554,7 @@ Rust 在內部將會展開產生類似我們剛寫的 match 程式碼區塊。</
 <p>在這裡你的程式碼裡沒有包含檔名，
 這會讓確認是哪個檔案 <code>NotFound</code> 變得很麻煩。
 但我們有許多種辦法可以改進它。</p>
-<p>例如，我們可以建立一個自己的錯誤類型，
+<p>例如，我們可以建立一個自己的錯誤型別，
 然後使用它去產生自訂的錯誤訊息：</p>
 <pre><code class="language-rust ignore">#[derive(Debug)]
 struct CustomError(String);
@@ -572,12 +571,12 @@ fn main() -&gt; Result&lt;(), CustomError&gt; {
 <pre><code class="language-text">Error: CustomError("Error reading `test.txt`: No such file or directory (os error 2)")
 </code></pre>
 <p>儘管不是很完美，
-但我們稍後可以輕鬆地為我們的類型除錯輸出。</p>
+但我們稍後可以輕鬆地為我們的型別除錯輸出。</p>
 <p>這種模式實際上很常見。
 但它有一個問題：
 我們無法儲存原始錯誤，僅只能其輸出的字串來表示形式。
 常用的 <a href="https://docs.rs/anyhow"><code>anyhow</code></a> 函式庫對此有一個巧妙的解決方案：
-類似於我們的 <code>CustomError</code> 類型，
+類似於我們的 <code>CustomError</code> 型別，
 它的 <a href="https://docs.rs/anyhow/1.0/anyhow/trait.Context.html"><code>Context</code></a> 特徵可用於新增描述。
 此外，它還保留了原始錯誤，
 因此我們會得到一串( <code>chain</code> )錯誤訊息，同時指出根本原因。</p>
@@ -649,8 +648,8 @@ println!("My lucky number is {}.", x);
 <pre><code class="language-console">My lucky number is 42.
 </code></pre>
 <p>上面字串中的大括弧（ <code>{}</code> ）就是佔位符號中的一種。
-這是預設的佔位符號類型， 它嘗試以人類可讀的方式來輸出給定的參數的值。
-對於數字和字串，這會很好用，
+這是預設的佔位符號型別， 它嘗試以人類可讀的方式來輸出給定的參數的值。
+對於數值和字串，這會很好用，
 但並不是所有的型別都可以。
 這就是為什麼還有一個 “除錯表示(debug representation)”，
 你可以使用這個佔位符號來呼叫它 <code>{:?}</code>。</p>
@@ -663,61 +662,57 @@ println!("The list is: {:?}", xs);
 <p>將會輸出</p>
 <pre><code class="language-console">The list is: [1, 2, 3]
 </code></pre>
-<p>如果你想在偵錯和日誌中輸出自己建置的類型，
-大部分情況下你可以在類型定義上新增 <code>#[derive(Debug)]</code> 屬性。</p>
+<p>如果你想在偵錯和記錄 中輸出自己建置的型別，
+大部分情況下你可以在型別定義上新增 <code>#[derive(Debug)]</code> 屬性。</p>
 <aside>
-<p><strong>筆記:</strong></p>
+<p><strong>說明:</strong></p>
 <p>“使用者友善(User-friendly)” 的輸出是使用 <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html"><code>Display</code></a> 特性完成的，
 除錯輸出（適用於開發者）使用 <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Debug.html"><code>Debug</code></a> 特徵。
-您可以在 <code>println!</code> 中找到更多關於可以使用的語法的資訊。
-在<a href="https://doc.rust-lang.org/1.39.0/std/fmt/index.html"><code>std::fmt</code>模組的文檔</a>中。</p>
+您可以在 <code>println!</code> 中找到更多關於可以使用的語法的相關資訊。
+在<a href="https://doc.rust-lang.org/1.39.0/std/fmt/index.html"><code>std::fmt</code>模組的文件</a>中。</p>
 </aside>
 <h2 id="輸出錯誤"><a class="header" href="#輸出錯誤">輸出錯誤</a></h2>
 <p>輸出錯誤的部分應透過 stderr 完成，
 以便使用者和其它工具更方便的地將輸出通過管道傳輸到文件或更多的工具中。</p>
 <aside>
-<p><strong>Note:</strong>
-On most operating systems,
-a program can write to two output streams, <code>stdout</code> and <code>stderr</code>.
-<code>stdout</code> is for the program’s actual output,
-while <code>stderr</code> allows errors and other messages to be kept separate from <code>stdout</code>.
-That way,
-output can be stored to a file or piped to another program
-while errors are shown to the user.</p>
+<p><strong>說明:</strong>
+在大部分作業系統中，
+一個程式可以將輸出寫入至兩個串流中，<code>stdout</code> 和 <code>stderr</code>。
+<code>stdout</code> 用於程式的實際輸出，而 <code>stderr</code> 可將錯誤或其它資訊與 <code>stdout</code> 分開。
+這樣，
+正確輸出的部分可以儲存到檔案或管道傳輸到其它程式中，同時將錯誤顯示給使用者。</p>
 </aside>
-<p>In Rust this is achieved
-with <code>println!</code> and <code>eprintln!</code>,
-the former printing to <code>stdout</code>
-and the latter to <code>stderr</code>.</p>
+<p>在 Rust 中，
+使用 <code>println!</code> 和 <code>eprintln!</code>，
+前者對應 <code>stdout</code> 和後者對應 <code>stderr</code>。</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>println!("This is information");
 eprintln!("This is an error! :(");
 <span class="boring">}</span></code></pre></pre>
 <aside>
-<p><strong>Beware</strong>: Printing <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">escape codes</a> can be dangerous,
-putting the user’s terminal into a weird state.
-Always be careful when manually printing them!</p>
-<p>Ideally you should be using a crate like <code>ansi_term</code>
-when dealing with raw escape codes
-to make your (and your user’s) life easier.</p>
+<p><strong>小心</strong>:</p>
+<p>輸出 <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">跳脫碼</a> 可能很危險，
+會導致使用者的終端變成奇怪的狀態。
+手動輸出至終端時請務必小心使用！</p>
+<p>當你處理原始<a href="https://en.wikipedia.org/wiki/ANSI_escape_code">跳脫碼</a>時，
+最好使用像 <code>ansi_term</code> 這樣的 <code>crate</code>，
+以便你（和你程式的使用者）更加放心。</p>
 </aside>
-<h2 id="a-note-on-printing-performance"><a class="header" href="#a-note-on-printing-performance">A note on printing performance</a></h2>
-<p>Printing to the terminal is surprisingly slow!
-If you call things like <code>println!</code> in a loop,
-it can easily become a bottleneck in an otherwise fast program.
-To speed this up,
-there are two things you can do.</p>
-<p>First,
-you might want to reduce the number of writes
-that actually “flush” to the terminal.
-<code>println!</code> tells the system to flush to the terminal <em>every</em> time,
-because it is common to print each new line.
-If you don’t need that,
-you can wrap your <code>stdout</code> handle in a <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufWriter.html"><code>BufWriter</code></a>
-which by default buffers up to 8 kB.
-(You can still call <code>.flush()</code> on this <code>BufWriter</code>
-when you want to print immediately.)</p>
+<h2 id="關於輸出至終端的效能說明"><a class="header" href="#關於輸出至終端的效能說明">關於輸出至終端的效能說明</a></h2>
+<p>輸出到終端時出奇的慢！
+如果你在迴圈中呼叫 <code>println!</code> 之類的東西，
+它很容易成為其它運行速度快的程式的瓶頸。
+你可以做兩件事來為它提升速度。</p>
+<p>首先，
+你需要盡量減少實際「刷新」到終端的寫入次數。
+<em>每次</em> 呼叫 <code>println!</code> 時，
+它都會告訴系統刷新到終端，
+因為列印每個新行是很常見的。
+如果你不需要如此，
+你可以使用 <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufWriter.html"><code>BufWriter</code></a> 來包裝一下 <code>stdout</code> 的句柄，
+它的預設快取為 8 kB。
+( 當你想立即輸出至終端時，請在 <code>BufWriter</code> 上呼叫 <code>.flush()</code> 即可。)</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::io::{self, Write};
@@ -726,10 +721,9 @@ let stdout = io::stdout(); // get the global stdout entity
 let mut handle = io::BufWriter::new(stdout); // optional: wrap that handle in a buffer
 writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 <span class="boring">}</span></code></pre></pre>
-<p>Second,
-it helps to acquire a lock on <code>stdout</code> (or <code>stderr</code>)
-and use <code>writeln!</code> to print to it directly.
-This prevents the system from locking and unlocking <code>stdout</code> over and over again.</p>
+<p>其次，
+為 <code>stdout</code>（或 <code>stderr</code> ）申請一把鎖並使用 <code>writeln!</code> 來直接輸出至終端會很有用。
+它會阻止系統不停地鎖定並解鎖 <code>stdout</code>。</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::io::{self, Write};
@@ -738,14 +732,14 @@ let stdout = io::stdout(); // get the global stdout entity
 let mut handle = stdout.lock(); // acquire a lock on it
 writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 <span class="boring">}</span></code></pre></pre>
-<p>You can also combine the two approaches.</p>
-<h2 id="showing-a-progress-bar"><a class="header" href="#showing-a-progress-bar">Showing a progress bar</a></h2>
-<p>Some CLI applications run less than a second,
-others take minutes or hours.
-If you are writing one of the latter types of programs,
-you might want to show the user that something is happening.
-For this, you should try to print useful status updates,
-ideally in a form that can be easily consumed.</p>
+<p>你也可以結合且使用這兩種方式。</p>
+<h2 id="顯示進度條"><a class="header" href="#顯示進度條">顯示進度條</a></h2>
+<p>有些 CLI 程式的運作時間很長，
+會花費幾分鐘甚至數小時。
+如果你在編寫這種程式，
+你可能想要向使用者展示，其程式正在正常運作中。
+因此，你需要輸出有用的狀態更新訊息，
+最好是使用易於使用的方式來進行輸出。</p>
 <p>Using the <a href="https://crates.io/crates/indicatif">indicatif</a> crate,
 you can add progress bars
 and little spinners to your program.
@@ -762,16 +756,16 @@ Here’s a quick example:</p>
 <p>See the <a href="https://docs.rs/indicatif">documentation</a>
 and <a href="https://github.com/console-rs/indicatif/tree/main/examples">examples</a>
 for more information.</p>
-<h2 id="logging"><a class="header" href="#logging">Logging</a></h2>
-<p>To make it easier to understand what is happening in our program,
-we might want to add some log statements.
-This is usually easy while writing your application.
-But it will become super helpful when running this program again in half a year.
-In some regard,
-logging is the same as using <code>println!</code>,
-except that you can specify the importance of a message.
-The levels you can usually use are <em>error</em>, <em>warn</em>, <em>info</em>, <em>debug</em>, and <em>trace</em>
-(<em>error</em> has the highest priority, <em>trace</em> the lowest).</p>
+<h2 id="記錄檔"><a class="header" href="#記錄檔">記錄檔</a></h2>
+<p>為了更方便了解我們的程式做了什麼，
+我們需要為它加入一些記錄檔的相關語句，這很簡單。
+但在長時間後，例如半年後再執行這個程式時，
+記錄檔就變得非常有用了。
+在某些方面來說，
+記錄的使用方法與 <code>println</code> 一樣類似，
+只是它可以指定訊息的重要性（層級）。
+通常可以使用的層級包括 <em>error</em> , <em>warn</em>, <em>info</em> , <em>debug</em> , 和 <em>trace</em>
+（ <em>error</em> 優先順序最高， <em>trace</em> 最低）。</p>
 <p>To add simple logging to your application,
 you’ll need two things:
 The <a href="https://crates.io/crates/log">log</a> crate (this contains macros named after the log level)
@@ -852,7 +846,7 @@ to add a <code>--verbose</code> to a project using <code>clap</code>.</p>
 <p>這是另一個獨特的想法：
 在編寫程式碼之前先寫下 <code>README</code>。</p>
 <aside>
-<p><strong>筆記:</strong>
+<p><strong>說明:</strong>
 如果您還沒聽過。
 請看一下<a href="https://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a> (TDD,測試驅動開發)</p>
 </aside>
@@ -2214,8 +2208,8 @@ Words from stdin: 3
 <p>It requires that stdin is not interactive because we’re expecting input that’s
 piped through to the program, not text that’s typed in at runtime. If stdin is
 a tty, it outputs the help docs so that it’s clear why it doesn’t work.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="為你的-cli-程式產生文檔"><a class="header" href="#為你的-cli-程式產生文檔">為你的 CLI 程式產生文檔</a></h1>
-<p>CLI 的文檔通常包括指令中的 <code>--help</code> 部分和一個手冊（<code>man</code>）頁面。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="為你的-cli-程式產生文件"><a class="header" href="#為你的-cli-程式產生文件">為你的 CLI 程式產生文件</a></h1>
+<p>CLI 的文件 通常包括指令中的 <code>--help</code> 部分和一個手冊（<code>man</code>）頁面。</p>
 <p>Both can be automatically generated
 when using <a href="https://crates.io/crates/clap"><code>clap</code></a>, via
 <a href="https://crates.io/crates/clap_mangen"><code>clap_mangen</code></a> crate.</p>

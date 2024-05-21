@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">開始</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> 合適的反饋錯誤</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html" class="active"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文檔</a></li></ol></li><li class="chapter-item expanded "><a href="../resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">開始</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> 合適的回饋錯誤</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html" class="active"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文件 </a></li></ol></li><li class="chapter-item expanded "><a href="../resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -200,8 +200,8 @@ println!("My lucky number is {}.", x);
 <pre><code class="language-console">My lucky number is 42.
 </code></pre>
 <p>上面字串中的大括弧（ <code>{}</code> ）就是佔位符號中的一種。
-這是預設的佔位符號類型， 它嘗試以人類可讀的方式來輸出給定的參數的值。
-對於數字和字串，這會很好用，
+這是預設的佔位符號型別， 它嘗試以人類可讀的方式來輸出給定的參數的值。
+對於數值和字串，這會很好用，
 但並不是所有的型別都可以。
 這就是為什麼還有一個 “除錯表示(debug representation)”，
 你可以使用這個佔位符號來呼叫它 <code>{:?}</code>。</p>
@@ -214,61 +214,57 @@ println!("The list is: {:?}", xs);
 <p>將會輸出</p>
 <pre><code class="language-console">The list is: [1, 2, 3]
 </code></pre>
-<p>如果你想在偵錯和日誌中輸出自己建置的類型，
-大部分情況下你可以在類型定義上新增 <code>#[derive(Debug)]</code> 屬性。</p>
+<p>如果你想在偵錯和記錄 中輸出自己建置的型別，
+大部分情況下你可以在型別定義上新增 <code>#[derive(Debug)]</code> 屬性。</p>
 <aside>
-<p><strong>筆記:</strong></p>
+<p><strong>說明:</strong></p>
 <p>“使用者友善(User-friendly)” 的輸出是使用 <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html"><code>Display</code></a> 特性完成的，
 除錯輸出（適用於開發者）使用 <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Debug.html"><code>Debug</code></a> 特徵。
-您可以在 <code>println!</code> 中找到更多關於可以使用的語法的資訊。
-在<a href="https://doc.rust-lang.org/1.39.0/std/fmt/index.html"><code>std::fmt</code>模組的文檔</a>中。</p>
+您可以在 <code>println!</code> 中找到更多關於可以使用的語法的相關資訊。
+在<a href="https://doc.rust-lang.org/1.39.0/std/fmt/index.html"><code>std::fmt</code>模組的文件</a>中。</p>
 </aside>
 <h2 id="輸出錯誤"><a class="header" href="#輸出錯誤">輸出錯誤</a></h2>
 <p>輸出錯誤的部分應透過 stderr 完成，
 以便使用者和其它工具更方便的地將輸出通過管道傳輸到文件或更多的工具中。</p>
 <aside>
-<p><strong>Note:</strong>
-On most operating systems,
-a program can write to two output streams, <code>stdout</code> and <code>stderr</code>.
-<code>stdout</code> is for the program’s actual output,
-while <code>stderr</code> allows errors and other messages to be kept separate from <code>stdout</code>.
-That way,
-output can be stored to a file or piped to another program
-while errors are shown to the user.</p>
+<p><strong>說明:</strong>
+在大部分作業系統中，
+一個程式可以將輸出寫入至兩個串流中，<code>stdout</code> 和 <code>stderr</code>。
+<code>stdout</code> 用於程式的實際輸出，而 <code>stderr</code> 可將錯誤或其它資訊與 <code>stdout</code> 分開。
+這樣，
+正確輸出的部分可以儲存到檔案或管道傳輸到其它程式中，同時將錯誤顯示給使用者。</p>
 </aside>
-<p>In Rust this is achieved
-with <code>println!</code> and <code>eprintln!</code>,
-the former printing to <code>stdout</code>
-and the latter to <code>stderr</code>.</p>
+<p>在 Rust 中，
+使用 <code>println!</code> 和 <code>eprintln!</code>，
+前者對應 <code>stdout</code> 和後者對應 <code>stderr</code>。</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>println!("This is information");
 eprintln!("This is an error! :(");
 <span class="boring">}</span></code></pre></pre>
 <aside>
-<p><strong>Beware</strong>: Printing <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">escape codes</a> can be dangerous,
-putting the user’s terminal into a weird state.
-Always be careful when manually printing them!</p>
-<p>Ideally you should be using a crate like <code>ansi_term</code>
-when dealing with raw escape codes
-to make your (and your user’s) life easier.</p>
+<p><strong>小心</strong>:</p>
+<p>輸出 <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">跳脫碼</a> 可能很危險，
+會導致使用者的終端變成奇怪的狀態。
+手動輸出至終端時請務必小心使用！</p>
+<p>當你處理原始<a href="https://en.wikipedia.org/wiki/ANSI_escape_code">跳脫碼</a>時，
+最好使用像 <code>ansi_term</code> 這樣的 <code>crate</code>，
+以便你（和你程式的使用者）更加放心。</p>
 </aside>
-<h2 id="a-note-on-printing-performance"><a class="header" href="#a-note-on-printing-performance">A note on printing performance</a></h2>
-<p>Printing to the terminal is surprisingly slow!
-If you call things like <code>println!</code> in a loop,
-it can easily become a bottleneck in an otherwise fast program.
-To speed this up,
-there are two things you can do.</p>
-<p>First,
-you might want to reduce the number of writes
-that actually “flush” to the terminal.
-<code>println!</code> tells the system to flush to the terminal <em>every</em> time,
-because it is common to print each new line.
-If you don’t need that,
-you can wrap your <code>stdout</code> handle in a <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufWriter.html"><code>BufWriter</code></a>
-which by default buffers up to 8 kB.
-(You can still call <code>.flush()</code> on this <code>BufWriter</code>
-when you want to print immediately.)</p>
+<h2 id="關於輸出至終端的效能說明"><a class="header" href="#關於輸出至終端的效能說明">關於輸出至終端的效能說明</a></h2>
+<p>輸出到終端時出奇的慢！
+如果你在迴圈中呼叫 <code>println!</code> 之類的東西，
+它很容易成為其它運行速度快的程式的瓶頸。
+你可以做兩件事來為它提升速度。</p>
+<p>首先，
+你需要盡量減少實際「刷新」到終端的寫入次數。
+<em>每次</em> 呼叫 <code>println!</code> 時，
+它都會告訴系統刷新到終端，
+因為列印每個新行是很常見的。
+如果你不需要如此，
+你可以使用 <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufWriter.html"><code>BufWriter</code></a> 來包裝一下 <code>stdout</code> 的句柄，
+它的預設快取為 8 kB。
+( 當你想立即輸出至終端時，請在 <code>BufWriter</code> 上呼叫 <code>.flush()</code> 即可。)</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::io::{self, Write};
@@ -277,10 +273,9 @@ let stdout = io::stdout(); // get the global stdout entity
 let mut handle = io::BufWriter::new(stdout); // optional: wrap that handle in a buffer
 writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 <span class="boring">}</span></code></pre></pre>
-<p>Second,
-it helps to acquire a lock on <code>stdout</code> (or <code>stderr</code>)
-and use <code>writeln!</code> to print to it directly.
-This prevents the system from locking and unlocking <code>stdout</code> over and over again.</p>
+<p>其次，
+為 <code>stdout</code>（或 <code>stderr</code> ）申請一把鎖並使用 <code>writeln!</code> 來直接輸出至終端會很有用。
+它會阻止系統不停地鎖定並解鎖 <code>stdout</code>。</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::io::{self, Write};
@@ -289,14 +284,14 @@ let stdout = io::stdout(); // get the global stdout entity
 let mut handle = stdout.lock(); // acquire a lock on it
 writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 <span class="boring">}</span></code></pre></pre>
-<p>You can also combine the two approaches.</p>
-<h2 id="showing-a-progress-bar"><a class="header" href="#showing-a-progress-bar">Showing a progress bar</a></h2>
-<p>Some CLI applications run less than a second,
-others take minutes or hours.
-If you are writing one of the latter types of programs,
-you might want to show the user that something is happening.
-For this, you should try to print useful status updates,
-ideally in a form that can be easily consumed.</p>
+<p>你也可以結合且使用這兩種方式。</p>
+<h2 id="顯示進度條"><a class="header" href="#顯示進度條">顯示進度條</a></h2>
+<p>有些 CLI 程式的運作時間很長，
+會花費幾分鐘甚至數小時。
+如果你在編寫這種程式，
+你可能想要向使用者展示，其程式正在正常運作中。
+因此，你需要輸出有用的狀態更新訊息，
+最好是使用易於使用的方式來進行輸出。</p>
 <p>Using the <a href="https://crates.io/crates/indicatif">indicatif</a> crate,
 you can add progress bars
 and little spinners to your program.
@@ -313,16 +308,16 @@ Here’s a quick example:</p>
 <p>See the <a href="https://docs.rs/indicatif">documentation</a>
 and <a href="https://github.com/console-rs/indicatif/tree/main/examples">examples</a>
 for more information.</p>
-<h2 id="logging"><a class="header" href="#logging">Logging</a></h2>
-<p>To make it easier to understand what is happening in our program,
-we might want to add some log statements.
-This is usually easy while writing your application.
-But it will become super helpful when running this program again in half a year.
-In some regard,
-logging is the same as using <code>println!</code>,
-except that you can specify the importance of a message.
-The levels you can usually use are <em>error</em>, <em>warn</em>, <em>info</em>, <em>debug</em>, and <em>trace</em>
-(<em>error</em> has the highest priority, <em>trace</em> the lowest).</p>
+<h2 id="記錄檔"><a class="header" href="#記錄檔">記錄檔</a></h2>
+<p>為了更方便了解我們的程式做了什麼，
+我們需要為它加入一些記錄檔的相關語句，這很簡單。
+但在長時間後，例如半年後再執行這個程式時，
+記錄檔就變得非常有用了。
+在某些方面來說，
+記錄的使用方法與 <code>println</code> 一樣類似，
+只是它可以指定訊息的重要性（層級）。
+通常可以使用的層級包括 <em>error</em> , <em>warn</em>, <em>info</em> , <em>debug</em> , 和 <em>trace</em>
+（ <em>error</em> 優先順序最高， <em>trace</em> 最低）。</p>
 <p>To add simple logging to your application,
 you’ll need two things:
 The <a href="https://crates.io/crates/log">log</a> crate (this contains macros named after the log level)

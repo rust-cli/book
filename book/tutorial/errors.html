@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>合適的反饋錯誤 - Rust 中的命令列應用程式</title>
+        <title>合適的回饋錯誤 - Rust 中的命令列應用程式</title>
 
 
         <!-- Custom HTML head -->
@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">開始</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html" class="active"><strong aria-hidden="true">1.4.</strong> 合適的反饋錯誤</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文檔</a></li></ol></li><li class="chapter-item expanded "><a href="../resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">開始</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html" class="active"><strong aria-hidden="true">1.4.</strong> 合適的回饋錯誤</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文件 </a></li></ol></li><li class="chapter-item expanded "><a href="../resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -177,17 +177,16 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="合適的反饋錯誤"><a class="header" href="#合適的反饋錯誤">合適的反饋錯誤</a></h1>
-<p>我們都無能為力，只能接受錯誤會發生的事實。</p>
-<p>與許多其他語言相比，很難不去注意和應對這個現實
-使用 Rust 時：</p>
-<p>既然沒有例外，所有可能的錯誤狀態通常都編碼在函數的傳回類型中。</p>
+                        <h1 id="合適的回饋錯誤"><a class="header" href="#合適的回饋錯誤">合適的回饋錯誤</a></h1>
+<p>我們都無能為力，只能接受會發生錯誤的事實。</p>
+<p>與許多其他語言相比，很難不去注意和應對這個現實。</p>
+<p>在使用 Rust 時：既然沒有例外，所有可能的錯誤狀態通常都編碼在函數的傳回型別中。</p>
 <h2 id="結果"><a class="header" href="#結果">結果</a></h2>
-<p>像 <a href="https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html"><code>read_to_string</code></a> 這樣的函數不回傳字串。
-相反的，它會傳回一個 <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a>，裡面包含一個“字串”或某種其它類型的錯誤
-（在本例中為<a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>）。</p>
-<p>那麼如何得知是哪一種類型呢？</p>
-<p>因為 <code>Result</code> 也是 <code>enum</code> 類型，
+<p>像 <a href="https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html"><code>read_to_string</code></a> 這樣的函數不會回傳字串。
+相反的，它會傳回一個 <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a>，裡面包含一個“字串”或某種其它型別的錯誤
+（在本例子為<a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>）。</p>
+<p>那麼如何得知是哪一種型別呢？</p>
+<p>因為 <code>Result</code> 也是 <code>enum</code> 型別，
 可以使用 <code>match</code> 去檢查裡面是哪一種變體：</p>
 <pre><pre class="playground"><code class="language-rust no_run"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -198,9 +197,9 @@ match result {
 }
 <span class="boring">}</span></code></pre></pre>
 <aside>
-<p><strong>筆記:</strong>
-不確定枚舉(<code>enums</code>)是什麼或它們在 Rust 中如何工作？
-<a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">查看 Rust 書的這一章</a>
+<p><strong>說明:</strong>
+不確定列舉 (<code>enums</code>)是什麼或它們在 Rust 中如何工作？
+<a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">查看 Rust 官方手冊的這一章節</a>
 好以跟上進度。</p>
 </aside>
 <h2 id="展開"><a class="header" href="#展開">展開</a></h2>
@@ -238,7 +237,7 @@ let content = match result {
 };
 <span class="boring">Ok(())
 </span><span class="boring">}</span></code></pre></pre>
-<p>然而，這改變了我們函數的回傳值類型。
+<p>然而，這改變了我們函數的回傳值型別。
 實際上，一直以來我們的範例都隱藏了一些東西： 函數的簽名（或說回傳值型別）。
 在最後的含有 <code>return</code> 的範例中，它變得很重要了。
 下面是 <em>完整</em> 的範例：</p>
@@ -251,12 +250,12 @@ let content = match result {
     println!("file content: {}", content);
     Ok(())
 }</code></pre></pre>
-<p>我們的回傳值類型是 <code>Result</code>！
+<p>我們的回傳值型別是 <code>Result</code>！
 這也就是為什麼我們可以在 <code>match</code> 的第二個分支寫 <code>return Err(error);</code>。
 看到最下面的 Ok(()) 是什麼嗎？
 它是函數的預設回傳值， 意思為「結果沒問題，沒有內容」。</p>
 <aside>
-<p><strong>筆記:</strong>
+<p><strong>說明:</strong>
 為什麼不寫成 <code>return Ok(())</code>？
 當然這樣寫也完全沒問題。
 在 Rust 中，任何程式碼區塊中的最後的表達式即為其回傳值，因此習慣上省略了 <code>return</code>。</p>
@@ -264,8 +263,8 @@ let content = match result {
 <h2 id="問題標記"><a class="header" href="#問題標記">問題(!)標記</a></h2>
 <p>如同呼叫 <code>.unwrap()</code> 相當於 <code>match</code> 中快捷設定錯誤分支中 <code>panic!</code>，
 我們還有另一個快速的呼叫使得在 <code>match</code> 的錯誤分支中直接回傳: <code>?</code> 。</p>
-<p>是的，就是這個問號。
-你可以在 <code>Result</code> 類型後面加上這個運算符，
+<p>是的，就是這個問號(<code>?</code>)。
+你可以在 <code>Result</code> 型別後面加上這個運算符號，
 Rust 在內部將會展開產生類似我們剛寫的 match 程式碼區塊。</p>
 <p>試試看：</p>
 <pre><pre class="playground"><code class="language-rust no_run">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
@@ -275,13 +274,13 @@ Rust 在內部將會展開產生類似我們剛寫的 match 程式碼區塊。</
 }</code></pre></pre>
 <p>非常簡潔！</p>
 <aside>
-<p><strong>筆記:</strong>
+<p><strong>說明:</strong>
 這裡還發生了一些事情，但我們不需要去理解就能使用它。
 例如，在我們的 <code>main</code> 函數中，錯誤型別是 <code>Box&lt;dyn std::error::Error&gt;</code>。
 但我們在 <code>read_to_string</code> 中回傳的卻是 <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>。
-它能正常工作是因為 <code>?</code> 將程式碼擴充為 <code>converts</code> 錯誤類型。</p>
+它能正常工作是因為 <code>?</code> 將程式碼擴充為 <code>converts</code> 錯誤型別。</p>
 <p><code>Box&lt;dyn std::error::Error&gt;</code> 同樣是個很有意思的型別。
-它是一個包含 <em>任何</em> 實作了標準 <a href="https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html"><code>Error</code></a> 特徵類型的 <code>Box</code>，
+它是一個包含 <em>任何</em> 實作了標準 <a href="https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html"><code>Error</code></a> 特徵型別的 <code>Box</code>，
 所以我們可以在所有傳回 <code>Result</code> 的一般函式中使用 <code>?</code>。</p>
 </aside>
 <h2 id="提供內容"><a class="header" href="#提供內容">提供內容</a></h2>
@@ -294,7 +293,7 @@ Rust 在內部將會展開產生類似我們剛寫的 match 程式碼區塊。</
 <p>在這裡你的程式碼裡沒有包含檔名，
 這會讓確認是哪個檔案 <code>NotFound</code> 變得很麻煩。
 但我們有許多種辦法可以改進它。</p>
-<p>例如，我們可以建立一個自己的錯誤類型，
+<p>例如，我們可以建立一個自己的錯誤型別，
 然後使用它去產生自訂的錯誤訊息：</p>
 <pre><code class="language-rust ignore">#[derive(Debug)]
 struct CustomError(String);
@@ -311,12 +310,12 @@ fn main() -&gt; Result&lt;(), CustomError&gt; {
 <pre><code class="language-text">Error: CustomError("Error reading `test.txt`: No such file or directory (os error 2)")
 </code></pre>
 <p>儘管不是很完美，
-但我們稍後可以輕鬆地為我們的類型除錯輸出。</p>
+但我們稍後可以輕鬆地為我們的型別除錯輸出。</p>
 <p>這種模式實際上很常見。
 但它有一個問題：
 我們無法儲存原始錯誤，僅只能其輸出的字串來表示形式。
 常用的 <a href="https://docs.rs/anyhow"><code>anyhow</code></a> 函式庫對此有一個巧妙的解決方案：
-類似於我們的 <code>CustomError</code> 類型，
+類似於我們的 <code>CustomError</code> 型別，
 它的 <a href="https://docs.rs/anyhow/1.0/anyhow/trait.Context.html"><code>Context</code></a> 特徵可用於新增描述。
 此外，它還保留了原始錯誤，
 因此我們會得到一串( <code>chain</code> )錯誤訊息，同時指出根本原因。</p>

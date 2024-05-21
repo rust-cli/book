@@ -12,5 +12,5 @@ struct Cli {
 fn main() {
     let args = Cli::parse();
 
-    println!("pattern: {:?}, path: {:?}", args.pattern, args.path)
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path);
 }

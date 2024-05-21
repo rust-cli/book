@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">開始</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html" class="active"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> 合適的反饋錯誤</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文檔</a></li></ol></li><li class="chapter-item expanded "><a href="../resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">開始</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">1.</strong> 在15分鐘內建立一個命令列應用程式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/setup.html"><strong aria-hidden="true">1.1.</strong> 專案初始化設置</a></li><li class="chapter-item expanded "><a href="../tutorial/cli-args.html" class="active"><strong aria-hidden="true">1.2.</strong> 解析命令列參數</a></li><li class="chapter-item expanded "><a href="../tutorial/impl-draft.html"><strong aria-hidden="true">1.3.</strong> 首次運行</a></li><li class="chapter-item expanded "><a href="../tutorial/errors.html"><strong aria-hidden="true">1.4.</strong> 合適的回饋錯誤</a></li><li class="chapter-item expanded "><a href="../tutorial/output.html"><strong aria-hidden="true">1.5.</strong> 輸出</a></li><li class="chapter-item expanded "><a href="../tutorial/testing.html"><strong aria-hidden="true">1.6.</strong> 測試</a></li><li class="chapter-item expanded "><a href="../tutorial/packaging.html"><strong aria-hidden="true">1.7.</strong> 打包且發布一個Rust工具</a></li></ol></li><li class="chapter-item expanded "><a href="../in-depth/index.html"><strong aria-hidden="true">2.</strong> 深入探究主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../in-depth/signals.html"><strong aria-hidden="true">2.1.</strong> 訊號處理</a></li><li class="chapter-item expanded "><a href="../in-depth/config-files.html"><strong aria-hidden="true">2.2.</strong> 使用配置檔</a></li><li class="chapter-item expanded "><a href="../in-depth/exit-code.html"><strong aria-hidden="true">2.3.</strong> 退出狀態碼</a></li><li class="chapter-item expanded "><a href="../in-depth/human-communication.html"><strong aria-hidden="true">2.4.</strong> 和人互動</a></li><li class="chapter-item expanded "><a href="../in-depth/machine-communication.html"><strong aria-hidden="true">2.5.</strong> 和機器互動</a></li><li class="chapter-item expanded "><a href="../in-depth/docs.html"><strong aria-hidden="true">2.6.</strong> 為你的 CLI 程式產生文件 </a></li></ol></li><li class="chapter-item expanded "><a href="../resources/index.html"><strong aria-hidden="true">3.</strong> 相關資源</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -203,13 +203,13 @@
      Running `target/debug/grrs some-pattern some-file`
 pattern: "some-pattern", path: "some-file"
 </code></pre>
-<h2 id="cli-參數的資料類型"><a class="header" href="#cli-參數的資料類型">CLI 參數的資料類型</a></h2>
-<p>與其將它們視為單純的一堆文字，不如將 CLI 參數看成程式輸入的自訂的資料類型。</p>
+<h2 id="cli-參數的資料型別"><a class="header" href="#cli-參數的資料型別">CLI 參數的資料型別</a></h2>
+<p>與其將它們視為單純的一堆文字，不如將 CLI 參數看成程式輸入的自訂的資料型別。</p>
 <p>注意 <code>grrs foobar test.txt</code>:
 這裡有兩個參數，首先是 <code>pttern</code>（查看的字串）， 然後才是 <code>path</code>（尋找的檔案路徑）。</p>
 <p>關於他們，我們還能說些什麼呢？</p>
 <p>首先，這兩個參數都是程式所必須的，因為我們並未提供預設值， 所以使用者需要在使用此程式時提供這兩個參數。</p>
-<p>此外，關於參數的類型：pattern 應該是字串；第二個參數則應是檔案的路徑。</p>
+<p>此外，關於參數的型別：pattern 應該是字串；第二個參數則應是檔案的路徑。</p>
 <p>在Rust 中，根據所處理的資料而去建立程式是很常見的， 因此這種看待參數的方法對我們接下來的工作很有幫助。</p>
 <p>讓我們在這開始（在檔案 <code>src/main.rs</code>，<code>fn main( ) {</code> 之前 ）：</p>
 <pre><code class="language-rust ignore">struct Cli {
@@ -219,8 +219,8 @@ pattern: "some-pattern", path: "some-file"
 <p>這定義了一個新的結構體（a <a href="https://doc.rust-lang.org/1.39.0/book/ch05-00-structs.html"><code>struct</code></a>）
 它有兩個欄位來儲存資料： <code>patern</code> 和 <code>path</code> 。</p>
 <aside>
-<p><strong>筆記:</strong>
-<a href="https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html"><code>PathBuf</code></a> 是可跨平台使用的系統路徑類型，特性類似 <a href="https://doc.rust-lang.org/1.39.0/std/string/struct.String.html">字串</a>。</p>
+<p><strong>說明:</strong>
+<a href="https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html"><code>PathBuf</code></a> 是可跨平台使用的系統路徑型別，特性類似 <a href="https://doc.rust-lang.org/1.39.0/std/string/struct.String.html">字串</a>。</p>
 </aside>
 <p>現在，我們仍然需要取得我們的程式進入這種形式的實際參數。</p>
 <p>有一種做法就是我們可以手動解析從作業系統上取得的參數列表並以此產生一個結構體。</p>
@@ -259,7 +259,7 @@ struct Cli {
     path: std::path::PathBuf,
 }</code></pre>
 <aside class="node">
-<p><strong>筆記:</strong>
+<p><strong>說明:</strong>
 你可以將許多自訂屬性加入到欄位中。
 例如，
 如果你想將 <code>-o</code> 或 <code>--output</code> 後的參數解析為某個字段，可在字段上方添加上 <code>#[structopt(short = "o", long = "output")]</code>。
@@ -270,14 +270,14 @@ struct Cli {
 <pre><code class="language-rust ignore">fn main() {
     let args = Cli::parse();
 
-    println!("pattern: {:?}, path: {:?}", args.pattern, args.path)
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path);
 }</code></pre>
 <p>這將嘗試解析參數並儲存到 <code>Cli</code> 結構體中。</p>
 <p>但如果解析失敗會怎樣？
-這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的類型。
+這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的型別。
 它可以自動產生一個不錯的 <code>--help</code> 訊息， 並會依錯誤給予一些建議－輸入的參數應該是 <code>--output</code> 而你輸入的是 <code>--putput</code>。</p>
 <aside class="note">
-<p><strong>筆記:</strong>
+<p><strong>說明:</strong>
 <code>parse</code> 方法應該在 <code>main</code> 函數中使用。
 當它失敗時，
 它將輸出錯誤或幫助訊息並立即退出該程式。
@@ -299,7 +299,7 @@ struct Cli {
 fn main() {
     let args = Cli::parse();
 
-    println!("pattern: {:?}, path: {:?}", args.pattern, args.path)
+    println!("pattern: {:?}, path: {:?}", args.pattern, args.path);
 }</code></pre>
 <p>在無指定參數運作時：</p>
 <pre><code class="language-console">$ cargo run

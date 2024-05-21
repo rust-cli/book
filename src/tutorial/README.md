@@ -18,7 +18,7 @@
 同樣，你應該能熟練的使用命令列或終端。如果你會使用其它的語言，那麼這對於你接觸和學習 Rust 會是極大幫助。
 
 **尋求協助:**
-如果你在任何時候對所使用的功能感到不解或困惑，請查閱 Rust 提供的官方文檔，首先是這本《The Rust Programming Language》。 
+如果你在任何時候對所使用的功能感到不解或困惑，請查閱 Rust 提供的官方文件 ，首先是這本《The Rust Programming Language》。 
 一般安裝 Rust 時也會安裝它 （`rustup doc`），或者你也可以在線查看 [doc.rust-lang.org]。
 也非常歡迎你來社區提問——Rust 社區以友好和樂於助人著稱。 在 [社群頁面] 上你可以看到人們關於 Rust 的討論的清單。 You are also very welcome to ask questions –
 
@@ -48,7 +48,7 @@ $ grrs --help
 
 <aside class="note">
 
-**筆記:**
+**說明:**
 
 本書是使用 [Rust 2018] 所寫的。
 同時，這些程式碼範例同樣適用於 Rust 2015， 只需做一點點調整，例如新增 `extern crate foo;`。

@@ -14,7 +14,7 @@
 
 <aside>
 
-**筆記:**
+**說明:**
 如果您還沒聽過。
 請看一下[test-driven development] (TDD,測試驅動開發)
 

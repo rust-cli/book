@@ -42,9 +42,9 @@ $ cargo run -- some-pattern some-file
 pattern: "some-pattern", path: "some-file"
 ```
 
-## CLI 參數的資料類型
+## CLI 參數的資料型別
 
-與其將它們視為單純的一堆文字，不如將 CLI 參數看成程式輸入的自訂的資料類型。
+與其將它們視為單純的一堆文字，不如將 CLI 參數看成程式輸入的自訂的資料型別。
 
 注意 `grrs foobar test.txt`:
 這裡有兩個參數，首先是 `pttern`（查看的字串）， 然後才是 `path`（尋找的檔案路徑）。
@@ -53,7 +53,7 @@ pattern: "some-pattern", path: "some-file"
 
 首先，這兩個參數都是程式所必須的，因為我們並未提供預設值， 所以使用者需要在使用此程式時提供這兩個參數。 
 
-此外，關於參數的類型：pattern 應該是字串；第二個參數則應是檔案的路徑。
+此外，關於參數的型別：pattern 應該是字串；第二個參數則應是檔案的路徑。
 
 在Rust 中，根據所處理的資料而去建立程式是很常見的， 因此這種看待參數的方法對我們接下來的工作很有幫助。
 
@@ -70,8 +70,8 @@ pattern: "some-pattern", path: "some-file"
 
 <aside>
 
-**筆記:**
-[`PathBuf`] 是可跨平台使用的系統路徑類型，特性類似 [字串][`String`]。
+**說明:**
+[`PathBuf`] 是可跨平台使用的系統路徑型別，特性類似 [字串][`String`]。
 
 [`PathBuf`]: https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html
 [`String`]: https://doc.rust-lang.org/1.39.0/std/string/struct.String.html
@@ -116,7 +116,7 @@ pattern: "some-pattern", path: "some-file"
 
 <aside class="node">
 
-**筆記:**
+**說明:**
 你可以將許多自訂屬性加入到欄位中。 
 例如，
 如果你想將 `-o` 或 `--output` 後的參數解析為某個字段，可在字段上方添加上 `#[structopt(short = "o", long = "output")]`。 
@@ -134,12 +134,12 @@ pattern: "some-pattern", path: "some-file"
 這將嘗試解析參數並儲存到 `Cli` 結構體中。
 
 但如果解析失敗會怎樣？ 
-這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的類型。 
+這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的型別。 
 它可以自動產生一個不錯的 `--help` 訊息， 並會依錯誤給予一些建議－輸入的參數應該是 `--output` 而你輸入的是 `--putput`。
 
 <aside class="note">
 
-**筆記:**
+**說明:**
 `parse` 方法應該在 `main` 函數中使用。
 當它失敗時，
 它將輸出錯誤或幫助訊息並立即退出該程式。

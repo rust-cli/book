@@ -6,7 +6,7 @@
   - [專案初始化設置](./tutorial/setup.md)
   - [解析命令列參數](./tutorial/cli-args.md)
   - [首次運行](./tutorial/impl-draft.md)
-  - [合適的反饋錯誤](./tutorial/errors.md)
+  - [合適的回饋錯誤](./tutorial/errors.md)
   - [輸出](./tutorial/output.md)
   - [測試](./tutorial/testing.md)
   - [打包且發布一個Rust工具](./tutorial/packaging.md)z
@@ -16,5 +16,5 @@
   - [退出狀態碼](./in-depth/exit-code.md)
   - [和人互動](./in-depth/human-communication.md)
   - [和機器互動](./in-depth/machine-communication.md)
-  - [為你的 CLI 程式產生文檔](./in-depth/docs.md)
+  - [為你的 CLI 程式產生文件 ](./in-depth/docs.md)
 - [相關資源](./resources/README.md)

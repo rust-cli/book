@@ -18,10 +18,10 @@
 
 <aside>
 
-**筆記:**
+**說明:**
 看到 [`.expect`] 方法了吧？ 
 這是一個快捷功能，當無法讀取到參數值時 （這裡是指輸入的檔案）會立即退出程式。
-它還並不完美，在下一章節 [合適的反饋錯誤][Nicer error reporting] 中，
+它還並不完美，在下一章節 [合適的回饋錯誤][Nicer error reporting] 中，
 我們將探究如何改進它。
 
 [`.expect`]: https://doc.rust-lang.org/1.39.0/std/result/enum.Result.html#method.expect
@@ -29,9 +29,7 @@
 
 </aside>
 
-Now, let’s iterate over the lines
-and print each one that contains our pattern:
-現在，讓我們迭代一下這些行並輸出包含每一個我們的模式：
+現在，讓我們疊代一下這些行並輸出包含每一個我們的模式：
 
 ```rust,ignore
 {{#include impl-draft.rs:16:20}}
@@ -51,9 +49,9 @@ and print each one that contains our pattern:
 
 **供讀者練習:**
 這並非最好的實作：
-它將整個檔案讀取到記憶體中了——無論檔案有多大。 
+無論檔案有多大，它將整個檔案讀取到記憶體中了。 
 去尋找最佳化的方法吧！ 
-（一種想法可能是使用 [`BufReader`]而不是 `read_to_string()` 。）
+（有一種想法就是可能用 [`BufReader`] 而不是 `read_to_string()` 。）
 
 [`BufReader`]: https://doc.rust-lang.org/1.39.0/std/io/struct.BufReader.html
 

@@ -32,8 +32,8 @@ My lucky number is 42.
 ```
 
 上面字串中的大括弧（ `{}` ）就是佔位符號中的一種。 
-這是預設的佔位符號類型， 它嘗試以人類可讀的方式來輸出給定的參數的值。 
-對於數字和字串，這會很好用， 
+這是預設的佔位符號型別， 它嘗試以人類可讀的方式來輸出給定的參數的值。 
+對於數值和字串，這會很好用， 
 但並不是所有的型別都可以。 
 這就是為什麼還有一個 "除錯表示(debug representation)"， 
 你可以使用這個佔位符號來呼叫它 `{:?}`。
@@ -51,17 +51,17 @@ println!("The list is: {:?}", xs);
 The list is: [1, 2, 3]
 ```
 
-如果你想在偵錯和日誌中輸出自己建置的類型，
-大部分情況下你可以在類型定義上新增 `#[derive(Debug)]` 屬性。
+如果你想在偵錯和記錄 中輸出自己建置的型別，
+大部分情況下你可以在型別定義上新增 `#[derive(Debug)]` 屬性。
 
 <aside>
 
-**筆記:**
+**說明:**
 
 "使用者友善(User-friendly)" 的輸出是使用 [`Display`] 特性完成的，
 除錯輸出（適用於開發者）使用 [`Debug`] 特徵。
-您可以在 `println!` 中找到更多關於可以使用的語法的資訊。
-在[`std::fmt`模組的文檔][std::fmt]中。
+您可以在 `println!` 中找到更多關於可以使用的語法的相關資訊。
+在[`std::fmt`模組的文件][std::fmt]中。
 
 [`Display`]: https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html
 [`Debug`]: https://doc.rust-lang.org/1.39.0/std/fmt/trait.Debug.html
@@ -76,21 +76,18 @@ The list is: [1, 2, 3]
 
 <aside>
 
-**Note:**
-On most operating systems,
-a program can write to two output streams, `stdout` and `stderr`.
-`stdout` is for the program's actual output,
-while `stderr` allows errors and other messages to be kept separate from `stdout`.
-That way,
-output can be stored to a file or piped to another program
-while errors are shown to the user.
+**說明:**
+在大部分作業系統中，
+一個程式可以將輸出寫入至兩個串流中，`stdout` 和 `stderr`。 
+`stdout` 用於程式的實際輸出，而 `stderr` 可將錯誤或其它資訊與 `stdout` 分開。 
+這樣，
+正確輸出的部分可以儲存到檔案或管道傳輸到其它程式中，同時將錯誤顯示給使用者。
 
 </aside>
 
-In Rust this is achieved
-with `println!` and `eprintln!`,
-the former printing to `stdout`
-and the latter to `stderr`.
+在 Rust 中，
+使用 `println!` 和 `eprintln!`，
+前者對應 `stdout` 和後者對應 `stderr`。
 
 ```rust
 println!("This is information");
@@ -99,36 +96,36 @@ eprintln!("This is an error! :(");
 
 <aside>
 
-**Beware**: Printing [escape codes] can be dangerous,
-putting the user's terminal into a weird state.
-Always be careful when manually printing them!
+**小心**: 
+
+輸出 [跳脫碼][escape codes] 可能很危險，
+會導致使用者的終端變成奇怪的狀態。 
+手動輸出至終端時請務必小心使用！
 
 [escape codes]: https://en.wikipedia.org/wiki/ANSI_escape_code
 
-Ideally you should be using a crate like `ansi_term`
-when dealing with raw escape codes
-to make your (and your user's) life easier.
+當你處理原始[跳脫碼][escape codes]時，
+最好使用像 `ansi_term` 這樣的 `crate`， 
+以便你（和你程式的使用者）更加放心。
 
 </aside>
 
-## A note on printing performance
+## 關於輸出至終端的效能說明
 
-Printing to the terminal is surprisingly slow!
-If you call things like `println!` in a loop,
-it can easily become a bottleneck in an otherwise fast program.
-To speed this up,
-there are two things you can do.
+輸出到終端時出奇的慢！ 
+如果你在迴圈中呼叫 `println!` 之類的東西， 
+它很容易成為其它運行速度快的程式的瓶頸。 
+你可以做兩件事來為它提升速度。
 
-First,
-you might want to reduce the number of writes
-that actually "flush" to the terminal.
-`println!` tells the system to flush to the terminal _every_ time,
-because it is common to print each new line.
-If you don't need that,
-you can wrap your `stdout` handle in a [`BufWriter`]
-which by default buffers up to 8 kB.
-(You can still call `.flush()` on this `BufWriter`
-when you want to print immediately.)
+首先，
+你需要盡量減少實際「刷新」到終端的寫入次數。
+_每次_ 呼叫 `println!` 時，
+它都會告訴系統刷新到終端，
+因為列印每個新行是很常見的。 
+如果你不需要如此， 
+你可以使用 [`BufWriter`] 來包裝一下 `stdout` 的句柄，
+它的預設快取為 8 kB。 
+( 當你想立即輸出至終端時，請在 `BufWriter` 上呼叫 `.flush()` 即可。)
 
 ```rust
 use std::io::{self, Write};
@@ -138,10 +135,9 @@ let mut handle = io::BufWriter::new(stdout); // optional: wrap that handle in a 
 writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 ```
 
-Second,
-it helps to acquire a lock on `stdout` (or `stderr`)
-and use `writeln!` to print to it directly.
-This prevents the system from locking and unlocking `stdout` over and over again.
+其次，
+為 `stdout`（或 `stderr` ）申請一把鎖並使用 `writeln!` 來直接輸出至終端會很有用。 
+它會阻止系統不停地鎖定並解鎖 `stdout`。
 
 ```rust
 use std::io::{self, Write};
@@ -151,18 +147,19 @@ let mut handle = stdout.lock(); // acquire a lock on it
 writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 ```
 
-You can also combine the two approaches.
+你也可以結合且使用這兩種方式。
 
 [`BufWriter`]: https://doc.rust-lang.org/1.39.0/std/io/struct.BufWriter.html
 
-## Showing a progress bar
+## 顯示進度條
 
-Some CLI applications run less than a second,
-others take minutes or hours.
-If you are writing one of the latter types of programs,
-you might want to show the user that something is happening.
-For this, you should try to print useful status updates,
-ideally in a form that can be easily consumed.
+有些 CLI 程式的運作時間很長，
+會花費幾分鐘甚至數小時。 
+如果你在編寫這種程式，
+你可能想要向使用者展示，其程式正在正常運作中。 
+因此，你需要輸出有用的狀態更新訊息，
+最好是使用易於使用的方式來進行輸出。
+
 
 Using the [indicatif] crate,
 you can add progress bars
@@ -181,17 +178,17 @@ for more information.
 [indicatif docs]: https://docs.rs/indicatif
 [indicatif examples]: https://github.com/console-rs/indicatif/tree/main/examples
 
-## Logging
+## 記錄檔
 
-To make it easier to understand what is happening in our program,
-we might want to add some log statements.
-This is usually easy while writing your application.
-But it will become super helpful when running this program again in half a year.
-In some regard,
-logging is the same as using `println!`,
-except that you can specify the importance of a message.
-The levels you can usually use are _error_, _warn_, _info_, _debug_, and _trace_
-(_error_ has the highest priority, _trace_ the lowest).
+為了更方便了解我們的程式做了什麼，
+我們需要為它加入一些記錄檔的相關語句，這很簡單。 
+但在長時間後，例如半年後再執行這個程式時，
+記錄檔就變得非常有用了。 
+在某些方面來說， 
+記錄的使用方法與 `println` 一樣類似，
+只是它可以指定訊息的重要性（層級）。 
+通常可以使用的層級包括 _error_ , _warn_, _info_ , _debug_ , 和 _trace_ 
+（ _error_ 優先順序最高， _trace_ 最低）。
 
 To add simple logging to your application,
 you'll need two things:
