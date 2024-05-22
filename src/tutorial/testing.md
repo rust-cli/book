@@ -5,18 +5,18 @@
 
 因此，為了確保您的程式執行您期望的操作，測試它是明智的。
 
-一種簡單的方法是編寫 `README` 文件，它描述了你的程式應該做什麼。
+一種簡單的方法是撰寫 `README` 文件，它描述了你的程式應該做什麼。
 當您準備好發布新版本時，仔細閱讀 `README` 並確保行為仍然如預期。
 你可以讓它成為一個更嚴格的練習也寫下您的程式應如何對錯誤輸入做出反應。
 
 這是另一個獨特的想法：
-在編寫程式碼之前先寫下 `README`。
+在撰寫程式碼之前先寫下 `README`。
 
 <aside>
 
 **說明:**
-如果您還沒聽過。
-請看一下[test-driven development] (TDD,測試驅動開發)
+如果您還沒聽說過[test-driven development] (TDD,測試驅動開發)，
+請查看一下。
 
 [test-driven development]: https://en.wikipedia.org/wiki/Test-driven_development
 
@@ -25,15 +25,14 @@
 
 ## 自動化測試
 
-Now, this is all fine and dandy,
-but doing all of this manually?
-That can take a lot of time.
-At the same time,
-many people have come to enjoy telling computers to do things for them.
-Let's talk about how to automate these tests.
+現在，這一切都很好，但是手動完成這些工作？
+但這會耗費很多時間。
+與此同時，
+很多人都喜歡讓電腦代勞這些工作。
+讓我們來談談如何實現這些測試的自動化。
 
-Rust has a built-in test framework,
-so let's start by writing a first test:
+Rust 有內建的測試框架，
+讓我們試著寫出第一個測試吧：
 
 ```rust,ignore
 # fn answer() -> i32 {
@@ -46,20 +45,16 @@ fn check_answer_validity() {
 }
 ```
 
-You can put this snippet of code in pretty much any file
-and `cargo test` will find
-and run it.
-The key here is the `#[test]` attribute.
-It allows the build system to discover such functions
-and run them as tests,
-verifying that they don't panic.
+您可以在幾乎任何文件中加入這段程式碼並且 `cargo test` 會找到並運行它。
+這裡的關鍵字是 `#[test]` 屬性。
+它允許建構系統發現這些函數並將其作為測試運行、驗證它們是否不會導致恐慌(panic)。
 
 <aside class="exercise">
 
-**Exercise for the reader:**
-Make this test work.
+**供讀者練習:**
+讓這個測試能正常運作。
 
-You should end up with output like the following:
+最終的輸出結果應該如下所示：
 
 ```text
 running 1 test
@@ -70,23 +65,21 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 </aside>
 
-Now that we've seen *how* we can write tests,
-we still need to figure out *what* to test.
-As you've seen it's fairly easy to write assertions
-for functions.
-But a CLI application is often more than one function!
-Worse, it often deals with user input,
-reads files,
-and writes output.
+既然現在我們已經了解瞭 *如何(how)* 撰寫測試，
+那麼還需要弄清楚要測試 *什麼(what)* 。 
+正如你所看到的，為函數撰寫斷言相當容易。 
+但 CLI 應用程式通常不只一個函數！ 
+更糟糕的是，它經常要處理用戶輸入、讀取檔案和寫入輸出。
 
-## Making your code testable
+## 撰寫可測試的程式碼
 
-There are two complementary approaches to testing functionality:
-Testing the small units that you build your complete application from,
-these are called "unit tests".
-There is also testing the final application "from the outside"
-called "black box tests" or "integration tests".
-Let's begin with the first one.
+有兩種互補的功能測試方法：
+測試小單元，根據這些小單元建立完整的應用程式、
+這些稱為 "單元測試(unit tests)"。
+還有一種是 "從外部(from the outside)" 測試最終應用程序，
+稱為 "黑盒測試(black box tests)" 或 "整合測試(integration tests)"。
+
+讓我們從第一種開始。
 
 To figure out what we should test,
 let's see what our program features are.
@@ -141,9 +134,9 @@ when writing tests after the implementation:
 We have written a function that is firmly integrated
 in the context it is used in.
 
-<aside class="note">
+<aside class="筆記">
 
-**Note:**
+**筆記:**
 This is totally fine when writing small CLI applications.
 There's no need to make everything testable!
 It is important to think about
@@ -211,7 +204,7 @@ i.e., a mutable thing we call "writer".
 Its type is `impl std::io::Write`,
 which you can read as
 "a placeholder for any type that implements the `Write` trait".
-Also note how we
+Also 筆記 how we
 replaced the `println!(…)`
 we used earlier
 with `writeln!(writer, …)`.
@@ -237,9 +230,9 @@ and uses our extracted `find_matches` function:
 
 [stdout]: https://doc.rust-lang.org/1.39.0/std/io/fn.stdout.html
 
-<aside class="note">
+<aside class="筆記">
 
-**Note:**
+**筆記:**
 Since `stdout` expects bytes (not strings),
 we use `std::io::Write` instead of `std::fmt::Write`.
 As a result,
@@ -251,9 +244,9 @@ so its type is going to be `&[u8]` instead of `&str`).
 
 </aside>
 
-<aside class="note">
+<aside class="筆記">
 
-**Note:**
+**筆記:**
 We could also make this function return a `String`,
 but that would change its behavior.
 Instead of writing to the terminal directly,
@@ -264,7 +257,7 @@ and dump all the results in one go at the end.
 
 <aside class="exercise">
 
-**Exercise for the reader:**
+**供讀者練習:**
 [`writeln!`] returns an [`io::Result`]
 because writing can fail,
 for example when the buffer is full and cannot be expanded.
@@ -311,9 +304,9 @@ and then use it in your CLI just like any other library.
 Or, if your project has multiple binaries,
 you can put the common functionality into the library part of that crate.
 
-<aside class="note">
+<aside class="筆記">
 
-**Note:**
+**筆記:**
 Speaking of putting everything into a `src/main.rs`:
 If we continue to do that,
 it'll become difficult to read.
@@ -354,7 +347,7 @@ We will also put these tests into a new file in a new directory:
 
 <aside>
 
-**Note:**
+**筆記:**
 By convention,
 `cargo` will look for integration tests in the `tests/` directory.
 Similarly,
@@ -471,7 +464,7 @@ the actual temporary file will automatically get deleted.
 
 <aside class="exercise">
 
-**Exercise for the reader:**
+**供讀者練習:**
 Add integration tests for passing an empty string as pattern.
 Adjust the program as needed.
 
@@ -511,7 +504,7 @@ try to write a [fuzzer] to find bugs in edge cases.
 
 <aside>
 
-**Note:**
+**筆記:**
 You can find the full, runnable source code used in this chapter
 [in this book's repository][src].
 

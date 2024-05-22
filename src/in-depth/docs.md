@@ -43,10 +43,8 @@ fn main() -> std::io::Result<()> {
 }
 ```
 
-When you now compile your application
-there will be a `head.1` file
-in your project directory.
+現在你在編譯你的程式時，
+將會在你的專案目錄產生一個 `head.1` 檔案。
 
-If you open that in `man`
-you'll be able to admire your free documentation.
-如果你在 `man` 中打開它，則你可閱讀文件
+如果你使用 `man` 開啟它，
+你就可以看到你的文件了。

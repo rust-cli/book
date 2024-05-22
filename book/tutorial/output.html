@@ -188,7 +188,7 @@
 <h2 id="使用-println"><a class="header" href="#使用-println">使用 <code>println!</code></a></h2>
 <p>您幾乎可以在終端機下使用 <code>println!</code> 巨集輸出所有您想輸出的東西。</p>
 <p>這個巨集有一些非常驚人的功能，而且還有特殊的語法。
-它希望您編寫一個字串文字作為第一個參數，包含將要填入的佔位符號
+它希望您撰寫一個字串文字作為第一個參數，包含將要填入的佔位符號
 再透過後面作為進一步參數的參數值。</p>
 <p>範例:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
@@ -260,7 +260,7 @@ eprintln!("This is an error! :(");
 你需要盡量減少實際「刷新」到終端的寫入次數。
 <em>每次</em> 呼叫 <code>println!</code> 時，
 它都會告訴系統刷新到終端，
-因為列印每個新行是很常見的。
+因為輸出每個新行是很常見的。
 如果你不需要如此，
 你可以使用 <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufWriter.html"><code>BufWriter</code></a> 來包裝一下 <code>stdout</code> 的句柄，
 它的預設快取為 8 kB。
@@ -288,14 +288,12 @@ writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 <h2 id="顯示進度條"><a class="header" href="#顯示進度條">顯示進度條</a></h2>
 <p>有些 CLI 程式的運作時間很長，
 會花費幾分鐘甚至數小時。
-如果你在編寫這種程式，
-你可能想要向使用者展示，其程式正在正常運作中。
+如果你在撰寫這種程式，
+你可能需要向使用者展示，其程式正在正常運作中。
 因此，你需要輸出有用的狀態更新訊息，
 最好是使用易於使用的方式來進行輸出。</p>
-<p>Using the <a href="https://crates.io/crates/indicatif">indicatif</a> crate,
-you can add progress bars
-and little spinners to your program.
-Here’s a quick example:</p>
+<p>你可以使用 <a href="https://crates.io/crates/indicatif">indicatif</a> crate 來為你的程式加入進度條，
+這是一個快速的例子：</p>
 <pre><code class="language-rust ignore">fn main() {
     let pb = indicatif::ProgressBar::new(100);
     for i in 0..100 {
@@ -305,9 +303,7 @@ Here’s a quick example:</p>
     }
     pb.finish_with_message("done");
 }</code></pre>
-<p>See the <a href="https://docs.rs/indicatif">documentation</a>
-and <a href="https://github.com/console-rs/indicatif/tree/main/examples">examples</a>
-for more information.</p>
+<p>細節部分可試著查看 indicatif 的 <a href="https://docs.rs/indicatif">相關文件</a> 和 <a href="https://github.com/console-rs/indicatif/tree/main/examples">範例</a> 。</p>
 <h2 id="記錄檔"><a class="header" href="#記錄檔">記錄檔</a></h2>
 <p>為了更方便了解我們的程式做了什麼，
 我們需要為它加入一些記錄檔的相關語句，這很簡單。
@@ -318,24 +314,18 @@ for more information.</p>
 只是它可以指定訊息的重要性（層級）。
 通常可以使用的層級包括 <em>error</em> , <em>warn</em>, <em>info</em> , <em>debug</em> , 和 <em>trace</em>
 （ <em>error</em> 優先順序最高， <em>trace</em> 最低）。</p>
-<p>To add simple logging to your application,
-you’ll need two things:
-The <a href="https://crates.io/crates/log">log</a> crate (this contains macros named after the log level)
-and an <em>adapter</em> that actually writes the log output somewhere useful.
-Having the ability to use log adapters is very flexible:
-You can, for example, use them to write logs not only to the terminal
-but also to <a href="https://en.wikipedia.org/wiki/Syslog">syslog</a>, or to a central log server.</p>
-<p>Since we are right now only concerned with writing a CLI application,
-an easy adapter to use is <a href="https://crates.io/crates/env_logger">env_logger</a>.
-It’s called “env” logger because you can
-use an environment variable to specify which parts of your application
-you want to log
-(and at which level you want to log them).
-It will prefix your log messages with a timestamp
-and the module where the log messages come from.
-Since libraries can also use <code>log</code>,
-you easily configure their log output, too.</p>
-<p>Here’s a quick example:</p>
+<p>只需這兩樣東西，你就可以為你的程式加入簡單的記錄功能：
+Log create（其中包含以記錄等級命名的巨集）和一個 <em>轉接器</em>，
+它會將記錄寫到有用的地方。
+記錄轉接器的使用是十分靈活的：
+例如，你可以不僅將記錄輸出至終端，同時也可寫進 <a href="https://en.wikipedia.org/wiki/Syslog">syslog</a> 或其它記錄伺服器。</p>
+<p>因為我們現在最關心的是寫一個 CLI 程式，
+所以選取一個易於使用的轉接器 <a href="https://crates.io/crates/env_logger">env_logger</a>。
+它之所以叫 <code>env</code> 記錄器，
+因為你可以使用環境變數來指定程式中哪一部分需要記錄和記錄哪一個等級。
+它會在你的記錄資訊前加上時間戳記及所在模組資訊。
+由於函式庫也可以使用 <code>log</code>，你也可以輕鬆地配置它們的記錄輸出。</p>
+<p>這是一個簡單的範例:</p>
 <pre><code class="language-rust ignore">use log::{info, warn};
 
 fn main() {
@@ -343,15 +333,15 @@ fn main() {
     info!("starting up");
     warn!("oops, nothing implemented!");
 }</code></pre>
-<p>Assuming you have this file as <code>src/bin/output-log.rs</code>,
-on Linux and macOS, you can run it like this:</p>
+<p>如果你有 <code>src/bin/output-log.rs</code> 這個文件，
+在 Linux 和 MacOS 上，您可以像這樣執行它：</p>
 <pre><code class="language-console">$ env RUST_LOG=info cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log`
 [2018-11-30T20:25:52Z INFO  output_log] starting up
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 </code></pre>
-<p>In Windows PowerShell, you can run it like this:</p>
+<p>在 Windows PowerShell 中，您可以像這樣執行它：</p>
 <pre><code class="language-console">$ $env:RUST_LOG="info"
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
@@ -359,7 +349,7 @@ $ cargo run --bin output-log
 [2018-11-30T20:25:52Z INFO  output_log] starting up
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 </code></pre>
-<p>In Windows CMD, you can run it like this:</p>
+<p>在 Windows CMD(命令提示字元) 中，您可以像這樣執行它：</p>
 <pre><code class="language-console">$ set RUST_LOG=info
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
@@ -367,26 +357,26 @@ $ cargo run --bin output-log
 [2018-11-30T20:25:52Z INFO  output_log] starting up
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 </code></pre>
-<p><code>RUST_LOG</code> is the name of the environment variable
-you can use to set your log settings.
-<code>env_logger</code> also contains a builder
-so you can programmatically adjust these settings,
-and, for example, also show <em>info</em> level messages by default.</p>
-<p>There are a lot of alternative logging adapters out there,
-and also alternatives or extensions to <code>log</code>.
-If you know your application will have a lot to log,
-make sure to review them,
-and make your users’ life easier.</p>
+<p><code>RUST_LOG</code> 是設定 log 的環境變數名稱，
+您可以使用它來設定記錄檔設定。
+<code>env_logger</code> 還包含一個建置器，
+因此你可以以程式設計的方式調整這些設置，
+例如，預設顯示 <em>info</em> 等級的記錄。</p>
+<p>有很多替代的記錄器，
+以及 <code>log</code> 的替代品或擴充功能。
+如果您知道您的應用程式將有很多需要記錄的內容，
+請確保檢查它們，
+並讓您的使用者的生活更輕鬆。</p>
 <aside>
 <p><strong>貼士:</strong>
-Experience has shown that even mildly useful CLI programs can end up being used for years to come.
-(Especially if they were meant as a temporary solution.)
-If your application doesn’t work
-and someone (e.g., you, in the future) needs to figure out why,
-being able to pass <code>--verbose</code> to get additional log output
-can make the difference between minutes and hours of debugging.
-The <a href="https://crates.io/crates/clap-verbosity-flag">clap-verbosity-flag</a> crate contains a quick way
-to add a <code>--verbose</code> to a project using <code>clap</code>.</p>
+經驗表明，即使是用處不大的 CLI 程式，最終也會被使用多年。
+( 特別是如果它們只是作為臨時解決方案的話 ）。
+如果您的應用程式無法運行時，
+而有人（例如將來的你）需要找出原因、
+能夠透過 <code>--verbose</code> 獲得額外的記錄輸出
+可以讓偵錯工作在幾分鐘和幾小時之間取得顯著效果。
+<a href="https://crates.io/crates/clap-verbosity-flag">clap-verbosity-flag</a> create 包含了快速的
+在使用 <code>clap</code> 的專案中新增 <code>--verbose</code> 的快速方法。</p>
 </aside>
 
                     </main>
@@ -418,6 +408,22 @@ to add a <code>--verbose</code> to a project using <code>clap</code>.</p>
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

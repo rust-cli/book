@@ -205,7 +205,7 @@ foo: 10
 $ grrs --help
 [some help text explaining the available options]
 </code></pre>
-<aside class="note">
+<aside class="筆記">
 <p><strong>說明:</strong></p>
 <p>本書是使用 <a href="https://doc.rust-lang.org/edition-guide/index.html">Rust 2018</a> 所寫的。
 同時，這些程式碼範例同樣適用於 Rust 2015， 只需做一點點調整，例如新增 <code>extern crate foo;</code>。</p>
@@ -241,6 +241,22 @@ $ grrs --help
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

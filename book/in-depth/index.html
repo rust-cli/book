@@ -178,7 +178,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="深入探究主題"><a class="header" href="#深入探究主題">深入探究主題</a></h1>
-<p>該章節會涵蓋更多較為進階的小細節,但您在編寫命令列應用程式時可能會在乎這一點。</p>
+<p>該章節會涵蓋更多較為進階的小細節,但您在撰寫命令列應用程式時可能會在乎這一點。</p>
 
                     </main>
 
@@ -209,6 +209,22 @@
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

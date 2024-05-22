@@ -181,25 +181,24 @@
 <p>經過數十年的軟體開發，人們發現了一個真理：未經測試的軟體很少能運作。
 （很多人甚至會說：“大多數經過測試的軟體也無法運行。”但我們都是樂觀主義者，對吧？）</p>
 <p>因此，為了確保您的程式執行您期望的操作，測試它是明智的。</p>
-<p>一種簡單的方法是編寫 <code>README</code> 文件，它描述了你的程式應該做什麼。
+<p>一種簡單的方法是撰寫 <code>README</code> 文件，它描述了你的程式應該做什麼。
 當您準備好發布新版本時，仔細閱讀 <code>README</code> 並確保行為仍然如預期。
 你可以讓它成為一個更嚴格的練習也寫下您的程式應如何對錯誤輸入做出反應。</p>
 <p>這是另一個獨特的想法：
-在編寫程式碼之前先寫下 <code>README</code>。</p>
+在撰寫程式碼之前先寫下 <code>README</code>。</p>
 <aside>
 <p><strong>說明:</strong>
-如果您還沒聽過。
-請看一下<a href="https://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a> (TDD,測試驅動開發)</p>
+如果您還沒聽說過<a href="https://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a> (TDD,測試驅動開發)，
+請查看一下。</p>
 </aside>
 <h2 id="自動化測試"><a class="header" href="#自動化測試">自動化測試</a></h2>
-<p>Now, this is all fine and dandy,
-but doing all of this manually?
-That can take a lot of time.
-At the same time,
-many people have come to enjoy telling computers to do things for them.
-Let’s talk about how to automate these tests.</p>
-<p>Rust has a built-in test framework,
-so let’s start by writing a first test:</p>
+<p>現在，這一切都很好，但是手動完成這些工作？
+但這會耗費很多時間。
+與此同時，
+很多人都喜歡讓電腦代勞這些工作。
+讓我們來談談如何實現這些測試的自動化。</p>
+<p>Rust 有內建的測試框架，
+讓我們試著寫出第一個測試吧：</p>
 <pre><code class="language-rust ignore"><span class="boring">fn answer() -&gt; i32 {
 </span><span class="boring">  42
 </span><span class="boring">}
@@ -208,38 +207,31 @@ so let’s start by writing a first test:</p>
 fn check_answer_validity() {
     assert_eq!(answer(), 42);
 }</code></pre>
-<p>You can put this snippet of code in pretty much any file
-and <code>cargo test</code> will find
-and run it.
-The key here is the <code>#[test]</code> attribute.
-It allows the build system to discover such functions
-and run them as tests,
-verifying that they don’t panic.</p>
+<p>您可以在幾乎任何文件中加入這段程式碼並且 <code>cargo test</code> 會找到並運行它。
+這裡的關鍵字是 <code>#[test]</code> 屬性。
+它允許建構系統發現這些函數並將其作為測試運行、驗證它們是否不會導致恐慌(panic)。</p>
 <aside class="exercise">
-<p><strong>Exercise for the reader:</strong>
-Make this test work.</p>
-<p>You should end up with output like the following:</p>
+<p><strong>供讀者練習:</strong>
+讓這個測試能正常運作。</p>
+<p>最終的輸出結果應該如下所示：</p>
 <pre><code class="language-text">running 1 test
 test check_answer_validity ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 </code></pre>
 </aside>
-<p>Now that we’ve seen <em>how</em> we can write tests,
-we still need to figure out <em>what</em> to test.
-As you’ve seen it’s fairly easy to write assertions
-for functions.
-But a CLI application is often more than one function!
-Worse, it often deals with user input,
-reads files,
-and writes output.</p>
-<h2 id="making-your-code-testable"><a class="header" href="#making-your-code-testable">Making your code testable</a></h2>
-<p>There are two complementary approaches to testing functionality:
-Testing the small units that you build your complete application from,
-these are called “unit tests”.
-There is also testing the final application “from the outside”
-called “black box tests” or “integration tests”.
-Let’s begin with the first one.</p>
+<p>既然現在我們已經了解瞭 <em>如何(how)</em> 撰寫測試，
+那麼還需要弄清楚要測試 <em>什麼(what)</em> 。
+正如你所看到的，為函數撰寫斷言相當容易。
+但 CLI 應用程式通常不只一個函數！
+更糟糕的是，它經常要處理用戶輸入、讀取檔案和寫入輸出。</p>
+<h2 id="撰寫可測試的程式碼"><a class="header" href="#撰寫可測試的程式碼">撰寫可測試的程式碼</a></h2>
+<p>有兩種互補的功能測試方法：
+測試小單元，根據這些小單元建立完整的應用程式、
+這些稱為 “單元測試(unit tests)”。
+還有一種是 “從外部(from the outside)” 測試最終應用程序，
+稱為 “黑盒測試(black box tests)” 或 “整合測試(integration tests)”。</p>
+<p>讓我們從第一種開始。</p>
 <p>To figure out what we should test,
 let’s see what our program features are.
 Mainly, <code>grrs</code> is supposed to print out the lines that match a given pattern.
@@ -282,8 +274,8 @@ This is a problem that often comes up
 when writing tests after the implementation:
 We have written a function that is firmly integrated
 in the context it is used in.</p>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 This is totally fine when writing small CLI applications.
 There’s no need to make everything testable!
 It is important to think about
@@ -346,7 +338,7 @@ i.e., a mutable thing we call “writer”.
 Its type is <code>impl std::io::Write</code>,
 which you can read as
 “a placeholder for any type that implements the <code>Write</code> trait”.
-Also note how we
+Also 筆記 how we
 replaced the <code>println!(…)</code>
 we used earlier
 with <code>writeln!(writer, …)</code>.
@@ -374,8 +366,8 @@ and uses our extracted <code>find_matches</code> function:</p>
 
     Ok(())
 }</code></pre>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 Since <code>stdout</code> expects bytes (not strings),
 we use <code>std::io::Write</code> instead of <code>std::fmt::Write</code>.
 As a result,
@@ -385,8 +377,8 @@ in the <code>assert_eq!</code> we use a <code>b"foo"</code>.
 (The <code>b</code> prefix makes this a <em>byte string literal</em>
 so its type is going to be <code>&amp;[u8]</code> instead of <code>&amp;str</code>).</p>
 </aside>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 We could also make this function return a <code>String</code>,
 but that would change its behavior.
 Instead of writing to the terminal directly,
@@ -394,7 +386,7 @@ it would then collect everything into a string,
 and dump all the results in one go at the end.</p>
 </aside>
 <aside class="exercise">
-<p><strong>Exercise for the reader:</strong>
+<p><strong>供讀者練習:</strong>
 <a href="https://doc.rust-lang.org/1.39.0/std/macro.writeln.html"><code>writeln!</code></a> returns an <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>io::Result</code></a>
 because writing can fail,
 for example when the buffer is full and cannot be expanded.
@@ -433,8 +425,8 @@ for your application-specific logic first
 and then use it in your CLI just like any other library.
 Or, if your project has multiple binaries,
 you can put the common functionality into the library part of that crate.</p>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 Speaking of putting everything into a <code>src/main.rs</code>:
 If we continue to do that,
 it’ll become difficult to read.
@@ -465,7 +457,7 @@ and run it like a regular program.
 We will also put these tests into a new file in a new directory:
 <code>tests/cli.rs</code>.</p>
 <aside>
-<p><strong>Note:</strong>
+<p><strong>筆記:</strong>
 By convention,
 <code>cargo</code> will look for integration tests in the <code>tests/</code> directory.
 Similarly,
@@ -584,7 +576,7 @@ fn find_content_in_file() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&g
     Ok(())
 }</code></pre>
 <aside class="exercise">
-<p><strong>Exercise for the reader:</strong>
+<p><strong>供讀者練習:</strong>
 Add integration tests for passing an empty string as pattern.
 Adjust the program as needed.</p>
 </aside>
@@ -613,7 +605,7 @@ you should look into <a href="https://docs.rs/proptest"><code>proptest</code></a
 If you have a program which consumes arbitrary files and parses them,
 try to write a <a href="https://rust-fuzz.github.io/book/introduction.html">fuzzer</a> to find bugs in edge cases.</p>
 <aside>
-<p><strong>Note:</strong>
+<p><strong>筆記:</strong>
 You can find the full, runnable source code used in this chapter
 <a href="https://github.com/rust-cli/book/tree/master/src/tutorial/testing">in this book’s repository</a>.</p>
 </aside>
@@ -647,6 +639,22 @@ You can find the full, runnable source code used in this chapter
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

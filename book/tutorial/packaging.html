@@ -224,8 +224,8 @@ repository = "https://github.com/you/grrs"
 keywords = ["cli", "search", "demo"]
 categories = ["command-line-utilities"]
 </code></pre>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 This example includes the mandatory license field
 with a common choice for Rust projects:
 The same license that is also used for the compiler itself.
@@ -363,8 +363,8 @@ and copy the binaries to a place they like.</p>
 <p>This does require some experience with manually “installing” programs,
 so you want to add a section to your README file
 on how to install this program.</p>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 If you used <a href="https://github.com/japaric/trust">trust</a> to build your binaries and added them to GitHub releases,
 you can also tell people to run
 <code>curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git your-name/repo-name</code>
@@ -475,6 +475,22 @@ and finally start distributing your tool using system package managers.</p>
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

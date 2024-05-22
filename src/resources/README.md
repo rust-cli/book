@@ -28,7 +28,7 @@
 
 ## 其它 crates
 
-由於 Rust crates 的landscape不斷變化，這是一個尋找的好地方。
+由於 Rust crates 的landscape不斷變化，這是一個尋找API文件/函式庫的好地方。
 
 crates 是 [lib.rs](https://lib.rs) crate 索引，包括：
 - [Command-line interface](https://lib.rs/command-line-interface)

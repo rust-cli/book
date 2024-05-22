@@ -206,7 +206,7 @@
 <li><a href="https://crates.io/crates/wasm-pack">wasm-pack</a> - tool for building WebAssembly</li>
 </ul>
 <h2 id="其它-crates"><a class="header" href="#其它-crates">其它 crates</a></h2>
-<p>由於 Rust crates 的landscape不斷變化，這是一個尋找的好地方。</p>
+<p>由於 Rust crates 的landscape不斷變化，這是一個尋找API文件/函式庫的好地方。</p>
 <p>crates 是 <a href="https://lib.rs">lib.rs</a> crate 索引，包括：</p>
 <ul>
 <li><a href="https://lib.rs/command-line-interface">Command-line interface</a></li>
@@ -246,6 +246,22 @@
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

@@ -186,7 +186,7 @@
 <p>在命令列中，程式名稱中後面的文字通常被稱為「命令列參數(command-line arguments)」或「命令列標籤(command-line flags)」（尤其是當他們看起來像 <code>--this</code>）。</p>
 <p>作業系統通常會將它們識別為字串列表 — 簡單的說，以空格分隔。</p>
 <p>有很多方法可以識別這些參數並解析，使它們變得更易於使用。</p>
-<p>同時也需要告訴用戶， 程式需要哪些參數及對應的格式是什麼。</p>
+<p>同時也需要告訴使用者， 程式需要哪些參數及對應的格式是什麼。</p>
 <h2 id="取得參數"><a class="header" href="#取得參數">取得參數</a></h2>
 <p>標準庫中提供的 <a href="https://doc.rust-lang.org/1.39.0/std/env/fn.args.html"><code>std::env::args()</code></a> 方法，提供了運行時給定參數的<a href="https://doc.rust-lang.org/1.39.0/std/iter/index.html">疊代器(iterator)</a>。</p>
 <p>首先，第一項（索引 <code>0</code> ）是程式名稱（如 : <code>grrs</code>），後面部分才是使用者給定的參數。</p>
@@ -246,7 +246,7 @@ pattern: "some-pattern", path: "some-file"
 <p>首先，我們需要在 <code>Cargo.toml</code> 檔案的 <code>[dependencies]</code> 欄位裡加入上 <code>clap = { version = "4.0", features = ["derive"] }</code> 來匯入 <code>clap</code>。</p>
 <p>現在，我們可以在程式碼中加入<code>use clap::Parser;</code>,
 和在先前建立的 <code>struct Cli</code> 的正上方加上 <code>#[derive(Parser)]</code>。</p>
-<p>我們也可以在過程中編寫一些文件註解。</p>
+<p>我們也可以在過程中撰寫一些文件註解。</p>
 <p>讓我們在這開始（在檔案 <code>src/main.rs</code>，<code>fn main( ) {</code> 之前 ）：</p>
 <pre><code class="language-rust ignore">use clap::Parser;
 
@@ -276,7 +276,7 @@ struct Cli {
 <p>但如果解析失敗會怎樣？
 這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的型別。
 它可以自動產生一個不錯的 <code>--help</code> 訊息， 並會依錯誤給予一些建議－輸入的參數應該是 <code>--output</code> 而你輸入的是 <code>--putput</code>。</p>
-<aside class="note">
+<aside class="筆記">
 <p><strong>說明:</strong>
 <code>parse</code> 方法應該在 <code>main</code> 函數中使用。
 當它失敗時，
@@ -351,6 +351,22 @@ pattern: "some-pattern", path: "some-file"
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

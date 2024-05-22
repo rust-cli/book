@@ -192,7 +192,7 @@ we should provide not just pretty output for humans,
 but also a version tailored to what other programs need.
 Let’s see how we can do this.</p>
 <aside>
-<p><strong>Note:</strong>
+<p><strong>筆記:</strong>
 Make sure to read <a href="../tutorial/output.html">the chapter on CLI output</a>
 in the tutorial first.
 It covers how to write output to the terminal.</p>
@@ -371,7 +371,7 @@ that reads these documents as they come in and show the matches
 (as well the files they are in)
 even while <em>ripgrep</em> is still searching.</p>
 <aside>
-<p><strong>Note:</strong>
+<p><strong>筆記:</strong>
 This is how Visual Studio Code uses <em>ripgrep</em> for its code search.</p>
 </aside>
 <h2 id="how-to-deal-with-input-piped-into-us"><a class="header" href="#how-to-deal-with-input-piped-into-us">How to deal with input piped into us</a></h2>
@@ -493,6 +493,22 @@ a tty, it outputs the help docs so that it’s clear why it doesn’t work.</p>
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

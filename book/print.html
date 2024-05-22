@@ -180,8 +180,8 @@
                     <main>
                         <h1 id="rust-中的命令列應用程式"><a class="header" href="#rust-中的命令列應用程式">Rust 中的命令列應用程式</a></h1>
 <p>Rust 是一種靜態編譯的、運行速度快的語言，它擁有強大的工具，其生態也在快速發展。</p>
-<p>這使得它非常適合編寫命令列應用程式：小巧、便攜且運行速度快。 而命令列應用程式也是開始進行學習 Rust ，或向你的團隊介紹 Rust 的一種很好的方式。</p>
-<p>編寫一個簡單的命令列介面程式（CLI）對於剛接觸 Rust 且希望對其有所了解的初學者來說，是一個很好的練習。
+<p>這使得它非常適合撰寫命令列應用程式：小巧、便攜且運行速度快。 而命令列應用程式也是開始進行學習 Rust ，或向你的團隊介紹 Rust 的一種很好的方式。</p>
+<p>撰寫一個簡單的命令列介面程式（CLI）對於剛接觸 Rust 且希望對其有所了解的初學者來說，是一個很好的練習。
 不過，這裡面也包含了許多方面，後面章節我們會介紹到它們。</p>
 <p>本書的大綱如下： 首先我們從一個快速教學開始，完成後你將會得到一個可用的 CLI 工具。</p>
 <p>透過此教學， 你將接觸到 Rust 的一些核心概念及 CLI 主要應用包括了哪些部分功能。
@@ -217,7 +217,7 @@ foo: 10
 $ grrs --help
 [some help text explaining the available options]
 </code></pre>
-<aside class="note">
+<aside class="筆記">
 <p><strong>說明:</strong></p>
 <p>本書是使用 <a href="https://doc.rust-lang.org/edition-guide/index.html">Rust 2018</a> 所寫的。
 同時，這些程式碼範例同樣適用於 Rust 2015， 只需做一點點調整，例如新增 <code>extern crate foo;</code>。</p>
@@ -232,7 +232,7 @@ $ grrs --help
 <li><code>Cargo.toml</code> 裡包含了我們專案所有的中繼資料，包括我們使用依賴/外部函式庫列表。</li>
 <li><code>src/main.rs</code>  是我們程式的二進制入口檔案（主程式）。</li>
 </ul>
-<p>如果可以在<code>grrs</code>目錄下執行<code>cargo run</code>並得到一個“Hello World”，那你就已經準備好了。</p>
+<p>如果可以在<code>grrs</code>目錄下執行<code>cargo run</code>並得到一個 <code>Hello, World!</code>，那你就已經準備好了。</p>
 <h2 id="它可能會是什麼樣子"><a class="header" href="#它可能會是什麼樣子">它可能會是什麼樣子</a></h2>
 <pre><code class="language-console">$ cargo new grrs
      Created binary (application) `grrs` package
@@ -252,7 +252,7 @@ Hello, world!
 <p>在命令列中，程式名稱中後面的文字通常被稱為「命令列參數(command-line arguments)」或「命令列標籤(command-line flags)」（尤其是當他們看起來像 <code>--this</code>）。</p>
 <p>作業系統通常會將它們識別為字串列表 — 簡單的說，以空格分隔。</p>
 <p>有很多方法可以識別這些參數並解析，使它們變得更易於使用。</p>
-<p>同時也需要告訴用戶， 程式需要哪些參數及對應的格式是什麼。</p>
+<p>同時也需要告訴使用者， 程式需要哪些參數及對應的格式是什麼。</p>
 <h2 id="取得參數"><a class="header" href="#取得參數">取得參數</a></h2>
 <p>標準庫中提供的 <a href="https://doc.rust-lang.org/1.39.0/std/env/fn.args.html"><code>std::env::args()</code></a> 方法，提供了運行時給定參數的<a href="https://doc.rust-lang.org/1.39.0/std/iter/index.html">疊代器(iterator)</a>。</p>
 <p>首先，第一項（索引 <code>0</code> ）是程式名稱（如 : <code>grrs</code>），後面部分才是使用者給定的參數。</p>
@@ -312,7 +312,7 @@ pattern: "some-pattern", path: "some-file"
 <p>首先，我們需要在 <code>Cargo.toml</code> 檔案的 <code>[dependencies]</code> 欄位裡加入上 <code>clap = { version = "4.0", features = ["derive"] }</code> 來匯入 <code>clap</code>。</p>
 <p>現在，我們可以在程式碼中加入<code>use clap::Parser;</code>,
 和在先前建立的 <code>struct Cli</code> 的正上方加上 <code>#[derive(Parser)]</code>。</p>
-<p>我們也可以在過程中編寫一些文件註解。</p>
+<p>我們也可以在過程中撰寫一些文件註解。</p>
 <p>讓我們在這開始（在檔案 <code>src/main.rs</code>，<code>fn main( ) {</code> 之前 ）：</p>
 <pre><code class="language-rust ignore">use clap::Parser;
 
@@ -342,7 +342,7 @@ struct Cli {
 <p>但如果解析失敗會怎樣？
 這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的型別。
 它可以自動產生一個不錯的 <code>--help</code> 訊息， 並會依錯誤給予一些建議－輸入的參數應該是 <code>--output</code> 而你輸入的是 <code>--putput</code>。</p>
-<aside class="note">
+<aside class="筆記">
 <p><strong>說明:</strong>
 <code>parse</code> 方法應該在 <code>main</code> 函數中使用。
 當它失敗時，
@@ -636,7 +636,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <h2 id="使用-println"><a class="header" href="#使用-println">使用 <code>println!</code></a></h2>
 <p>您幾乎可以在終端機下使用 <code>println!</code> 巨集輸出所有您想輸出的東西。</p>
 <p>這個巨集有一些非常驚人的功能，而且還有特殊的語法。
-它希望您編寫一個字串文字作為第一個參數，包含將要填入的佔位符號
+它希望您撰寫一個字串文字作為第一個參數，包含將要填入的佔位符號
 再透過後面作為進一步參數的參數值。</p>
 <p>範例:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
@@ -708,7 +708,7 @@ eprintln!("This is an error! :(");
 你需要盡量減少實際「刷新」到終端的寫入次數。
 <em>每次</em> 呼叫 <code>println!</code> 時，
 它都會告訴系統刷新到終端，
-因為列印每個新行是很常見的。
+因為輸出每個新行是很常見的。
 如果你不需要如此，
 你可以使用 <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufWriter.html"><code>BufWriter</code></a> 來包裝一下 <code>stdout</code> 的句柄，
 它的預設快取為 8 kB。
@@ -736,14 +736,12 @@ writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 <h2 id="顯示進度條"><a class="header" href="#顯示進度條">顯示進度條</a></h2>
 <p>有些 CLI 程式的運作時間很長，
 會花費幾分鐘甚至數小時。
-如果你在編寫這種程式，
-你可能想要向使用者展示，其程式正在正常運作中。
+如果你在撰寫這種程式，
+你可能需要向使用者展示，其程式正在正常運作中。
 因此，你需要輸出有用的狀態更新訊息，
 最好是使用易於使用的方式來進行輸出。</p>
-<p>Using the <a href="https://crates.io/crates/indicatif">indicatif</a> crate,
-you can add progress bars
-and little spinners to your program.
-Here’s a quick example:</p>
+<p>你可以使用 <a href="https://crates.io/crates/indicatif">indicatif</a> crate 來為你的程式加入進度條，
+這是一個快速的例子：</p>
 <pre><code class="language-rust ignore">fn main() {
     let pb = indicatif::ProgressBar::new(100);
     for i in 0..100 {
@@ -753,9 +751,7 @@ Here’s a quick example:</p>
     }
     pb.finish_with_message("done");
 }</code></pre>
-<p>See the <a href="https://docs.rs/indicatif">documentation</a>
-and <a href="https://github.com/console-rs/indicatif/tree/main/examples">examples</a>
-for more information.</p>
+<p>細節部分可試著查看 indicatif 的 <a href="https://docs.rs/indicatif">相關文件</a> 和 <a href="https://github.com/console-rs/indicatif/tree/main/examples">範例</a> 。</p>
 <h2 id="記錄檔"><a class="header" href="#記錄檔">記錄檔</a></h2>
 <p>為了更方便了解我們的程式做了什麼，
 我們需要為它加入一些記錄檔的相關語句，這很簡單。
@@ -766,24 +762,18 @@ for more information.</p>
 只是它可以指定訊息的重要性（層級）。
 通常可以使用的層級包括 <em>error</em> , <em>warn</em>, <em>info</em> , <em>debug</em> , 和 <em>trace</em>
 （ <em>error</em> 優先順序最高， <em>trace</em> 最低）。</p>
-<p>To add simple logging to your application,
-you’ll need two things:
-The <a href="https://crates.io/crates/log">log</a> crate (this contains macros named after the log level)
-and an <em>adapter</em> that actually writes the log output somewhere useful.
-Having the ability to use log adapters is very flexible:
-You can, for example, use them to write logs not only to the terminal
-but also to <a href="https://en.wikipedia.org/wiki/Syslog">syslog</a>, or to a central log server.</p>
-<p>Since we are right now only concerned with writing a CLI application,
-an easy adapter to use is <a href="https://crates.io/crates/env_logger">env_logger</a>.
-It’s called “env” logger because you can
-use an environment variable to specify which parts of your application
-you want to log
-(and at which level you want to log them).
-It will prefix your log messages with a timestamp
-and the module where the log messages come from.
-Since libraries can also use <code>log</code>,
-you easily configure their log output, too.</p>
-<p>Here’s a quick example:</p>
+<p>只需這兩樣東西，你就可以為你的程式加入簡單的記錄功能：
+Log create（其中包含以記錄等級命名的巨集）和一個 <em>轉接器</em>，
+它會將記錄寫到有用的地方。
+記錄轉接器的使用是十分靈活的：
+例如，你可以不僅將記錄輸出至終端，同時也可寫進 <a href="https://en.wikipedia.org/wiki/Syslog">syslog</a> 或其它記錄伺服器。</p>
+<p>因為我們現在最關心的是寫一個 CLI 程式，
+所以選取一個易於使用的轉接器 <a href="https://crates.io/crates/env_logger">env_logger</a>。
+它之所以叫 <code>env</code> 記錄器，
+因為你可以使用環境變數來指定程式中哪一部分需要記錄和記錄哪一個等級。
+它會在你的記錄資訊前加上時間戳記及所在模組資訊。
+由於函式庫也可以使用 <code>log</code>，你也可以輕鬆地配置它們的記錄輸出。</p>
+<p>這是一個簡單的範例:</p>
 <pre><code class="language-rust ignore">use log::{info, warn};
 
 fn main() {
@@ -791,15 +781,15 @@ fn main() {
     info!("starting up");
     warn!("oops, nothing implemented!");
 }</code></pre>
-<p>Assuming you have this file as <code>src/bin/output-log.rs</code>,
-on Linux and macOS, you can run it like this:</p>
+<p>如果你有 <code>src/bin/output-log.rs</code> 這個文件，
+在 Linux 和 MacOS 上，您可以像這樣執行它：</p>
 <pre><code class="language-console">$ env RUST_LOG=info cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/output-log`
 [2018-11-30T20:25:52Z INFO  output_log] starting up
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 </code></pre>
-<p>In Windows PowerShell, you can run it like this:</p>
+<p>在 Windows PowerShell 中，您可以像這樣執行它：</p>
 <pre><code class="language-console">$ $env:RUST_LOG="info"
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
@@ -807,7 +797,7 @@ $ cargo run --bin output-log
 [2018-11-30T20:25:52Z INFO  output_log] starting up
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 </code></pre>
-<p>In Windows CMD, you can run it like this:</p>
+<p>在 Windows CMD(命令提示字元) 中，您可以像這樣執行它：</p>
 <pre><code class="language-console">$ set RUST_LOG=info
 $ cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
@@ -815,50 +805,49 @@ $ cargo run --bin output-log
 [2018-11-30T20:25:52Z INFO  output_log] starting up
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 </code></pre>
-<p><code>RUST_LOG</code> is the name of the environment variable
-you can use to set your log settings.
-<code>env_logger</code> also contains a builder
-so you can programmatically adjust these settings,
-and, for example, also show <em>info</em> level messages by default.</p>
-<p>There are a lot of alternative logging adapters out there,
-and also alternatives or extensions to <code>log</code>.
-If you know your application will have a lot to log,
-make sure to review them,
-and make your users’ life easier.</p>
+<p><code>RUST_LOG</code> 是設定 log 的環境變數名稱，
+您可以使用它來設定記錄檔設定。
+<code>env_logger</code> 還包含一個建置器，
+因此你可以以程式設計的方式調整這些設置，
+例如，預設顯示 <em>info</em> 等級的記錄。</p>
+<p>有很多替代的記錄器，
+以及 <code>log</code> 的替代品或擴充功能。
+如果您知道您的應用程式將有很多需要記錄的內容，
+請確保檢查它們，
+並讓您的使用者的生活更輕鬆。</p>
 <aside>
 <p><strong>貼士:</strong>
-Experience has shown that even mildly useful CLI programs can end up being used for years to come.
-(Especially if they were meant as a temporary solution.)
-If your application doesn’t work
-and someone (e.g., you, in the future) needs to figure out why,
-being able to pass <code>--verbose</code> to get additional log output
-can make the difference between minutes and hours of debugging.
-The <a href="https://crates.io/crates/clap-verbosity-flag">clap-verbosity-flag</a> crate contains a quick way
-to add a <code>--verbose</code> to a project using <code>clap</code>.</p>
+經驗表明，即使是用處不大的 CLI 程式，最終也會被使用多年。
+( 特別是如果它們只是作為臨時解決方案的話 ）。
+如果您的應用程式無法運行時，
+而有人（例如將來的你）需要找出原因、
+能夠透過 <code>--verbose</code> 獲得額外的記錄輸出
+可以讓偵錯工作在幾分鐘和幾小時之間取得顯著效果。
+<a href="https://crates.io/crates/clap-verbosity-flag">clap-verbosity-flag</a> create 包含了快速的
+在使用 <code>clap</code> 的專案中新增 <code>--verbose</code> 的快速方法。</p>
 </aside>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="測試"><a class="header" href="#測試">測試</a></h1>
 <p>經過數十年的軟體開發，人們發現了一個真理：未經測試的軟體很少能運作。
 （很多人甚至會說：“大多數經過測試的軟體也無法運行。”但我們都是樂觀主義者，對吧？）</p>
 <p>因此，為了確保您的程式執行您期望的操作，測試它是明智的。</p>
-<p>一種簡單的方法是編寫 <code>README</code> 文件，它描述了你的程式應該做什麼。
+<p>一種簡單的方法是撰寫 <code>README</code> 文件，它描述了你的程式應該做什麼。
 當您準備好發布新版本時，仔細閱讀 <code>README</code> 並確保行為仍然如預期。
 你可以讓它成為一個更嚴格的練習也寫下您的程式應如何對錯誤輸入做出反應。</p>
 <p>這是另一個獨特的想法：
-在編寫程式碼之前先寫下 <code>README</code>。</p>
+在撰寫程式碼之前先寫下 <code>README</code>。</p>
 <aside>
 <p><strong>說明:</strong>
-如果您還沒聽過。
-請看一下<a href="https://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a> (TDD,測試驅動開發)</p>
+如果您還沒聽說過<a href="https://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a> (TDD,測試驅動開發)，
+請查看一下。</p>
 </aside>
 <h2 id="自動化測試"><a class="header" href="#自動化測試">自動化測試</a></h2>
-<p>Now, this is all fine and dandy,
-but doing all of this manually?
-That can take a lot of time.
-At the same time,
-many people have come to enjoy telling computers to do things for them.
-Let’s talk about how to automate these tests.</p>
-<p>Rust has a built-in test framework,
-so let’s start by writing a first test:</p>
+<p>現在，這一切都很好，但是手動完成這些工作？
+但這會耗費很多時間。
+與此同時，
+很多人都喜歡讓電腦代勞這些工作。
+讓我們來談談如何實現這些測試的自動化。</p>
+<p>Rust 有內建的測試框架，
+讓我們試著寫出第一個測試吧：</p>
 <pre><code class="language-rust ignore"><span class="boring">fn answer() -&gt; i32 {
 </span><span class="boring">  42
 </span><span class="boring">}
@@ -867,38 +856,31 @@ so let’s start by writing a first test:</p>
 fn check_answer_validity() {
     assert_eq!(answer(), 42);
 }</code></pre>
-<p>You can put this snippet of code in pretty much any file
-and <code>cargo test</code> will find
-and run it.
-The key here is the <code>#[test]</code> attribute.
-It allows the build system to discover such functions
-and run them as tests,
-verifying that they don’t panic.</p>
+<p>您可以在幾乎任何文件中加入這段程式碼並且 <code>cargo test</code> 會找到並運行它。
+這裡的關鍵字是 <code>#[test]</code> 屬性。
+它允許建構系統發現這些函數並將其作為測試運行、驗證它們是否不會導致恐慌(panic)。</p>
 <aside class="exercise">
-<p><strong>Exercise for the reader:</strong>
-Make this test work.</p>
-<p>You should end up with output like the following:</p>
+<p><strong>供讀者練習:</strong>
+讓這個測試能正常運作。</p>
+<p>最終的輸出結果應該如下所示：</p>
 <pre><code class="language-text">running 1 test
 test check_answer_validity ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 </code></pre>
 </aside>
-<p>Now that we’ve seen <em>how</em> we can write tests,
-we still need to figure out <em>what</em> to test.
-As you’ve seen it’s fairly easy to write assertions
-for functions.
-But a CLI application is often more than one function!
-Worse, it often deals with user input,
-reads files,
-and writes output.</p>
-<h2 id="making-your-code-testable"><a class="header" href="#making-your-code-testable">Making your code testable</a></h2>
-<p>There are two complementary approaches to testing functionality:
-Testing the small units that you build your complete application from,
-these are called “unit tests”.
-There is also testing the final application “from the outside”
-called “black box tests” or “integration tests”.
-Let’s begin with the first one.</p>
+<p>既然現在我們已經了解瞭 <em>如何(how)</em> 撰寫測試，
+那麼還需要弄清楚要測試 <em>什麼(what)</em> 。
+正如你所看到的，為函數撰寫斷言相當容易。
+但 CLI 應用程式通常不只一個函數！
+更糟糕的是，它經常要處理用戶輸入、讀取檔案和寫入輸出。</p>
+<h2 id="撰寫可測試的程式碼"><a class="header" href="#撰寫可測試的程式碼">撰寫可測試的程式碼</a></h2>
+<p>有兩種互補的功能測試方法：
+測試小單元，根據這些小單元建立完整的應用程式、
+這些稱為 “單元測試(unit tests)”。
+還有一種是 “從外部(from the outside)” 測試最終應用程序，
+稱為 “黑盒測試(black box tests)” 或 “整合測試(integration tests)”。</p>
+<p>讓我們從第一種開始。</p>
 <p>To figure out what we should test,
 let’s see what our program features are.
 Mainly, <code>grrs</code> is supposed to print out the lines that match a given pattern.
@@ -941,8 +923,8 @@ This is a problem that often comes up
 when writing tests after the implementation:
 We have written a function that is firmly integrated
 in the context it is used in.</p>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 This is totally fine when writing small CLI applications.
 There’s no need to make everything testable!
 It is important to think about
@@ -1005,7 +987,7 @@ i.e., a mutable thing we call “writer”.
 Its type is <code>impl std::io::Write</code>,
 which you can read as
 “a placeholder for any type that implements the <code>Write</code> trait”.
-Also note how we
+Also 筆記 how we
 replaced the <code>println!(…)</code>
 we used earlier
 with <code>writeln!(writer, …)</code>.
@@ -1033,8 +1015,8 @@ and uses our extracted <code>find_matches</code> function:</p>
 
     Ok(())
 }</code></pre>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 Since <code>stdout</code> expects bytes (not strings),
 we use <code>std::io::Write</code> instead of <code>std::fmt::Write</code>.
 As a result,
@@ -1044,8 +1026,8 @@ in the <code>assert_eq!</code> we use a <code>b"foo"</code>.
 (The <code>b</code> prefix makes this a <em>byte string literal</em>
 so its type is going to be <code>&amp;[u8]</code> instead of <code>&amp;str</code>).</p>
 </aside>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 We could also make this function return a <code>String</code>,
 but that would change its behavior.
 Instead of writing to the terminal directly,
@@ -1053,7 +1035,7 @@ it would then collect everything into a string,
 and dump all the results in one go at the end.</p>
 </aside>
 <aside class="exercise">
-<p><strong>Exercise for the reader:</strong>
+<p><strong>供讀者練習:</strong>
 <a href="https://doc.rust-lang.org/1.39.0/std/macro.writeln.html"><code>writeln!</code></a> returns an <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>io::Result</code></a>
 because writing can fail,
 for example when the buffer is full and cannot be expanded.
@@ -1092,8 +1074,8 @@ for your application-specific logic first
 and then use it in your CLI just like any other library.
 Or, if your project has multiple binaries,
 you can put the common functionality into the library part of that crate.</p>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 Speaking of putting everything into a <code>src/main.rs</code>:
 If we continue to do that,
 it’ll become difficult to read.
@@ -1124,7 +1106,7 @@ and run it like a regular program.
 We will also put these tests into a new file in a new directory:
 <code>tests/cli.rs</code>.</p>
 <aside>
-<p><strong>Note:</strong>
+<p><strong>筆記:</strong>
 By convention,
 <code>cargo</code> will look for integration tests in the <code>tests/</code> directory.
 Similarly,
@@ -1243,7 +1225,7 @@ fn find_content_in_file() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&g
     Ok(())
 }</code></pre>
 <aside class="exercise">
-<p><strong>Exercise for the reader:</strong>
+<p><strong>供讀者練習:</strong>
 Add integration tests for passing an empty string as pattern.
 Adjust the program as needed.</p>
 </aside>
@@ -1272,7 +1254,7 @@ you should look into <a href="https://docs.rs/proptest"><code>proptest</code></a
 If you have a program which consumes arbitrary files and parses them,
 try to write a <a href="https://rust-fuzz.github.io/book/introduction.html">fuzzer</a> to find bugs in edge cases.</p>
 <aside>
-<p><strong>Note:</strong>
+<p><strong>筆記:</strong>
 You can find the full, runnable source code used in this chapter
 <a href="https://github.com/rust-cli/book/tree/master/src/tutorial/testing">in this book’s repository</a>.</p>
 </aside>
@@ -1323,8 +1305,8 @@ repository = "https://github.com/you/grrs"
 keywords = ["cli", "search", "demo"]
 categories = ["command-line-utilities"]
 </code></pre>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 This example includes the mandatory license field
 with a common choice for Rust projects:
 The same license that is also used for the compiler itself.
@@ -1462,8 +1444,8 @@ and copy the binaries to a place they like.</p>
 <p>This does require some experience with manually “installing” programs,
 so you want to add a section to your README file
 on how to install this program.</p>
-<aside class="note">
-<p><strong>Note:</strong>
+<aside class="筆記">
+<p><strong>筆記:</strong>
 If you used <a href="https://github.com/japaric/trust">trust</a> to build your binaries and added them to GitHub releases,
 you can also tell people to run
 <code>curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git your-name/repo-name</code>
@@ -1545,7 +1527,7 @@ but start with <code>cargo install</code>,
 add binary releases,
 and finally start distributing your tool using system package managers.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="深入探究主題"><a class="header" href="#深入探究主題">深入探究主題</a></h1>
-<p>該章節會涵蓋更多較為進階的小細節,但您在編寫命令列應用程式時可能會在乎這一點。</p>
+<p>該章節會涵蓋更多較為進階的小細節,但您在撰寫命令列應用程式時可能會在乎這一點。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="訊號處理"><a class="header" href="#訊號處理">訊號處理</a></h1>
 <p>Processes
 like command line applications
@@ -1556,7 +1538,7 @@ To handle signals in Rust programs
 you need to consider how you can receive these signals
 as well as how you can react to them.</p>
 <aside>
-<p><strong>Note:</strong>
+<p><strong>筆記:</strong>
 If your applications does not need to gracefully shutdown,
 the default handling is fine
 (i.e. exit immediately
@@ -1702,20 +1684,15 @@ If that doesn’t happen,
 they will press <kbd>Ctrl</kbd>+<kbd>C</kbd> again.
 The typical behavior is to have the application quit immediately.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="使用配置檔"><a class="header" href="#使用配置檔">使用配置檔</a></h1>
-<p>Dealing with configurations can be annoying
-especially if you support multiple operating systems
-which all have their own places
-for short- and long-term files.</p>
-<p>處理配置可能很煩人
-特別是如果您支援多個作業系統
-都有自己的位置
-適用於短期和長期文件。</p>
+<p>處理配置可能會很煩人
+尤其是在支援多個作業系統的情況下
+都有自己的短期和長期文件。</p>
 <p>對此有許多解決方案，有些比其他的層次更低。</p>
-<p>The easiest crate to use for this is <a href="https://docs.rs/confy/0.3.1/confy/"><code>confy</code></a>.
-It asks you for the name of your application
-and requires you to specify the config layout
-via a <code>struct</code> (that is <code>Serialize</code>, <code>Deserialize</code>)
-and it will figure out the rest!</p>
+<p>最容易使用的crate是 <a href="https://docs.rs/confy/0.3.1/confy/"><code>confy</code></a>。
+它會詢問您的應用程式名稱
+並請您指定配置佈局 <strong>結構(<code>struct</code>)</strong>
+（即 <strong>序列化(<code>Serialize</code>)</strong> 、 <strong>反序列化(<code>Deserialize</code>)</strong> ）。
+然後剩下的它將解決其他問題！</p>
 <pre><code class="language-rust ignore">#[derive(Debug, Serialize, Deserialize)]
 struct MyConfig {
     name: String,
@@ -1737,45 +1714,25 @@ fn main() -&gt; Result&lt;(), io::Error&gt; {
 <p><strong>TODO</strong></p>
 <ol>
 <li>評估現有的 crate</li>
-<li>CLI-args + 多個配置 + 環境變數</li>
+<li>命令列參數(CLI-args) + 多個配置 + 環境變數</li>
 <li><a href="https://docs.rs/configure/0.1.1/configure/"><code>configure</code></a> 可以完成這一切嗎？ 周圍有漂亮的包裝嗎？</li>
 </ol>
 </aside>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="退出狀態碼"><a class="header" href="#退出狀態碼">退出狀態碼</a></h1>
-<p>A program doesn’t always succeed.
-And when an error occurs,
-you should make sure to emit the necessary information correctly.
-In addition to
-<a href="in-depth/human-communication.html">telling the user about errors</a>,
-on most systems,
-when a process exits,
-it also emits an exit code
-(an integer between 0 and 255 is compatible with most platforms).
-You should try to emit the correct code
-for your program’s state.
-For example,
-in the ideal case when your program succeeds,
-it should exit with <code>0</code>.</p>
-<p>一個計劃並不總是成功。
-並且當出現錯誤時，您應該確保正確發出必要的資訊。
-另外<a href="in-depth/human-communication.html">告訴使用者錯誤</a>,
-在大多數系統上，當進程退出時，它還發出退出代碼（0 到 255 之間的整數與大多數平台相容）。
-您應該嘗試發出正確的程式碼
-對於你的程式的狀態。
-例如，在您的計劃成功的理想情況下，它應該以“0”退出。</p>
-<p>When an error occurs, it gets a bit more complicated, though.
-In the wild,
-many tools exit with <code>1</code> when a common failure occurs.
-Currently, Rust sets an exit code of <code>101</code> when the process panicked.
-Beyond that, people have done many things in their programs.</p>
-<p>So, what to do?
-The BSD ecosystem has collected a common definition for their exit codes
-(you can find them <a href="https://www.freebsd.org/cgi/man.cgi?query=sysexits&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+11.2-stable&amp;arch=default&amp;format=html">here</a>).
-The Rust library <a href="https://crates.io/crates/exitcode"><code>exitcode</code></a> provides these same codes,
-ready to be used in your application.
-Please see its API documentation for the possible values to use.</p>
-<p>After you add the <code>exitcode</code> dependency to your <code>Cargo.toml</code>,
-you can use it like this:</p>
+<p>程式並不總是成功的。
+當錯誤發生時，你應該確保正確地發出必要的資訊，
+除了<a href="in-depth/human-communication.html">告訴使用者錯誤訊息</a>，
+在大多數系統中，當行程退出時也會發出一個退出代碼
+( 一個介於 0 和 255 之間的整數，與大多數平台相容 ）。
+您應盡量根據程式的狀態去制定狀態碼。
+例如： 在程式成功運行的理想情況下，應該以 <code>0</code> 退出。</p>
+<p>所以，要如何去做呢？
+BSD 生態系統為其退出碼做了一個通用的定義 （你可以在<a href="https://www.freebsd.org/cgi/man.cgi?query=sysexits&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+11.2-stable&amp;arch=default&amp;format=html">這裡</a>找到它們）。
+Rust 的 <a href="https://crates.io/crates/exitcode"><code>exitcode</code></a> 函式庫也提供了一樣的程式碼，
+而且你可在你的程式中使用。
+請參閱其 API 文件以了解其用法。</p>
+<p>當你在你的 <code>Cargo.toml</code> 中加入 <code>exitcode</code> 依賴後，
+你可以這樣使用：</p>
 <pre><code class="language-rust ignore">fn main() {
     // ...actual work...
     match result {
@@ -1937,7 +1894,7 @@ we should provide not just pretty output for humans,
 but also a version tailored to what other programs need.
 Let’s see how we can do this.</p>
 <aside>
-<p><strong>Note:</strong>
+<p><strong>筆記:</strong>
 Make sure to read <a href="in-depth/../tutorial/output.html">the chapter on CLI output</a>
 in the tutorial first.
 It covers how to write output to the terminal.</p>
@@ -2116,7 +2073,7 @@ that reads these documents as they come in and show the matches
 (as well the files they are in)
 even while <em>ripgrep</em> is still searching.</p>
 <aside>
-<p><strong>Note:</strong>
+<p><strong>筆記:</strong>
 This is how Visual Studio Code uses <em>ripgrep</em> for its code search.</p>
 </aside>
 <h2 id="how-to-deal-with-input-piped-into-us"><a class="header" href="#how-to-deal-with-input-piped-into-us">How to deal with input piped into us</a></h2>
@@ -2209,12 +2166,10 @@ Words from stdin: 3
 piped through to the program, not text that’s typed in at runtime. If stdin is
 a tty, it outputs the help docs so that it’s clear why it doesn’t work.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="為你的-cli-程式產生文件"><a class="header" href="#為你的-cli-程式產生文件">為你的 CLI 程式產生文件</a></h1>
-<p>CLI 的文件 通常包括指令中的 <code>--help</code> 部分和一個手冊（<code>man</code>）頁面。</p>
-<p>Both can be automatically generated
-when using <a href="https://crates.io/crates/clap"><code>clap</code></a>, via
-<a href="https://crates.io/crates/clap_mangen"><code>clap_mangen</code></a> crate.</p>
-<p>兩者都可以自動生成
-使用 <a href="https://crates.io/crates/clap"><code>clap</code></a> 時，透過<a href="https://crates.io/crates/clap_mangen"><code>clap_mangen</code></a> 箱。</p>
+<p>CLI 程式的文件 通常會包括指令中的 <code>--help</code> 部分和一個手冊（<code>man</code>）頁面。</p>
+<p>兩者都可以自動產生
+當使用 <a href="https://crates.io/crates/clap"><code>clap</code></a> 時，
+會透過 <a href="https://crates.io/crates/clap_mangen"><code>clap_mangen</code></a> crate。</p>
 <pre><code class="language-rust ignore">#[derive(Parser)]
 pub struct Head {
     /// file to load
@@ -2223,15 +2178,10 @@ pub struct Head {
     #[arg(short = "n", default_value = "5")]
     pub count: usize,
 }</code></pre>
-<p>Secondly, you need to use a <code>build.rs</code>
-to generate the manual file at compile time
-from the definition of your app
-in code.</p>
-<p>There are a few things to keep in mind
-(such as how you want to package your binary)
-but for now
-we simply put the <code>man</code> file
-next to our <code>src</code> folder.</p>
+<p>其次，您需要使用 <code>build.rs</code>在編譯時,
+請根據您的應用程式在程式碼中的定義而產生手冊文件。</p>
+<p>在這裡你要留意幾件事（例如如何打包你的程式），
+但現在我們只是簡單地把 <code>man</code> 檔案放到我們的 <code>src</code> 同等級目錄。</p>
 <pre><code class="language-rust ignore">use clap::CommandFactory;
 
 #[path="src/cli.rs"]
@@ -2249,12 +2199,10 @@ fn main() -&gt; std::io::Result&lt;()&gt; {
 
     Ok(())
 }</code></pre>
-<p>When you now compile your application
-there will be a <code>head.1</code> file
-in your project directory.</p>
-<p>If you open that in <code>man</code>
-you’ll be able to admire your free documentation.
-如果你在 <code>man</code> 中打開它，則你可閱讀</p>
+<p>現在你在編譯你的程式時，
+將會在你的專案目錄產生一個 <code>head.1</code> 檔案。</p>
+<p>如果你使用 <code>man</code> 開啟它，
+你就可以看到你的文件了。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="相關資源"><a class="header" href="#相關資源">相關資源</a></h1>
 <p>協作/幫助</p>
 <ul>
@@ -2284,7 +2232,7 @@ you’ll be able to admire your free documentation.
 <li><a href="https://crates.io/crates/wasm-pack">wasm-pack</a> - tool for building WebAssembly</li>
 </ul>
 <h2 id="其它-crates"><a class="header" href="#其它-crates">其它 crates</a></h2>
-<p>由於 Rust crates 的landscape不斷變化，這是一個尋找的好地方。</p>
+<p>由於 Rust crates 的landscape不斷變化，這是一個尋找API文件/函式庫的好地方。</p>
 <p>crates 是 <a href="https://lib.rs">lib.rs</a> crate 索引，包括：</p>
 <ul>
 <li><a href="https://lib.rs/command-line-interface">Command-line interface</a></li>
@@ -2318,6 +2266,22 @@ you’ll be able to admire your free documentation.
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

@@ -11,7 +11,7 @@ as well as how you can react to them.
 
 <aside>
 
-**Note:**
+**筆記:**
 If your applications does not need to gracefully shutdown,
 the default handling is fine
 (i.e. exit immediately

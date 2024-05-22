@@ -178,20 +178,15 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="使用配置檔"><a class="header" href="#使用配置檔">使用配置檔</a></h1>
-<p>Dealing with configurations can be annoying
-especially if you support multiple operating systems
-which all have their own places
-for short- and long-term files.</p>
-<p>處理配置可能很煩人
-特別是如果您支援多個作業系統
-都有自己的位置
-適用於短期和長期文件。</p>
+<p>處理配置可能會很煩人
+尤其是在支援多個作業系統的情況下
+都有自己的短期和長期文件。</p>
 <p>對此有許多解決方案，有些比其他的層次更低。</p>
-<p>The easiest crate to use for this is <a href="https://docs.rs/confy/0.3.1/confy/"><code>confy</code></a>.
-It asks you for the name of your application
-and requires you to specify the config layout
-via a <code>struct</code> (that is <code>Serialize</code>, <code>Deserialize</code>)
-and it will figure out the rest!</p>
+<p>最容易使用的crate是 <a href="https://docs.rs/confy/0.3.1/confy/"><code>confy</code></a>。
+它會詢問您的應用程式名稱
+並請您指定配置佈局 <strong>結構(<code>struct</code>)</strong>
+（即 <strong>序列化(<code>Serialize</code>)</strong> 、 <strong>反序列化(<code>Deserialize</code>)</strong> ）。
+然後剩下的它將解決其他問題！</p>
 <pre><code class="language-rust ignore">#[derive(Debug, Serialize, Deserialize)]
 struct MyConfig {
     name: String,
@@ -213,7 +208,7 @@ fn main() -&gt; Result&lt;(), io::Error&gt; {
 <p><strong>TODO</strong></p>
 <ol>
 <li>評估現有的 crate</li>
-<li>CLI-args + 多個配置 + 環境變數</li>
+<li>命令列參數(CLI-args) + 多個配置 + 環境變數</li>
 <li><a href="https://docs.rs/configure/0.1.1/configure/"><code>configure</code></a> 可以完成這一切嗎？ 周圍有漂亮的包裝嗎？</li>
 </ol>
 </aside>
@@ -247,6 +242,22 @@ fn main() -&gt; Result&lt;(), io::Error&gt; {
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

@@ -46,7 +46,7 @@ $ grrs --help
 [some help text explaining the available options]
 ```
 
-<aside class="note">
+<aside class="筆記">
 
 **說明:**
 

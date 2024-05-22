@@ -16,7 +16,7 @@ $ grrs foobar test.txt
 
 有很多方法可以識別這些參數並解析，使它們變得更易於使用。 
 
-同時也需要告訴用戶， 程式需要哪些參數及對應的格式是什麼。
+同時也需要告訴使用者， 程式需要哪些參數及對應的格式是什麼。
 
 ## 取得參數
 
@@ -106,7 +106,7 @@ pattern: "some-pattern", path: "some-file"
 現在，我們可以在程式碼中加入`use clap::Parser;`,
 和在先前建立的 `struct Cli` 的正上方加上 `#[derive(Parser)]`。
 
-我們也可以在過程中編寫一些文件註解。
+我們也可以在過程中撰寫一些文件註解。
 
 讓我們在這開始（在檔案 `src/main.rs`，`fn main( ) {` 之前 ）：
 
@@ -137,7 +137,7 @@ pattern: "some-pattern", path: "some-file"
 這就是使用此方法的美妙之處：Clap 知道它需要什麼字段， 及所需字段的型別。 
 它可以自動產生一個不錯的 `--help` 訊息， 並會依錯誤給予一些建議－輸入的參數應該是 `--output` 而你輸入的是 `--putput`。
 
-<aside class="note">
+<aside class="筆記">
 
 **說明:**
 `parse` 方法應該在 `main` 函數中使用。

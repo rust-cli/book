@@ -15,7 +15,7 @@ println!("Hello World");
 您幾乎可以在終端機下使用 `println!` 巨集輸出所有您想輸出的東西。
 
 這個巨集有一些非常驚人的功能，而且還有特殊的語法。
-它希望您編寫一個字串文字作為第一個參數，包含將要填入的佔位符號
+它希望您撰寫一個字串文字作為第一個參數，包含將要填入的佔位符號
 再透過後面作為進一步參數的參數值。
 
 範例:
@@ -121,7 +121,7 @@ eprintln!("This is an error! :(");
 你需要盡量減少實際「刷新」到終端的寫入次數。
 _每次_ 呼叫 `println!` 時，
 它都會告訴系統刷新到終端，
-因為列印每個新行是很常見的。 
+因為輸出每個新行是很常見的。 
 如果你不需要如此， 
 你可以使用 [`BufWriter`] 來包裝一下 `stdout` 的句柄，
 它的預設快取為 8 kB。 
@@ -155,24 +155,19 @@ writeln!(handle, "foo: {}", 42); // add `?` if you care about errors here
 
 有些 CLI 程式的運作時間很長，
 會花費幾分鐘甚至數小時。 
-如果你在編寫這種程式，
+如果你在撰寫這種程式，
 你可能需要向使用者展示，其程式正在正常運作中。 
 因此，你需要輸出有用的狀態更新訊息，
 最好是使用易於使用的方式來進行輸出。
 
-
-Using the [indicatif] crate,
-you can add progress bars
-and little spinners to your program.
-Here's a quick example:
+你可以使用 [indicatif] crate 來為你的程式加入進度條，
+這是一個快速的例子：
 
 ```rust,ignore
 {{#include output-progressbar.rs:1:9}}
 ```
 
-See the [documentation][indicatif docs]
-and [examples][indicatif examples]
-for more information.
+細節部分可試著查看 indicatif 的 [相關文件][indicatif docs] 和 [範例][indicatif examples] 。
 
 [indicatif]: https://crates.io/crates/indicatif
 [indicatif docs]: https://docs.rs/indicatif
@@ -190,38 +185,32 @@ for more information.
 通常可以使用的層級包括 _error_ , _warn_, _info_ , _debug_ , 和 _trace_ 
 （ _error_ 優先順序最高， _trace_ 最低）。
 
-To add simple logging to your application,
-you'll need two things:
-The [log] crate (this contains macros named after the log level)
-and an _adapter_ that actually writes the log output somewhere useful.
-Having the ability to use log adapters is very flexible:
-You can, for example, use them to write logs not only to the terminal
-but also to [syslog], or to a central log server.
+只需這兩樣東西，你就可以為你的程式加入簡單的記錄功能：
+Log create（其中包含以記錄等級命名的巨集）和一個 _轉接器_， 
+它會將記錄寫到有用的地方。 
+記錄轉接器的使用是十分靈活的： 
+例如，你可以不僅將記錄輸出至終端，同時也可寫進 [syslog] 或其它記錄伺服器。
 
 [syslog]: https://en.wikipedia.org/wiki/Syslog
 
-Since we are right now only concerned with writing a CLI application,
-an easy adapter to use is [env_logger].
-It's called "env" logger because you can
-use an environment variable to specify which parts of your application
-you want to log
-(and at which level you want to log them).
-It will prefix your log messages with a timestamp
-and the module where the log messages come from.
-Since libraries can also use `log`,
-you easily configure their log output, too.
+因為我們現在最關心的是寫一個 CLI 程式，
+所以選取一個易於使用的轉接器 [env_logger]。 
+它之所以叫 `env` 記錄器，
+因為你可以使用環境變數來指定程式中哪一部分需要記錄和記錄哪一個等級。 
+它會在你的記錄資訊前加上時間戳記及所在模組資訊。 
+由於函式庫也可以使用 `log`，你也可以輕鬆地配置它們的記錄輸出。
 
 [log]: https://crates.io/crates/log
 [env_logger]: https://crates.io/crates/env_logger
 
-Here's a quick example:
+這是一個簡單的範例:
 
 ```rust,ignore
 {{#include output-log.rs}}
 ```
 
-Assuming you have this file as `src/bin/output-log.rs`,
-on Linux and macOS, you can run it like this:
+如果你有 `src/bin/output-log.rs` 這個文件，
+在 Linux 和 MacOS 上，您可以像這樣執行它：
 ```console
 $ env RUST_LOG=info cargo run --bin output-log
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
@@ -230,7 +219,7 @@ $ env RUST_LOG=info cargo run --bin output-log
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 ```
 
-In Windows PowerShell, you can run it like this:
+在 Windows PowerShell 中，您可以像這樣執行它：
 ```console
 $ $env:RUST_LOG="info"
 $ cargo run --bin output-log
@@ -240,7 +229,7 @@ $ cargo run --bin output-log
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 ```
 
-In Windows CMD, you can run it like this:
+在 Windows CMD(命令提示字元) 中，您可以像這樣執行它：
 ```console
 $ set RUST_LOG=info
 $ cargo run --bin output-log
@@ -250,29 +239,29 @@ $ cargo run --bin output-log
 [2018-11-30T20:25:52Z WARN  output_log] oops, nothing implemented!
 ```
 
-`RUST_LOG` is the name of the environment variable
-you can use to set your log settings.
-`env_logger` also contains a builder
-so you can programmatically adjust these settings,
-and, for example, also show _info_ level messages by default.
+`RUST_LOG` 是設定 log 的環境變數名稱，
+您可以使用它來設定記錄檔設定。
+`env_logger` 還包含一個建置器，
+因此你可以以程式設計的方式調整這些設置， 
+例如，預設顯示 _info_ 等級的記錄。
 
-There are a lot of alternative logging adapters out there,
-and also alternatives or extensions to `log`.
-If you know your application will have a lot to log,
-make sure to review them,
-and make your users' life easier.
+有很多替代的記錄器，
+以及 `log` 的替代品或擴充功能。
+如果您知道您的應用程式將有很多需要記錄的內容，
+請確保檢查它們，
+並讓您的使用者的生活更輕鬆。
 
 <aside>
 
 **貼士:**
-Experience has shown that even mildly useful CLI programs can end up being used for years to come.
-(Especially if they were meant as a temporary solution.)
-If your application doesn't work
-and someone (e.g., you, in the future) needs to figure out why,
-being able to pass `--verbose` to get additional log output
-can make the difference between minutes and hours of debugging.
-The [clap-verbosity-flag] crate contains a quick way
-to add a `--verbose` to a project using `clap`.
+經驗表明，即使是用處不大的 CLI 程式，最終也會被使用多年。
+( 特別是如果它們只是作為臨時解決方案的話 ）。
+如果您的應用程式無法運行時，
+而有人（例如將來的你）需要找出原因、
+能夠透過 `--verbose` 獲得額外的記錄輸出
+可以讓偵錯工作在幾分鐘和幾小時之間取得顯著效果。
+[clap-verbosity-flag] create 包含了快速的
+在使用 `clap` 的專案中新增 `--verbose` 的快速方法。
 
 [clap-verbosity-flag]: https://crates.io/crates/clap-verbosity-flag
 
