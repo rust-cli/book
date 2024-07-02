@@ -54,9 +54,9 @@ keywords = ["cli", "search", "demo"]
 categories = ["command-line-utilities"]
 ```
 
-<aside class="note">
+<aside class="筆記">
 
-**Note:**
+**筆記:**
 This example includes the mandatory license field
 with a common choice for Rust projects:
 The same license that is also used for the compiler itself.
@@ -231,9 +231,9 @@ This does require some experience with manually "installing" programs,
 so you want to add a section to your README file
 on how to install this program.
 
-<aside class="note">
+<aside class="筆記">
 
-**Note:**
+**筆記:**
 If you used [trust] to build your binaries and added them to GitHub releases,
 you can also tell people to run
 `curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git your-name/repo-name`

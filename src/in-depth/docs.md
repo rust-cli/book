@@ -1,12 +1,10 @@
-# Rendering documentation for your CLI apps
+# 為你的 CLI 程式產生文件 
 
-Documentation for CLIs usually consists of
-a `--help` section in the command
-and a manual (`man`) page.
+CLI 程式的文件 通常會包括指令中的 `--help` 部分和一個手冊（`man`）頁面。
 
-Both can be automatically generated
-when using [`clap`](https://crates.io/crates/clap), via
-[`clap_mangen`](https://crates.io/crates/clap_mangen) crate.
+兩者都可以自動產生
+當使用 [`clap`](https://crates.io/crates/clap) 時，
+會透過 [`clap_mangen`](https://crates.io/crates/clap_mangen) crate。
 
 ```rust,ignore
 #[derive(Parser)]
@@ -19,16 +17,11 @@ pub struct Head {
 }
 ```
 
-Secondly, you need to use a `build.rs`
-to generate the manual file at compile time
-from the definition of your app
-in code.
+其次，您需要使用 `build.rs`在編譯時,
+請根據您的應用程式在程式碼中的定義而產生手冊文件。
 
-There are a few things to keep in mind
-(such as how you want to package your binary)
-but for now
-we simply put the `man` file
-next to our `src` folder.
+在這裡你要留意幾件事（例如如何打包你的程式）， 
+但現在我們只是簡單地把 `man` 檔案放到我們的 `src` 同等級目錄。
 
 ```rust,ignore
 use clap::CommandFactory;
@@ -50,9 +43,8 @@ fn main() -> std::io::Result<()> {
 }
 ```
 
-When you now compile your application
-there will be a `head.1` file
-in your project directory.
+現在你在編譯你的程式時，
+將會在你的專案目錄產生一個 `head.1` 檔案。
 
-If you open that in `man`
-you'll be able to admire your free documentation.
+如果你使用 `man` 開啟它，
+你就可以看到你的文件了。

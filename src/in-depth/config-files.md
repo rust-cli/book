@@ -1,18 +1,16 @@
-# Using config files
+# 使用配置檔
 
-Dealing with configurations can be annoying
-especially if you support multiple operating systems
-which all have their own places
-for short- and long-term files.
+處理配置可能會很煩人
+尤其是在支援多個作業系統的情況下
+都有自己的短期和長期文件。
 
-There are multiple solutions to this,
-some being more low-level than others.
+對此有許多解決方案，有些比其他的層次更低。
 
-The easiest crate to use for this is [`confy`].
-It asks you for the name of your application
-and requires you to specify the config layout
-via a `struct` (that is `Serialize`, `Deserialize`)
-and it will figure out the rest!
+最容易使用的crate是 [`confy`]。
+它會詢問您的應用程式名稱
+並請您指定配置佈局 __結構(`struct`)__
+（即 __序列化(`Serialize`)__ 、 __反序列化(`Deserialize`)__ ）。
+然後剩下的它將解決其他問題！
 
 ```rust,ignore
 #[derive(Debug, Serialize, Deserialize)]
@@ -29,22 +27,22 @@ fn main() -> Result<(), io::Error> {
 }
 ```
 
-This is incredibly easy to use
-for which you of course surrender configurability.
-But if a simple config is all you want,
-this crate might be for you!
+這非常容易使用
+為此，您當然要放棄可設定性。
+但如果你想要一個簡單的配置，
+這個crate可能適合你！
 
 [`confy`]: https://docs.rs/confy/0.3.1/confy/
 
-## Configuration environments
+## 配置環境
 
 <aside class="todo">
 
 **TODO**
 
-1. Evaluate crates that exist
-2. Cli-args + multiple configs + env variables
-3. Can [`configure`] do all this? Is there a nice wrapper around it?
+1. 評估現有的 crate
+2. 命令列參數(CLI-args) + 多個配置 + 環境變數
+3. [`configure`] 可以完成這一切嗎？ 周圍有漂亮的包裝嗎？
 
 </aside>
 
