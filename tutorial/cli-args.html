@@ -216,7 +216,7 @@ It would look something like this:</p>
     let path = std::env::args().nth(2).expect(&quot;no path given&quot;);
 
     let args = Cli {
-        pattern: pattern,
+        pattern,
         path: std::path::PathBuf::from(path),
     };
 

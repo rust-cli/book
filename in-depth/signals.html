@@ -222,7 +222,7 @@ and it is currently the library with the widest community support.</p>
 use std::{error::Error, thread, time::Duration};
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
-    let mut signals = Signals::new(&amp;[SIGINT])?;
+    let mut signals = Signals::new([SIGINT])?;
 
     thread::spawn(move || {
         for sig in signals.forever() {

@@ -329,7 +329,7 @@ It would look something like this:</p>
     let path = std::env::args().nth(2).expect(&quot;no path given&quot;);
 
     let args = Cli {
-        pattern: pattern,
+        pattern,
         path: std::path::PathBuf::from(path),
     };
 
@@ -1779,7 +1779,7 @@ and it is currently the library with the widest community support.</p>
 use std::{error::Error, thread, time::Duration};
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
-    let mut signals = Signals::new(&amp;[SIGINT])?;
+    let mut signals = Signals::new([SIGINT])?;
 
     thread::spawn(move || {
         for sig in signals.forever() {
