@@ -8,7 +8,7 @@ fn main() {
     let path = std::env::args().nth(2).expect("no path given");
 
     let args = Cli {
-        pattern: pattern,
+        pattern,
         path: std::path::PathBuf::from(path),
     };
 
