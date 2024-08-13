@@ -33,12 +33,12 @@ The first question to ask is:
 Is our output for a human in front of a colorful terminal,
 or for another program?
 To answer this,
-we can use a crate like [is-terminal]:
+we can use the [IsTerminal] trait:
 
-[is-terminal]: https://crates.io/crates/is-terminal
+[IsTerminal]: https://doc.rust-lang.org/stable/std/io/trait.IsTerminal.html
 
 ```rust,ignore
-use is_terminal::IsTerminal as _;
+use std::io::IsTerminal;
 
 if std::io::stdout().is_terminal() {
     println!("I'm a terminal");
