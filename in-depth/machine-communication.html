@@ -163,8 +163,8 @@ It covers how to write output to the terminal.</p>
 Is our output for a human in front of a colorful terminal,
 or for another program?
 To answer this,
-we can use a crate like <a href="https://crates.io/crates/is-terminal">is-terminal</a>:</p>
-<pre><code class="language-rust ignore">use is_terminal::IsTerminal as _;
+we can use the <a href="https://doc.rust-lang.org/stable/std/io/trait.IsTerminal.html">IsTerminal</a> trait:</p>
+<pre><code class="language-rust ignore">use std::io::IsTerminal;
 
 if std::io::stdout().is_terminal() {
     println!(&quot;I'm a terminal&quot;);
@@ -376,10 +376,9 @@ from the standard library. Similar to reading the lines of a file, it can read
 the lines from stdin.</p>
 <p>Here’s a program that counts the words of what’s piped in via stdin</p>
 <pre><code class="language-rust ignore">use clap::{CommandFactory, Parser};
-use is_terminal::IsTerminal as _;
 use std::{
     fs::File,
-    io::{stdin, BufRead, BufReader},
+    io::{stdin, BufRead, BufReader, IsTerminal},
     path::PathBuf,
 };
 
