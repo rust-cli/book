@@ -17,7 +17,6 @@ Collaboration / help
 - [exitcode](https://crates.io/crates/exitcode) - system exit code constants
 - [human-panic](https://crates.io/crates/human-panic) - panic message handler
 - [indicatif](https://crates.io/crates/indicatif) - progress bars and spinners
-- [is-terminal](https://crates.io/crates/is-terminal) - detected whether application is running in a tty
 - [log](https://crates.io/crates/log) - provides logging abstracted over implementation
 - [predicates](https://crates.io/crates/predicates) - implements boolean-valued predicate functions
 - [proptest](https://crates.io/crates/proptest) - property testing framework

@@ -1,8 +1,7 @@
 use clap::{CommandFactory, Parser};
-use is_terminal::IsTerminal as _;
 use std::{
     fs::File,
-    io::{stdin, BufRead, BufReader},
+    io::{stdin, BufRead, BufReader, IsTerminal},
     path::PathBuf,
 };
 
