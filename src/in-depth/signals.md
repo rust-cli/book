@@ -9,11 +9,27 @@ To handle signals in Rust programs
 you need to consider how you can receive these signals
 as well as how you can react to them.
 
+行程
+就像命令列應用程式一樣
+需要對作業系統發送的訊號做出反應。
+
+
+最常見的例子可能就是 <kbd>Ctrl</kbd>+<kbd>C</kbd>，
+通常告訴行程終止的訊號。
+
+
+要在 Rust 程式中處理信號
+你需要考慮如何接收這些信號
+以及如何對它們作出反應。
+
 <aside>
 
 **筆記:**
 If your applications does not need to gracefully shutdown,
 the default handling is fine
+
+如果您的應用程式不需要優雅關機，
+則預設的處理方式就沒問題
 (i.e. exit immediately
 and let the OS cleanup resources like open file handles).
 In that case:

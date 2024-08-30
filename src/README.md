@@ -15,7 +15,7 @@ Rust 是一種靜態編譯的、運行速度快的語言，它擁有強大的工
 最後，也是非常重要的一件事：如果在本書發現了錯誤，或想貢獻、豐富本書的內容， 該專案原始碼在這裡 [in the CLI WG repository][book-src] ，期待你的回饋！
 
 **說明:**
-繁體中文的翻譯部分，請到[這裡][book-src-zh_TW]進行回饋！
+繁體中文的翻譯部分（從官方版本取得的部分，取至2024/05/20），請到[這裡][book-src-zh_TW]進行回饋！
 
 [book-src]: https://github.com/rust-cli/book
 [book-src-zh_TW]: https://github.com/neko0xff/rust-cli-zh_TW

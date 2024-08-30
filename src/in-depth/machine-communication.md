@@ -1,4 +1,4 @@
-# Communicating with machines
+# 與機器互動
 
 The power of command-line tools really comes to shine
 when you are able to combine them.

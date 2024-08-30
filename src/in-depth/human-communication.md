@@ -1,7 +1,9 @@
-# Communicating with humans
+# 與人互動
 
 Make sure to read [the chapter on CLI output][output]
 in the tutorial first.
+
+
 It covers how to write output to the terminal,
 while this chapter will talk about _what_ to output.
 
