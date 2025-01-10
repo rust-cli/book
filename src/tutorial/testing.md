@@ -56,7 +56,7 @@ fn check_answer_validity() {
 }
 ```
 
-You can put this snippet of code in pretty much any file
+You can put this snippet of code in pretty much any source file in your package
 and `cargo test` will find
 and run it.
 The key here is the `#[test]` attribute.
