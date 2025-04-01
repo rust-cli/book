@@ -1,2 +1,7 @@
+[default]
+extend-ignore-re = [
+    "--putput",  # used for demonstrating a correction
+]
+
 [type.svg]
 check-file = false
