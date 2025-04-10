@@ -56,8 +56,8 @@ Instead of thinking about them as a bunch of text,
 it often pays off to think of CLI arguments as a custom data type
 that represents the inputs to your program.
 
-Look at `grrs foobar test.txt`.
-There are two arguments:
+Looking at `grrs foobar test.txt`,
+there are two arguments:
 first, the `pattern` (the string to look for),
 and then, the `path` (the file to look in).
 
