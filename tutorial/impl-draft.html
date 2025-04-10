@@ -145,8 +145,8 @@ and we can start to write our actual tool.
 Our <code>main</code> function only contains this line right now:</p>
 <pre><code class="language-rust ignore">    let args = Cli::parse();
 </code></pre>
-<p>(We drop the <code>println</code> statement that we merely put there temporarily
-to demonstrate that our program works as expected.)</p>
+<p>We can drop the <code>println</code> statement that we put there temporarily
+to demonstrate that our program works as expected.</p>
 <p>Let’s start by opening the file we got.</p>
 <pre><code class="language-rust ignore">    let content = std::fs::read_to_string(&amp;args.path).expect(&quot;could not read file&quot;);
 </code></pre>
@@ -154,10 +154,10 @@ to demonstrate that our program works as expected.)</p>
 <p><strong>Note:</strong>
 See that <a href="https://doc.rust-lang.org/1.39.0/std/result/enum.Result.html#method.expect"><code>.expect</code></a> method here?
 This is a shortcut function that will make the program exit immediately
-when the value (in this case the input file)
+when the value (in this case, the input file)
 could not be read.
 It’s not very pretty,
-and in the next chapter on <a href="./errors.html">Nicer error reporting</a>
+and in the next chapter on <a href="./errors.html">Nicer error reporting</a>,
 we will look at how to improve this.</p>
 </aside>
 <p>Now, let’s iterate over the lines
@@ -195,9 +195,8 @@ fn main() {
 <p>Give it a try: <code>cargo run -- main src/main.rs</code> should work now!</p>
 <aside class="exercise">
 <p><strong>Exercise for the reader:</strong>
-This is not the best implementation:
-It will read the whole file into memory
-– however large the file may be.
+This is not the best implementation as
+it will read the whole file into memory, no matter how large the file may be.
 Find a way to optimize it!
 (One idea might be to use a <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufReader.html"><code>BufReader</code></a>
 instead of <code>read_to_string()</code>.)</p>
