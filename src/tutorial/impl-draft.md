@@ -9,8 +9,8 @@ Our `main` function only contains this line right now:
 {{#include impl-draft.rs:13:13}}
 ```
 
-(We drop the `println` statement that we merely put there temporarily
-to demonstrate that our program works as expected.)
+We can drop the `println` statement that we put there temporarily
+to demonstrate that our program works as expected.
 
 Let’s start by opening the file we got.
 
@@ -23,10 +23,10 @@ Let’s start by opening the file we got.
 **Note:**
 See that [`.expect`] method here?
 This is a shortcut function that will make the program exit immediately
-when the value (in this case the input file)
+when the value (in this case, the input file)
 could not be read.
 It's not very pretty,
-and in the next chapter on [Nicer error reporting]
+and in the next chapter on [Nicer error reporting],
 we will look at how to improve this.
 
 [`.expect`]: https://doc.rust-lang.org/1.39.0/std/result/enum.Result.html#method.expect
@@ -54,9 +54,8 @@ Give it a try: `cargo run -- main src/main.rs` should work now!
 <aside class="exercise">
 
 **Exercise for the reader:**
-This is not the best implementation:
-It will read the whole file into memory
-– however large the file may be.
+This is not the best implementation.
+It will read the whole file into memory, no matter how large the file may be.
 Find a way to optimize it!
 (One idea might be to use a [`BufReader`]
 instead of `read_to_string()`.)
