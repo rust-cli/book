@@ -54,8 +54,8 @@ Give it a try: `cargo run -- main src/main.rs` should work now!
 <aside class="exercise">
 
 **Exercise for the reader:**
-This is not the best implementation.
-It will read the whole file into memory, no matter how large the file may be.
+This is not the best implementation as
+it will read the whole file into memory, no matter how large the file may be.
 Find a way to optimize it!
 (One idea might be to use a [`BufReader`]
 instead of `read_to_string()`.)
