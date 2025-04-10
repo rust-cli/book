@@ -15,12 +15,11 @@ the "command-line arguments",
 or "command-line flags"
 (especially when they look like `--this`).
 Internally, the operating system usually represents them
-as a list of strings –
-roughly speaking, they get separated by spaces.
+as a list of strings. Generally, they get separated by spaces.
 
-There are many ways to think about these arguments,
+There are many ways to think about these arguments
 and how to parse them
-into something more easy to work with.
+into something easier to work with.
 You will also need to tell the users of your program
 which arguments they need to give
 and in which format they are expected.
@@ -29,13 +28,13 @@ and in which format they are expected.
 
 The standard library contains the function
 [`std::env::args()`] that gives you an [iterator] of the given arguments.
-The first entry (at index `0`) will be the name your program was called as (e.g. `grrs`),
-the ones that follow are what the user wrote afterwards.
+The first entry (at index `0`) will be the name used to invoke your program
+(e.g. `grrs`). The ones that follow are what the user wrote afterwards.
 
 [`std::env::args()`]: https://doc.rust-lang.org/1.39.0/std/env/fn.args.html
 [iterator]: https://doc.rust-lang.org/1.39.0/std/iter/index.html
 
-Getting the raw arguments this way is quite easy (in file `src/main.rs`):
+Getting the raw arguments this way is straightforward (in file `src/main.rs`):
 
 ```rust,ignore
 {{#include cli-args-vars.rs}}
@@ -51,23 +50,23 @@ $ cargo run -- some-pattern some-file
 pattern: "some-pattern", path: "some-file"
 ```
 
-## CLI arguments as data type
+## CLI arguments as data types
 
 Instead of thinking about them as a bunch of text,
 it often pays off to think of CLI arguments as a custom data type
 that represents the inputs to your program.
 
-Look at `grrs foobar test.txt`:
-There are two arguments,
-first the `pattern` (the string to look for),
-and then the `path` (the file to look in).
+Look at `grrs foobar test.txt`.
+There are two arguments:
+first, the `pattern` (the string to look for),
+and then, the `path` (the file to look in).
 
 What more can we say about them?
 Well, for a start, both are required.
 We haven't talked about any default values,
 so we expect our users to always provide two values.
 Furthermore, we can say a bit about their types:
-The pattern is expected to be a string,
+The pattern is expected to be a string
 while the second argument is expected to be a path to a file.
 
 In Rust, it is common to structure programs around the data they handle, so this
@@ -79,7 +78,7 @@ way of looking at CLI arguments fits very well. Let's start with this (in file
 ```
 
 This defines a new structure (a [`struct`])
-that has two fields to store data in: `pattern`, and `path`.
+that has two fields to store data in: `pattern` and `path`.
 
 [`struct`]: https://doc.rust-lang.org/1.39.0/book/ch05-00-structs.html
 
@@ -93,7 +92,7 @@ that has two fields to store data in: `pattern`, and `path`.
 
 </aside>
 
-Now, we still need to get the actual arguments our program got into this form.
+Now, we still need to convert the actual arguments into this form.
 One option would be to manually parse the list of strings we get from the operating system
 and build the structure ourselves.
 It would look something like this:
@@ -109,7 +108,7 @@ How would you implement `--help`?
 
 ## Parsing CLI arguments with Clap
 
-A much nicer way is to use one of the many available libraries.
+A more convenient way is to use one of the many available libraries.
 The most popular library for parsing command-line arguments
 is called [`clap`].
 It has all the functionality you'd expect,
@@ -122,7 +121,7 @@ Let's first import `clap` by adding
 `clap = { version = "4.0", features = ["derive"] }` to the `[dependencies]` section
 of our `Cargo.toml` file.
 
-Now, we can write `use clap::Parser;` in our code,
+Now, we can write `use clap::Parser;` in our code
 and add `#[derive(Parser)]` right above our `struct Cli`.
 Let's also write some documentation comments along the way.
 
@@ -155,9 +154,9 @@ This will try to parse the arguments into our `Cli` struct.
 
 But what if that fails?
 That's the beauty of this approach:
-Clap knows which fields to expect,
-and what their expected format is.
-It can automatically generate a nice `--help` message,
+Clap knows which fields to expect
+and their expected format.
+It can automatically generate a nice `--help` message
 as well as give some great errors
 to suggest you pass `--output` when you wrote `--putput`.
 
