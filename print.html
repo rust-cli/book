@@ -263,20 +263,19 @@ the “command-line arguments”,
 or “command-line flags”
 (especially when they look like <code>--this</code>).
 Internally, the operating system usually represents them
-as a list of strings –
-roughly speaking, they get separated by spaces.</p>
-<p>There are many ways to think about these arguments,
+as a list of strings. Generally, they get separated by spaces.</p>
+<p>There are many ways to think about these arguments
 and how to parse them
-into something more easy to work with.
+into something easier to work with.
 You will also need to tell the users of your program
 which arguments they need to give
 and in which format they are expected.</p>
 <h2 id="getting-the-arguments"><a class="header" href="#getting-the-arguments">Getting the arguments</a></h2>
 <p>The standard library contains the function
 <a href="https://doc.rust-lang.org/1.39.0/std/env/fn.args.html"><code>std::env::args()</code></a> that gives you an <a href="https://doc.rust-lang.org/1.39.0/std/iter/index.html">iterator</a> of the given arguments.
-The first entry (at index <code>0</code>) will be the name your program was called as (e.g. <code>grrs</code>),
-the ones that follow are what the user wrote afterwards.</p>
-<p>Getting the raw arguments this way is quite easy (in file <code>src/main.rs</code>):</p>
+The first entry (at index <code>0</code>) will be the name used to invoke your program
+(e.g. <code>grrs</code>). The ones that follow are what the user wrote afterwards.</p>
+<p>Getting the raw arguments this way is straightforward (in file <code>src/main.rs</code>):</p>
 <pre><code class="language-rust ignore">fn main() {
     let pattern = std::env::args().nth(1).expect(&quot;no pattern given&quot;);
     let path = std::env::args().nth(2).expect(&quot;no path given&quot;);
@@ -291,20 +290,20 @@ passing arguments by writing them after <code>--</code>:</p>
      Running `target/debug/grrs some-pattern some-file`
 pattern: &quot;some-pattern&quot;, path: &quot;some-file&quot;
 </code></pre>
-<h2 id="cli-arguments-as-data-type"><a class="header" href="#cli-arguments-as-data-type">CLI arguments as data type</a></h2>
+<h2 id="cli-arguments-as-data-types"><a class="header" href="#cli-arguments-as-data-types">CLI arguments as data types</a></h2>
 <p>Instead of thinking about them as a bunch of text,
 it often pays off to think of CLI arguments as a custom data type
 that represents the inputs to your program.</p>
-<p>Look at <code>grrs foobar test.txt</code>:
-There are two arguments,
-first the <code>pattern</code> (the string to look for),
-and then the <code>path</code> (the file to look in).</p>
+<p>Looking at <code>grrs foobar test.txt</code>,
+there are two arguments:
+first, the <code>pattern</code> (the string to look for),
+and then, the <code>path</code> (the file to look in).</p>
 <p>What more can we say about them?
 Well, for a start, both are required.
 We haven’t talked about any default values,
 so we expect our users to always provide two values.
 Furthermore, we can say a bit about their types:
-The pattern is expected to be a string,
+The pattern is expected to be a string
 while the second argument is expected to be a path to a file.</p>
 <p>In Rust, it is common to structure programs around the data they handle, so this
 way of looking at CLI arguments fits very well. Let’s start with this (in file
@@ -315,12 +314,12 @@ way of looking at CLI arguments fits very well. Let’s start with this (in file
 }
 </code></pre>
 <p>This defines a new structure (a <a href="https://doc.rust-lang.org/1.39.0/book/ch05-00-structs.html"><code>struct</code></a>)
-that has two fields to store data in: <code>pattern</code>, and <code>path</code>.</p>
+that has two fields to store data in: <code>pattern</code> and <code>path</code>.</p>
 <aside>
 <p><strong>Note:</strong>
 <a href="https://doc.rust-lang.org/1.39.0/std/path/struct.PathBuf.html"><code>PathBuf</code></a> is like a <a href="https://doc.rust-lang.org/1.39.0/std/string/struct.String.html"><code>String</code></a> but for file system paths that work cross-platform.</p>
 </aside>
-<p>Now, we still need to get the actual arguments our program got into this form.
+<p>Now, we still need to convert the actual arguments into this form.
 One option would be to manually parse the list of strings we get from the operating system
 and build the structure ourselves.
 It would look something like this:</p>
@@ -341,7 +340,7 @@ How would you deal with the requirement to support
 <code>--pattern=&quot;foo&quot;</code> or <code>--pattern &quot;foo&quot;</code>?
 How would you implement <code>--help</code>?</p>
 <h2 id="parsing-cli-arguments-with-clap"><a class="header" href="#parsing-cli-arguments-with-clap">Parsing CLI arguments with Clap</a></h2>
-<p>A much nicer way is to use one of the many available libraries.
+<p>A more convenient way is to use one of the many available libraries.
 The most popular library for parsing command-line arguments
 is called <a href="https://docs.rs/clap/"><code>clap</code></a>.
 It has all the functionality you’d expect,
@@ -349,7 +348,7 @@ including support for sub-commands, <a href="https://docs.rs/clap_complete/">she
 <p>Let’s first import <code>clap</code> by adding
 <code>clap = { version = &quot;4.0&quot;, features = [&quot;derive&quot;] }</code> to the <code>[dependencies]</code> section
 of our <code>Cargo.toml</code> file.</p>
-<p>Now, we can write <code>use clap::Parser;</code> in our code,
+<p>Now, we can write <code>use clap::Parser;</code> in our code
 and add <code>#[derive(Parser)]</code> right above our <code>struct Cli</code>.
 Let’s also write some documentation comments along the way.</p>
 <p>It’ll look like this (in file <code>src/main.rs</code>, before <code>fn main() {</code>):</p>
@@ -384,9 +383,9 @@ When the program starts, it will call this function:</p>
 <p>This will try to parse the arguments into our <code>Cli</code> struct.</p>
 <p>But what if that fails?
 That’s the beauty of this approach:
-Clap knows which fields to expect,
-and what their expected format is.
-It can automatically generate a nice <code>--help</code> message,
+Clap knows which fields to expect
+and their expected format.
+It can automatically generate a nice <code>--help</code> message
 as well as give some great errors
 to suggest you pass <code>--output</code> when you wrote <code>--putput</code>.</p>
 <aside class="note">
