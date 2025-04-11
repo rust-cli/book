@@ -140,18 +140,17 @@
                     <main>
                         <h1 id="nicer-error-reporting"><a class="header" href="#nicer-error-reporting">Nicer error reporting</a></h1>
 <p>We all can do nothing but accept the fact that errors will occur.
-And in contrast to many other languages,
+In contrast to many other languages,
 it’s very hard not to notice and deal with this reality
-when using Rust:
-As it doesn’t have exceptions,
-all possible error states are often encoded in the return types of functions.</p>
+when using Rust because it doesn’t have exceptions.
+All possible error states are often encoded in the return types of functions.</p>
 <h2 id="results"><a class="header" href="#results">Results</a></h2>
 <p>A function like <a href="https://doc.rust-lang.org/1.39.0/std/fs/fn.read_to_string.html"><code>read_to_string</code></a> doesn’t return a string.
 Instead, it returns a <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a>
 that contains either
 a <code>String</code>
-or an error of some type
-(in this case <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>).</p>
+or an error of some type.
+In this case, <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>.</p>
 <p>How do you know which it is?
 Since <code>Result</code> is an <code>enum</code>,
 you can use <code>match</code> to check which variant it is:</p>
@@ -168,15 +167,15 @@ match result {
 <aside>
 <p><strong>Note:</strong>
 Not sure what enums are or how they work in Rust?
-<a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">Check this chapter of the Rust book</a>
+<a href="https://doc.rust-lang.org/1.39.0/book/ch06-00-enums.html">Check out this chapter of the Rust book</a>
 to get up to speed.</p>
 </aside>
 <h2 id="unwrapping"><a class="header" href="#unwrapping">Unwrapping</a></h2>
 <p>Now, we were able to access the content of the file,
 but we can’t really do anything with it after the <code>match</code> block.
-For this, we’ll need to somehow deal with the error case.
-The challenge is that all arms of a <code>match</code> block need to return something of the same type.
-But there’s a neat trick to get around that:</p>
+For this, we’ll need to deal with the error case.
+While it’s a challenge that all arms of a <code>match</code> block need to return something of the same type,
+there’s a neat trick to get around that:</p>
 <pre><pre class="playground"><code class="language-rust no_run">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -188,15 +187,14 @@ let content = match result {
 println!(&quot;file content: {}&quot;, content);
 <span class="boring">}
 </span></code></pre></pre>
-<p>We can use the String in <code>content</code> after the match block.
-If <code>result</code> were an error, the String wouldn’t exist.
-But since the program would exit before it ever reached a point where we use <code>content</code>,
-it’s fine.</p>
+<p>We can use the String in <code>content</code> after the match block, but
+if <code>result</code> were an error, the String wouldn’t exist.
+That’s fine because the program would exit before it ever reached a point where we use <code>content</code>.</p>
 <p>This may seem drastic,
 but it’s very convenient.
 If your program needs to read that file and can’t do anything if the file doesn’t exist,
 exiting is a valid strategy.
-There’s even a shortcut method on <code>Result</code>s, called <code>unwrap</code>:</p>
+There’s even a shortcut method on <a href="https://doc.rust-lang.org/1.39.0/std/result/index.html"><code>Result</code></a> called <code>unwrap</code>:</p>
 <pre><pre class="playground"><code class="language-rust no_run">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -205,7 +203,7 @@ There’s even a shortcut method on <code>Result</code>s, called <code>unwrap</c
 </span></code></pre></pre>
 <h2 id="no-need-to-panic"><a class="header" href="#no-need-to-panic">No need to panic</a></h2>
 <p>Of course, aborting the program is not the only way to deal with errors.
-Instead of the <code>panic!</code>, we can also easily write <code>return</code>:</p>
+Instead of using <code>panic!</code>, we can just use <code>return</code>:</p>
 <pre><pre class="playground"><code class="language-rust no_run"><span class="boring">fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 </span>let result = std::fs::read_to_string(&quot;test.txt&quot;);
 let content = match result {
@@ -215,8 +213,8 @@ let content = match result {
 <span class="boring">Ok(())
 </span><span class="boring">}
 </span></code></pre></pre>
-<p>This, however changes the return type our function needs.
-Indeed, there was something hidden in our examples all this time:
+<p>However, this changes the return type in our function.
+There was something hidden in our examples all this time:
 The function signature this code lives in.
 And in this last example with <code>return</code>,
 it becomes important.
@@ -234,14 +232,14 @@ Here’s the <em>full</em> example:</p>
 <p>Our return type is a <code>Result</code>!
 This is why we can write <code>return Err(error);</code> in the second match arm.
 See how there is an <code>Ok(())</code> at the bottom?
-It’s the default return value of the function and means
+It’s the default return value of the function and means:
 “Result is okay, and has no content”.</p>
 <aside>
 <p><strong>Note:</strong>
 Why is this not written as <code>return Ok(());</code>?
 It easily could be – this is totally valid as well.
 The last expression of any block in Rust is its return value,
-and it is customary to omit needless <code>return</code>s.</p>
+and it is customary to omit a needless <code>return</code>.</p>
 </aside>
 <h2 id="question-mark"><a class="header" href="#question-mark">Question Mark</a></h2>
 <p>Just like calling <code>.unwrap()</code> is a shortcut
@@ -265,29 +263,29 @@ the <code>match</code> we just wrote.</p>
 There are a few more things happening here
 that are not required to understand to work with this.
 For example,
-the error type in our <code>main</code> function is <code>Box&lt;dyn std::error::Error&gt;</code>.
-But we’ve seen above that <code>read_to_string</code> returns a <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>.
+the error type in our <code>main</code> function is <code>Box&lt;dyn std::error::Error&gt;</code>,
+but we’ve seen above that <code>read_to_string</code> returns a <a href="https://doc.rust-lang.org/1.39.0/std/io/type.Result.html"><code>std::io::Error</code></a>.
 This works because <code>?</code> expands to code that  <em>converts</em> error types.</p>
 <p><code>Box&lt;dyn std::error::Error&gt;</code> is also an interesting type.
 It’s a <code>Box</code> that can contain <em>any</em> type
 that implements the standard <a href="https://doc.rust-lang.org/1.39.0/std/error/trait.Error.html"><code>Error</code></a> trait.
-This means that basically all errors can be put into this box,
-so we can use <code>?</code> on all of the usual functions that return <code>Result</code>s.</p>
+This means that all errors can be put into this box,
+and we can use <code>?</code> on all of the usual functions that return a <code>Result</code>.</p>
 </aside>
 <h2 id="providing-context"><a class="header" href="#providing-context">Providing Context</a></h2>
 <p>The errors you get when using <code>?</code> in your <code>main</code> function are okay,
 but they are not great.
-For example:
-When you run <code>std::fs::read_to_string(&quot;test.txt&quot;)?</code>
-but the file <code>test.txt</code> doesn’t exist,
+For example,
+when you run <code>std::fs::read_to_string(&quot;test.txt&quot;)?</code>
+and the file <code>test.txt</code> doesn’t exist,
 you get this output:</p>
 <pre><code class="language-text">Error: Os { code: 2, kind: NotFound, message: &quot;No such file or directory&quot; }
 </code></pre>
-<p>In cases where your code doesn’t literally contain the file name,
-it would be very hard to tell which file was <code>NotFound</code>.
+<p>In cases where your code doesn’t actually contain the file name,
+it would be hard to tell which file was <code>NotFound</code>.
 There are multiple ways to deal with this.</p>
-<p>For example, we can create our own error type,
-and then use that to build a custom error message:</p>
+<p>For one, we can create our own error type
+and use that to build a custom error message:</p>
 <pre><code class="language-rust ignore">#[derive(Debug)]
 struct CustomError(String);
 
@@ -299,25 +297,23 @@ fn main() -&gt; Result&lt;(), CustomError&gt; {
     Ok(())
 }
 </code></pre>
-<p>Now,
-running this we’ll get our custom error message:</p>
+<p>Running this, we’ll get our custom error message:</p>
 <pre><code class="language-text">Error: CustomError(&quot;Error reading `test.txt`: No such file or directory (os error 2)&quot;)
 </code></pre>
 <p>Not very pretty,
-but we can easily adapt the debug output for our type later on.</p>
-<p>This pattern is in fact very common.
-It has one problem, though:
+but we can adapt the debug output for our type later on.</p>
+<p>This pattern is very common.
+It has one problem though:
 We don’t store the original error,
 only its string representation.
-The often used <a href="https://docs.rs/anyhow"><code>anyhow</code></a> library has a neat solution for that:
-similar to our <code>CustomError</code> type,
-its <a href="https://docs.rs/anyhow/1.0/anyhow/trait.Context.html"><code>Context</code></a> trait can be used to add a description.
-Additionally, it also keeps the original error,
-so we get a “chain” of error messages pointing out the root cause.</p>
+The popular <a href="https://docs.rs/anyhow"><code>anyhow</code></a> library has a neat solution for that:
+Its <a href="https://docs.rs/anyhow/1.0/anyhow/trait.Context.html"><code>Context</code></a> trait can be used to add a description similar to our <code>CustomError</code> type.
+Additionally, it keeps the original error,
+so we get a “chain” of error messages pointing to the root cause.</p>
 <p>Let’s first import the <code>anyhow</code> crate by adding
 <code>anyhow = &quot;1.0&quot;</code> to the <code>[dependencies]</code> section
 of our <code>Cargo.toml</code> file.</p>
-<p>The full example will then look like this:</p>
+<p>The full example will look like this:</p>
 <pre><code class="language-rust ignore">use anyhow::{Context, Result};
 
 fn main() -&gt; Result&lt;()&gt; {
