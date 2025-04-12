@@ -5,35 +5,35 @@ it is time to package and release it!
 
 There are a few approaches,
 and we'll look at three of them
-from "quickest to set up" to "most convenient for users".
+from quickest to set up to most convenient for users.
 
 ## Quickest: `cargo publish`
 
 The easiest way to publish your app is with cargo.
 Do you remember how we added external dependencies to our project?
-Cargo downloaded them from its default "crate registry", [crates.io].
+Cargo downloaded them from its default crate registry: [crates.io].
 With `cargo publish`,
-you too can publish crates to [crates.io].
-And this works for all crates,
+you can publish crates to [crates.io],
+and this works for all crates,
 including those with binary targets.
 
-Publishing a crate to [crates.io] is pretty straightforward:
-If you haven't already, create an account on [crates.io].
-Currently, this is done via authorizing you on GitHub,
+Publishing a crate to [crates.io] can be done in a few steps.
+First, if you haven't already, create an account on [crates.io],
+which is done by authorizing you on GitHub,
 so you'll need to have a GitHub account
-(and be logged in there).
-Next, you log in using cargo on your local machine.
+and be logged in there.
+Second, you log in using cargo on your local machine.
 For that, go to your
 [crates.io account page],
 create a new token,
-and then run `cargo login <your-new-token>`.
+and run `cargo login <your-new-token>`.
 You only need to do this once per computer.
 You can learn more about this
 in cargo's [publishing guide].
 
-Now that cargo as well as crates.io know you,
+Now that cargo and crates.io know you,
 you are ready to publish crates.
-Before you hastily go ahead and publish a new crate (version),
+Before you hastily go ahead and publish a new crate version,
 it's a good idea to open your `Cargo.toml` once more
 and make sure you added the necessary metadata.
 You can find all the possible fields you can set
@@ -59,11 +59,11 @@ categories = ["command-line-utilities"]
 **Note:**
 This example includes the mandatory license field
 with a common choice for Rust projects:
-The same license that is also used for the compiler itself.
+The same license that is used for the compiler itself.
 It also refers to a `README.md` file.
-It should include a quick description of what your project is about,
+It should include a quick description of what your project is about
 and will be included not only on the crates.io page of your crate,
-but also what GitHub shows by default on repository pages.
+but GitHub shows it by default on repository pages.
 
 </aside>
 
@@ -78,16 +78,16 @@ We've seen how to publish a crate to crates.io,
 and you might be wondering how to install it.
 In contrast to libraries,
 which cargo will download and compile for you
-when you run `cargo build` (or a similar command),
+when you run `cargo build` or a similar command,
 you'll need to tell it to explicitly install binaries.
 
 This is done using
 `cargo install <crate-name>`.
-It will by default download the crate,
+It will download the crate by default,
 compile all the binary targets it contains
 (in "release" mode, so it might take a while)
 and copy them into the `~/.cargo/bin/` directory.
-(Make sure that your shell knows to look there for binaries!)
+Make sure that your shell knows to look there for binaries!
 
 It's also possible to
 install crates from git repositories,
@@ -98,33 +98,33 @@ Have a look at `cargo install --help` for details.
 ### When to use it
 
 `cargo install` is a simple way to install a binary crate.
-It's very convenient for Rust developers to use,
+It's very convenient for Rust developers to use
 but has some significant downsides:
 Since it will always compile your source from scratch,
 users of your tool will need to have
-Rust, cargo, and all other system dependencies your project requires
-to be installed on their machine.
-Compiling large Rust codebases can also take some time.
+Rust, cargo, and all other system dependencies that your project requires
+installed on their machine.
+Compiling large Rust codebases can take some time.
 
 It's best to use this for distributing tools
 that are targeted at other Rust developers.
-For example:
-A lot of cargo subcommands
+For example,
+a lot of cargo subcommands
 like `cargo-tree` or `cargo-outdated`
 can be installed with it.
 
 ## Distributing binaries
 
 Rust is a language that compiles to native code
-and by default statically links all dependencies.
+and statically links all dependencies by default.
 When you run `cargo build`
 on your project that contains a binary called `grrs`,
 you'll end up with a binary file called `grrs`.
-Try it out:
+Try it out!
 Using `cargo build`, it'll be `target/debug/grrs`,
 and when you run `cargo build --release`, it'll be `target/release/grrs`.
 Unless you use crates
-that explicitly need external libraries to be installed on the target system
+that explicitly need external libraries installed on the target system
 (like using the system's version of OpenSSL),
 this binary will only depend on common system libraries.
 That means,
@@ -138,14 +138,14 @@ There is no need to have Rust installed on the user's machine,
 and instead of it taking a minute to compile,
 they can instantly run the binary.
 
-So, as we've seen,
+As we've seen,
 `cargo build` _already_ builds binaries for us.
-The only issue is,
+The issue is that
 those are not guaranteed to work on all platforms.
 If you run `cargo build` on your Windows machine,
 you won't get a binary that works on a Mac by default.
 Is there a way to generate these binaries
-for all the interesting platforms
+for all of the target platforms
 automatically?
 
 ### Building binary releases on CI
@@ -154,15 +154,15 @@ If your tool is open sourced
 and hosted on GitHub,
 it's quite easy to set up a free CI (continuous integration) service
 like [Travis CI].
-(There are other services that also work on other platforms, but Travis is very popular.)
-This basically runs setup commands
+There are other services that offer this functionality, but Travis is very popular.
+This runs setup commands
 in a virtual machine
 each time you push changes to your repository.
 What those commands are,
 and the types of machines they run on,
 is configurable.
-For example:
-A good idea is to run `cargo test`
+For example,
+a good idea is to run `cargo test`
 on a machine with Rust and some common build tools installed.
 If this fails,
 you know there are issues in the most recent changes.
@@ -171,7 +171,7 @@ you know there are issues in the most recent changes.
 
 We can also use this
 to build binaries and upload them to GitHub!
-Indeed, if we run
+If we run
 `cargo build --release`
 and upload the binary somewhere,
 we should be all set, right?
@@ -179,31 +179,31 @@ Not quite.
 We still need to make sure the binaries we build
 are compatible with as many systems as possible.
 For example,
-on Linux we can compile not for the current system,
-but instead for the `x86_64-unknown-linux-musl` target,
-to not depend on default system libraries.
+on Linux we can compile for the current system
+or the `x86_64-unknown-linux-musl` target and
+not depend on default system libraries.
 On macOS, we can set `MACOSX_DEPLOYMENT_TARGET` to `10.7`
 to only depend on system features present in versions 10.7 and older.
 
 You can see one example of building binaries using this approach
 [here][wasm-pack-travis] for Linux and macOS
-and [here][wasm-pack-appveyor] for Windows (using AppVeyor).
+and [here][wasm-pack-appveyor] for Windows using AppVeyor.
 
 [wasm-pack-travis]: https://github.com/rustwasm/wasm-pack/blob/51e6351c28fbd40745719e6d4a7bf26dadd30c85/.travis.yml#L74-L91
 [wasm-pack-appveyor]: https://github.com/rustwasm/wasm-pack/blob/51e6351c28fbd40745719e6d4a7bf26dadd30c85/.appveyor.yml
 
-Another way is to use pre-built (Docker) images
+Another way is to use pre-built (i.e. Docker) images
 that contain all the tools we need
 to build binaries.
-This allows us to easily target more exotic platforms, too.
+This allows us to easily target more exotic platforms as well.
 The [trust] project contains
 scripts that you can include in your project
-as well as instructions on how to set this up.
+and instructions on how to set this up.
 It also includes support for Windows using AppVeyor.
 
 If you'd rather set this up locally
 and generate the release files on your own machine,
-still have a look at trust.
+have a look at [trust].
 It uses [cross] internally,
 which works similar to cargo
 but forwards commands to a cargo process inside a Docker container.
@@ -218,23 +218,23 @@ The definitions of the images are also available in
 You point your users to your release page
 that might look something [like this one][wasm-pack-release],
 and they can download the artifacts we've just created.
-The release artifacts we've just generated are nothing special:
-At the end, they are just archive files that contain our binaries!
+The release artifacts we've generated are nothing special.
+They are just archive files that contain our binaries!
 This means that users of your tool
 can download them with their browser,
-extract them (often happens automatically),
+extract them (often automatically),
 and copy the binaries to a place they like.
 
 [wasm-pack-release]: https://github.com/rustwasm/wasm-pack/releases/tag/v0.5.1
 
-This does require some experience with manually "installing" programs,
+This does require some experience with manually installing programs,
 so you want to add a section to your README file
 on how to install this program.
 
 <aside class="note">
 
 **Note:**
-If you used [trust] to build your binaries and added them to GitHub releases,
+If you use [trust] to build your binaries and add them to GitHub releases,
 you can also tell people to run
 `curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git your-name/repo-name`
 if you think that makes it easier.
@@ -243,12 +243,12 @@ if you think that makes it easier.
 
 ### When to use it
 
-Having binary releases is a good idea in general,
-there's hardly any downside to it.
+Having binary releases is a good idea in general.
+There's hardly any downside to it.
 It does not solve the problem of users having to manually
 install and update
 your tools,
-but they can quickly get the latest releases version
+but they can quickly get the latest release's version
 without the need to install Rust.
 
 ### What to package in addition to your binaries
@@ -257,20 +257,19 @@ Right now,
 when a user downloads our release builds,
 they will get a `.tar.gz` file
 that only contains binary files.
-So, in our example project,
-they will just get a single `grrs` file they can run.
-But there are some more files we already have in our repository
+In our example project,
+they will just get a single `grrs` file they can run,
+but there are more files we already have in our repository
 that they might want to have.
-The README file that tells them how to use this tool,
+The README file that tells them how to use this tool
 and the license file(s),
 for example.
 Since we already have them,
 they are easy to add.
 
-There are some more interesting files
-that make sense especially for command-line tools,
-though:
-How about we also ship a man page in addition to that README file,
+There are more interesting files
+that make sense, especially for command-line tools.
+How about we ship a man page in addition to that README file
 and config files that add completions of the possible flags to your shell?
 You can write these by hand,
 but _clap_, the argument parsing library we use
@@ -286,13 +285,13 @@ for more details.
 ## Getting your app into package repositories
 
 Both approaches we've seen so far
-are not how you typically install software on your machine.
-Especially command-line tools
+are not how you typically install software on your machine,
+especially for command-line tools that
 you install using global package managers
 on most operating systems.
 The advantages for users are quite obvious:
-There is no need to think about how to install your program,
-if it can be installed the same way as they install the other tools.
+There is no need to think about how to install your program
+if it can be installed the same way as they install other tools.
 These package managers also allow users to update their programs
 when a new version is available.
 
@@ -301,7 +300,7 @@ you'll have to look at how these different systems work.
 For some,
 it might be as easy as adding a file to your repository
 (e.g. adding a Formula file like [this][rg-formula] for macOS's `brew`),
-but for others you'll often need to send in patches yourself
+but for others, you'll often need to send in patches yourself
 and add your tool to their repositories.
 There are helpful tools like
 [cargo-bundle](https://crates.io/crates/cargo-bundle),
@@ -323,17 +322,17 @@ and that is available in many different package managers.
 It's quite successful and is packaged for many operating systems:
 Just look at [the "Installation" section][rg-install] of its README!
 
-Note that it lists a few different options how you can install it:
-It starts with a link to the GitHub releases
-which contain the binaries so you can download them directly;
-then it lists how to install it using a bunch of different package managers;
-finally, you can also install it using `cargo install`.
+Note that it lists a few different options on how you can install it:
+It starts with a link to the GitHub releases,
+which contain the binaries so that you can download them directly,
+it lists how to install it using a bunch of different package managers,
+and you can also install it using `cargo install`.
 
-This seems like a very good idea:
-Don't pick and choose one of the approaches presented here,
-but start with `cargo install`,
-add binary releases,
-and finally start distributing your tool using system package managers.
+This seems like a very good idea.
+Don't pick and choose one of the approaches presented here.
+Start with `cargo install`
+and add binary releases
+before finally distributing your tool using system package managers.
 
 [ripgrep]: https://github.com/BurntSushi/ripgrep
 [rg-install]: https://github.com/BurntSushi/ripgrep/tree/31adff6f3c4bfefc9e77df40871f2989443e6827#installation
