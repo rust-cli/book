@@ -7,7 +7,7 @@ println!("Hello World");
 ```
 
 Well, that was easy.
-Great, onto the next topic.
+Great! Onto the next topic.
 
 ## Using `println!`
 
@@ -15,8 +15,8 @@ You can pretty much print all the things you like
 with the `println!` macro.
 This macro has some pretty amazing capabilities,
 but also a special syntax.
-It expects you to write a string literal as the first parameter,
-that contains placeholders that will be filled in
+It expects a string literal that contains placeholders
+as the first parameter. The string will be filled in
 by the values of the parameters that follow as further arguments.
 
 For example:
@@ -26,7 +26,7 @@ let x = 42;
 println!("My lucky number is {}.", x);
 ```
 
-will print
+will print:
 
 ```console
 My lucky number is 42.
@@ -35,31 +35,31 @@ My lucky number is 42.
 The curly braces (`{}`) in the string above is one of these placeholders.
 This is the default placeholder type
 that tries to print the given value in a human readable way.
-For numbers and strings this works very well,
+For numbers and strings, this works very well,
 but not all types can do that.
-This is why there is also a "debug representation",
+This is why there is also a "debug representation"
 that you can get by filling the braces of the placeholder like this: `{:?}`.
 
-For example,
+For example:
 
 ```rust
 let xs = vec![1, 2, 3];
 println!("The list is: {:?}", xs);
 ```
 
-will print
+will print:
 
 ```console
 The list is: [1, 2, 3]
 ```
 
 If you want your own data types to be printable for debugging and logging,
-you can in most cases add a `#[derive(Debug)]` above their definition.
+you can typically add a `#[derive(Debug)]` above their definition.
 
 <aside>
 
 **Note:**
-"User-friendly" printing is done using the [`Display`] trait,
+"User-friendly" printing is done using the [`Display`] trait and
 debug output (human-readable but targeted at developers) uses the [`Debug`] trait.
 You can find more information about the syntax you can use in `println!`
 in the [documentation for the `std::fmt` module][std::fmt].
@@ -82,8 +82,8 @@ or more tools.
 
 **Note:**
 On most operating systems,
-a program can write to two output streams, `stdout` and `stderr`.
-`stdout` is for the program's actual output,
+a program can write to two output streams: `stdout` and `stderr`.
+`stdout` is for the program's actual output
 while `stderr` allows errors and other messages to be kept separate from `stdout`.
 That way,
 output can be stored to a file or piped to another program
@@ -91,7 +91,7 @@ while errors are shown to the user.
 
 </aside>
 
-In Rust this is achieved
+In Rust, this is achieved
 with `println!` and `eprintln!`,
 the former printing to `stdout`
 and the latter to `stderr`.
@@ -103,13 +103,13 @@ eprintln!("This is an error! :(");
 
 <aside>
 
-**Beware**: Printing [escape codes] can be dangerous,
-putting the user's terminal into a weird state.
+**Beware**: Printing [escape codes] can be dangerous and
+put the user's terminal into a weird state.
 Always be careful when manually printing them!
 
 [escape codes]: https://en.wikipedia.org/wiki/ANSI_escape_code
 
-Ideally you should be using a crate like `ansi_term`
+Ideally, you should be using a crate like `ansi_term`
 when dealing with raw escape codes
 to make your (and your user's) life easier.
 
@@ -126,13 +126,13 @@ there are two things you can do.
 First,
 you might want to reduce the number of writes
 that actually "flush" to the terminal.
-`println!` tells the system to flush to the terminal _every_ time,
+`println!` tells the system to flush to the terminal _every_ time
 because it is common to print each new line.
 If you don't need that,
-you can wrap your `stdout` handle in a [`BufWriter`]
-which by default buffers up to 8 kB.
-(You can still call `.flush()` on this `BufWriter`
-when you want to print immediately.)
+you can wrap your `stdout` handle in a [`BufWriter`],
+which buffers up to 8 kB by default.
+You can still call `.flush()` on this `BufWriter`
+when you want to print immediately.
 
 ```rust
 use std::io::{self, Write};
@@ -161,7 +161,7 @@ You can also combine the two approaches.
 
 ## Showing a progress bar
 
-Some CLI applications run less than a second,
+Some CLI applications run less than a second while
 others take minutes or hours.
 If you are writing one of the latter types of programs,
 you might want to show the user that something is happening.
@@ -189,10 +189,10 @@ for more information.
 
 To make it easier to understand what is happening in our program,
 we might want to add some log statements.
-This is usually easy while writing your application.
-But it will become super helpful when running this program again in half a year.
-In some regard,
-logging is the same as using `println!`,
+This is usually easy while writing your application,
+and it will become super helpful when running this program again in half a year.
+In some ways,
+logging is the same as using `println!`
 except that you can specify the importance of a message.
 The levels you can usually use are _error_, _warn_, _info_, _debug_, and _trace_
 (_error_ has the highest priority, _trace_ the lowest).
@@ -203,16 +203,16 @@ The [log] crate (this contains macros named after the log level)
 and an _adapter_ that actually writes the log output somewhere useful.
 Having the ability to use log adapters is very flexible:
 You can, for example, use them to write logs not only to the terminal
-but also to [syslog], or to a central log server.
+but also to [syslog] or to a central log server.
 
 [syslog]: https://en.wikipedia.org/wiki/Syslog
 
-Since we are right now only concerned with writing a CLI application,
+Since we are only concerned with writing a CLI application,
 an easy adapter to use is [env_logger].
 It's called "env" logger because you can
 use an environment variable to specify which parts of your application
 you want to log
-(and at which level you want to log them).
+and at which level you want to log them.
 It will prefix your log messages with a timestamp
 and the module where the log messages come from.
 Since libraries can also use `log`,
@@ -260,20 +260,20 @@ $ cargo run --bin output-log
 `RUST_LOG` is the name of the environment variable
 you can use to set your log settings.
 `env_logger` also contains a builder
-so you can programmatically adjust these settings,
-and, for example, also show _info_ level messages by default.
+so you can programmatically adjust these settings
+like showing _info_ level messages by default.
 
-There are a lot of alternative logging adapters out there,
-and also alternatives or extensions to `log`.
+There are a lot of alternative logging adapters out there
+as well as alternatives and extensions to `log`.
 If you know your application will have a lot to log,
-make sure to review them,
-and make your users' life easier.
+make sure to review them
+and make your users' lives easier.
 
 <aside>
 
 **Tip:**
-Experience has shown that even mildly useful CLI programs can end up being used for years to come.
-(Especially if they were meant as a temporary solution.)
+Experience has shown that even mildly useful CLI programs can end up being used for years to come,
+especially if they were meant as a temporary solution.
 If your application doesn't work
 and someone (e.g., you, in the future) needs to figure out why,
 being able to pass `--verbose` to get additional log output
