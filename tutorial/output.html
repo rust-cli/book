@@ -147,14 +147,14 @@
 <span class="boring">}
 </span></code></pre></pre>
 <p>Well, that was easy.
-Great, onto the next topic.</p>
+Great! Onto the next topic.</p>
 <h2 id="using-println"><a class="header" href="#using-println">Using <code>println!</code></a></h2>
 <p>You can pretty much print all the things you like
 with the <code>println!</code> macro.
 This macro has some pretty amazing capabilities,
 but also a special syntax.
-It expects you to write a string literal as the first parameter,
-that contains placeholders that will be filled in
+It expects a string literal that contains placeholders
+as the first parameter. The string will be filled in
 by the values of the parameters that follow as further arguments.</p>
 <p>For example:</p>
 <pre><pre class="playground"><code class="language-rust">
@@ -164,17 +164,17 @@ by the values of the parameters that follow as further arguments.</p>
 println!(&quot;My lucky number is {}.&quot;, x);
 <span class="boring">}
 </span></code></pre></pre>
-<p>will print</p>
+<p>will print:</p>
 <pre><code class="language-console">My lucky number is 42.
 </code></pre>
 <p>The curly braces (<code>{}</code>) in the string above is one of these placeholders.
 This is the default placeholder type
 that tries to print the given value in a human readable way.
-For numbers and strings this works very well,
+For numbers and strings, this works very well,
 but not all types can do that.
-This is why there is also a “debug representation”,
+This is why there is also a “debug representation”
 that you can get by filling the braces of the placeholder like this: <code>{:?}</code>.</p>
-<p>For example,</p>
+<p>For example:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -182,14 +182,14 @@ that you can get by filling the braces of the placeholder like this: <code>{:?}<
 println!(&quot;The list is: {:?}&quot;, xs);
 <span class="boring">}
 </span></code></pre></pre>
-<p>will print</p>
+<p>will print:</p>
 <pre><code class="language-console">The list is: [1, 2, 3]
 </code></pre>
 <p>If you want your own data types to be printable for debugging and logging,
-you can in most cases add a <code>#[derive(Debug)]</code> above their definition.</p>
+you can typically add a <code>#[derive(Debug)]</code> above their definition.</p>
 <aside>
 <p><strong>Note:</strong>
-“User-friendly” printing is done using the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html"><code>Display</code></a> trait,
+“User-friendly” printing is done using the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Display.html"><code>Display</code></a> trait and
 debug output (human-readable but targeted at developers) uses the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/trait.Debug.html"><code>Debug</code></a> trait.
 You can find more information about the syntax you can use in <code>println!</code>
 in the <a href="https://doc.rust-lang.org/1.39.0/std/fmt/index.html">documentation for the <code>std::fmt</code> module</a>.</p>
@@ -203,14 +203,14 @@ or more tools.</p>
 <aside>
 <p><strong>Note:</strong>
 On most operating systems,
-a program can write to two output streams, <code>stdout</code> and <code>stderr</code>.
-<code>stdout</code> is for the program’s actual output,
+a program can write to two output streams: <code>stdout</code> and <code>stderr</code>.
+<code>stdout</code> is for the program’s actual output
 while <code>stderr</code> allows errors and other messages to be kept separate from <code>stdout</code>.
 That way,
 output can be stored to a file or piped to another program
 while errors are shown to the user.</p>
 </aside>
-<p>In Rust this is achieved
+<p>In Rust, this is achieved
 with <code>println!</code> and <code>eprintln!</code>,
 the former printing to <code>stdout</code>
 and the latter to <code>stderr</code>.</p>
@@ -222,10 +222,10 @@ eprintln!(&quot;This is an error! :(&quot;);
 <span class="boring">}
 </span></code></pre></pre>
 <aside>
-<p><strong>Beware</strong>: Printing <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">escape codes</a> can be dangerous,
-putting the user’s terminal into a weird state.
+<p><strong>Beware</strong>: Printing <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">escape codes</a> can be dangerous and
+put the user’s terminal into a weird state.
 Always be careful when manually printing them!</p>
-<p>Ideally you should be using a crate like <code>ansi_term</code>
+<p>Ideally, you should be using a crate like <code>ansi_term</code>
 when dealing with raw escape codes
 to make your (and your user’s) life easier.</p>
 </aside>
@@ -238,13 +238,13 @@ there are two things you can do.</p>
 <p>First,
 you might want to reduce the number of writes
 that actually “flush” to the terminal.
-<code>println!</code> tells the system to flush to the terminal <em>every</em> time,
+<code>println!</code> tells the system to flush to the terminal <em>every</em> time
 because it is common to print each new line.
 If you don’t need that,
-you can wrap your <code>stdout</code> handle in a <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufWriter.html"><code>BufWriter</code></a>
-which by default buffers up to 8 kB.
-(You can still call <code>.flush()</code> on this <code>BufWriter</code>
-when you want to print immediately.)</p>
+you can wrap your <code>stdout</code> handle in a <a href="https://doc.rust-lang.org/1.39.0/std/io/struct.BufWriter.html"><code>BufWriter</code></a>,
+which buffers up to 8 kB by default.
+You can still call <code>.flush()</code> on this <code>BufWriter</code>
+when you want to print immediately.</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -271,7 +271,7 @@ writeln!(handle, &quot;foo: {}&quot;, 42); // add `?` if you care about errors h
 </span></code></pre></pre>
 <p>You can also combine the two approaches.</p>
 <h2 id="showing-a-progress-bar"><a class="header" href="#showing-a-progress-bar">Showing a progress bar</a></h2>
-<p>Some CLI applications run less than a second,
+<p>Some CLI applications run less than a second while
 others take minutes or hours.
 If you are writing one of the latter types of programs,
 you might want to show the user that something is happening.
@@ -297,10 +297,10 @@ for more information.</p>
 <h2 id="logging"><a class="header" href="#logging">Logging</a></h2>
 <p>To make it easier to understand what is happening in our program,
 we might want to add some log statements.
-This is usually easy while writing your application.
-But it will become super helpful when running this program again in half a year.
-In some regard,
-logging is the same as using <code>println!</code>,
+This is usually easy while writing your application,
+and it will become super helpful when running this program again in half a year.
+In some ways,
+logging is the same as using <code>println!</code>
 except that you can specify the importance of a message.
 The levels you can usually use are <em>error</em>, <em>warn</em>, <em>info</em>, <em>debug</em>, and <em>trace</em>
 (<em>error</em> has the highest priority, <em>trace</em> the lowest).</p>
@@ -310,13 +310,13 @@ The <a href="https://crates.io/crates/log">log</a> crate (this contains macros n
 and an <em>adapter</em> that actually writes the log output somewhere useful.
 Having the ability to use log adapters is very flexible:
 You can, for example, use them to write logs not only to the terminal
-but also to <a href="https://en.wikipedia.org/wiki/Syslog">syslog</a>, or to a central log server.</p>
-<p>Since we are right now only concerned with writing a CLI application,
+but also to <a href="https://en.wikipedia.org/wiki/Syslog">syslog</a> or to a central log server.</p>
+<p>Since we are only concerned with writing a CLI application,
 an easy adapter to use is <a href="https://crates.io/crates/env_logger">env_logger</a>.
 It’s called “env” logger because you can
 use an environment variable to specify which parts of your application
 you want to log
-(and at which level you want to log them).
+and at which level you want to log them.
 It will prefix your log messages with a timestamp
 and the module where the log messages come from.
 Since libraries can also use <code>log</code>,
@@ -357,17 +357,17 @@ $ cargo run --bin output-log
 <p><code>RUST_LOG</code> is the name of the environment variable
 you can use to set your log settings.
 <code>env_logger</code> also contains a builder
-so you can programmatically adjust these settings,
-and, for example, also show <em>info</em> level messages by default.</p>
-<p>There are a lot of alternative logging adapters out there,
-and also alternatives or extensions to <code>log</code>.
+so you can programmatically adjust these settings
+like showing <em>info</em> level messages by default.</p>
+<p>There are a lot of alternative logging adapters out there
+as well as alternatives and extensions to <code>log</code>.
 If you know your application will have a lot to log,
-make sure to review them,
-and make your users’ life easier.</p>
+make sure to review them
+and make your users’ lives easier.</p>
 <aside>
 <p><strong>Tip:</strong>
-Experience has shown that even mildly useful CLI programs can end up being used for years to come.
-(Especially if they were meant as a temporary solution.)
+Experience has shown that even mildly useful CLI programs can end up being used for years to come,
+especially if they were meant as a temporary solution.
 If your application doesn’t work
 and someone (e.g., you, in the future) needs to figure out why,
 being able to pass <code>--verbose</code> to get additional log output
