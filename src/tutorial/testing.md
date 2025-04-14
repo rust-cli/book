@@ -305,8 +305,8 @@ but we can also make our code available as a library like this:
 1. Put the `find_matches` function into a new `src/lib.rs`.
 2. Add a `pub` in front of the `fn` to make it something that users of
    our library can access (i.e. `pub fn find_matches`).
-4. Remove `find_matches` from `src/main.rs`.
-5. In `fn main`, prepend the call to `find_matches` with `grrs::`
+3. Remove `find_matches` from `src/main.rs`.
+4. In `fn main`, prepend the call to `find_matches` with `grrs::`
    so that it's now `grrs::find_matches(…)`.
    This means it uses the function from the library we just wrote!
 
