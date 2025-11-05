@@ -493,13 +493,12 @@ predicates = &quot;3.1.0&quot;
 Nevertheless,
 let’s dive right in
 and create our <code>tests/cli.rs</code> file:</p>
-<pre><code class="language-rust ignore">use assert_cmd::prelude::*; // Add methods on commands
+<pre><code class="language-rust ignore">use assert_cmd::cargo::*; // Import cargo_bin_cmd! macro and methods
 use predicates::prelude::*; // Used for writing assertions
-use std::process::Command; // Run programs
 
 #[test]
 fn file_doesnt_exist() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
-    let mut cmd = Command::cargo_bin(&quot;grrs&quot;)?;
+    let mut cmd = cargo_bin_cmd!(&quot;grrs&quot;);
 
     cmd.arg(&quot;foobar&quot;).arg(&quot;test/file/doesnt/exist&quot;);
     cmd.assert()
@@ -508,6 +507,7 @@ fn file_doesnt_exist() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; 
 
     Ok(())
 }
+
 </code></pre>
 <p>You can run this test with
 <code>cargo test</code>,
@@ -545,14 +545,13 @@ You can write it below the other test case.
 When the variable <code>file</code> goes out of scope
 at the end of the function,
 the actual temporary file will automatically get deleted.</p>
-<pre><code class="language-rust ignore">use assert_fs::prelude::*;
-
+<pre><code class="language-rust ignore">
 #[test]
 fn find_content_in_file() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let file = assert_fs::NamedTempFile::new(&quot;sample.txt&quot;)?;
     file.write_str(&quot;A test\nActual content\nMore content\nAnother test&quot;)?;
 
-    let mut cmd = Command::cargo_bin(&quot;grrs&quot;)?;
+    let mut cmd = cargo_bin_cmd!(&quot;grrs&quot;);
     cmd.arg(&quot;test&quot;).arg(file.path());
     cmd.assert()
         .success()
