@@ -472,7 +472,7 @@ at the end of the function,
 the actual temporary file will automatically get deleted.
 
 ```rust,ignore
-{{#include testing/tests/cli.rs:17:32}}
+{{#include testing/tests/cli.rs:17:30}}
 ```
 
 <aside class="exercise">
@@ -482,6 +482,31 @@ Add integration tests for passing an empty string as pattern.
 Adjust the program as needed.
 
 </aside>
+
+## Executing tests in a temporary directory
+
+To fully control the behavior of your CLI app, you can use
+`assert_fs::TempDir::new()` to create a temporary directory.
+This is useful when you need to read and write
+multiple directories or files. You can also use it as the
+current working directory (CWD) when executing your CLI app,
+ensuring test results are consistent and don't interfere with
+other, unrelated files.
+
+Temporary directories allow you to create multiple child
+directories and files within them, enabling more advanced
+test cases. Just like for single temporary files,
+all nested files and directories within temporary directories
+are also cleaned up after the test is completed.
+
+```rust,ignore
+{{#include testing/tests/cli.rs:32:56}}
+```
+
+You now know the core features of the crates `assert_cmd`,
+`assert_fs` and `predicates` and are ready to start testing
+your own CLI apps. Feel free to check out their documentation
+to find more useful features.
 
 ## What to test?
 
