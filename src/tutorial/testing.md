@@ -472,7 +472,7 @@ at the end of the function,
 the actual temporary file will automatically get deleted.
 
 ```rust,ignore
-{{#include testing/tests/cli.rs:17:32}}
+{{#include testing/tests/cli.rs:18:30}}
 ```
 
 <aside class="exercise">
