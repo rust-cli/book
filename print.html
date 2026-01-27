@@ -1364,8 +1364,7 @@ You can write it below the other test case.
 When the variable <code>file</code> goes out of scope
 at the end of the function,
 the actual temporary file will automatically get deleted.</p>
-<pre><code class="language-rust ignore">
-#[test]
+<pre><code class="language-rust ignore">#[test]
 fn find_content_in_file() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let file = assert_fs::NamedTempFile::new(&quot;sample.txt&quot;)?;
     file.write_str(&quot;A test\nActual content\nMore content\nAnother test&quot;)?;
