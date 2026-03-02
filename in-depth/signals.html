@@ -247,9 +247,9 @@ In your application code you use
 this and other channels
 as synchronization points between threads.
 Using <a href="https://crates.io/crates/crossbeam-channel">crossbeam-channel</a> it would look something like this:</p>
-<pre><code class="language-rust ignore">use std::time::Duration;
-use crossbeam_channel::{bounded, tick, Receiver, select};
-use anyhow::Result;
+<pre><code class="language-rust ignore">use anyhow::Result;
+use crossbeam_channel::{Receiver, bounded, select, tick};
+use std::time::Duration;
 
 fn ctrl_channel() -&gt; Result&lt;Receiver&lt;()&gt;, ctrlc::Error&gt; {
     let (sender, receiver) = bounded(100);

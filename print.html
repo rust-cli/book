@@ -679,8 +679,8 @@ of our <code>Cargo.toml</code> file.</p>
 
 fn main() -&gt; Result&lt;()&gt; {
     let path = &quot;test.txt&quot;;
-    let content = std::fs::read_to_string(path)
-        .with_context(|| format!(&quot;could not read file `{}`&quot;, path))?;
+    let content =
+        std::fs::read_to_string(path).with_context(|| format!(&quot;could not read file `{}`&quot;, path))?;
     println!(&quot;file content: {}&quot;, content);
     Ok(())
 }
@@ -1791,9 +1791,9 @@ In your application code you use
 this and other channels
 as synchronization points between threads.
 Using <a href="https://crates.io/crates/crossbeam-channel">crossbeam-channel</a> it would look something like this:</p>
-<pre><code class="language-rust ignore">use std::time::Duration;
-use crossbeam_channel::{bounded, tick, Receiver, select};
-use anyhow::Result;
+<pre><code class="language-rust ignore">use anyhow::Result;
+use crossbeam_channel::{Receiver, bounded, select, tick};
+use std::time::Duration;
 
 fn ctrl_channel() -&gt; Result&lt;Receiver&lt;()&gt;, ctrlc::Error&gt; {
     let (sender, receiver) = bounded(100);
@@ -2294,7 +2294,7 @@ the lines from stdin.</p>
 <pre><code class="language-rust ignore">use clap::{CommandFactory, Parser};
 use std::{
     fs::File,
-    io::{stdin, BufRead, BufReader, IsTerminal},
+    io::{BufRead, BufReader, IsTerminal, stdin},
     path::PathBuf,
 };
 

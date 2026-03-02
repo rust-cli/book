@@ -1,8 +1,6 @@
 #![allow(unused)]
 
 fn main() {
-
-let path = "test.txt";
-let pattern = "foo";
-
+    let path = "test.txt";
+    let pattern = "foo";
 }

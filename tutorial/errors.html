@@ -318,8 +318,8 @@ of our <code>Cargo.toml</code> file.</p>
 
 fn main() -&gt; Result&lt;()&gt; {
     let path = &quot;test.txt&quot;;
-    let content = std::fs::read_to_string(path)
-        .with_context(|| format!(&quot;could not read file `{}`&quot;, path))?;
+    let content =
+        std::fs::read_to_string(path).with_context(|| format!(&quot;could not read file `{}`&quot;, path))?;
     println!(&quot;file content: {}&quot;, content);
     Ok(())
 }
