@@ -1,6 +1,6 @@
-use std::time::Duration;
-use crossbeam_channel::{bounded, tick, Receiver, select};
 use anyhow::Result;
+use crossbeam_channel::{Receiver, bounded, select, tick};
+use std::time::Duration;
 
 fn ctrl_channel() -> Result<Receiver<()>, ctrlc::Error> {
     let (sender, receiver) = bounded(100);

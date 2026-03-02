@@ -2,7 +2,7 @@
 name = "CLAiR"
 version = "0.1.0"
 authors = ["Pascal Hertleif <killercup@gmail.com>"]
-edition = "2018"
+edition = "2024"
 
 [[bin]]
 name = "cli-args-vars"
