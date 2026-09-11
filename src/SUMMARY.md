@@ -17,4 +17,5 @@
   - [Communicating with humans](./in-depth/human-communication.md)
   - [Communicating with machines](./in-depth/machine-communication.md)
   - [Rendering documentation for your CLI apps](./in-depth/docs.md)
+  - [Rendering documentation for your Configuration](./in-depth/render-configuration.md)
 - [Resources](./resources/README.md)
