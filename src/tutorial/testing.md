@@ -483,6 +483,91 @@ Adjust the program as needed.
 
 </aside>
 
+## Executing tests in temporary directories
+
+In the last test, we created a temporary file and passed it as an
+_absolute file path_ to our program. While this is enough to verify
+our core functionality, how could we write a test to ensure our program
+also accepts _relative file paths_ like `sample.txt` as input?
+
+The relative file path should be resolved based on the current working
+directory (CWD) where we execute our program, and this usually works fine
+in regular directories. However, when writing a test with temporary files,
+how do we know which directory where our test file was created?
+
+One way to implement this test is by creating a temporary directory, and
+then setting it as the current working directory when executing our program.
+
+Just like we created temporary files, we can use `assert_fs` to create
+temporary directories that are automatically deleted after the test is
+finished. To clearly show the effect of setting the current directory,
+and that our relative path `sample.txt` only can be resolved when we execute
+the program in the same directory as the file, we will create two nested
+temporary directories and a temporary file with the following structure:
+
+```txt
+tmp_dir/
+  child_dir/
+    sample.txt
+```
+
+We can describe the test for our program with the following assertions:
+
+1. It **fails** to resolve the relative path `sample.txt` when executed
+   with `tmp_dir` as the current working directory.
+2. It **succeeds** to resolve the relative path `sample.txt` when executed
+   with `child_dir` as the current working directory.
+
+To create the temporary directory and file structure we need for our test,
+we start by creating a temporary directory `tmp_dir` by calling
+[`assert_fs::TempDir::new()`][TempDir]. Then we create a child directory within it
+called `child_dir`, in which we finally create the `sample.txt` file.
+
+[TempDir]: https://docs.rs/assert_fs/latest/assert_fs/struct.TempDir.html#method.new
+
+```rust,ignore
+{{#include testing/tests/cli.rs:32:37}}
+{{#include testing/tests/cli.rs:54:56}}
+```
+
+For our first, failing assertion, we set the current working directory to
+`tmp_dir` by calling [`current_dir(&tmp_dir)`][current_dir]. This way, `sample.txt` resolves
+to `tmp_dir/sample.txt` which does not exist, making the program exit with an error.
+
+[current_dir]: https://docs.rs/assert_cmd/latest/assert_cmd/cmd/struct.Command.html#method.current_dir
+
+```rust,ignore
+{{#include testing/tests/cli.rs:32:33}}
+    // ...
+
+{{#include testing/tests/cli.rs:39:45}}
+{{#include testing/tests/cli.rs:54:56}}
+```
+
+For our second, successful assertion, we instead call `current_dir(&child_dir)`.
+This makes the program successfully resolve `sample.txt` to
+`tmp_dir/child_dir/sample.txt` and print the expected result.
+
+```rust,ignore
+{{#include testing/tests/cli.rs:32:33}}
+    // ...
+
+{{#include testing/tests/cli.rs:47:53}}
+{{#include testing/tests/cli.rs:54:56}}
+```
+
+Putting it all together, the complete test case looks like this:
+
+```rust,ignore
+{{#include testing/tests/cli.rs:32:56}}
+```
+
+You now know the core features of the crates `assert_cmd`, `assert_fs` and
+`predicates` and are ready to test your own CLI apps in ways that ensure
+consistent test results and without interfering with other, unrelated files.
+You can learn about more useful features in these crates by exploring
+their documentation.
+
 ## What to test?
 
 While it can certainly be fun to write integration tests,
